@@ -1,0 +1,26 @@
+{
+  "name": "ibm-cloud-sdk-starter",
+  "version": "0.0.1",
+  "description": "IBM Cloud Node SDK",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watson-developer-cloud/node-sdk.git"
+  },
+  "keywords": [
+    "ibm"
+  ],
+  "scripts": {
+    "test": "jest test/unit/",
+    "build": "tsc"
+  },
+  "author": "IBM Corp.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "ibm-cloud-sdk-core": "^0.2.0",
+    "jest": "^24.7.1",
+    "typescript": "^3.4.4"
+  }
+}
