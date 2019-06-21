@@ -1,26 +1,57 @@
 {
-  "name": "ibm-cloud-sdk-starter",
-  "version": "0.0.1",
+  "name": "",
+  "version": "",
   "description": "IBM Cloud Node SDK",
   "repository": {
     "type": "git",
-    "url": "https://github.com/watson-developer-cloud/node-sdk.git"
+    "url": "https://github.ibm.com/CloudEngineering/node-sdk-template"
   },
   "keywords": [
     "ibm"
   ],
-  "scripts": {
-    "test": "jest test/unit/",
-    "build": "tsc"
-  },
   "author": "IBM Corp.",
+  "scripts": {
+    "eslint:fix": "eslint . --fix",
+    "eslint:check": "eslint . --cache",
+    "tslint:fix": "tslint --fix -p . -c tslint.json",
+    "tslint:check": "tslint -p . -c ./tslint.json",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "jest --verbose test/",
+    "test-unit": "jest --verbose test/unit/",
+    "test-integration": "jest --verbose test/integration",
+    "test-unit-travis": "jest --runInBand test/unit/",
+    "test-integration-travis": "jest --runInBand --no-colors --testNamePattern='^((?!@slow).)*$' --json test/integration > test-output.log",
+    "report-coverage": "codecov",
+    "check-packages": "installed-check -e -d -s"
+  },
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=10.0.0"
   },
   "dependencies": {
-    "ibm-cloud-sdk-core": "^0.2.0",
-    "jest": "^24.7.1",
-    "typescript": "^3.4.4"
+    "@types/node": "^12.0.8",
+    "extend": "^3.0.2",
+    "ibm-cloud-sdk-core": "^0.3.1"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/git": "^7.0.12",
+    "axios": "^0.19.0",
+    "codecov": "^3.5.0",
+    "installed-check": "^2.2.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "semantic-release": "^15.13.16",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.4.5"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage/",
+    "testEnvironment": "node"
   }
 }

@@ -1,3 +1,17 @@
+### Specific to this repository ###
+# tsc outputs
+lib/*.js
+**/*.d.ts
+**/*.js.map
+
+# service-specific tsc outputs (js files)
+# service-name/*.js // UNCOMMENT AND ADD YOUR OWN SERVICE FILES
+
+# file holding service credentials
+test/resources/auth.js
+
+
+### GitHub recommended ###
 # Logs
 logs
 *.log
@@ -28,11 +42,6 @@ node_modules/
 
 # TypeScript v1 declaration files
 typings/
-
-# tsc outputs
-lib/*.js
-**/*.d.ts
-**/*.js.map
 
 # Optional npm cache directory
 .npm

@@ -1,5 +1,7 @@
 'use strict';
 
+/* istanbul ignore file */
+
 const missingParamsError = 1;
 const missingParamsSuccess = 0;
 
