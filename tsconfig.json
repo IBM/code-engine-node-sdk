@@ -21,8 +21,7 @@
     "types": ["node", "extend", "is-stream"], /* Type declaration files to be included in compilation. */
   },
   "include": [
-    "./lib/*.ts",
-    "./natural-language-classifier/*.ts"
+    "./lib/*.ts"
     /* "./service-name/*.ts" */ // UNCOMMENT THIS AND ADD A LINE FOR EACH SERVICE
   ]
 }
