@@ -6,7 +6,7 @@ please ask a question on [Stack Overflow](http://stackoverflow.com/questions/ask
 
 # Code
 
-* Our style guide is based on [Google's](https://google.github.io/styleguide/jsguide.html), most of it is automatically enforced (and can be automatically applied with `npm run autofix`)
+* Our style guide is based on [Google's](https://google.github.io/styleguide/jsguide.html), most of it is automatically enforced (and can be automatically applied with `npm run lint-fix`)
 * Commits should follow the [Angular commit message guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines). This is because our release tool uses this format for determining release versions and generating changelogs. To make this easier, we recommend using the [Commitizen CLI](https://github.com/commitizen/cz-cli) with the `cz-conventional-changelog` adapter.
 
 # Issues
@@ -26,6 +26,26 @@ If you want to contribute to the repository, follow these steps:
 5. Make the test pass.
 6. Commit your changes.
 7. Push to your fork and submit a pull request.
+
+## Tests
+
+Ideally, we'd like to see both unit and innervation tests on each method.
+(Unit tests do not actually connect to the Watson service, integration tests do.)
+
+To run the integration tests, you need to provide credentials to the integration test framework.
+The integration test framework will skip integration tests for any service that does not have credentials,
+
+To provide credentials for the integration tests, copy `test/resources/auth.example.js` to `test/resources/auth.js`
+and fill in credentials for the service(s) you wish to test.
+
+To run only specific tests, invoke jest with the `--testNamePattern` or `-t` flag:
+
+```
+npm run jest -- /test/integration -t "resources key"
+```
+
+This will only run tests that match the test name pattern you provide.
+See the [Jest docs](https://jestjs.io/docs/en/cli#testnamepattern-regex) for more details.
 
 # Developer's Certificate of Origin 1.1
 
@@ -52,21 +72,3 @@ By making a contribution to this project, I certify that:
    personal information I submit with it, including my sign-off) is
    maintained indefinitely and may be redistributed consistent with
    this project or the open source license(s) involved.
-
-## Tests
-
-Ideally, we'd like to see both unit and innervation tests on each method.
-(Unit tests do not actually connect to the Watson service, integration tests do.)
-
-Out of the box, `npm test` runs linting and unit tests, but skips the integration tests,
-because they require credentials.
-
-To run integration tests, copy `test/resources/auth.example.js` to `test/resources/auth.js` and fill in credentials for
-the service(s) you wish to test.
-
-Currently this enables integration tests for all services so, unless all credentials are supplied, some tests will fail.
-(This will be improved eventually.)
-
-To run only specific tests, pass the file name to mocha. For example:
-
-node ./node_modules/mocha/bin/_mocha test/integration/test.conversation.js
