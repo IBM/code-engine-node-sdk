@@ -20,17 +20,21 @@ already encountered this issue.
 If you want to contribute to the repository, follow these steps:
 
 1. Fork the repo.
-2. Develop and test your code changes: `npm install -d && npm test`.
+2. Install dependencies: `npm install`
+3. Build the code: `npm run build`
+4. Verify the build before beginning your changes: `npm run test-unit`
+2. Develop and test your code changes.
 3. Travis-CI will run the tests for all services once your changes are merged.
 4. Add a test for your changes. Only refactoring and documentation changes require no new tests.
 5. Make the test pass.
-6. Commit your changes.
+6. Commit your changes. Remember the follow the correct commit message guidelines.
 7. Push to your fork and submit a pull request.
+8. Be sure to sign the CLA.
 
 ## Tests
 
-Ideally, we'd like to see both unit and innervation tests on each method.
-(Unit tests do not actually connect to the Watson service, integration tests do.)
+Out of the box, `npm test` runs linting, unit tests, and integration tests (which require credentials).
+To run only the unit tests (sufficient for most cases), use `npm run test-unit`.
 
 To run the integration tests, you need to provide credentials to the integration test framework.
 The integration test framework will skip integration tests for any service that does not have credentials,
