@@ -8,9 +8,7 @@
     "object-literal-sort-keys": false,
     "interface-over-type-literal": false,
     "ban-types": [false, ["Object", "Use {} instead."]],
-    "no-namespace": {
-      "severity": "warning"
-    },
+    "no-namespace": false,
     "no-reference": {
       "severity": "warning"
     },
