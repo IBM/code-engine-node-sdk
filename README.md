@@ -1,79 +1,279 @@
-# node-sdk-template
-This template contains everything you need to produce a complete, production-level Node JS SDK using code generated from the [IBM OpenAPI Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen). 
+# MySDK Node SDK (example service)
 
-## Getting Started
-Below are the minimum necessary steps to get started using this template repository. These steps assume that you have already generated source code using an OpenAPI document. If you have not done that, see the [generator repository](https://github.ibm.com/CloudEngineering/openapi-sdkgen) for instructions.
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-1. Clone this repository. Unless you are contributing to the template, change your git remotes to point at the location of your SDK's git repository. Install the dependencies.
-2. Create a directory to hold generated service code. Create as many directories as you have services. Name each directory after the service.
-3. Move each generated source file to its respective location. Service files, which have names like `v1.ts`, belong in the directories created in Step 2. Generated unit tests, which have names like `service-name.v1.test.js`, _all_ belong in the directory `test/unit`.
-4. In order for the TypeScript build system to recognize the new service files, the file `tsconfig.json` must be updated. The file contains instructions on how to update it.
-5. Update the `.gitignore` file to avoid checking the TypeScript-generated code in version control. There is a commented-out example in the file.
-6. To take advantage of generated documentation, add the new service(s) to the file `scripts/typedoc/generate_typedoc.sh`. There is an example in that file as well.
-7. If you want to have integration tests in addition to unit tests, in order to verify the SDK against an actual service instance, you will need to hand-write an integration test suite for each service (hopefully these will be automatically generated in the future!). There is an example test file in `test/integration`with the intended layout of the test suite. The format and tools used are explained in further detail in the [testing section](#testing). 
-8. If you do write integration tests, the credentials for the test service instance must be stored in a file called `test/resources/auth.js`. An example is provided in that directory with the intended format.
+Node JS client library to use the MySDK Services.
 
-Those steps outline the files necessary to change for each service added. This repository also sets you up with Continuous Integration, using Travis, and Automated Release Management, using `semantic-release`. These are active by default and it is recommended that you take advantage of them. The setup of the repository will be explained in more detail below.
+<details>
+  <summary>Table of Contents</summary>
+  * [Overview](#overview)
+  * [Prerequisites](#before-you-begin)
+  * [Installation](#installation)
+  * [Authentication](#authentication)
+  * [Using the SDK](#using-the-SDK)
+  * [Basic Usage](#basic-usage)
+  * [Setting the Service URL](#setting-the-service-url)
+  * [Sending request headers](#sending-request-headers)
+  * [Configuring the HTTPS Agent](#configuring-the-https-agent)
+  * [Use behind a corporate proxy](#use-behind-a-corporate-proxy)
+  * [Sending custom certificates](#sending-custom-certificates)
+  * [Documentation](#documentation)
+  * [Questions](#questions)
+  * [Debug](#debug)
+  * [Tests](#tests)
+  * [Contributing](#contributing)
+  * [Featured Projects](#featured-projects)
+  * [License](#license)
+</details>
 
-## Code Organization
-Code is organized into top-level directories, named after each service. Generated service files live under these directories and are named only by their version, like `v1.ts`. The repository is structured this way so that each service can be imported into a user’s code independently using the following structure: `require('package-name/service-name/version')`.
+## Overview
 
-All generated service code relies on a package called  [`ibm-cloud-sdk-core`](https://github.com/IBM/node-sdk-core)), which contains the generic, shared functionality used across any generated SDK. This package handles authentication and response handling, among other things. It is already installed in this repository, along with all other required dependencies.
+The IBM Cloud MySDK Node SDK allows developers to programmatically interact with the
+MySDK IBM Cloud services.
 
-Service code that must be hand-written (like methods for WebSocket APIs) or shared code that is service specific (as in, doesn’t belong in the core) lives in the `lib/` directory.
+## Prerequisites
+- You need an [IBM Cloud][ibm-cloud-onboarding] account.
 
-There is one method that is required by all generated methods that must be in `lib/`, in a file called `common.ts`, called `getSdkHeaders`. This method must return an object. It is used by some services to define headers that are meant to go out with every request from the SDK, like analytics headers. If no such headers are desired, `getSdkHeaders` should return an empty object.
+- **Node >=10**: This SDK is tested with Node versions 10 and up. It may work on previous versions but this is not officially supported.
 
-All code in the repository uses the [TypeScript](https://www.typescriptlang.org/) framework, so code must be “built" after being edited using the `npm run build` command.
+## Installation
 
-## Linting
-This repository uses `tslint` for linting the TypeScript code and `eslint` for linting the JavaScript test files. The rules for each are defined in `tslint.json` and `test/.eslintrc.js`, respectively. It is recommended that you do not change these files, since the automatically generated code complies with the defined rules.
+```sh
+npm install ibm-my-sdk
+```
 
-You can run the linter with the following commands. Replacing “check” with “fix” will cause the linter to automatically fix any linting errors that it can.
-- `npm run tslint:check`
-- `npm run eslint:check`
+## Authentication
 
-## Testing
-SDK tests are organized into “unit” and “integration” tests, which live in `test/unit/` and `test/integration/`, respectively. Unit tests mock the request framework and test that request objects are constructed properly. Integration tests make requests to live service instances and test that the SDK works as intended from end to end.
+MySDK services use token-based Identity and Access Management (IAM) authentication.
 
-This repository uses [Jest](https://jestjs.io/) for its testing and mocking framework. To run individual test files, `jest` must be installed globally on your local machine. The aggregate tests are run with the following commands. The code coverage report is displayed by default.
-- `npm run test` - run all tests
-- `npm run test-unit` - run only unit tests
-- `test-integration` - run only integration tests
+IAM authentication uses a service API key to get an access token that is passed with the call.
+Access tokens are valid for a limited amount of time and must be regenerated.
 
-### Unit tests
-Unit tests are automatically generated to accompany each generated service code file. They rely on a set of utility functions contained in the file `test/resources/unitTestUtils.js`. **Virtually no set up is needed for unit tests, just put the generated test files in `test/unit/` and they will be ready to run.**
+Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `ibm-my-sdk/auth`.
 
-### Integration tests
-Integration tests must be written by hand for each service, if desired. For integration tests to run, service credentials must be specified in a file called `test/resources/auth.js`.  An example showing the proper format of this file is located at `test/resources/auth.example.js`. 
+### Examples
+#### Programmatic credentials
+```js
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
 
-An example integration test is located at `test/integration/integration.test.js.example`. This example contains the imports necessary to run an integration test suite, which will be explained below.
+const authenticator = new IamAuthenticator({
+  apikey: '{apikey}',
+});
+```
 
-`test/resources/auth_helper.js` is a module that looks for the `auth.js` file that specifies the credentials. If found, it reads the credentials and makes them available to the test through its exports. If not found, it overrides the `describe` method in `jest` to skip every test. Otherwise, unless the API is completely unprotected, all of the tests would fail with “Unauthorized” errors.
+#### External configuration
+```js
+import { getAuthenticatorFromEnvironment } from 'ibm-my-sdk/auth';
 
-`test/resources/service_error_util.js` is module that exports a function to wrap around callbacks in the integration tests. It will fail a test if an error response does not have a given status code (the code is passed in as an argument). By passing in the code `200`, you fail a test for a service endpoint not returning a `200` status code response.
+// env vars
+// MY_SDK_AUTH_TYPE=iam
+// MY_SDK_APIKEY=<apikey>
+const iamAuthenticator = getAuthenticatorFromEnvironment('my-sdk');
+```
 
-Any additional files needed for testing (like an image to send to a visual recognition service) should be placed in `test/resources/`.  
+To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
 
-## Continuous Integration
-This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
+## Using the SDK
+### Basic Usage
 
-Note - to run integration tests on Travis, the `auth.js` file must be encrypted and the key stored in the Travis settings as an environment variable. Run the script `scripts/update-auth-file.js` to generate an encrypted file and automatically set the key in Travis.  Check the file `secrets.tar.enc` into `git` and update the `.travis.yml` file to replace the string `encrypted_12345_key` with the name of your generated environment variable.
+All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
 
-The config file `travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below. Make sure to rename this to `.travis.yml` in your repository.
+```js
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
 
-The `before_install` step runs the instructions to decrypt the `auth.js` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds. The mechanism works because if there is no `auth.js` file, the `auth_helper.js` module described above will skip all of the tests.
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
+  url: 'https://gateway.cloud.net/example-service/api',
+});
 
-The `script` section runs the instructions needed to verify the quality of the code in the push or pull request. It first ensures the code builds with TypeScript. Then, it runs the unit and integration tests. Note that the testing scripts are slightly different for Travis (e.g. `npm run test-unit-travis`. Public Travis does not support multi-threaded `jest` tests, so the option `--runInBand` is necessary. Also, the integration test script is configured to skip any test marked with the tag `@slow`, in case there is a need to skip tests in the Travis build. The output of the integration tests is piped to the script `scripts/report_integration_test.js`. This script is designed to prevent the Travis build from failing due to a `500`-level error, since those errors are the fault of the service and not the SDK. It will then report the errors in the form of a GitHub comment on the PR, if applicable, for awareness. After running the tests, the build checks the dependencies to ensure that they are all compatible with the Node versions supported by the package, specified in the `engines` property in the `package.json` file. Finally, it generates documentation from the JSDoc comments in the code.
+exampleServiceClient
+  .listResources()
+  .then(
+    response => {
+      // handle response
+      // the body is under property `result`
+      console.log(JSON.stringify(response.result, null, 2));
 
-The `after_success` section runs the script to report coverage and publishes the generated documentation. The repository uses [Codecov](https://codecov.io/) for hosting coverage reports. The script `scripts/jsdoc/publish.sh` is used to publish the generated documentation. To publish coverage reports to Codecov, you must add a `CODECOV_TOKEN` environment variable to the Travis settings.
+      // access the headers
+      console.log(JSON.stringify(response.headers, null, 2));
 
-The `deploy` section is the last step of the build and triggers the automated release management. The repository uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for automated release management. The tool will determine if a release is warranted or not using the [commit messages](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit). Note that the format of your commit messages must comply with the requirements defined in the referenced page, or the release will not work as intended. If a release is warranted, the tool will determine what kind of release (patch, minor, or major) and proceed with the deployment. The tool is configured in this repository to publish to [npm](https://www.npmjs.com/) and update the changelog. To run these deployments, you must add a `GH_TOKEN` and `NPM_TOKEN` environment variables to the Travis settings. Note that a publish to `npm` will not be successful unless a `name` and initial `version` is given in the `package.json`. 
+      // access the status code
+      console.log(response.status);
+
+      // access the status text
+      console.log(response.statusText);
+    },
+    err => {
+      // handle request/SDK errors
+      console.log(err);
+    }
+  )
+  .catch(err => {
+    // catch errors in response handling code
+    console.log(err);
+  });
+
+```
+
+### Setting the Service URL
+You can set or reset the base URL after constructing the client instance using the `setServiceUrl` method:
+
+```js
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
+});
+
+exampleServiceClient.setServiceUrl('https://gateway.cloud.net/example-service/api');
+```
+
+### Sending request headers
+Custom headers can be passed with any request. There are two ways of setting them - setting default headers in the constructor or passing request-specific headers directly to one of the methods.
+
+#### Default headers
+Any headers passed in with the service client constructor will be stored and automatically added to every request made with said client.
+
+```js
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
+  headers: {
+    'X-Custom-Header': 'some value',
+  },
+});
+
+exampleServiceClient.listResources().then(res => {
+  // X-Custom-Header will have been sent with the request
+});
+```
+
+#### Individual request headers
+Each method has an optional parameter `headers` which can be used to pass in custom headers. These values override any default headers or headers explicitly set in the code.
+
+```js
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
+  headers: {
+    'X-Custom-Header': 'some value',
+  },
+});
+
+const listResourcesParams = {
+  'X-Custom-Header': 'new value',
+  'X-Other-Header': 'other value',
+};
+
+exampleServiceClient.listResources(listResourcesParams).then(res => {
+  // X-Custom-Header will have been sent with this request as 'new value'
+  // X-Other-Header will have been sent with the request
+});
+```
+
+## Configuring the HTTPS Agent
+The SDK provides the user with full control over the HTTPS Agent used to make requests. This is available for both the service client and the authenticators that make network requests (e.g. `IamAuthenticator`). Outlined below are a couple of different scenarios where this capability is needed. Note that this functionality is for Node environments only - these configurtions will have no effect in the browser.
+
+### Use behind a corporate proxy
+To use the SDK (which makes HTTPS requests) behind an HTTP proxy, a special tunneling agent must be used. Use the package [`tunnel`](https://github.com/koichik/node-tunnel/) for this. Configure this agent with your proxy information, and pass it in as the HTTPS agent in the service constructor. Additionally, you must set `proxy` to `false` in the client constructor. See this example configuration:
+
+```js
+const tunnel = require('tunnel');
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
+  httpsAgent: tunnel.httpsOverHttp({
+    proxy: {
+      host: 'some.host.org',
+      port: 1234,
+    },
+  }),
+  proxy: false,
+});
+```
+
+### Sending custom certificates
+To send custom certificates as a security measure in your request, use the `cert`, `key`, and/or `ca` properties of the HTTPS Agent. See [this documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options) for more information about the options. Note that the entire contents of the file must be provided - not just the file name.
+```js
+const tunnel = require('tunnel');
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const certFile = fs.readFileSync('./my-cert.pem');
+const keyFile = fs.readFileSync('./my-key.pem');
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({
+    apikey: '{apikey}',
+    httpsAgent: new https.Agent({
+      key: keyFile,
+      cert: certFile,
+    })
+  }),
+  httpsAgent: new https.Agent({
+    key: keyFile,
+    cert: certFile,
+  }),
+});
+```
+
+### Disabling SSL Verification - Discouraged
+The HTTP client can be configured to disable SSL verification. **Note that this has serious security implications - only do this if you really mean to!** ⚠️
+
+To do this, set `disableSslVerification` to `true` in the service constructor and/or authenticator constructor, like below:
+
+```js
+import ExampleService from 'ibm-my-sdk/example-service';
+import { IamAuthenticator } from 'ibm-my-sdk/auth';
+
+const exampleServiceClient = new ExampleService({
+  authenticator: new IamAuthenticator({ apikey: '<apikey>', disableSslVerification: true }), // this will disable SSL verification for requests to the token endpoint
+  disableSslVerification: true, // this will disable SSL verification for any request made with this client instance
+});
+```
 
 ## Documentation
-- Documentation is automatically generated from the JSDoc comments and can be easily published online using GitHub pages. More information to follow.
-- An example README for a new SDK based on this template will be added soon.
+There are auto-generated JSDocs available at <your-link-here>
 
-## Example SDK
-The Watson Node SDK is a mature, well-developed manifestation of this setup. It provides a great example for anyone getting started with generating SDKs.
-  - [Watson Node SDK](https://github.com/watson-developer-cloud/node-sdk)
+## Questions
+If you are having difficulties using the APIs or have a question about the Watson services, please ask a question at [dW Answers](https://developer.ibm.com/answers/questions/ask) or [Stack Overflow](http://stackoverflow.com/questions/ask).
+
+## Debug
+This module uses the [`debug`](https://github.com/visionmedia/debug) package for logging. Specify the desired environment variable to enable logging debug messages.
+
+## Tests
+Running all the tests:
+```sh
+$ npm test
+```
+
+Running a specific test:
+```sh
+$ npm run jest -- '<path to test>'
+```
+
+## Open source @ IBM
+[Find more open source projects on the IBM Github Page.][ibm-open-source]
+
+## Contributing
+See [CONTRIBUTING](CONTRIBUTING.md).
+
+## Featured Projects
+We love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
+<link-to-project>
+
+## License
+This library is licensed under Apache 2.0. Full license text is available in
+[LICENSE][license].
+
+[ibm-cloud-onboarding]: http://cloud.ibm.com/registration?target=/developer/watson&cm_sp=WatsonPlatform-WatsonServices-_-OnPageNavLink-IBMWatson_SDKs-_-Node
+[ibm-open-source]: http://ibm.github.io/
+[license]: http://www.apache.org/licenses/LICENSE-2.0
