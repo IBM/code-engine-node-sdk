@@ -6,24 +6,72 @@ Node JS client library to use the MySDK Services.
 
 <details>
   <summary>Table of Contents</summary>
-  * [Overview](#overview)
-  * [Prerequisites](#before-you-begin)
-  * [Installation](#installation)
-  * [Authentication](#authentication)
-  * [Using the SDK](#using-the-SDK)
-  * [Basic Usage](#basic-usage)
-  * [Setting the Service URL](#setting-the-service-url)
-  * [Sending request headers](#sending-request-headers)
-  * [Configuring the HTTPS Agent](#configuring-the-https-agent)
-  * [Use behind a corporate proxy](#use-behind-a-corporate-proxy)
-  * [Sending custom certificates](#sending-custom-certificates)
-  * [Documentation](#documentation)
-  * [Questions](#questions)
-  * [Debug](#debug)
-  * [Tests](#tests)
-  * [Contributing](#contributing)
-  * [Featured Projects](#featured-projects)
-  * [License](#license)
+  <ul>
+    <li>
+      <a href="#overview">Overview</a>
+    </li>
+    <li>
+      <a href="#prerequisites">Prerequisites</a>
+    </li>
+    <li>
+      <a href="#installation">Installation</a>
+    </li>
+    <li>
+      <a href="#authentication">Authentication</a>
+    </li>
+    <li>
+      <a href="#using-the-sdk">Using the SDK</a>
+    </li>
+    <ul>
+      <li>
+        <a href="#basic-usage">Basic Usage</a>
+      </li>
+      <li>
+        <a href="#setting-the-service-url">Setting the Service URL</a>
+      </li>
+      <li>
+        <a href="#sending-request-headers">Setting request headers</a>
+      </li>
+    </ul>
+    <li>
+      <a href="#configuring-the-https-agent">Configuring the HTTPS Agent</a>
+    </li>
+    <ul>
+        <li>
+          <a href="#use-behind-a-corporate-proxy">Use behind a corporate proxy</a>
+        </li>
+        <li>
+          <a href="#sending-custom-certificates">Sending Custom Certificates</a>
+        </li>
+        <li>
+          <a href="#disabling-ssl-verification---discouraged">Disabling SSL Verification</a>
+        </li>
+    </ul>
+    <li>
+      <a href="#documentation">Documentation</a>
+    </li>
+    <li>
+      <a href="#questions">Questions</a>
+    </li>
+    <li>
+      <a href="#debug">Debug</a>
+    </li>
+    <li>
+      <a href="#tests">Tests</a>
+    </li>
+    <li>
+      <a href="#open-source--ibm">Open Source @ IBM</a>
+    </li>
+    <li>
+      <a href="#contributing">Contributing</a>
+    </li>
+    <li>
+      <a href="#featured-projects">Featured Projects</a>
+    </li>
+    <li>
+      <a href="#license">License</a>
+    </li>
+  </ul>
 </details>
 
 ## Overview
