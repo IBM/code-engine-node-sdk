@@ -22,7 +22,8 @@
   },
   "include": [
     "./auth/*.ts",
-    "./lib/*.ts"
-    /* "./service-name/*.ts" */ // UNCOMMENT THIS AND ADD A LINE FOR EACH SERVICE
+    "./lib/*.ts",
+    "./example-service/*.ts",
+    // ADD A LINE FOR EACH SERVICE, IF APPLICABLE
   ]
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 IBM Corp. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2019.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 
 'use strict';
+const fs = require('fs');
+const path = require('path');
+const authPath = path.join(__dirname, './auth.js');
 
-const testingHeaders = {
-  // any headers desired for testing (like opting out of analytics)
-};
+const hasAuth = fs.existsSync(authPath);
 
-module.exports = {
-  exampleService: {
-    url: 'https://gateway.cloudplatform.net/example-service/api',
-    apikey: 'abc-123-fakeapikey',
-    headers: testingHeaders,
-  },
-};
+if (hasAuth) {
+  exports.describe = describe;
+} else {
+  exports.describe = describe.skip.bind(describe);
+  exports.describe.skip = exports.describe;
+}
+exports.auth = hasAuth ? require(authPath) : null;

@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "",
+  "version": "0.0.1",
   "description": "IBM Cloud Node SDK",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
   "dependencies": {
     "@types/node": "^12.0.8",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^1.0.0"
+    "ibm-cloud-sdk-core": "^1.2.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.4",

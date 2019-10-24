@@ -87,7 +87,7 @@ MySDK IBM Cloud services.
 ## Installation
 
 ```sh
-npm install ibm-my-sdk
+npm install ibm-mysdk
 ```
 
 ## Authentication
@@ -97,12 +97,12 @@ MySDK services use token-based Identity and Access Management (IAM) authenticati
 IAM authentication uses a service API key to get an access token that is passed with the call.
 Access tokens are valid for a limited amount of time and must be regenerated.
 
-Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `ibm-my-sdk/auth`.
+Authentication is accomplished using dedicated Authenticators for each authentication scheme. Import authenticators from `ibm-mysdk/auth`.
 
 ### Examples
 #### Programmatic credentials
 ```js
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
 const authenticator = new IamAuthenticator({
   apikey: '{apikey}',
@@ -111,12 +111,12 @@ const authenticator = new IamAuthenticator({
 
 #### External configuration
 ```js
-import { getAuthenticatorFromEnvironment } from 'ibm-my-sdk/auth';
+import { getAuthenticatorFromEnvironment } from 'ibm-mysdk/auth';
 
 // env vars
 // MY_SDK_AUTH_TYPE=iam
 // MY_SDK_APIKEY=<apikey>
-const iamAuthenticator = getAuthenticatorFromEnvironment('my-sdk');
+const iamAuthenticator = getAuthenticatorFromEnvironment('example-service');
 ```
 
 To learn more about the Authenticators and how to use them with your services, see [the detailed documentation](https://github.com/IBM/node-sdk-core/blob/master/AUTHENTICATION.md).
@@ -127,10 +127,10 @@ To learn more about the Authenticators and how to use them with your services, s
 All methods return a Promise that either resolves with the response from the service or rejects with an Error. The response contains the body, the headers, the status code, and the status text.
 
 ```js
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
   url: 'https://gateway.cloud.net/example-service/api',
 });
@@ -168,10 +168,10 @@ exampleServiceClient
 You can set or reset the base URL after constructing the client instance using the `setServiceUrl` method:
 
 ```js
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
 });
 
@@ -185,10 +185,10 @@ Custom headers can be passed with any request. There are two ways of setting the
 Any headers passed in with the service client constructor will be stored and automatically added to every request made with said client.
 
 ```js
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
   headers: {
     'X-Custom-Header': 'some value',
@@ -204,10 +204,10 @@ exampleServiceClient.listResources().then(res => {
 Each method has an optional parameter `headers` which can be used to pass in custom headers. These values override any default headers or headers explicitly set in the code.
 
 ```js
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
   headers: {
     'X-Custom-Header': 'some value',
@@ -233,10 +233,10 @@ To use the SDK (which makes HTTPS requests) behind an HTTP proxy, a special tunn
 
 ```js
 const tunnel = require('tunnel');
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '{apikey}' }),
   httpsAgent: tunnel.httpsOverHttp({
     proxy: {
@@ -252,13 +252,13 @@ const exampleServiceClient = new ExampleService({
 To send custom certificates as a security measure in your request, use the `cert`, `key`, and/or `ca` properties of the HTTPS Agent. See [this documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options) for more information about the options. Note that the entire contents of the file must be provided - not just the file name.
 ```js
 const tunnel = require('tunnel');
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
 const certFile = fs.readFileSync('./my-cert.pem');
 const keyFile = fs.readFileSync('./my-key.pem');
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({
     apikey: '{apikey}',
     httpsAgent: new https.Agent({
@@ -279,10 +279,10 @@ The HTTP client can be configured to disable SSL verification. **Note that this 
 To do this, set `disableSslVerification` to `true` in the service constructor and/or authenticator constructor, like below:
 
 ```js
-import ExampleService from 'ibm-my-sdk/example-service';
-import { IamAuthenticator } from 'ibm-my-sdk/auth';
+import ExampleServiceV1 from 'ibm-mysdk/example-service/v1';
+import { IamAuthenticator } from 'ibm-mysdk/auth';
 
-const exampleServiceClient = new ExampleService({
+const exampleServiceClient = new ExampleServiceV1({
   authenticator: new IamAuthenticator({ apikey: '<apikey>', disableSslVerification: true }), // this will disable SSL verification for requests to the token endpoint
   disableSslVerification: true, // this will disable SSL verification for any request made with this client instance
 });
