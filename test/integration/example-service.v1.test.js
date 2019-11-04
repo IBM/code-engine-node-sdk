@@ -1,13 +1,13 @@
 'use strict';
 
 const ExampleServiceV1 = require('../../example-service/v1');
-const { IamAuthenticator } = require('../../auth');
+const { NoAuthAuthenticator } = require('../../auth');
 const authHelper = require('../resources/auth-helper.js');
 const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
 
 describe('example service v1 integration', () => {
   const options = authHelper.auth.exampleService;
-  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
+  options.authenticator = new NoAuthAuthenticator();
 
   const exampleServiceClient = new ExampleServiceV1(options);
 
@@ -31,7 +31,9 @@ describe('example service v1 integration', () => {
 
     it('createResource', async done => {
       const params = {
-        name: 'node-sdk-test-resource',
+        name: 'To Kill a Mockingbird',
+        resourceId: 3,
+        tag: 'Book',
       };
 
       let response;

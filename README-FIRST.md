@@ -1,5 +1,5 @@
 # node-sdk-template
-This template contains everything you need to produce a complete, production-level Node JS SDK using code generated from the [IBM OpenAPI Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen). 
+This template contains everything you need to produce a complete, production-level Node JS SDK using code generated from the [IBM OpenAPI Generator](https://github.ibm.com/CloudEngineering/openapi-sdkgen).
 
 ## Getting Started
 Below are the minimum necessary steps to get started using this template repository. These steps assume that you have already generated source code using an OpenAPI document. If you have not done that, see the [generator repository](https://github.ibm.com/CloudEngineering/openapi-sdkgen) for instructions.
@@ -10,7 +10,7 @@ Below are the minimum necessary steps to get started using this template reposit
 4. In order for the TypeScript build system to recognize the new service files, the file `tsconfig.json` must be updated. The file contains instructions on how to update it.
 5. Update the `.gitignore` file to avoid checking the TypeScript-generated code in version control. There is a commented-out example in the file.
 6. To take advantage of generated documentation, add the new service(s) to the file `scripts/typedoc/generate_typedoc.sh`. There is an example in that file as well.
-7. If you want to have integration tests in addition to unit tests, in order to verify the SDK against an actual service instance, you will need to hand-write an integration test suite for each service (hopefully these will be automatically generated in the future!). There is an example test file in `test/integration`with the intended layout of the test suite. The format and tools used are explained in further detail in the [testing section](#testing). 
+7. If you want to have integration tests in addition to unit tests, in order to verify the SDK against an actual service instance, you will need to hand-write an integration test suite for each service (hopefully these will be automatically generated in the future!). There is an example test file in `test/integration`with the intended layout of the test suite. The format and tools used are explained in further detail in the [testing section](#testing).
 8. If you do write integration tests, the credentials for the test service instance must be stored in a file called `test/resources/auth.js`. An example is provided in that directory with the intended format.
 
 Those steps outline the files necessary to change for each service added. This repository also sets you up with Continuous Integration, using Travis, and Automated Release Management, using `semantic-release`. These are active by default and it is recommended that you take advantage of them. The setup of the repository will be explained in more detail below.
@@ -39,13 +39,13 @@ SDK tests are organized into “unit” and “integration” tests, which live 
 This repository uses [Jest](https://jestjs.io/) for its testing and mocking framework. To run individual test files, `jest` must be installed globally on your local machine. The aggregate tests are run with the following commands. The code coverage report is displayed by default.
 - `npm run test` - run all tests
 - `npm run test-unit` - run only unit tests
-- `test-integration` - run only integration tests
+- `npm run test-integration` - run only integration tests
 
 ### Unit tests
 Unit tests are automatically generated to accompany each generated service code file. They rely on a set of utility functions contained in the file `test/resources/unitTestUtils.js`. **Virtually no set up is needed for unit tests, just put the generated test files in `test/unit/` and they will be ready to run.**
 
 ### Integration tests
-Integration tests must be written by hand for each service, if desired. For integration tests to run, service credentials must be specified in a file called `test/resources/auth.js`.  An example showing the proper format of this file is located at `test/resources/auth.example.js`. 
+Integration tests must be written by hand for each service, if desired. For integration tests to run, service credentials must be specified in a file called `test/resources/auth.js`.  An example showing the proper format of this file is located at `test/resources/auth.example.js`.
 
 An example integration test is located at `test/integration/integration.test.js.example`. This example contains the imports necessary to run an integration test suite, which will be explained below.
 
@@ -54,6 +54,23 @@ An example integration test is located at `test/integration/integration.test.js.
 `test/resources/service_error_util.js` is module that exports a function to wrap around callbacks in the integration tests. It will fail a test if an error response does not have a given status code (the code is passed in as an argument). By passing in the code `200`, you fail a test for a service endpoint not returning a `200` status code response.
 
 Any additional files needed for testing (like an image to send to a visual recognition service) should be placed in `test/resources/`.  
+
+Currently, the example integration test in `/test/integration` works with the "Example Service" mock API. To run the integration tests, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service) and follow the instructions found in the README.
+
+Then, create a file called `auth.js` in `test/resources` folder, with the following code:
+
+```js
+module.exports = {
+  exampleService: {
+    url: 'http://localhost:3000'
+  },
+};
+```
+
+Finally, run the command from project root directory:
+```sh
+npm run test-integration
+```
 
 ## Continuous Integration
 This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
@@ -68,7 +85,7 @@ The `script` section runs the instructions needed to verify the quality of the c
 
 The `after_success` section runs the script to report coverage and publishes the generated documentation. The repository uses [Codecov](https://codecov.io/) for hosting coverage reports. The script `scripts/jsdoc/publish.sh` is used to publish the generated documentation. To publish coverage reports to Codecov, you must add a `CODECOV_TOKEN` environment variable to the Travis settings.
 
-The `deploy` section is the last step of the build and triggers the automated release management. The repository uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for automated release management. The tool will determine if a release is warranted or not using the [commit messages](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit). Note that the format of your commit messages must comply with the requirements defined in the referenced page, or the release will not work as intended. If a release is warranted, the tool will determine what kind of release (patch, minor, or major) and proceed with the deployment. The tool is configured in this repository to publish to [npm](https://www.npmjs.com/) and update the changelog. To run these deployments, you must add a `GH_TOKEN` and `NPM_TOKEN` environment variables to the Travis settings. Note that a publish to `npm` will not be successful unless a `name` and initial `version` is given in the `package.json`. 
+The `deploy` section is the last step of the build and triggers the automated release management. The repository uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for automated release management. The tool will determine if a release is warranted or not using the [commit messages](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit). Note that the format of your commit messages must comply with the requirements defined in the referenced page, or the release will not work as intended. If a release is warranted, the tool will determine what kind of release (patch, minor, or major) and proceed with the deployment. The tool is configured in this repository to publish to [npm](https://www.npmjs.com/) and update the changelog. To run these deployments, you must add a `GH_TOKEN` and `NPM_TOKEN` environment variables to the Travis settings. Note that a publish to `npm` will not be successful unless a `name` and initial `version` is given in the `package.json`.
 
 ## Documentation
 - Documentation is automatically generated from the JSDoc comments and can be easily published online using GitHub pages. More information to follow.
