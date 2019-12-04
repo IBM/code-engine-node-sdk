@@ -24,7 +24,7 @@ Service code that must be hand-written (like methods for WebSocket APIs) or shar
 
 There is one method that is required by all generated methods that must be in `lib/`, in a file called `common.ts`, called `getSdkHeaders`. This method must return an object. It is used by some services to define headers that are meant to go out with every request from the SDK, like analytics headers. If no such headers are desired, `getSdkHeaders` should return an empty object.
 
-All code in the repository uses the [TypeScript](https://www.typescriptlang.org/) framework, so code must be “built" after being edited using the `npm run build` command.
+All code in the repository uses the [TypeScript](https://www.typescriptlang.org/) framework, so code must be “built" after being edited using the `npm run build` command. Note that the built code is generated into a separate directory called `dist/`. This is to maintain a clean working directory, uncluttered by `.js`, `.js.map`, and `.d.ts` files. The project is configured to maintain the desired structure within the `dist/` folder and automatically release from this folder so that the end user is able to import the modules as described at the beginning of this section.
 
 ## Linting
 This repository uses `tslint` for linting the TypeScript code and `eslint` for linting the JavaScript test files. The rules for each are defined in `tslint.json` and `test/.eslintrc.js`, respectively. It is recommended that you do not change these files, since the automatically generated code complies with the defined rules.

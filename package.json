@@ -19,6 +19,7 @@
     "lint-fix": "npm run eslint:fix && npm run tslint:fix",
     "build": "tsc",
     "prepublishOnly": "npm run build",
+    "postversion": "tsc-publish --no-checks --dry-run",
     "jest": "jest",
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest test/unit/",
@@ -35,7 +36,8 @@
   "dependencies": {
     "@types/node": "^12.0.8",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^1.2.0"
+    "ibm-cloud-sdk-core": "^1.2.0",
+    "tsc-publish": "^0.5.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.4",

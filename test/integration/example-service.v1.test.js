@@ -1,6 +1,6 @@
 'use strict';
 
-const ExampleServiceV1 = require('../../example-service/v1');
+const ExampleServiceV1 = require('../../dist/example-service/v1');
 const { NoAuthAuthenticator } = require('../../auth');
 const authHelper = require('../resources/auth-helper.js');
 const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)

@@ -16,7 +16,7 @@
 'use strict';
 
 const { NoAuthAuthenticator, unitTestUtils } = require('ibm-cloud-sdk-core');
-const ExampleServiceV1 = require('../../example-service/v1');
+const ExampleServiceV1 = require('../../dist/example-service/v1');
 
 const {
   getOptions,
@@ -44,7 +44,6 @@ afterEach(() => {
 describe('ExampleServiceV1', () => {
   describe('listResources', () => {
     describe('positive tests', () => {
-
       test('should pass the right params to createRequest', () => {
         // parameters
         const limit = 'fake_limit';
@@ -93,7 +92,6 @@ describe('ExampleServiceV1', () => {
   });
   describe('createResource', () => {
     describe('positive tests', () => {
-
       test('should pass the right params to createRequest', () => {
         // parameters
         const resourceId = 'fake_resourceId';
@@ -148,7 +146,6 @@ describe('ExampleServiceV1', () => {
   });
   describe('getResource', () => {
     describe('positive tests', () => {
-
       test('should pass the right params to createRequest', () => {
         // parameters
         const resourceId = 'fake_resourceId';
@@ -193,9 +190,6 @@ describe('ExampleServiceV1', () => {
 
     describe('negative tests', () => {
       test('should enforce required parameters', async done => {
-        // required parameters for this method
-        const requiredParams = ['resourceId'];
-
         let err;
         try {
           await exampleService.getResource({});
@@ -208,14 +202,11 @@ describe('ExampleServiceV1', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        // required parameters for this method
-        const requiredParams = ['resourceId'];
-
         const getResourcePromise = exampleService.getResource();
         expectToBePromise(getResourcePromise);
 
         getResourcePromise.catch(err => {
-            expect(err.message).toMatch(/Missing required parameters/);
+          expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });

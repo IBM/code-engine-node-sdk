@@ -12,6 +12,8 @@ example-service/*.js
 # file holding service credentials
 test/resources/auth.js
 
+# release folder for typescript-generated source files
+dist/
 
 ### GitHub recommended ###
 # Logs
