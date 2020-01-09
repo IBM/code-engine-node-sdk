@@ -180,6 +180,10 @@ exampleServiceClient.listResources(listResourcesParams).then(res => {
 });
 ```
 
+### Transaction IDs
+
+Every call from the SDK will receive a response which will contain a transaction ID, accessible via the `x-global-transaction-id` header.  This transaction ID is useful for troubleshooting and accessing relevant logs from your service instance.
+
 ## Configuring the HTTPS Agent
 The SDK provides the user with full control over the HTTPS Agent used to make requests. This is available for both the service client and the authenticators that make network requests (e.g. `IamAuthenticator`). Outlined below are a couple of different scenarios where this capability is needed. Note that this functionality is for Node environments only - these configurtions will have no effect in the browser.
 
