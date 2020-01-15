@@ -75,9 +75,33 @@ npm run test-integration
 ## Continuous Integration
 This repository is set up to use [Travis](https://travis-ci.org/) for continuous integration.
 
-Note - to run integration tests on Travis, the `auth.js` file must be encrypted and the key stored in the Travis settings as an environment variable. Run the script `scripts/update-auth-file.js` to generate an encrypted file and automatically set the key in Travis.  Check the file `secrets.tar.enc` into `git` and update the `.travis.yml` file to replace the string `encrypted_12345_key` with the name of your generated environment variable.
+Note - to run integration tests on Travis, the `auth.js` file must be encrypted and the key stored in the Travis settings as an environment variable. Run the script `scripts/update-auth-file.sh` to generate an encrypted file and automatically set the key in Travis. To do this:
 
-The config file `travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below. Make sure to rename this to `.travis.yml` in your repository.
+1. Enable Travis-CI for your repository in Travis.
+2. Make sure Ruby and Ruby Gem are installed and up to date on your local machine. You can [install Ruby here](https://www.ruby-lang.org/en/documentation/installation/)
+3. Install Travis CLI (`gem install travis`). To verify installation, type `travis -v`
+4. Log into Travis through CLI. Depending on whether you're trying to connect to Travis Enterprise, or Public Travis, the commands will be different.
+
+Here's the command for logging into Travis Enterprise:
+
+```sh
+travis login -X --github-token <your-github-enterprise-token> --api-endpoint https://travis.ibm.com/api
+```
+
+Here's the command for logging into Public Travis
+```sh
+travis login --github-token <your-public-github-token> --com
+```
+
+5. From the root of the node-sdk-template project, run the script in `scripts/update-auth-file.sh`
+6. The script will generate a file called `secrets.tar.enc` in the project folder root directory. Commit the file to your repository
+7. Terminal should print out a command to add to your build script. In that command is a string with the format similar to `encrypted_12345_key`. Copy that string
+8. From the root of the node-sdk-template project, rename `travis.yml` to `.travis.yml`
+9. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
+10. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
+11. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
+
+The config file `.travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below.
 
 The `before_install` step runs the instructions to decrypt the `auth.js` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds. The mechanism works because if there is no `auth.js` file, the `auth_helper.js` module described above will skip all of the tests.
 
