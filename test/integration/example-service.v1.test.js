@@ -32,7 +32,7 @@ describe('example service v1 integration', () => {
     it('createResource', async done => {
       const params = {
         name: 'To Kill a Mockingbird',
-        resourceId: 3,
+        resourceId: '3',
         tag: 'Book',
       };
 

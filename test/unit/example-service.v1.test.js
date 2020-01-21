@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ const {
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'http://cloud.ibm.com/mysdk/v1/mysdk/v1',
+  url: 'http://cloud.ibm.com/mysdk/v1',
 };
 
 const exampleService = new ExampleServiceV1(service);
@@ -45,10 +45,10 @@ describe('ExampleServiceV1', () => {
   describe('listResources', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // parameters
-        const limit = 'fake_limit';
+        // Construct the params object for operation listResources
+        const limit = 38;
         const params = {
-          limit,
+          limit: limit,
         };
 
         const listResourcesResult = exampleService.listResources(params);
@@ -70,8 +70,8 @@ describe('ExampleServiceV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const userAccept = 'fake/header';
-        const userContentType = 'fake/header';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
         const params = {
           headers: {
             Accept: userAccept,
@@ -84,7 +84,7 @@ describe('ExampleServiceV1', () => {
       });
 
       test('should not have any problems when no parameters are passed in', () => {
-        // invoke the method
+        // invoke the method with no parameters
         exampleService.listResources({});
         checkForSuccessfulExecution(createRequestMock);
       });
@@ -93,14 +93,14 @@ describe('ExampleServiceV1', () => {
   describe('createResource', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // parameters
-        const resourceId = 'fake_resourceId';
-        const name = 'fake_name';
-        const tag = 'fake_tag';
+        // Construct the params object for operation createResource
+        const resourceId = 'testString';
+        const name = 'testString';
+        const tag = 'testString';
         const params = {
-          resourceId,
-          name,
-          tag,
+          resourceId: resourceId,
+          name: name,
+          tag: tag,
         };
 
         const createResourceResult = exampleService.createResource(params);
@@ -124,8 +124,8 @@ describe('ExampleServiceV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const userAccept = 'fake/header';
-        const userContentType = 'fake/header';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
         const params = {
           headers: {
             Accept: userAccept,
@@ -138,7 +138,7 @@ describe('ExampleServiceV1', () => {
       });
 
       test('should not have any problems when no parameters are passed in', () => {
-        // invoke the method
+        // invoke the method with no parameters
         exampleService.createResource({});
         checkForSuccessfulExecution(createRequestMock);
       });
@@ -147,10 +147,10 @@ describe('ExampleServiceV1', () => {
   describe('getResource', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // parameters
-        const resourceId = 'fake_resourceId';
+        // Construct the params object for operation getResource
+        const resourceId = 'testString';
         const params = {
-          resourceId,
+          resourceId: resourceId,
         };
 
         const getResourceResult = exampleService.getResource(params);
@@ -172,9 +172,9 @@ describe('ExampleServiceV1', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const resourceId = 'fake_resourceId';
-        const userAccept = 'fake/header';
-        const userContentType = 'fake/header';
+        const resourceId = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
         const params = {
           resourceId,
           headers: {

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Authenticator, BaseService, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
+import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -25,9 +25,38 @@ import { getSdkHeaders } from '../lib/common';
 
 class ExampleServiceV1 extends BaseService {
 
-  static URL: string = 'http://cloud.ibm.com/mysdk/v1';
-  name: string; // set by prototype to 'example_service'
-  serviceVersion: string; // set by prototype to 'v1'
+  static DEFAULT_SERVICE_URL: string = 'http://cloud.ibm.com/mysdk/v1';
+  static DEFAULT_SERVICE_NAME: string = 'example_service';
+
+  /*************************
+   * Factory method
+   ************************/
+
+  /**
+   * Constructs an instance of ExampleServiceV1 with passed in options and external configuration.
+   *
+   * @param {UserOptions} [options] - The parameters to send to the service.
+   * @param {string} [options.serviceName] - The name of the service to configure
+   * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
+   * @param {string} [options.serviceUrl] - The URL for the service
+   * @returns {ExampleServiceV1}
+   */
+
+  public static newInstance(options: UserOptions): ExampleServiceV1 {
+    if (!options.serviceName) {
+      options.serviceName = this.DEFAULT_SERVICE_NAME;
+    }
+    if (!options.authenticator) {
+      options.authenticator = getAuthenticatorFromEnvironment(options.serviceName);
+    }
+    const service = new ExampleServiceV1(options);
+    service.configureService(options.serviceName);
+    if (options.serviceUrl) {
+      service.setServiceUrl(options.serviceUrl);
+    }
+    return service;
+  }
+
 
   /**
    * Construct a ExampleServiceV1 object.
@@ -41,6 +70,11 @@ class ExampleServiceV1 extends BaseService {
    */
   constructor(options: UserOptions) {
     super(options);
+    if (options.serviceUrl) {
+      this.setServiceUrl(options.serviceUrl);
+    } else {
+      this.setServiceUrl(ExampleServiceV1.DEFAULT_SERVICE_URL);
+    }
   }
 
   /*************************
@@ -63,7 +97,7 @@ class ExampleServiceV1 extends BaseService {
         'limit': _params.limit
       };
 
-      const sdkHeaders = getSdkHeaders('example_service', 'v1', 'listResources');
+      const sdkHeaders = getSdkHeaders(ExampleServiceV1.DEFAULT_SERVICE_NAME, 'v1', 'listResources');
 
       const parameters = {
         options: {
@@ -86,7 +120,7 @@ class ExampleServiceV1 extends BaseService {
    * Create a resource.
    *
    * @param {Object} [params] - The parameters to send to the service.
-   * @param {number} [params.resourceId] - The id of the resource.
+   * @param {string} [params.resourceId] - The id of the resource.
    * @param {string} [params.name] - The name of the resource.
    * @param {string} [params.tag] - A tag value for the resource.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -102,7 +136,7 @@ class ExampleServiceV1 extends BaseService {
         'tag': _params.tag
       };
 
-      const sdkHeaders = getSdkHeaders('example_service', 'v1', 'createResource');
+      const sdkHeaders = getSdkHeaders(ExampleServiceV1.DEFAULT_SERVICE_NAME, 'v1', 'createResource');
 
       const parameters = {
         options: {
@@ -144,7 +178,7 @@ class ExampleServiceV1 extends BaseService {
         'resource_id': _params.resourceId
       };
 
-      const sdkHeaders = getSdkHeaders('example_service', 'v1', 'getResource');
+      const sdkHeaders = getSdkHeaders(ExampleServiceV1.DEFAULT_SERVICE_NAME, 'v1', 'getResource');
 
       const parameters = {
         options: {
@@ -165,16 +199,13 @@ class ExampleServiceV1 extends BaseService {
 
 }
 
-ExampleServiceV1.prototype.name = 'example_service';
-ExampleServiceV1.prototype.serviceVersion = 'v1';
-
 /*************************
  * interfaces
  ************************/
 
 namespace ExampleServiceV1 {
 
-  /** An operation response. **/
+  /** An operation response. */
   export interface Response<T = any>  {
     result: T;
     status: number;
@@ -207,7 +238,7 @@ namespace ExampleServiceV1 {
   /** Parameters for the `createResource` operation. */
   export interface CreateResourceParams {
     /** The id of the resource. */
-    resourceId?: number;
+    resourceId?: string;
     /** The name of the resource. */
     name?: string;
     /** A tag value for the resource. */
@@ -229,11 +260,13 @@ namespace ExampleServiceV1 {
   /** A resource. */
   export interface Resource {
     /** The id of the resource. */
-    resource_id: number;
+    resource_id: string;
     /** The name of the resource. */
     name: string;
     /** A tag value for the resource. */
     tag?: string;
+    /** This is a read only string. */
+    read_only?: string;
   }
 
   /** List of resources. */
