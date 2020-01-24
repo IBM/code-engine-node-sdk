@@ -34,7 +34,7 @@ You can run the linter with the following commands. Replacing “check” with �
 - `npm run eslint:check`
 
 If you run into linter errors on the generated unit tests, you can run the node formatting script stored in the [generator repository](https://github.ibm.com/CloudEngineering/openapi-sdkgen) using:
-- /\<path to generator\>/scripts/node_format.sh /\<path to sdk project\>/test/unit/*.js
+- `/<path to generator>/scripts/node_format.sh /<path to sdk project>/test/unit/*.js`
 
 ## Testing
 SDK tests are organized into “unit” and “integration” tests, which live in `test/unit/` and `test/integration/`, respectively. Unit tests mock the request framework and test that request objects are constructed properly. Integration tests make requests to live service instances and test that the SDK works as intended from end to end.
