@@ -18,7 +18,7 @@ Those steps outline the files necessary to change for each service added. This r
 ## Code Organization
 Code is organized into top-level directories, named after each service. Generated service files live under these directories and are named only by their version, like `v1.ts`. The repository is structured this way so that each service can be imported into a user’s code independently using the following structure: `require('package-name/service-name/version')`.
 
-All generated service code relies on a package called  [`ibm-cloud-sdk-core`](https://github.com/IBM/node-sdk-core)), which contains the generic, shared functionality used across any generated SDK. This package handles authentication and response handling, among other things. It is already installed in this repository, along with all other required dependencies.
+All generated service code relies on a package called  [`ibm-cloud-sdk-core`](https://github.com/IBM/node-sdk-core), which contains the generic, shared functionality used across any generated SDK. This package handles authentication and response handling, among other things. It is already installed in this repository, along with all other required dependencies.
 
 Service code that must be hand-written (like methods for WebSocket APIs) or shared code that is service specific (as in, doesn’t belong in the core) lives in the `lib/` directory.
 
@@ -32,6 +32,9 @@ This repository uses `tslint` for linting the TypeScript code and `eslint` for l
 You can run the linter with the following commands. Replacing “check” with “fix” will cause the linter to automatically fix any linting errors that it can.
 - `npm run tslint:check`
 - `npm run eslint:check`
+
+If you run into linter errors on the generated unit tests, you can run the node formatting script stored in the [generator repository](https://github.ibm.com/CloudEngineering/openapi-sdkgen) using:
+- `/<path to generator>/scripts/node_format.sh /<path to sdk project>/test/unit/*.js`
 
 ## Testing
 SDK tests are organized into “unit” and “integration” tests, which live in `test/unit/` and `test/integration/`, respectively. Unit tests mock the request framework and test that request objects are constructed properly. Integration tests make requests to live service instances and test that the SDK works as intended from end to end.
