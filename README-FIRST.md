@@ -7,11 +7,10 @@ Below are the minimum necessary steps to get started using this template reposit
 1. Clone this repository. Unless you are contributing to the template, change your git remotes to point at the location of your SDK's git repository. Install the dependencies.
 2. Create a directory to hold generated service code. Create as many directories as you have services. Name each directory after the service.
 3. Move each generated source file to its respective location. Service files, which have names like `v1.ts`, belong in the directories created in Step 2. Generated unit tests, which have names like `service-name.v1.test.js`, _all_ belong in the directory `test/unit`.
-4. In order for the TypeScript build system to recognize the new service files, the file `tsconfig.json` must be updated. The file contains instructions on how to update it.
-5. Update the `.gitignore` file to avoid checking the TypeScript-generated code in version control. There is a commented-out example in the file.
-6. To take advantage of generated documentation, add the new service(s) to the file `scripts/typedoc/generate_typedoc.sh`. There is an example in that file as well.
-7. If you want to have integration tests in addition to unit tests, in order to verify the SDK against an actual service instance, you will need to hand-write an integration test suite for each service (hopefully these will be automatically generated in the future!). There is an example test file in `test/integration`with the intended layout of the test suite. The format and tools used are explained in further detail in the [testing section](#testing).
-8. If you do write integration tests, the credentials for the test service instance must be stored in a file called `test/resources/auth.js`. An example is provided in that directory with the intended format.
+4. Update the `.gitignore` file to avoid checking the TypeScript-generated code in version control. There is a commented-out example in the file.
+5. To take advantage of generated documentation, add the new service(s) to the file `scripts/typedoc/generate_typedoc.sh`. There is an example in that file as well.
+6. If you want to have integration tests in addition to unit tests, in order to verify the SDK against an actual service instance, you will need to hand-write an integration test suite for each service (hopefully these will be automatically generated in the future!). There is an example test file in `test/integration`with the intended layout of the test suite. The format and tools used are explained in further detail in the [testing section](#testing).
+7. If you do write integration tests, the credentials for the test service instance must be stored in a file called `test/resources/auth.js`. An example is provided in that directory with the intended format.
 
 Those steps outline the files necessary to change for each service added. This repository also sets you up with Continuous Integration, using Travis, and Automated Release Management, using `semantic-release`. These are active by default and it is recommended that you take advantage of them. The setup of the repository will be explained in more detail below.
 
