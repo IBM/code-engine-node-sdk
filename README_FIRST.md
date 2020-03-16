@@ -98,14 +98,13 @@ travis login --github-token <your-public-github-token> --com
 5. From the root of the node-sdk-template project, run the script in `scripts/update-auth-file.sh`
 6. The script will generate a file called `secrets.tar.enc` in the project folder root directory. Commit the file to your repository
 7. Terminal should print out a command to add to your build script. In that command is a string with the format similar to `encrypted_12345_key`. Copy that string
-8. From the root of the node-sdk-template project, rename `travis.yml` to `.travis.yml`
-9. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
-10. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
-11. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
+8. Replace the string `encrypted_12345_key` with the name of your generated environment variable from the last step
+9. Also replace the string `encrypted_12345_iv` with the name of your generated environment variable, but modify the string from `_key` to `_iv`
+10. Commit the changes you made to the `.travis.yml` file and push to Github. Travis-CI pipeline should automatically start running
 
 The config file `.travis.yml` contains all the instructions necessary to run the recommended build. Each step is described below.
 
-The `before_install` step runs the instructions to decrypt the `auth.js` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds. The mechanism works because if there is no `auth.js` file, the `auth_helper.js` module described above will skip all of the tests.
+The `before_script` step runs the instructions to decrypt the `auth.js` file. It only does for *pushes* to a branch. This is done so that integration tests only run on *push* builds and not on *pull request* builds. The mechanism works because if there is no `auth.js` file, the `auth_helper.js` module described above will skip all of the tests.
 
 The `script` section runs the instructions needed to verify the quality of the code in the push or pull request. It first ensures the code builds with TypeScript. Then, it runs the unit and integration tests. Note that the testing scripts are slightly different for Travis (e.g. `npm run test-unit-travis`. Public Travis does not support multi-threaded `jest` tests, so the option `--runInBand` is necessary. Also, the integration test script is configured to skip any test marked with the tag `@slow`, in case there is a need to skip tests in the Travis build. The output of the integration tests is piped to the script `scripts/report_integration_test.js`. This script is designed to prevent the Travis build from failing due to a `500`-level error, since those errors are the fault of the service and not the SDK. It will then report the errors in the form of a GitHub comment on the PR, if applicable, for awareness. After running the tests, the build checks the dependencies to ensure that they are all compatible with the Node versions supported by the package, specified in the `engines` property in the `package.json` file. Finally, it generates documentation from the JSDoc comments in the code.
 
