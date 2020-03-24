@@ -119,3 +119,30 @@ The `deploy` section is the last step of the build and triggers the automated re
 ## Example SDK
 The Watson Node SDK is a mature, well-developed manifestation of this setup. It provides a great example for anyone getting started with generating SDKs.
   - [Watson Node SDK](https://github.com/watson-developer-cloud/node-sdk)
+
+## Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering
+
+If you plan to gather metrics for your SDK, the `User-Agent` header value must be
+a string similar to the following:
+`my-node-sdk/0.0.1 (lang=node.js; os.name=Linux; os.version=19.3.0; node.version=v10.15.3)`
+
+The key parts are the sdk name (`my-node-sdk`), version (`0.0.1`) and the
+language name (`lang=node.js`).
+This is required because the analytics data collector uses the User-Agent header included
+with each request to gather usage data for IBM Cloud services.
+
+The default implementation of the `getSdkHeaders` method provided in this SDK template
+repository will need to be modified slightly for your SDK.
+Replace the `my-node-sdk/0.0.1` part with the name and version of your
+Node SDK. The rest of the system information should remain as-is.
+
+For example, suppose your Node SDK project is called `platform-services-node-sdk` and its
+version is `2.3.1`.
+The `User-Agent` header value should be:
+`platform-services-node-sdk/2.3.1 (lang=node.js; os.name=Linux; os.version=19.3.0; node.version=v10.15.3)`
+
+__Note__: It is very important that the sdk name ends with the string `-sdk`,
+as the analytics data collector uses this to gather usage data.
+
+More information about the analytics tool, and other steps you should take to start gathering
+metrics for your SDK can be found [here](https://github.ibm.com/CloudEngineering/sdk-analytics).

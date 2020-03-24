@@ -18,14 +18,12 @@
 const common = require('../../dist/lib/common');
 const { getSdkHeaders } = common;
 
-
 describe('Tests of Common Library', () => {
   describe('getSdkHeaders', () => {
     test('should return correct User-Agent header', () => {
       const headers = getSdkHeaders('service1', 'v1', 'operation1');
-      console.log('SDK headers: ', headers);
       expect(headers).not.toEqual(null);
-      expect(headers['User-Agent']).toMatch(/^mysdk\/.*/);
+      expect(headers['User-Agent']).toMatch(/^my-node-sdk\/.*/);
     });
   });
 });
