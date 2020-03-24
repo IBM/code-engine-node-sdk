@@ -55,13 +55,20 @@ npm install mysdk
 ```
 
 ## Using the SDK
-For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+For general SDK usage information, please see
+[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
 
 ## Questions
 
 If you are having difficulties using this SDK or have a question about the IBM Cloud services,
 please ask a question at [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=ibm-cloud) or
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
+
+## Issues
+If you encounter an issue with the SDK, you are welcome to submit
+a [bug report](<github-repo-url>/issues).
+Before that, please search for similar issues. It's possible someone has
+already encountered this issue.
 
 ## Open source @ IBM
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
