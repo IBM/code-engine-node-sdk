@@ -26,6 +26,7 @@ Node.js client library to interact with various [MySDK Service APIs](https://clo
 - [Installation](#installation)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
+- [Issues](#issues)
 - [Open source @ IBM](#open-source--ibm)
 - [Contributing](#contributing)
 - [License](#license)
