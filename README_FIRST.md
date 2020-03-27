@@ -141,7 +141,7 @@ that will guide you in the required modifications:
       dependency is the most recent version (check [here](https://github.com/IBM/node-sdk-core/releases)).
 
   - `lib/common.ts`:  
-    - modify the `sdkname` value to reflect the name of your project (e.g. `platform-services-node-sdk`)
+    - modify the `sdkName` value to reflect the name of your project (e.g. `platform-services-node-sdk`)
     - read the instructions for the `getSdkHeaders()` function and follow as appropriate.
 
   - `test/unit/common.test.js`:
