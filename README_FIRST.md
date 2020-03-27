@@ -216,7 +216,7 @@ Update `.gitignore` to add an entry for your service to the `service-specific ts
 # service-specific tsc outputs (js files)
 my-service/*.js
 ```
-This will ensure that the typescript build outputs are not inadvertently commited to the
+This will ensure that the typescript build outputs are not inadvertently committed to the
 git repository.
 
 Repeat the steps in this section for each service to be included in your project.
