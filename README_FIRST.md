@@ -211,6 +211,14 @@ Update the service table in the `README.md` file to add an entry for the new ser
 Update `scripts/typedoc/generate_typedoc.sh` to add a `typedoc` command for the newly-added
 service.
 
+Update `.gitignore` to add an entry for your service to the `service-specific tsc outputs`, like this:  
+```
+# service-specific tsc outputs (js files)
+my-service/*.js
+```
+This will ensure that the typescript build outputs are not inadvertently commited to the
+git repository.
+
 Repeat the steps in this section for each service to be included in your project.
 
 
