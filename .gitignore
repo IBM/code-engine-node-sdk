@@ -64,6 +64,7 @@ typings/
 
 # dotenv environment variables file
 .env
+*.env
 
 # next.js build output
 .next
@@ -80,3 +81,6 @@ secrets.tar
 
 .project
 .classpath
+
+# SDK generator
+.openapi-generator*
