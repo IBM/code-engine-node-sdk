@@ -143,6 +143,10 @@ that will guide you in the required modifications:
   - `lib/common.ts`:  
     - modify the `sdkname` value to reflect the name of your project (e.g. `platform-services-node-sdk`)
     - read the instructions for the `getSdkHeaders()` function and follow as appropriate.
+
+  - `test/unit/common.test.js`:
+    - modify the regular expression containing the project name to reflect your SDK project's name
+      (e.g. `/^platform-services-node-sdk\/.*/`)
       
   - `README.md`:
     - Change the title to reflect your project
