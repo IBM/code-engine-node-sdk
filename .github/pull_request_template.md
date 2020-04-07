@@ -4,12 +4,12 @@
 **Fixes:** <! -- link to issue -->
 
 ## PR Checklist
-Please make sure that your PR fulfills the following requirements:  
+Please make sure that your PR fulfills the following requirements:
 - [ ] The commit message follows the [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines).
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
 
-## PR Type  
+## PR Type
 <!-- Please check the one that applies to this PR using "x". -->
 - [ ] Bugfix
 - [ ] Feature
@@ -20,13 +20,13 @@ Please make sure that your PR fulfills the following requirements:
 - [ ] Documentation content changes
 - [ ] Other (please describe)
 
-## What is the current behavior?  
+## What is the current behavior?
 <!-- Please describe the current behavior that you are modifying. -->
 
-## What is the new behavior?  
+## What is the new behavior?
 <!-- Please describe the new behavior after your change. -->
 
-## Does this PR introduce a breaking change?    
+## Does this PR introduce a breaking change?
 - [ ] Yes
 - [ ] No
 

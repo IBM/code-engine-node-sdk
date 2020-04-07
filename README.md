@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/CloudEngineering/node-sdk-template/branch/master/graph/badge.svg)](https://codecov.io/gh/CloudEngineering/node-sdk-template)
 -->
 # IBM Cloud MySDK Node.js SDK
-Node.js client library to interact with various [MySDK Service APIs](https://cloud.ibm.com/apidocs?category=<service-category>).
+Node.js client library to interact with various [MySDK APIs](https://cloud.ibm.com/apidocs?category=<service-category>).
 
 ## Table of Contents
 
@@ -36,11 +36,11 @@ Node.js client library to interact with various [MySDK Service APIs](https://clo
 <!-- --------------------------------------------------------------- -->
 ## Overview
 
-The IBM Cloud MySDK Node.js SDK allows developers to programmatically interact with the following 
+The IBM Cloud MySDK Node.js SDK allows developers to programmatically interact with the following
 IBM Cloud services:
 
 Service Name | Import Path
---- | --- 
+--- | ---
 [Example Service](https://cloud.ibm.com/apidocs/example-service) | mysdk/example-service/v1
 
 ## Prerequisites

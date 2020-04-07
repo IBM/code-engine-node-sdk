@@ -49,7 +49,7 @@
     "eslint-plugin-node": "^9.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "installed-check": "^2.2.0",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "prettier": "^1.17.1",
     "semantic-release": "^15.13.25",
     "tsc-publish": "^0.5.2",

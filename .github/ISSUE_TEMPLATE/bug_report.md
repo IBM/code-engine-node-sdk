@@ -26,5 +26,5 @@ If applicable, add screenshots to help explain your problem.
  - Name of operation that you're trying to invoke (if applicable)
 
 **Additional context**
-Add any other context about the problem here.  
+Add any other context about the problem here.
 Were you able to avoid the problem by changing your application code slightly?
