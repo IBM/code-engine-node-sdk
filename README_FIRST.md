@@ -140,6 +140,10 @@ that will guide you in the required modifications:
     - within the `dependencies` field, make sure the version # specified for the `ibm-cloud-sdk-core`
       dependency is the most recent version (check [here](https://github.com/IBM/node-sdk-core/releases)).
 
+  - `.travis.yml`:
+    - Uncomment the `node_js` section.
+    - Remove the entire `jobs` section, as this is applicable only to the template repository's build.
+
   - `lib/common.ts`:  
     - modify the `sdkName` value to reflect the name of your project (e.g. `platform-services-node-sdk`)
     - read the instructions for the `getSdkHeaders()` function and follow as appropriate.
