@@ -5,6 +5,32 @@ This repository serves as a template for Node SDKs that are produced with the
 
 You can use the contents of this repository to create your own Node SDK repository.
 
+## Table of Contents
+<!--
+  The TOC below is generated using the `markdown-toc` node package.
+
+      https://github.com/jonschlinkert/markdown-toc
+
+  You should regenerate the TOC after making changes to this file.
+
+      markdown-toc -i --maxdepth 4 README_FIRST.md
+  -->
+
+<!-- toc -->
+
+- [How to use this repository](#how-to-use-this-repository)
+  * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
+  * [3. Modify selected files](#3-modify-selected-files)
+  * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
+  * [5. Build and test the project](#5-build-and-test-the-project)
+- [Integration tests](#integration-tests)
+- [Continuous Integration](#continuous-integration)
+  * [Release management with semantic-release](#release-management-with-semantic-release)
+  * [Encrypting secrets](#encrypting-secrets)
+- [Setting the ``User-Agent`` Header In Preparation for SDK Metrics Gathering](#setting-the-user-agent-header-in-preparation-for-sdk-metrics-gathering)
+
+<!-- tocstop -->
+
 ## How to use this repository
 
 ### 1. Create your new github repository from this template
@@ -182,49 +208,9 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-### 4. Generate the Node.js code with the IBM OpenAPI SDK Generator
-This is the step that you've been waiting for!
-
-In this step, you'll invoke the IBM OpenAPI SDK Generator to process your API definition(s).
-
-This will generate a collection of source files which you will need to include in your SDK project.
-
-You'll find instructions on how to do this on the [generator repository wiki](https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Usage-Instructions).
-
-Set the output location for the generated files to be the root directory of the project.
-
-Here is an example of how to generate the SDK code for an API definition.
-Suppose your API definition file is named `my-service.json` and contains the definition of the "My Service"
-service.
-To generate the code into your project, run these commands:
-```sh
-cd <project-root>
-
-openapi-sdkgen.sh generate -g ibm-go -i my-service.json -o .
-
-```
-The generated service code is placed in a source directory named after the service
-(`my-service` for this example) under the project root.
-You should have one source directory per service.
-
-The unit test code is placed in `test/unit` with a filename that reflects the service
-(`my-service.v1.test.js` for this example).
-
-Update the service table in the `README.md` file to add an entry for the new service.
-
-Update `scripts/typedoc/generate_typedoc.sh` to add a `typedoc` command for the newly-added
-service.
-
-Update `.gitignore` to add an entry for your service to the `service-specific tsc outputs`, like this:  
-```
-# service-specific tsc outputs (js files)
-my-service/*.js
-```
-This will ensure that the typescript build outputs are not inadvertently committed to the
-git repository.
-
-Repeat the steps in this section for each service to be included in your project.
-
+### 4. Add one or more services to the project
+For each service that you'd like to add to your SDK project, follow
+[these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_nodejs.md#adding-a-new-service).
 
 ### 5. Build and test the project
 If you made it this far, congratulate yourself!
