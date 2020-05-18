@@ -20,9 +20,9 @@ You can use the contents of this repository to create your own Node SDK reposito
 
 - [How to use this repository](#how-to-use-this-repository)
   * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
-  * [3. Modify selected files](#3-modify-selected-files)
-  * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
-  * [5. Build and test the project](#5-build-and-test-the-project)
+  * [2. Modify selected files](#3-modify-selected-files)
+  * [3. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
+  * [4. Build and test the project](#5-build-and-test-the-project)
 - [Integration tests](#integration-tests)
 - [Continuous Integration](#continuous-integration)
   * [Release management with semantic-release](#release-management-with-semantic-release)
@@ -51,7 +51,7 @@ To create a new SDK repository from this template, follow these instructions:
     - `<service-category>` refers to the IBM Cloud service category associated with the services that
 	  will be included in the project (e.g. `platform-services`)
     - `<language>` is the language associated with the SDK project (e.g. `node`)
-	
+
 4. Click the `Create repository from template` button to create the new repository  
 
 If your goal is to create the new SDK repository on the `Github Enterprise` server (github.ibm.com),
@@ -98,7 +98,7 @@ Resolving deltas: 100% (1/1), done.
 [/work/demos]
 $ cd my-node-sdk
 [/work/demos/my-node-sdk]
-$ 
+$
 ```
 
 8. Remove the existing remote:  
@@ -136,9 +136,21 @@ You have now created your new SDK repository on the `Public Github` server.
 You may want to now delete the new SDK repository that you created on the `Github Enterprise`
 server since it will no longer be used now that you have created your repository on `Public Github`.
 
+### 2. Modify selected files
 
-### 3. Modify selected files
+#### Automatic Script
+Use the `prepare_project.sh` script to perform the below modifications automatically. It will delete the `example service` files and update the corresponding sections with the specified values.  Read through this entire file and look at the sample integration tests before invoking this script.
 
+To use this script, execute the invocation command with your service-specific information. For example:
+```bash
+prepare_project.sh [-n PACKAGE_NAME] [-p PROJECT_NAME] [-d \"Project Description\"] [-g GIT_URL] [-s SDK_NAME] [-c SERVICE_CATEGORY] [-h]
+
+prepare_project.sh -n ibm-ai-services -p ai-services -d "The AI service for IBM" -g https://github.com/IBM/ai-services-node-sdk -s "IBM AI Services Node SDK" -c machine-learning-services
+```
+
+To view the changes made by this script, run `git diff`.  To scrap the changes made by the script run `git checkout .`, or use `git stash` to save the changes. before rerunning the script.  If satisfied with the output, commit and push the changes to the remote repository.
+
+#### Manual Steps
 - In this section, you'll modify various files within your new SDK repository to reflect
 the proper names and settings for your specific project.
 
@@ -177,7 +189,7 @@ that will guide you in the required modifications:
   - `test/unit/common.test.js`:
     - modify the regular expression containing the project name to reflect your SDK project's name
       (e.g. `/^platform-services-node-sdk\/.*/`)
-      
+
   - `README.md`:
     - Change the title to reflect your project
     - Change the `cloud.ibm.com/apidocs` link to reflect the correct service category
@@ -208,24 +220,24 @@ git commit -m "chore: initial SDK project setup"
 ```
 
 
-### 4. Add one or more services to the project
+### 3. Add one or more services to the project
 For each service that you'd like to add to your SDK project, follow
 [these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_nodejs.md#adding-a-new-service).
 
-### 5. Build and test the project
+### 4. Build and test the project
 If you made it this far, congratulate yourself!
 
 After preparing your new SDK project and then generating the service and unit test
 code for your service(s), it's time to build and test your project.
 
 This repository uses the [TypeScript](https://www.typescriptlang.org/) framework,
-so code must be “built" after being edited using the `npm run build` command. 
+so code must be “built" after being edited using the `npm run build` command.
 
-Note that the built code is written into a separate distribution directory called `dist`. 
-This is to maintain a clean working directory, uncluttered by `.js`, `.js.map`, and `.d.ts` files. 
+Note that the built code is written into a separate distribution directory called `dist`.
+This is to maintain a clean working directory, uncluttered by `.js`, `.js.map`, and `.d.ts` files.
 The project is configured to maintain the desired structure within the `dist` directory and
-will automatically release the project from this directory so that the end user is able to import 
-the modules using the import paths listed in the service table inside the `README.md` file 
+will automatically release the project from this directory so that the end user is able to import
+the modules using the import paths listed in the service table inside the `README.md` file
 for each service.
 
 To build and test all of the code within your project, you can run these commands in the project
@@ -238,13 +250,13 @@ npm run build
 npm run test-unit
 ```
 
-This repository uses `tslint` for linting the TypeScript code and `eslint` for linting the 
-JavaScript test files. 
-The rules for each are defined in `tslint.json` and `test/.eslintrc.js`, respectively. 
-It is recommended that you do not change these files, since the generated code complies with the 
+This repository uses `tslint` for linting the TypeScript code and `eslint` for linting the
+JavaScript test files.
+The rules for each are defined in `tslint.json` and `test/.eslintrc.js`, respectively.
+It is recommended that you do not change these files, since the generated code complies with the
 defined rules.
 
-You can run the linter with the following commands. 
+You can run the linter with the following commands.
 Replacing “check” with “fix” will cause the linter to automatically fix any linting errors that it can.
 - `npm run tslint:check`
 - `npm run eslint:check`
@@ -275,7 +287,7 @@ you'll need an actual running instance of the example service.
 To run this service, clone the [Example Service repo](https://github.ibm.com/CloudEngineering/example-service)
 and follow the instructions there for how to start up an instance of the example service.
 
-More details related to developing and running tests can be found 
+More details related to developing and running tests can be found
 [here](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_nodejs.md).
 
 
