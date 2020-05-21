@@ -307,13 +307,26 @@ or [Travis Enterprise](https://travis.ibm.com) for continuous integration.
 
 The `.travis.yml` file contains all the instructions necessary to run the build.
 
-For details related to the `travis.yml` file, see
+For details related to the `.travis.yml` file, see
 [this](https://docs.travis-ci.com/user/customizing-the-build/)
 
 ### Release management with semantic-release
 The `.travis.yml` file included in this template repository is configured to
 perform automated release management with
 [semantic-release](https://semantic-release.gitbook.io/semantic-release/).
+You can see the deployment-related steps in the `deploy` stage of the `.travis.yml` file.
+
+BEFORE you enable automated builds in Travis and AFTER you perform the initial project preparation,
+you should add an initial tag (`v0.0.1`) to your repo and push it to remote:  
+```sh
+cd <project-root>
+git tag v0.0.1
+git push --tags
+```
+This creates an initial "baseline" which `semantic-release` will use when merging the initial set of
+commits into the master branch.   This tag represents the initial version of the project.
+After adding this tag, be sure to use proper commit messages when making changes to the project.
+See the CONTRIBUTING document for information about commit messages.
 
 When you configure your SDK project in Travis, be sure to set these environment variables in your
 Travis build settings:  
@@ -325,6 +338,15 @@ If you are using `Travis Enterprise` (travis.ibm.com), you'll need to add these 
 as well:  
 - `GH_URL`: set this to the string `https://github.ibm.com`
 - `GH_PREFIX`: set this to the string `/api/v3`
+
+As a final step, be sure to uncomment the `deploy` stage within `.travis.yml`.
+
+Once these steps have been completed, your project should be ready for automated release management
+with `semantic-release`.  This means that whenever you merge a PR into the master branch, the commit
+messages are analyzed by `semantic-release` to determine the next version number for the project
+(i.e. a new patch, minor or major version).  Once that is determined, `semantic-release` will perform
+actions to modify certain files within the project to reflect the new version, as well as 
+build a new entry in the project's changelog and add a tag for the new version.
 
 ### Encrypting secrets
 To run integration tests within a Travis build, you'll need to encrypt the file containing the
