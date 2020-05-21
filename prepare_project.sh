@@ -4,7 +4,7 @@ set -e
 print_usage () {
     echo "
 usage:
-   ./prepare_project.sh [-n PACKAGE_NAME] [-p PROJECT_NAME] [-d \"Project Description\"] [-g GIT_URL] [-s SDK_NAME] [-c SERVICE_CATEGORY] [-h]
+   ./prepare_project.sh -n <npm-package-name> -p <sdk-project-name> -d <project-description> -g <git-repo-url> -s <service-category-description> -c <service-category-name>
 where:
    -n: specify the NPM package name (e.g. ibm-platform-services)
    -p: specify project name (e.g. platform-services-node-sdk)
