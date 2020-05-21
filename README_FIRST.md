@@ -226,7 +226,7 @@ to the common CONTRIBUTING document).
 Example:
 ```sh
 cd <project-root>
-git commit -a -m "chore: prepare SDK project
+git commit -a -m "chore: prepare SDK project"
 ```
 
 
