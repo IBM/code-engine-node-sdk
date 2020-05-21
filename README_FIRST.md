@@ -139,16 +139,27 @@ server since it will no longer be used now that you have created your repository
 ### 2. Modify selected files
 
 #### Automatic Script
-Use the `prepare_project.sh` script to perform the below modifications automatically. It will delete the `example service` files and update the corresponding sections with the specified values.  Read through this entire file and look at the sample integration tests before invoking this script.
+Use the `prepare_project.sh` script to perform the below modifications automatically. 
+It will delete the `example service` files and update the corresponding sections with the specified values.
+Read through the manual steps below to understand the changes performed by the `prepare_project.sh` script.
 
-To use this script, execute the invocation command with your service-specific information. For example:
+Here is a description of the various options that you can pass to the script:
 ```bash
-prepare_project.sh [-n PACKAGE_NAME] [-p PROJECT_NAME] [-d \"Project Description\"] [-g GIT_URL] [-s SDK_NAME] [-c SERVICE_CATEGORY] [-h]
-
-prepare_project.sh -n ibm-ai-services -p ai-services -d "The AI service for IBM" -g https://github.com/IBM/ai-services-node-sdk -s "IBM AI Services Node SDK" -c machine-learning-services
+prepare_project.sh -n <npm-package-name> -p <sdk-project-name> -d <project-description> \
+        -g <git-repo-url> -s <service-category-description> -c <service-category-name>
 ```
 
-To view the changes made by this script, run `git diff`.  To scrap the changes made by the script run `git checkout .`, or use `git stash` to save the changes. before rerunning the script.  If satisfied with the output, commit and push the changes to the remote repository.
+Here is an example of how to run the script for the `platform-services-node-sdk` project:  
+```bash
+cd <project-root>
+./prepare_project.sh -n ibm-platform-services -p platform-services-node-sdk -d "IBM Cloud Platform Services Node.js SDK" \
+       -g https://github.com/IBM/platform-services-node-sdk -s "Platform Services" -c platform-services
+```
+
+- To list the files changed by the script, run : `git status`  
+- To view the changes made by this script, run: `git diff`  
+- To discard the changes made by the script, run `git checkout .`, or `git stash`  
+- If satisfied with the changes, then just commit the changes (e.g. `git commit -a -m "chore: prepare SDK project"`)
 
 #### Manual Steps
 - In this section, you'll modify various files within your new SDK repository to reflect
@@ -215,8 +226,7 @@ to the common CONTRIBUTING document).
 Example:
 ```sh
 cd <project-root>
-git add .
-git commit -m "chore: initial SDK project setup"
+git commit -a -m "chore: prepare SDK project
 ```
 
 
