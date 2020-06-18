@@ -37,7 +37,6 @@ jobs:
 
 after_success:
 - npm run report-coverage
-# - scripts/jsdoc/publish.sh - currently in progress
 
 # To enable semantic-release, uncomment this section.
 # deploy:
