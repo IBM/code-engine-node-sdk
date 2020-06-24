@@ -180,8 +180,8 @@ that will guide you in the required modifications:
 
   - `package.json`:
     - modify the `name` field to reflect the npm package name associated with your project
-      (e.g. `ibm-cloud-platform`).  It is strongly recommended that you follow the
-      pattern: `ibm-cloud-<service-category>`.
+      (e.g. `ibm-platform-services`).  It is strongly recommended that you follow the
+      pattern: `ibm-<service-category>`.
     - modify the `description` field to reflect the description of your project
       (e.g. `IBM Cloud Platform Services Node.js SDK`)
     - modify the `repository.url` field to reflect your project's github url
@@ -211,7 +211,7 @@ that will guide you in the required modifications:
       service contained in your SDK project in this table, along with a link to the online reference docs
       and the name of the generated service class.
     - In the Installation section, modify `mysdk` to reflect your project's npm package name, which
-      should match the `name` field in package.json (e.g. `ibm-cloud-platform`)
+      should match the `name` field in package.json (e.g. `ibm-platform-services`)
     - In the "Issues" section, modify `<github-repo-url>` to reflect the Github URL for your project.
     - Note that the README.md file contains a link to a common README document where general
       SDK usage information can be found.
