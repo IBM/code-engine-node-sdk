@@ -30,6 +30,8 @@ const timeout = 10000;
 //   EXAMPLE_SERVICE_AUTHTYPE
 //   EXAMPLE_SERVICE_URL
 //   EXAMPLE_SERVICE_TEST_RESOURCE_ID   <== test-specific property
+// Rename `example-service.env.hide` in the project directory to `example-service.env`
+// to use the filename provided below.
 const configFile = 'example-service.env';
 // Use authHelper to skip tests if our configFile is not available
 // This step also sets env var IBM_CREDENTIALS_FILE=<configFile>
@@ -49,7 +51,7 @@ describe('ExampleServiceV1_integration', () => {
   let testTitle;
   let testTag;
 
-  it('should successfully complete initialization', done => {
+  it('should successfully complete initialization', () => {
     // Initialize the service client.
     service = ExampleServiceV1.newInstance({});
     expect(service).not.toBeNull();
@@ -72,8 +74,6 @@ describe('ExampleServiceV1_integration', () => {
 
     testTag = config.testTag;
     expect(testTag).toBeTruthy();
-
-    done();
   });
 
   // nested describe statements are helpful when organizing multiple categories of an api
@@ -81,21 +81,15 @@ describe('ExampleServiceV1_integration', () => {
     // variable shared among the test blocks that follow.
     let resourceId;
 
-    it('listResources', async done => {
-      let response;
-      try {
-        response = await service.listResources();
-      } catch (err) {
-        done(err);
-      }
+    it('listResources', async () => {
+      const response = await service.listResources();
 
       expect(response).toBeDefined();
       const { result } = response || {};
       expect(result).toBeDefined();
-      done();
     });
 
-    it('createResource', async done => {
+    it('createResource', async () => {
       // Create a new resource using our test properties.
       const params = {
         name: testTitle,
@@ -103,12 +97,7 @@ describe('ExampleServiceV1_integration', () => {
         tag: testTag,
       };
 
-      let response;
-      try {
-        response = await service.createResource(params);
-      } catch (err) {
-        done(err);
-      }
+      const response = await service.createResource(params);
 
       expect(response).toBeDefined();
       const { result } = response || {};
@@ -119,30 +108,23 @@ describe('ExampleServiceV1_integration', () => {
 
       // extract the id for the created resource to be used in later tests
       resourceId = result.resource_id;
-      done();
     });
 
-    it('getResource', async done => {
+    it('getResource', async () => {
       // if the resource creation failed, skip this test
       if (!resourceId) {
-        return done();
+        return;
       }
 
       const params = {
         resourceId,
       };
 
-      let response;
-      try {
-        response = await service.getResource(params);
-      } catch (err) {
-        done(err);
-      }
+      const response = await service.getResource(params);
 
       expect(response).toBeDefined();
       const { result } = response || {};
       expect(result).toBeDefined();
-      done();
     });
   });
 });
