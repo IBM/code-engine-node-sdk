@@ -20,9 +20,12 @@ You can use the contents of this repository to create your own Node SDK reposito
 
 - [How to use this repository](#how-to-use-this-repository)
   * [1. Create your new github repository from this template](#1-create-your-new-github-repository-from-this-template)
-  * [2. Modify selected files](#3-modify-selected-files)
-  * [3. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
-  * [4. Build and test the project](#5-build-and-test-the-project)
+  * [2. Sanity-check your new repository](#2-sanity-check-your-new-repository)
+  * [3. Modify selected files](#3-modify-selected-files)
+    + [Automatic Script](#automatic-script)
+    + [Manual Steps](#manual-steps)
+  * [4. Add one or more services to the project](#4-add-one-or-more-services-to-the-project)
+  * [5. Build and test the project](#5-build-and-test-the-project)
 - [Integration tests](#integration-tests)
 - [Continuous Integration](#continuous-integration)
   * [Release management with semantic-release](#release-management-with-semantic-release)
@@ -136,7 +139,56 @@ You have now created your new SDK repository on the `Public Github` server.
 You may want to now delete the new SDK repository that you created on the `Github Enterprise`
 server since it will no longer be used now that you have created your repository on `Public Github`.
 
-### 2. Modify selected files
+### 2. Sanity-check your new repository
+
+After creating your new SDK repository from the template repository, and cloning it
+into your local development environment, you can do a quick sanity check by
+running these commands in the project root directory:
+```
+npm install
+npm run test-unit
+```
+You should see output like this:
+```
+$ npm install
+...
+
+$ npm run test-unit
+
+> mysdk@0.0.1 test-unit /work/templates/node
+> npm run build && jest test/unit/
+
+
+> mysdk@0.0.1 build /work/templates/node
+> tsc && cp package.json dist/
+
+
+ PASS  test/unit/common.test.js
+ PASS  test/unit/example-service.v1.test.js
+-----------------|----------|----------|----------|----------|-------------------|
+File             |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+-----------------|----------|----------|----------|----------|-------------------|
+All files        |    83.61 |    41.67 |       90 |    82.46 |                   |
+ example-service |    80.39 |    41.67 |    88.89 |    78.72 |                   |
+  v1.ts          |    80.39 |    41.67 |    88.89 |    78.72 |... 53,54,55,57,74 |
+ lib             |      100 |      100 |      100 |      100 |                   |
+  common.ts      |      100 |      100 |      100 |      100 |                   |
+-----------------|----------|----------|----------|----------|-------------------|
+
+Test Suites: 2 passed, 2 total
+Tests:       11 passed, 11 total
+Snapshots:   0 total
+Time:        2.055s
+Ran all test suites matching /test\/unit\//i.
+
+```
+
+Note: the first time you `install`, you'll see output showing
+that `npm` is downloading the dependencies needed by the project since
+they're not yet cached in your environment.
+
+
+### 3. Modify selected files
 
 #### Automatic Script
 Use the `prepare_project.sh` script to perform the below modifications automatically. 
@@ -230,11 +282,11 @@ git commit -a -m "chore: prepare SDK project"
 ```
 
 
-### 3. Add one or more services to the project
+### 4. Add one or more services to the project
 For each service that you'd like to add to your SDK project, follow
 [these instructions](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_nodejs.md#adding-a-new-service).
 
-### 4. Build and test the project
+### 5. Build and test the project
 If you made it this far, congratulate yourself!
 
 After preparing your new SDK project and then generating the service and unit test
