@@ -151,7 +151,7 @@ npm run test-unit
 You should see output like this:
 ```
 $ npm install
-...
+   <npm install output>
 
 $ npm run test-unit
 
