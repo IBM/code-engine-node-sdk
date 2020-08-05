@@ -34,13 +34,13 @@ module.exports.prepareTests = filename => {
   // Save off the name of the config file.
   configFilename = filename;
 
-  // set the filepath as an environment variable so that the
-  // service factory can find it.
-  process.env.IBM_CREDENTIALS_FILE = filename;
-
   configFileExists = fs.existsSync(filename);
 
   if (configFileExists) {
+    // set the filepath as an environment variable so that the
+    // service factory can find it.
+    process.env.IBM_CREDENTIALS_FILE = filename;
+
     describeToUse = describe;
   } else {
     describeToUse = describe.skip.bind(describe);
