@@ -1,3 +1,7 @@
+# development guide ignores
+swagger.json
+openapi-sdkgen
+
 # tsc outputs
 lib/*.js
 auth/*.js
