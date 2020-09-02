@@ -1,4 +1,3 @@
-### Specific to this repository ###
 # tsc outputs
 lib/*.js
 auth/*.js
@@ -6,8 +5,7 @@ auth/*.js
 **/*.js.map
 
 # service-specific tsc outputs (js files)
-example-service/*.js
-# IGNORE YOUR SERVICE FILES HERE
+ibm-cloud-code-engine/*.js
 
 # file holding service credentials
 test/resources/auth.js

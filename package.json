@@ -1,10 +1,10 @@
 {
-  "name": "mysdk",
+  "name": "ibm-code-engine-sdk",
   "version": "0.0.1",
-  "description": "IBM Cloud Node SDK",
+  "description": "NodeJS SDK for IBM Cloud Code Engine",
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/CloudEngineering/node-sdk-template"
+    "url": "https://github.ibm.com/coligo/node-sdk"
   },
   "keywords": [
     "ibm"

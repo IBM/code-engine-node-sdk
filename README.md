@@ -1,11 +1,11 @@
-[![Build Status](https://travis.ibm.com/CloudEngineering/node-sdk-template.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/CloudEngineering/node-sdk-template)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 <!--
-[![npm-version](https://img.shields.io/npm/v/CloudEngineering/node-sdk-template.svg)](https://www.npmjs.com/package/node-sdk-template)
-[![codecov](https://codecov.io/gh/CloudEngineering/node-sdk-template/branch/master/graph/badge.svg)](https://codecov.io/gh/CloudEngineering/node-sdk-template)
+[![Build Status](https://travis-ci.com/IBM/code-engine-node-sdk.svg?token=eW5FVD71iyte6tTby8gr&branch=master)](https://travis.ibm.com/IBM/code-engine-node-sdk)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![npm-version](https://img.shields.io/npm/v/IBM/code-engine-node-sdk.svg)](https://www.npmjs.com/package/code-engine-sdk)
+[![codecov](https://codecov.io/gh/IBM/code-engine-node-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/IBM/code-engine-node-sdk)
 -->
-# IBM Cloud MySDK Node.js SDK
-Node.js client library to interact with various [MySDK APIs](https://cloud.ibm.com/apidocs?category=<service-category>).
+# NodeJS SDK for IBM Cloud Code Engine
+Node.js client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
@@ -39,12 +39,11 @@ Changes might occur which impact applications that use this SDK.
 <!-- --------------------------------------------------------------- -->
 ## Overview
 
-The IBM Cloud MySDK Node.js SDK allows developers to programmatically interact with the following
-IBM Cloud services:
+The IBM Cloud Code Engine Node.js SDK allows developers to programmatically interact with the following IBM Cloud services:
 
 Service Name | Import Path
 --- | ---
-[Example Service](https://cloud.ibm.com/apidocs/example-service) | mysdk/example-service/v1
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine) | ibm-code-engine-sdk/ibm-cloud-code-engine/v1
 
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
@@ -55,7 +54,7 @@ Service Name | Import Path
 ## Installation
 
 ```sh
-npm install mysdk
+npm install ibm-code-engine-sdk
 ```
 
 ## Using the SDK
@@ -70,7 +69,7 @@ please ask a question at
 
 ## Issues
 If you encounter an issue with the SDK, you are welcome to submit
-a [bug report](<github-repo-url>/issues).
+a [bug report](https://github.com/IBM/code-engine-node-sdk/issues).
 Before that, please search for similar issues. It's possible someone has
 already encountered this issue.
 
