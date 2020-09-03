@@ -1,7 +1,5 @@
 # Code Engine NodeJS SDK Demo
 
-For general documention on IBM Cloud SDKs, see the [IBM Cloud SDK Common Readme](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
-
 ## Working with the demo
 
 To run the demo, run the following commands from this directory:
