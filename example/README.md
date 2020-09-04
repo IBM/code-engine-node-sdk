@@ -1,13 +1,13 @@
-# Code Engine NodeJS SDK Demo
+# Code Engine NodeJS SDK Example
 
-## Working with the demo
+## Running example.js
 
-To run the demo, run the following commands from this directory:
+To run the example, create a Code Engine project from the Console or Code Engine CLI, and  run the following commands from this directory:
 1. `npm install`
-2. `export CE_API_KEY=<An IBM Cloud API key>`
-3. `export CE_PROJECT_ID=<A Code Engine project ID>`
+2. `export CE_API_KEY=<Your IBM Cloud API key>`
+3. `export CE_PROJECT_ID=<Your Code Engine project ID>`
 4. `export CE_PROJECT_REGION=<The region (e.g. 'us-south') of your Code Engine project>`
-5. `node index.js`
+5. `node example.js`
 
 ## How-to
 

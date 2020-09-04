@@ -6,7 +6,7 @@ const k8s = require('@kubernetes/client-node');
 
 if (!process.env.CE_API_KEY || !process.env.CE_PROJECT_ID || !process.env.CE_PROJECT_REGION) {
   throw new Error(
-    'You must set the envrionment variables CE_API_KEY, CE_PROJECT_REGION and CE_PROJECT_ID before using the demo.'
+    'You must set the envrionment variables CE_API_KEY, CE_PROJECT_REGION and CE_PROJECT_ID before using the example.'
   );
 }
 

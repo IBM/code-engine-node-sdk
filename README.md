@@ -58,7 +58,7 @@ npm install ibm-code-engine-sdk
 ```
 
 ## Using the SDK
-Examples and a demo are available in the [demo](/demo) folder.
+Examples and a demo are available in the [example](/example) folder.
 
 For general SDK usage information, please see
 [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)

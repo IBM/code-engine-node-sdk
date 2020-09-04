@@ -2,9 +2,9 @@
   "name": "code-engine-sdk-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "example.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo 'No tests'"
   },
   "author": "",
   "license": "ISC",
