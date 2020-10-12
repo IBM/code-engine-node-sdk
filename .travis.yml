@@ -17,9 +17,9 @@ node_js:
 install:
 - npm install
 - npm run build
-- npm run lint
 
 script:
+# - npm run lint
 - npm run test-travis || travis_terminate 1
 - npm run check-packages
 - npm run unit-test
