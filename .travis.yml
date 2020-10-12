@@ -14,11 +14,16 @@ node_js:
 # before_install:
 # -  'openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
 
-script:
+install:
+- npm install
 - npm run build
-- npm run test-travis || travis_terminate 1
 - npm run lint
+
+script:
+- npm run test-travis || travis_terminate 1
 - npm run check-packages
+- npm run unit-test
+- ./test-integration.sh
 # - sh scripts/typedoc/generate_typedoc.sh currently in progress
 
 after_success:
