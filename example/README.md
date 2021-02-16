@@ -28,11 +28,32 @@ const ceClient = new CodeEngineV1({
 });
 ```
 
+### Use an HTTP library of your choice to get a Delegated Refresh Token from IAM
+This example uses [Axios](https://www.npmjs.com/package/axios) for its async/await support and [querystring](https://nodejs.org/api/querystring.html) to encode the request parameters.
+```js
+const iamResponse = await axios.post('https://iam.cloud.ibm.com/identity/token', querystring.stringify({
+  grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
+  apikey: process.env.CE_API_KEY,
+  response_type: 'delegated_refresh_token',
+  receiver_client_ids: 'ce',
+  delegated_refresh_token_expiry: '3600'
+}), {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+})
+const delegatedRefreshToken = iamResponse.data.delegated_refresh_token;
+```
+
 ### Use the Code Engine client to get a Kubernetes config
 ```js
-const tokenResponse = await authenticator.tokenManager.requestToken();
-const configResponse = await ceClient.listKubeconfig({
-    refreshToken: tokenResponse.result.refresh_token,
-    id: 'YOUR_PROJECT_ID_HERE',
+const configResponse = await ceClient.getKubeconfig({
+  xDelegatedRefreshToken: delegatedRefreshToken,
+  id: process.env.CE_PROJECT_ID,
 });
+const kubeConfigString = configResponse.result;
 ```
+
+## Deprecated endpoint
+
+The `/namespaces/{id}/config` endpoint function, `listKubeconfig()`, is deprecated, and will be removed before Code Engine is out of Beta. Please use the `getKubeconfig()` function, demonstrated in the example above.
