@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable require-jsdoc */
+/* eslint-disable node/no-unpublished-require */
 const CodeEngineV1 = require('../dist/ibm-cloud-code-engine/v1'); // require('ibm-code-engine-sdk/ibm-cloud-code-engine/v1');
 const { IamAuthenticator } = require('../dist/auth'); // require('ibm-code-engine-sdk/auth');
 const k8s = require('@kubernetes/client-node');
@@ -27,35 +28,38 @@ const ceClient = new CodeEngineV1({
 
 async function main() {
   // Use the http library to get an IAM Delegated Refresh Token
-  let iamResponse, delegatedRefreshToken;
+  let iamResponse;
+  let delegatedRefreshToken;
   try {
-    iamResponse = await axios.post('https://iam.cloud.ibm.com/identity/token', querystring.stringify({
-      'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
-      'apikey': process.env.CE_API_KEY,
-      'response_type': 'delegated_refresh_token',
-      'receiver_client_ids': 'ce',
-      'delegated_refresh_token_expiry': '3600'
-    }), {
-      'headers': {
-        'Content-Type': 'application/x-www-form-urlencoded'
+    iamResponse = await axios.post(
+      'https://iam.cloud.ibm.com/identity/token',
+      querystring.stringify({
+        'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
+        'apikey': process.env.CE_API_KEY,
+        'response_type': 'delegated_refresh_token',
+        'receiver_client_ids': 'ce',
+        'delegated_refresh_token_expiry': '3600',
+      }),
+      {
+        'headers': {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       }
-    })
+    );
     delegatedRefreshToken = iamResponse.data.delegated_refresh_token;
-  } catch(err) {
-    console.error('IAM POST /identity/token err:'+err);
-    process.exit(1);
+  } catch (err) {
+    throw err;
   }
 
   // Get Code Engine project config using the Code Engine client.
   let configResponse;
   try {
-     configResponse = await ceClient.getKubeconfig({
+    configResponse = await ceClient.getKubeconfig({
       xDelegatedRefreshToken: delegatedRefreshToken,
       id: process.env.CE_PROJECT_ID,
     });
-  } catch(err) {
-    console.error('getKubeconfig err:'+err);
-    process.exit(1);
+  } catch (err) {
+    throw err;
   }
 
   // Setup Kubernetes client.
@@ -71,10 +75,8 @@ async function main() {
       `Project ${process.env.CE_PROJECT_ID} has ${configMapList.body.items.length} configmaps.`
     );
   } catch (err) {
-    console.error('listNamespacedConfigMap err:'+err);
-    process.exit(1);
+    throw err;
   }
-  
 }
 
 main();
