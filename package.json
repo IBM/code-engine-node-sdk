@@ -35,23 +35,22 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "@types/node": "^12.0.8",
-    "code-engine-sdk-demo": "file:example",
+    "@types/node": "^12.20.24",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^2.7.2"
+    "ibm-cloud-sdk-core": "^2.14.1"
   },
   "devDependencies": {
     "@masterodin/publisher": "^0.7.0",
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.12",
-    "axios": "^0.21.1",
-    "codecov": "^3.5.0",
-    "dotenv": "^8.2.0",
+    "axios": "^0.21.4",
+    "codecov": "^3.8.3",
+    "dotenv": "^8.6.0",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-node": "^9.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^3.4.1",
     "installed-check": "^2.2.0",
     "jest": "^24.9.0",
     "prettier": "^1.17.1",
@@ -60,7 +59,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.9.10"
   },
   "jest": {
     "collectCoverage": true,
