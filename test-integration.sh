@@ -7,10 +7,11 @@
 echo "Running integration tests..."
 
 # Setup example package
-npm install -p example
+cd example
+npm install
 
 # Run example, get exit code
-exampleoutput=$(node example/example.js)
+exampleoutput=$(node ./example.js)
 exampleexit=$?
 if [ $exampleexit -ne 0 ]; then
     echo "Integration tests failed with exit code $exampleexit"
