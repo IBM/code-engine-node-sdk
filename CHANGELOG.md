@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.1...v0.1.2) (2021-09-07)
+
+
+### Bug Fixes
+
+* **build:** remove dry-run flag to enable npm publish ([3cd56ab](https://github.com/IBM/code-engine-node-sdk/commit/3cd56ab3b209b241415074f989d0f2f38466b335))
+
 ## [0.1.1](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.0...v0.1.1) (2021-09-07)
 
 

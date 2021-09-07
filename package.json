@@ -1,6 +1,6 @@
 {
   "name": "ibm-code-engine-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "NodeJS SDK for IBM Cloud Code Engine",
   "repository": {
     "type": "git",
