@@ -1,3 +1,10 @@
+## [0.1.5](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.4...v0.1.5) (2021-09-07)
+
+
+### Bug Fixes
+
+* **build:** fixed integration test execution ([bb6a0e1](https://github.com/IBM/code-engine-node-sdk/commit/bb6a0e1a33b25dcbf22557f5f2a893e00d2332d3))
+
 ## [0.1.4](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.3...v0.1.4) (2021-09-07)
 
 
