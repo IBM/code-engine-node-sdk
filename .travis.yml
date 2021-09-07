@@ -8,8 +8,8 @@ branches:
   - main
 
 node_js:
-- 10
 - 12
+- 14
 
 # before_install:
 # -  'openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
@@ -29,10 +29,10 @@ after_success:
 - npm run report-coverage
 
 # To enable semantic-release, uncomment this section.
-# deploy:
-# - provider: script
-#   skip_cleanup: true
-#   script: npx semantic-release
-#   on:
-#     node: 12
-#     branch: master
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: npx semantic-release
+  on:
+    node: 12
+    branch: main
