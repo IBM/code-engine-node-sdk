@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "@types/node": "^12.20.24",
-    "code-engine-sdk-demo": "file:example",
     "extend": "^3.0.2",
     "ibm-cloud-sdk-core": "^2.14.1"
   },
