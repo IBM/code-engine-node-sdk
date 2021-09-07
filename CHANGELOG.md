@@ -1,3 +1,12 @@
+## [0.1.3](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.2...v0.1.3) (2021-09-07)
+
+
+### Bug Fixes
+
+* **build:** exclude example directory from npm module ([797481e](https://github.com/IBM/code-engine-node-sdk/commit/797481e163e563ca62832150f5839c7878a31be0))
+* **build:** remove dry-run flag ([08921d9](https://github.com/IBM/code-engine-node-sdk/commit/08921d9c47b0ea917caf8c78954d55d65ff4134c))
+* **build:** updated publish configuration ([d1645bd](https://github.com/IBM/code-engine-node-sdk/commit/d1645bd7f987786072b915f8f411732c3fa64dca))
+
 ## [0.1.2](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.1...v0.1.2) (2021-09-07)
 
 
