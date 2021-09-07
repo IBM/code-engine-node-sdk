@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.3...v0.1.4) (2021-09-07)
+
+
+### Bug Fixes
+
+* **build:** remove reference to example ([e9b4740](https://github.com/IBM/code-engine-node-sdk/commit/e9b47404205ef7429d4b49b66602c388d8f1347c))
+
 ## [0.1.3](https://github.com/IBM/code-engine-node-sdk/compare/v0.1.2...v0.1.3) (2021-09-07)
 
 
