@@ -64,7 +64,7 @@ async function main() {
 
   // Setup Kubernetes client.
   const kubeConfig = new k8s.KubeConfig();
-  kubeConfig.loadFromString(configResponse.result);
+  kubeConfig.loadFromString(typeof configResponse.result === "string" ? configResponse.result : JSON.stringify(configResponse.result));
   const kubeClient = kubeConfig.makeApiClient(k8s.CoreV1Api);
   const { namespace } = kubeConfig.getCurrentContextObject();
 
