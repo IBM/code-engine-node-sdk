@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use strict';
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const core = require('ibm-cloud-sdk-core');
+
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const IbmCloudCodeEngineV1 = require('../../dist/ibm-cloud-code-engine/v1');
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-  checkUserHeader,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise, checkUserHeader } =
+  unitTestUtils;
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
@@ -107,9 +102,9 @@ describe('IbmCloudCodeEngineV1', () => {
         const id = 'testString';
         const accept = 'application/json';
         const params = {
-          refreshToken: refreshToken,
-          id: id,
-          accept: accept,
+          refreshToken,
+          id,
+          accept,
         };
 
         const listKubeconfigResult = ibmCloudCodeEngineService.listKubeconfig(params);
@@ -128,7 +123,7 @@ describe('IbmCloudCodeEngineV1', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         checkUserHeader(createRequestMock, 'Refresh-Token', refreshToken);
         checkUserHeader(createRequestMock, 'Accept', accept);
-        expect(options.path['id']).toEqual(id);
+        expect(options.path.id).toEqual(id);
       });
 
       test('should prioritize user-given headers', () => {
@@ -152,7 +147,7 @@ describe('IbmCloudCodeEngineV1', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
+      test('should enforce required parameters', async (done) => {
         let err;
         try {
           await ibmCloudCodeEngineService.listKubeconfig({});
@@ -164,11 +159,11 @@ describe('IbmCloudCodeEngineV1', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', done => {
+      test('should reject promise when required params are not given', (done) => {
         const listKubeconfigPromise = ibmCloudCodeEngineService.listKubeconfig();
         expectToBePromise(listKubeconfigPromise);
 
-        listKubeconfigPromise.catch(err => {
+        listKubeconfigPromise.catch((err) => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.12.0-64fe8d3f-20200820-144050
+ * IBM OpenAPI SDK Code Generator Version: 3.15.0-45841b53-20201019-214802
  */
- 
+
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
@@ -25,7 +25,7 @@ import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissing
 import { getSdkHeaders } from '../lib/common';
 
 /**
- * The purpose is to provide an API to get Kubeconfig for IBM Cloud Code Engine Project
+ * The purpose is to provide an API to get Kubeconfig file for IBM Cloud Code Engine Project
  */
 
 class IbmCloudCodeEngineV1 extends BaseService {
@@ -91,50 +91,114 @@ class IbmCloudCodeEngineV1 extends BaseService {
    ************************/
 
   /**
-   * Retrieve KUBECONFIG for a specified project.
+   * Deprecated soon: Retrieve KUBECONFIG for a specified project.
    *
-   * Returns the KUBECONFIG, similar to the output of `kubectl config view --minify=true`.
+   * **Deprecated soon**: This API will be deprecated soon. Use the [GET /project/{id}/config](#get-kubeconfig) API
+   * instead. Returns the KUBECONFIG file, similar to the output of `kubectl config view --minify=true`.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.refreshToken - The IAM Refresh token associated with the IBM Cloud account.
-   * @param {string} params.id - The id of the IBM Cloud Code Engine project.
-   * @param {string} [params.accept] - The type of the response: application/json or text/html. A character encoding can
-   * be specified by including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   * @param {string} params.refreshToken - The IAM Refresh token associated with the IBM Cloud account. To retrieve your
+   * IAM token, run `ibmcloud iam oauth-tokens`.
+   * @param {string} params.id - The id of the IBM Cloud Code Engine project. To retrieve your project ID, run `ibmcloud
+   * ce project get -n <PROJECT_NAME>`.
+   * @param {string} [params.accept] - The type of the response: text/plain or application/json. A character encoding
+   * can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmCloudCodeEngineV1.Response<IbmCloudCodeEngineV1.Empty>>}
+   * @returns {Promise<IbmCloudCodeEngineV1.Response<string>>}
    */
-  public listKubeconfig(params: IbmCloudCodeEngineV1.ListKubeconfigParams): Promise<IbmCloudCodeEngineV1.Response<IbmCloudCodeEngineV1.Empty>> {
-    const _params = Object.assign({}, params);
+  public listKubeconfig(params: IbmCloudCodeEngineV1.ListKubeconfigParams): Promise<IbmCloudCodeEngineV1.Response<string>> {
+    const _params = { ...params };
     const requiredParams = ['refreshToken', 'id'];
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
 
-      const path = {
-        'id': _params.id
-      };
+    const path = {
+      'id': _params.id
+    };
 
-      const sdkHeaders = getSdkHeaders(IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME, 'v1', 'listKubeconfig');
+    const sdkHeaders = getSdkHeaders(IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME, 'v1', 'listKubeconfig');
 
-      const parameters = {
-        options: {
-          url: '/namespaces/{id}/config',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
-            'Refresh-Token': _params.refreshToken,
-            'Accept': _params.accept
-          }, _params.headers),
-        }),
-      };
+    const parameters = {
+      options: {
+        url: '/namespaces/{id}/config',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {
+          'Refresh-Token': _params.refreshToken,
+          'Accept': _params.accept
+        }, _params.headers),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
+    return this.createRequest(parameters);
+  };
+
+  /**
+   * Retrieve KUBECONFIG for a specified project.
+   *
+   * Returns the KUBECONFIG, similar to the output of `kubectl config view --minify=true`. There are 2 tokens in the
+   * Request Header and a query parameter that you must provide.
+   *  These values can be generated as follows: 1. Auth Header Pass the generated IAM Token as the Authorization header
+   * from the CLI as `token=cat $HOME/.bluemix/config.json | jq .IAMToken -r`. Generate the token with the [Create an
+   * IAM access token for a user or service ID using an API
+   * key](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey) API.
+   *
+   * 2. X-Delegated-Refresh-Token Header Generate an IAM Delegated Refresh Token for Code Engine with the [Create an IAM
+   * access token and delegated refresh token for a user or service
+   * ID](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey-delegatedrefreshtoken) API. Specify the
+   * `receiver_client_ids` value to be `ce` and the `delegated_refresh_token_expiry` value to be `3600`.
+   *
+   * 3. Project ID In order to retrieve the Kubeconfig file for a specific Code Engine project, use the CLI to extract
+   * the ID
+   * `id=ibmcloud ce project get -n ${CE_PROJECT_NAME} -o jsonpath={.guid}` You must be logged into the account where
+   * the project was created to retrieve the ID.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.xDelegatedRefreshToken - This IAM Delegated Refresh Token is specifically valid for Code
+   * Engine. Generate this token with the [Create an IAM access token and delegated refresh token for a user or service
+   * ID](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey-delegatedrefreshtoken) API. Specify the
+   * `receiver_client_ids` value to be `ce` and the `delegated_refresh_token_expiry` value to be `3600`.
+   * @param {string} params.id - The id of the IBM Cloud Code Engine project.
+   * @param {string} [params.accept] - The type of the response: text/plain or application/json. A character encoding
+   * can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmCloudCodeEngineV1.Response<string>>}
+   */
+  public getKubeconfig(params: IbmCloudCodeEngineV1.GetKubeconfigParams): Promise<IbmCloudCodeEngineV1.Response<string>> {
+    const _params = { ...params };
+    const requiredParams = ['xDelegatedRefreshToken', 'id'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'id': _params.id
+    };
+
+    const sdkHeaders = getSdkHeaders(IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME, 'v1', 'getKubeconfig');
+
+    const parameters = {
+      options: {
+        url: '/project/{id}/config',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {
+          'X-Delegated-Refresh-Token': _params.xDelegatedRefreshToken,
+          'Accept': _params.accept
+        }, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
   };
 
 }
@@ -146,7 +210,7 @@ class IbmCloudCodeEngineV1 extends BaseService {
 namespace IbmCloudCodeEngineV1 {
 
   /** An operation response. */
-  export interface Response<T = any>  {
+  export interface Response<T = any> {
     result: T;
     status: number;
     statusText: string;
@@ -170,12 +234,16 @@ namespace IbmCloudCodeEngineV1 {
 
   /** Parameters for the `listKubeconfig` operation. */
   export interface ListKubeconfigParams {
-    /** The IAM Refresh token associated with the IBM Cloud account. */
+    /** The IAM Refresh token associated with the IBM Cloud account. To retrieve your IAM token, run `ibmcloud iam
+     *  oauth-tokens`.
+     */
     refreshToken: string;
-    /** The id of the IBM Cloud Code Engine project. */
+    /** The id of the IBM Cloud Code Engine project. To retrieve your project ID, run `ibmcloud ce project get -n
+     *  <PROJECT_NAME>`.
+     */
     id: string;
-    /** The type of the response: application/json or text/html. A character encoding can be specified by including
-     *  a `charset` parameter. For example, 'text/html;charset=utf-8'.
+    /** The type of the response: text/plain or application/json. A character encoding can be specified by including
+     *  a `charset` parameter. For example, 'text/plain;charset=utf-8'.
      */
     accept?: ListKubeconfigConstants.Accept | string;
     headers?: OutgoingHttpHeaders;
@@ -183,10 +251,36 @@ namespace IbmCloudCodeEngineV1 {
 
   /** Constants for the `listKubeconfig` operation. */
   export namespace ListKubeconfigConstants {
-    /** The type of the response: application/json or text/html. A character encoding can be specified by including a `charset` parameter. For example, 'text/html;charset=utf-8'. */
+    /** The type of the response: text/plain or application/json. A character encoding can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'. */
     export enum Accept {
+      TEXT_PLAIN = 'text/plain',
       APPLICATION_JSON = 'application/json',
-      TEXT_HTML = 'text/html',
+    }
+  }
+
+  /** Parameters for the `getKubeconfig` operation. */
+  export interface GetKubeconfigParams {
+    /** This IAM Delegated Refresh Token is specifically valid for Code Engine. Generate this token with the [Create
+     *  an IAM access token and delegated refresh token for a user or service
+     *  ID](https://cloud.ibm.com/apidocs/iam-identity-token-api#gettoken-apikey-delegatedrefreshtoken) API. Specify the
+     *  `receiver_client_ids` value to be `ce` and the `delegated_refresh_token_expiry` value to be `3600`.
+     */
+    xDelegatedRefreshToken: string;
+    /** The id of the IBM Cloud Code Engine project. */
+    id: string;
+    /** The type of the response: text/plain or application/json. A character encoding can be specified by including
+     *  a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+     */
+    accept?: GetKubeconfigConstants.Accept | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `getKubeconfig` operation. */
+  export namespace GetKubeconfigConstants {
+    /** The type of the response: text/plain or application/json. A character encoding can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'. */
+    export enum Accept {
+      TEXT_PLAIN = 'text/plain',
+      APPLICATION_JSON = 'application/json',
     }
   }
 

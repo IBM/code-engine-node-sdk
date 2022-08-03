@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable require-jsdoc */
 const CodeEngineV1 = require('../dist/ibm-cloud-code-engine/v1'); // require('ibm-code-engine-sdk/ibm-cloud-code-engine/v1');
 const { IamAuthenticator } = require('../dist/auth'); // require('ibm-code-engine-sdk/auth');
 const k8s = require('@kubernetes/client-node');

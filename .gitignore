@@ -1,7 +1,4 @@
-# development guide ignores
-swagger.json
-openapi-sdkgen
-
+### Specific to this repository ###
 # tsc outputs
 lib/*.js
 auth/*.js
@@ -9,7 +6,8 @@ auth/*.js
 **/*.js.map
 
 # service-specific tsc outputs (js files)
-ibm-cloud-code-engine/*.js
+example-service/*.js
+# IGNORE YOUR SERVICE FILES HERE
 
 # file holding service credentials
 test/resources/auth.js
