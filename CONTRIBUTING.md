@@ -5,10 +5,10 @@ please ask a question at
 
 # Issues
 If you encounter an issue with the SDK, you are welcome to submit
-a [bug report](https://github.com/IBM/code-engine-node-sdk/issues).
+a [bug report](<github-repo-url>/issues).
 Before that, please search for similar issues. It's possible someone has
 already encountered this issue.
 
 # General Information
 For general guidance on contributing to this project, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_nodejs.md)
+[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_nodejs.md)

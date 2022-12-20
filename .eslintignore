@@ -5,6 +5,8 @@ coverage/
 dist/
 node_modules/
 examples/**/node_modules/
+example/*.js
+scripts/*.js
 
 test/resources/auth.js
 # ignore emitted js

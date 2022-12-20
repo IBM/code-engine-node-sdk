@@ -1,10 +1,13 @@
-language: node_js
+dist: focal
 
-# After creating your SDK project from this template repository,
-# uncomment this section to enable builds on the appropriate node versions.
-# node_js:
-# - 12
-# - 14
+# Remove this if using external Travis
+group: beta
+
+language: node_js
+node_js:
+  - 14
+  - 16
+  - 18
 
 # After creating your SDK project from this template repository,
 # remove the "echo" command from the "before_install" section below.
@@ -19,27 +22,6 @@ script:
 - npm run lint
 - npm run check-packages
 
-# After creating your SDK project from this template repository,
-# remove this entire "jobs" section as this is only applicable
-# to the template repo's travis build.
-jobs:
-  include:
-    - stage: Run node template build
-      node_js: 12
-    - node_js: 14
-    - stage: Run system test with template
-      node_js: 14
-      script:
-        - >-
-          if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-            echo "Running system tests"
-            git clone https://github.ibm.com/CloudEngineering/sdkgen-systest.git
-            cd sdkgen-systest
-            ./install_scripts/install_deps_ubuntu.sh
-            ./setup_and_generate.sh -l ibm-node -t $TRAVIS_BRANCH -s
-          else
-            echo "Skipping system tests for PR build..."
-          fi
 # To enable semantic-release, uncomment this section.
 # deploy:
 # - provider: script
