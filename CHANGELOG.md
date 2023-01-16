@@ -1,3 +1,12 @@
+## [1.99.1](https://github.ibm.com/coligo/node-sdk/compare/v1.99.0...v1.99.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* **build:** adjusted travis config ([9d1381c](https://github.ibm.com/coligo/node-sdk/commit/9d1381cd007fc11dce2589cb62ccccbd17f974db))
+* **tests:** adjusted integration tests ([12e77cf](https://github.ibm.com/coligo/node-sdk/commit/12e77cfc42dfa3e28a794efa505288d9ba1a6c82))
+* **tests:** enabled integration tests ([c709c5f](https://github.ibm.com/coligo/node-sdk/commit/c709c5f7fb9bf3d67ec5cf7a80f446cd7596c430))
+
 ## [1.0.1](https://github.ibm.com/coligo/node-sdk/compare/v1.0.0...v1.0.1) (2023-01-16)
 
 
