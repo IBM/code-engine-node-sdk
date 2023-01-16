@@ -4,7 +4,7 @@
   "description": "IBM Cloud Code Engine NodeJS SDK",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IBM/code-engine-node-sdk"
+    "url": "https://github.ibm.com/coligo/node-sdk"
   },
   "keywords": [
     "ibm"
