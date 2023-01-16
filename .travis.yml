@@ -9,10 +9,13 @@ node_js:
   - 16
   - 18
 
+branches:
+  only:
+  - main
+
 # After creating your SDK project from this template repository,
 # remove the "echo" command from the "before_install" section below.
 before_install:
-- echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
 - npm i -g npm@8
 - npm --version
 
@@ -22,11 +25,16 @@ script:
 - npm run lint
 - npm run check-packages
 
-# To enable semantic-release, uncomment this section.
-# deploy:
-# - provider: script
-#   skip_cleanup: true
-#   script: npx semantic-release
-#   on:
-#     node: 14
-#     branch: main
+before_deploy:
+- echo "@ibm-cloud:registry=https://na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/" > ~/.npmrc
+- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:_auth=$ARTIFACTORY_PASSWORD" >> ~/.npmrc #pragma: allowlist secret
+- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:email=$ARTIFACTORY_MAIL" >> ~/.npmrc
+- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:always-auth=true" >> ~/.npmrc
+
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: npx semantic-release
+  on:
+    node: 18
+    branch: main
