@@ -3,25 +3,23 @@
   "branches": [
     "main"
   ],
-  "verifyConditions": [
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
-  "prepare": [
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
-  "publish": [
     [
-      "@semantic-release/npm",
+      "@semantic-release/exec", 
       {
-        "pkgRoot": "dist"
+        "prepareCmd": "bump2version --allow-dirty --current-version ${lastRelease.version} --new-version ${nextRelease.version} patch"
       }
     ],
-    {
-      "path": "@semantic-release/github"
-    }
+    "@semantic-release/npm",
+    [
+      "@semantic-release/git", 
+      {
+        "message": "chore(release): ${nextRelease.version} release notes [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "@semantic-release/github"
   ]
 }

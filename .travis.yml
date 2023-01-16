@@ -26,6 +26,8 @@ script:
 - npm run check-packages
 
 before_deploy:
+- pyenv global 3.8
+- pip install --user bump2version
 - echo "@ibm-cloud:registry=https://na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/" > ~/.npmrc
 - echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:_auth=$ARTIFACTORY_PASSWORD" >> ~/.npmrc #pragma: allowlist secret
 - echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:email=$ARTIFACTORY_MAIL" >> ~/.npmrc
