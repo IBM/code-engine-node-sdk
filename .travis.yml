@@ -24,7 +24,7 @@ script:
 - npm run test-travis || travis_terminate 1
 - npm run lint
 - npm run check-packages
-- npm run test-integration-travis
+- npm run test-integration-travis || travis_terminate 1
 
 before_deploy:
 - pyenv global 3.8
