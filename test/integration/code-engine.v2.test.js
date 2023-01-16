@@ -24,25 +24,6 @@ const { IamAuthenticator } = require('ibm-cloud-sdk-core');
 const CodeEngineV2 = require('../../dist/code-engine/v2');
 // eslint-disable-next-line node/no-unpublished-require
 const authHelper = require('../resources/auth-helper.js');
-// You can use the readExternalSources method to access additional configuration values
-// const { readExternalSources } = require('ibm-cloud-sdk-core');
-
-//
-// This file provides an example of how to use the Code Engine service.
-//
-// The following configuration properties are assumed to be defined:
-// CODE_ENGINE_URL=<service base url>
-// CODE_ENGINE_AUTH_TYPE=iam
-// CODE_ENGINE_APIKEY=<IAM apikey>
-// CODE_ENGINE_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
-//
-// These configuration properties can be exported as environment variables, or stored
-// in a configuration file and then:
-// export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
-const configFile = 'code_engine_v2.env';
-
-const describe = authHelper.prepareTests(configFile);
 
 // Save original console.log
 const originalLog = console.log;
@@ -55,9 +36,6 @@ const consoleWarnMock = jest.spyOn(console, 'warn');
 describe('CodeEngineV2', () => {
   // Service instance
   let codeEngineService;
-
-  // To access additional configuration values, uncomment this line and extract the values from config
-  // const config = readExternalSources(CodeEngineV2.DEFAULT_SERVICE_NAME);
 
   test('Initialize service', async () => {
     // Determine the target IAM endpoint
@@ -84,7 +62,7 @@ describe('CodeEngineV2', () => {
     };
 
     // Init the service
-    codeEngineService = CodeEngineV2.newInstance();
+    codeEngineService = CodeEngineV2.newInstance(options);
   });
 
   test('listProjects request example', async () => {
