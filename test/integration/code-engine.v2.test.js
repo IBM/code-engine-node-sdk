@@ -20,6 +20,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
+const { IamAuthenticator } = require('ibm-cloud-sdk-core');
 const CodeEngineV2 = require('../../dist/code-engine/v2');
 // eslint-disable-next-line node/no-unpublished-require
 const authHelper = require('../resources/auth-helper.js');
@@ -59,11 +60,31 @@ describe('CodeEngineV2', () => {
   // const config = readExternalSources(CodeEngineV2.DEFAULT_SERVICE_NAME);
 
   test('Initialize service', async () => {
-    // begin-common
+    // Determine the target IAM endpoint
+    let iamEndpoint = 'https://iam.cloud.ibm.com';
+    if (process.env.IAM_ENDPOINT) {
+      iamEndpoint = process.env.IAM_ENDPOINT;
+    }
 
+    // Create an IAM authenticator.
+    const authenticator = new IamAuthenticator({
+      apikey: process.env.CE_API_KEY,
+      clientId: 'bx',
+      clientSecret: 'bx',
+      url: iamEndpoint,
+    });
+
+    const codeEngineApiEndpoint = `https://${process.env.CE_API_HOST}/v2`;
+    console.info(`Using Code Engine API endpoint: '${codeEngineApiEndpoint}'`);
+
+    // Construct the Code Engine client using the IAM authenticator.
+    const options = {
+      authenticator,
+      serviceUrl: codeEngineApiEndpoint,
+    };
+
+    // Init the service
     codeEngineService = CodeEngineV2.newInstance();
-
-    // end-common
   });
 
   test('listProjects request example', async () => {
