@@ -1,3 +1,10 @@
+## [1.0.1](https://github.ibm.com/coligo/node-sdk/compare/v1.0.0...v1.0.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* **build:** adjusted semantic-release config ([ff8f4d5](https://github.ibm.com/coligo/node-sdk/commit/ff8f4d5f5306a0ebc54bf7402de934725547e621))
+
 # 1.0.0 (2023-01-16)
 
 
