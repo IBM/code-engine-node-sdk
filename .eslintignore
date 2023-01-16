@@ -5,7 +5,9 @@ coverage/
 dist/
 node_modules/
 examples/**/node_modules/
+!examples/**/*.js
 example/*.js
+example/**/node_modules/
 scripts/*.js
 
 test/resources/auth.js
