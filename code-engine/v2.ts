@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.64.0-959a5845-20230112-195144
  */
 
 /* eslint-disable max-classes-per-file */
