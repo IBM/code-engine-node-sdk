@@ -1,3 +1,10 @@
+## [1.99.2](https://github.ibm.com/coligo/node-sdk/compare/v1.99.1...v1.99.2) (2023-01-24)
+
+
+### Bug Fixes
+
+* **tests:** enabled the v2 integration test suite ([#11](https://github.ibm.com/coligo/node-sdk/issues/11)) ([849b90c](https://github.ibm.com/coligo/node-sdk/commit/849b90c5a2334cc8dfa99885e460a18a134f59b3))
+
 ## [1.99.1](https://github.ibm.com/coligo/node-sdk/compare/v1.99.0...v1.99.1) (2023-01-16)
 
 
