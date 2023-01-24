@@ -1,38 +1,21 @@
-os: linux
-language: node_js
-sudo: false
+dist: focal
 
-# Only run on main (still tests PRs)
+language: node_js
+node_js:
+  - 18
+cache: npm
+
 branches:
   only:
   - main
 
-node_js:
-- 12
-- 14
-
-# before_install:
-# -  'openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
-
-install:
-- npm install
-- npm run build
-
-script:
-# - npm run lint
-- npm run test-travis || travis_terminate 1
-- npm run check-packages
-- ./test-integration.sh
-# - sh scripts/typedoc/generate_typedoc.sh currently in progress
-
-after_success:
-- npm run report-coverage
-
-# To enable semantic-release, uncomment this section.
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: npx semantic-release
-  on:
-    node: 12
-    branch: main
+jobs:
+  include:
+  - stage: verify
+    install:
+      - npm install
+    script:
+      - npm run build
+      - npm run test-unit-travis || travis_terminate 1
+      - npm run lint
+      - npm run check-packages

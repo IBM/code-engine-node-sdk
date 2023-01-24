@@ -17,11 +17,16 @@
 /**
  * IBM OpenAPI SDK Code Generator Version: 3.15.0-45841b53-20201019-214802
  */
- 
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
+import {
+  Authenticator,
+  BaseService,
+  getAuthenticatorFromEnvironment,
+  getMissingParams,
+  UserOptions,
+} from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -29,8 +34,8 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class IbmCloudCodeEngineV1 extends BaseService {
-
   static DEFAULT_SERVICE_URL: string = 'https://ibm-cloud-code-engine.cloud.ibm.com/api/v1';
+
   static DEFAULT_SERVICE_NAME: string = 'ibm_cloud_code_engine';
 
   /*************************
@@ -63,7 +68,6 @@ class IbmCloudCodeEngineV1 extends BaseService {
     }
     return service;
   }
-
 
   /**
    * Construct a IbmCloudCodeEngineV1 object.
@@ -106,8 +110,10 @@ class IbmCloudCodeEngineV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmCloudCodeEngineV1.Response<string>>}
    */
-  public listKubeconfig(params: IbmCloudCodeEngineV1.ListKubeconfigParams): Promise<IbmCloudCodeEngineV1.Response<string>> {
-    const _params = Object.assign({}, params);
+  public listKubeconfig(
+    params: IbmCloudCodeEngineV1.ListKubeconfigParams
+  ): Promise<IbmCloudCodeEngineV1.Response<string>> {
+    const _params = { ...params };
     const requiredParams = ['refreshToken', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -116,10 +122,14 @@ class IbmCloudCodeEngineV1 extends BaseService {
     }
 
     const path = {
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME, 'v1', 'listKubeconfig');
+    const sdkHeaders = getSdkHeaders(
+      IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'listKubeconfig'
+    );
 
     const parameters = {
       options: {
@@ -128,15 +138,20 @@ class IbmCloudCodeEngineV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'Refresh-Token': _params.refreshToken,
-          'Accept': _params.accept
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Refresh-Token': _params.refreshToken,
+            'Accept': _params.accept,
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
+  }
 
   /**
    * Retrieve KUBECONFIG for a specified project.
@@ -169,8 +184,10 @@ class IbmCloudCodeEngineV1 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmCloudCodeEngineV1.Response<string>>}
    */
-  public getKubeconfig(params: IbmCloudCodeEngineV1.GetKubeconfigParams): Promise<IbmCloudCodeEngineV1.Response<string>> {
-    const _params = Object.assign({}, params);
+  public getKubeconfig(
+    params: IbmCloudCodeEngineV1.GetKubeconfigParams
+  ): Promise<IbmCloudCodeEngineV1.Response<string>> {
+    const _params = { ...params };
     const requiredParams = ['xDelegatedRefreshToken', 'id'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -179,10 +196,14 @@ class IbmCloudCodeEngineV1 extends BaseService {
     }
 
     const path = {
-      'id': _params.id
+      'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME, 'v1', 'getKubeconfig');
+    const sdkHeaders = getSdkHeaders(
+      IbmCloudCodeEngineV1.DEFAULT_SERVICE_NAME,
+      'v1',
+      'getKubeconfig'
+    );
 
     const parameters = {
       options: {
@@ -191,16 +212,20 @@ class IbmCloudCodeEngineV1 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {
-          'X-Delegated-Refresh-Token': _params.xDelegatedRefreshToken,
-          'Accept': _params.accept
-        }, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'X-Delegated-Refresh-Token': _params.xDelegatedRefreshToken,
+            'Accept': _params.accept,
+          },
+          _params.headers
+        ),
       }),
     };
 
     return this.createRequest(parameters);
-  };
-
+  }
 }
 
 /*************************
@@ -208,9 +233,8 @@ class IbmCloudCodeEngineV1 extends BaseService {
  ************************/
 
 namespace IbmCloudCodeEngineV1 {
-
   /** An operation response. */
-  export interface Response<T = any>  {
+  export interface Response<T = any> {
     result: T;
     status: number;
     statusText: string;
@@ -221,7 +245,7 @@ namespace IbmCloudCodeEngineV1 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty { }
+  export interface Empty {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -287,7 +311,6 @@ namespace IbmCloudCodeEngineV1 {
   /*************************
    * model interfaces
    ************************/
-
 }
 
 export = IbmCloudCodeEngineV1;

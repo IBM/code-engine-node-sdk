@@ -9,4 +9,3 @@ tslint.json
 .github
 *.ts
 !*.d.ts
-example/
