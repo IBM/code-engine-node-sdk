@@ -5,8 +5,6 @@ group: beta
 
 language: node_js
 node_js:
-  - 14
-  - 16
   - 18
 
 branches:
@@ -18,10 +16,15 @@ branches:
 before_install:
 - npm i -g npm@8
 - npm --version
+# create an .env file that is pulled in while executing the v2 integration tests
+- echo "CODE_ENGINE_URL=https://$CE_API_HOST/v2" > code_engine_v2.env
+- echo "CODE_ENGINE_AUTH_TYPE=iam" >> code_engine_v2.env
+- echo "CODE_ENGINE_APIKEY=$CE_API_KEY" >> code_engine_v2.env
+- echo "CODE_ENGINE_AUTH_URL=$IAM_ENDPOINT" >> code_engine_v2.env
 
 script:
 - npm run build
-- npm run test-travis || travis_terminate 1
+- npm run test-unit-travis || travis_terminate 1
 - npm run lint
 - npm run check-packages
 - npm run test-integration-travis || travis_terminate 1

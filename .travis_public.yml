@@ -1,0 +1,21 @@
+dist: focal
+
+language: node_js
+node_js:
+  - 18
+cache: npm
+
+branches:
+  only:
+  - main
+
+jobs:
+  include:
+  - stage: verify
+    install:
+      - npm install
+    script:
+      - npm run build
+      - npm run test-unit-travis || travis_terminate 1
+      - npm run lint
+      - npm run check-packages

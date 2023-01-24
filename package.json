@@ -22,11 +22,11 @@
     "jest": "jest",
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest test/unit/",
-    "test-integration": "jest --runInBand test/integration/",
+    "test-integration": "jest --testPathIgnorePatterns '^(.*/code-engine.v2.test.js)$' --runInBand  test/integration/",
     "test-examples": "npm run build && jest examples/",
     "test-travis": "jest --runInBand --testNamePattern='^((?!@slow).)*$' test/",
     "test-unit-travis": "jest --runInBand test/unit/",
-    "test-integration-travis": "jest --runInBand --no-colors --testNamePattern='^((?!@slow).)*$' --json test/integration > test-output.log",
+    "test-integration-travis": "jest --testPathIgnorePatterns '^(.*/code-engine.v2.test.js)$' --runInBand test/integration",
     "check-packages": "installed-check -e -d -v",
     "all": "npm run test-unit && npm run lint"
   },

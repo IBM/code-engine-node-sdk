@@ -85,3 +85,7 @@ secrets.tar
 .openapi-generator*
 
 .npmrc
+
+# ignore the generated integration test files, as they cannot be used without manual editing
+test/integration/code-engine.v1.test.js
+test/integration/code-engine.v2.test.js
