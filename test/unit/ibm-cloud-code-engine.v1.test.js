@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,7 +100,7 @@ describe('IbmCloudCodeEngineV1', () => {
         // Construct the params object for operation listKubeconfig
         const refreshToken = 'testString';
         const id = 'testString';
-        const accept = 'application/json';
+        const accept = 'text/plain';
         const params = {
           refreshToken,
           id,
@@ -163,6 +163,82 @@ describe('IbmCloudCodeEngineV1', () => {
         expectToBePromise(listKubeconfigPromise);
 
         listKubeconfigPromise.catch((err) => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('getKubeconfig', () => {
+    describe('positive tests', () => {
+      test('should pass the right params to createRequest', () => {
+        // Construct the params object for operation getKubeconfig
+        const xDelegatedRefreshToken = 'testString';
+        const id = 'testString';
+        const accept = 'text/plain';
+        const params = {
+          xDelegatedRefreshToken: xDelegatedRefreshToken,
+          id: id,
+          accept: accept,
+        };
+
+        const getKubeconfigResult = ibmCloudCodeEngineService.getKubeconfig(params);
+
+        // all methods should return a Promise
+        expectToBePromise(getKubeconfigResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const options = getOptions(createRequestMock);
+
+        checkUrlAndMethod(options, '/project/{id}/config', 'GET');
+        const expectedAccept = accept;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'X-Delegated-Refresh-Token', xDelegatedRefreshToken);
+        checkUserHeader(createRequestMock, 'Accept', accept);
+        expect(options.path['id']).toEqual(id);
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const xDelegatedRefreshToken = 'testString';
+        const id = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          xDelegatedRefreshToken,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmCloudCodeEngineService.getKubeconfig(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async done => {
+        let err;
+        try {
+          await ibmCloudCodeEngineService.getKubeconfig({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', done => {
+        const getKubeconfigPromise = ibmCloudCodeEngineService.getKubeconfig();
+        expectToBePromise(getKubeconfigPromise);
+
+        getKubeconfigPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
