@@ -41,19 +41,19 @@ The IBM Cloud Code Engine Node.js SDK allows developers to programmatically inte
 Service Name | Import Path
 --- | ---
 [Code Engine](https://cloud.ibm.com/apidocs/codeengine) | 
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | @ibm-cloud/@ibm-cloud/ibm-code-engine-sdk/code-engine/v2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | @ibm-cloud/ibm-code-engine-sdk/code-engine/v2 
 [Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v1.0.0) | ibm-code-engine-sdk/ibm-cloud-code-engine/v1
 
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
-* **Node.js >=12**: This SDK is tested with Node.js versions 12 and up. It may work on previous versions but this is not officially supported.
+* **Node.js >=14**: This SDK is tested with Node.js versions 14 and up. It may work on previous versions but this is not officially supported.
 
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
 ## Installation
 
 ```sh
-npm install @ibm-cloud/@ibm-cloud/ibm-code-engine-sdk
+npm install @ibm-cloud/ibm-code-engine-sdk
 ```
 
 ## Using the SDK
