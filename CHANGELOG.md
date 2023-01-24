@@ -1,3 +1,15 @@
+# [2.0.0](https://github.ibm.com/coligo/node-sdk/compare/v1.99.2...v2.0.0) (2023-01-24)
+
+
+### Features
+
+* **core:** release 2. ([#12](https://github.ibm.com/coligo/node-sdk/issues/12)) ([7d7412b](https://github.ibm.com/coligo/node-sdk/commit/7d7412b433fbc71c43333a998cd87460b6965b08))
+
+
+### BREAKING CHANGES
+
+* **core:** bump to v2.0.0
+
 ## [1.99.2](https://github.ibm.com/coligo/node-sdk/compare/v1.99.1...v1.99.2) (2023-01-24)
 
 
