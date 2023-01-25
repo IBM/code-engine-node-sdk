@@ -1,3 +1,10 @@
+## [2.0.1](https://github.ibm.com/coligo/node-sdk/compare/v2.0.0...v2.0.1) (2023-01-25)
+
+
+### Bug Fixes
+
+* **docs:** fixed broken links in the readme ([#13](https://github.ibm.com/coligo/node-sdk/issues/13)) ([2f7d449](https://github.ibm.com/coligo/node-sdk/commit/2f7d4491e7cad12fdaf29f7d62dd290303ae0f54))
+
 # [2.0.0](https://github.ibm.com/coligo/node-sdk/compare/v1.99.2...v2.0.0) (2023-01-24)
 
 
