@@ -1,3 +1,23 @@
+# [3.0.0](https://github.ibm.com/coligo/node-sdk/compare/v2.0.1...v3.0.0) (2023-03-23)
+
+
+### Features
+
+* **secretData:** added more strict typing for secret types during cr… ([#14](https://github.ibm.com/coligo/node-sdk/issues/14)) ([42f33df](https://github.ibm.com/coligo/node-sdk/commit/42f33df43dd7f444b4f0da284a0ec819881f769e))
+
+
+### BREAKING CHANGES
+
+* **secretData:** Secret Create params now require specific SecretData type istead of JsonObject, depending on secret type
+
+* added int tests
+
+* test change
+
+* case change update
+
+* updated latest codegen, removed prototype naming convention from secretData so it can be used in update operation
+
 ## [2.0.1](https://github.ibm.com/coligo/node-sdk/compare/v2.0.0...v2.0.1) (2023-01-25)
 
 
