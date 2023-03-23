@@ -329,7 +329,7 @@ describe('CodeEngineV2', () => {
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
       appName: 'my-app',
-      name: 'my-app-001',
+      name: 'my-app-00001',
     };
 
     let res;
@@ -544,7 +544,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job',
+      name: 'my-job-run',
     };
 
     let res;
@@ -825,7 +825,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-configmap',
+      name: 'my-config-map',
     };
 
     let res;
@@ -1087,7 +1087,7 @@ describe('CodeEngineV2', () => {
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
       appName: 'my-app',
-      name: 'my-app-001',
+      name: 'my-app-00001',
     };
 
     try {
@@ -1139,7 +1139,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job',
+      name: 'my-job-run',
     };
 
     try {

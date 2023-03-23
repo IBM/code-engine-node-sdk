@@ -993,7 +993,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.imageSecret] - The name of the image registry access secret. The image registry access
    * secret is used to authenticate with a private registry when you download the container image. If the image
    * reference points to a registry that requires authentication, the job / job runs will be created but submitted job
-   * runs will fail, until this property is provided, too.
+   * runs will fail, until this property is provided, too. This property must not be set on a job run, which references
+   * a job template.
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
@@ -1004,10 +1005,11 @@ class CodeEngineV2 extends BaseService {
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
-   * mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and
-   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+   * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
+   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
    * @param {string} [params.runServiceAccount] - The name of the service account. For built-in service accounts, you
-   * can use the shortened names `manager`, `none`, `reader`, and `writer`.
+   * can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run,
+   * which references a job template.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets.
    * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
    * single values and hyphen-separated ranges like `5,12-14,23,27`. Each instance can pick up its array index via
@@ -1021,7 +1023,7 @@ class CodeEngineV2 extends BaseService {
    * expressions for GB and MB. For more information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleMaxExecutionTime] - The maximum execution time in seconds for runs of the job. This
-   * option can only be specified if `mode` is `task`.
+   * property can only be specified if `run_mode` is `task`.
    * @param {string} [params.scaleMemoryLimit] - Optional amount of memory set for the instance of the job. For valid
    * values see [Supported memory and CPU
    * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
@@ -1029,7 +1031,7 @@ class CodeEngineV2 extends BaseService {
    * information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleRetryLimit] - The number of times to rerun an instance of the job before the job is
-   * marked as failed. This option can only be specified if `mode` is `task`.
+   * marked as failed. This property can only be specified if `run_mode` is `task`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Job>>}
    */
@@ -1222,7 +1224,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.imageSecret] - The name of the image registry access secret. The image registry access
    * secret is used to authenticate with a private registry when you download the container image. If the image
    * reference points to a registry that requires authentication, the job / job runs will be created but submitted job
-   * runs will fail, until this property is provided, too.
+   * runs will fail, until this property is provided, too. This property must not be set on a job run, which references
+   * a job template.
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
@@ -1233,10 +1236,11 @@ class CodeEngineV2 extends BaseService {
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
-   * mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and
-   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+   * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
+   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
    * @param {string} [params.runServiceAccount] - The name of the service account. For built-in service accounts, you
-   * can use the shortened names `manager`, `none`, `reader`, and `writer`.
+   * can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run,
+   * which references a job template.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets. In case
    * this is provided, existing `run_volume_mounts` will be overwritten.
    * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
@@ -1251,7 +1255,7 @@ class CodeEngineV2 extends BaseService {
    * expressions for GB and MB. For more information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleMaxExecutionTime] - The maximum execution time in seconds for runs of the job. This
-   * option can only be specified if `mode` is `task`.
+   * property can only be specified if `run_mode` is `task`.
    * @param {string} [params.scaleMemoryLimit] - Optional amount of memory set for the instance of the job. For valid
    * values see [Supported memory and CPU
    * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
@@ -1259,7 +1263,7 @@ class CodeEngineV2 extends BaseService {
    * information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleRetryLimit] - The number of times to rerun an instance of the job before the job is
-   * marked as failed. This option can only be specified if `mode` is `task`.
+   * marked as failed. This property can only be specified if `run_mode` is `task`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Job>>}
    */
@@ -1417,7 +1421,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.imageSecret] - The name of the image registry access secret. The image registry access
    * secret is used to authenticate with a private registry when you download the container image. If the image
    * reference points to a registry that requires authentication, the job / job runs will be created but submitted job
-   * runs will fail, until this property is provided, too.
+   * runs will fail, until this property is provided, too. This property must not be set on a job run, which references
+   * a job template.
    * @param {string} [params.jobName] - Optional name of the job on which this job run is based on. If specified, the
    * job run will inherit the configuration of the referenced job.
    * @param {string} [params.name] - The name of the job. Use a name that is unique within the project.
@@ -1431,10 +1436,11 @@ class CodeEngineV2 extends BaseService {
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
-   * mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and
-   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+   * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
+   * failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
    * @param {string} [params.runServiceAccount] - The name of the service account. For built-in service accounts, you
-   * can use the shortened names `manager`, `none`, `reader`, and `writer`.
+   * can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run,
+   * which references a job template.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets.
    * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
    * single values and hyphen-separated ranges like `5,12-14,23,27`. Each instance can pick up its array index via
@@ -1448,7 +1454,7 @@ class CodeEngineV2 extends BaseService {
    * expressions for GB and MB. For more information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleMaxExecutionTime] - The maximum execution time in seconds for runs of the job. This
-   * option can only be specified if `mode` is `task`.
+   * property can only be specified if `run_mode` is `task`.
    * @param {string} [params.scaleMemoryLimit] - Optional amount of memory set for the instance of the job. For valid
    * values see [Supported memory and CPU
    * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
@@ -1456,7 +1462,7 @@ class CodeEngineV2 extends BaseService {
    * information see [Units of
    * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
    * @param {number} [params.scaleRetryLimit] - The number of times to rerun an instance of the job before the job is
-   * marked as failed. This option can only be specified if `mode` is `task`.
+   * marked as failed. This property can only be specified if `run_mode` is `task`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.JobRun>>}
    */
@@ -2632,7 +2638,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.projectId - The ID of the project.
    * @param {string} params.format - Specify the format of the secret.
    * @param {string} params.name - The name of the secret.
-   * @param {JsonObject} [params.data] - Data container that allows to specify config parameters and their values as a
+   * @param {SecretData} [params.data] - Data container that allows to specify config parameters and their values as a
    * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max
    * length of 253 characters. Each value field can consists of any character and must not be exceed a max length of
    * 1048576 characters.
@@ -2746,7 +2752,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.ifMatch - Version of the secret settings to be updated. Specify the version that you
    * retrieved as entity_tag (ETag header) when reading the secret. This value helps identifying parallel usage of this
    * API. Pass * to indicate to update any version available. This might result in stale updates.
-   * @param {JsonObject} [params.data] - Data container that allows to specify config parameters and their values as a
+   * @param {SecretData} [params.data] - Data container that allows to specify config parameters and their values as a
    * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max
    * length of 253 characters. Each value field can consists of any character and must not be exceed a max length of
    * 1048576 characters.
@@ -3231,7 +3237,7 @@ namespace CodeEngineV2 {
     /** The name of the image registry access secret. The image registry access secret is used to authenticate with
      *  a private registry when you download the container image. If the image reference points to a registry that
      *  requires authentication, the job / job runs will be created but submitted job runs will fail, until this
-     *  property is provided, too.
+     *  property is provided, too. This property must not be set on a job run, which references a job template.
      */
     imageSecret?: string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
@@ -3247,12 +3253,12 @@ namespace CodeEngineV2 {
     /** Optional references to config maps, secrets or a literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
-     *  and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-     *  indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+     *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
+     *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
     runMode?: CreateJobConstants.RunMode | string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
-     *  `none`, `reader`, and `writer`.
+     *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
     runServiceAccount?: CreateJobConstants.RunServiceAccount | string;
     /** Optional mounts of config maps or a secrets. */
@@ -3273,8 +3279,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleEphemeralStorageLimit?: string;
-    /** The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is
-     *  `task`.
+    /** The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode`
+     *  is `task`.
      */
     scaleMaxExecutionTime?: number;
     /** Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -3284,8 +3290,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleMemoryLimit?: string;
-    /** The number of times to rerun an instance of the job before the job is marked as failed. This option can only
-     *  be specified if `mode` is `task`.
+    /** The number of times to rerun an instance of the job before the job is marked as failed. This property can
+     *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
     headers?: OutgoingHttpHeaders;
@@ -3293,12 +3299,12 @@ namespace CodeEngineV2 {
 
   /** Constants for the `createJob` operation. */
   export namespace CreateJobConstants {
-    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed. */
+    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed. */
     export enum RunMode {
       TASK = 'task',
       DAEMON = 'daemon',
     }
-    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. */
+    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template. */
     export enum RunServiceAccount {
       DEFAULT = 'default',
       MANAGER = 'manager',
@@ -3346,7 +3352,7 @@ namespace CodeEngineV2 {
     /** The name of the image registry access secret. The image registry access secret is used to authenticate with
      *  a private registry when you download the container image. If the image reference points to a registry that
      *  requires authentication, the job / job runs will be created but submitted job runs will fail, until this
-     *  property is provided, too.
+     *  property is provided, too. This property must not be set on a job run, which references a job template.
      */
     imageSecret?: string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
@@ -3362,12 +3368,12 @@ namespace CodeEngineV2 {
     /** Optional references to config maps, secrets or a literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
-     *  and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-     *  indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+     *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
+     *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
     runMode?: UpdateJobConstants.RunMode | string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
-     *  `none`, `reader`, and `writer`.
+     *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
     runServiceAccount?: UpdateJobConstants.RunServiceAccount | string;
     /** Optional mounts of config maps or a secrets. In case this is provided, existing `run_volume_mounts` will be
@@ -3390,8 +3396,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleEphemeralStorageLimit?: string;
-    /** The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is
-     *  `task`.
+    /** The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode`
+     *  is `task`.
      */
     scaleMaxExecutionTime?: number;
     /** Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -3401,8 +3407,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleMemoryLimit?: string;
-    /** The number of times to rerun an instance of the job before the job is marked as failed. This option can only
-     *  be specified if `mode` is `task`.
+    /** The number of times to rerun an instance of the job before the job is marked as failed. This property can
+     *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
     headers?: OutgoingHttpHeaders;
@@ -3410,12 +3416,12 @@ namespace CodeEngineV2 {
 
   /** Constants for the `updateJob` operation. */
   export namespace UpdateJobConstants {
-    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed. */
+    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed. */
     export enum RunMode {
       TASK = 'task',
       DAEMON = 'daemon',
     }
-    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. */
+    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template. */
     export enum RunServiceAccount {
       DEFAULT = 'default',
       MANAGER = 'manager',
@@ -3454,7 +3460,7 @@ namespace CodeEngineV2 {
     /** The name of the image registry access secret. The image registry access secret is used to authenticate with
      *  a private registry when you download the container image. If the image reference points to a registry that
      *  requires authentication, the job / job runs will be created but submitted job runs will fail, until this
-     *  property is provided, too.
+     *  property is provided, too. This property must not be set on a job run, which references a job template.
      */
     imageSecret?: string;
     /** Optional name of the job on which this job run is based on. If specified, the job run will inherit the
@@ -3476,12 +3482,12 @@ namespace CodeEngineV2 {
     /** Optional references to config maps, secrets or a literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
-     *  and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-     *  indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+     *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
+     *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
     runMode?: CreateJobRunConstants.RunMode | string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
-     *  `none`, `reader`, and `writer`.
+     *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
     runServiceAccount?: CreateJobRunConstants.RunServiceAccount | string;
     /** Optional mounts of config maps or a secrets. */
@@ -3502,8 +3508,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleEphemeralStorageLimit?: string;
-    /** The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is
-     *  `task`.
+    /** The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode`
+     *  is `task`.
      */
     scaleMaxExecutionTime?: number;
     /** Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -3513,8 +3519,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleMemoryLimit?: string;
-    /** The number of times to rerun an instance of the job before the job is marked as failed. This option can only
-     *  be specified if `mode` is `task`.
+    /** The number of times to rerun an instance of the job before the job is marked as failed. This property can
+     *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
     headers?: OutgoingHttpHeaders;
@@ -3522,12 +3528,12 @@ namespace CodeEngineV2 {
 
   /** Constants for the `createJobRun` operation. */
   export namespace CreateJobRunConstants {
-    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` options are not allowed. */
+    /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed. */
     export enum RunMode {
       TASK = 'task',
       DAEMON = 'daemon',
     }
-    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. */
+    /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template. */
     export enum RunServiceAccount {
       DEFAULT = 'default',
       MANAGER = 'manager',
@@ -3911,7 +3917,7 @@ namespace CodeEngineV2 {
      *  must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters.
      *  Each value field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
-    data?: JsonObject;
+    data?: SecretData;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -3953,7 +3959,7 @@ namespace CodeEngineV2 {
      *  must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters.
      *  Each value field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
-    data?: JsonObject;
+    data?: SecretData;
     /** Specify the format of the secret. */
     format?: ReplaceSecretConstants.Format | string;
     headers?: OutgoingHttpHeaders;
@@ -3989,19 +3995,19 @@ namespace CodeEngineV2 {
   /** App is the response model for app resources. */
   export interface App {
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** Optional URL to invoke app. Depending on visibility this is accessible publicly ot in the private network
      *  only. Empty in case 'managed_domain_mappings' is set to 'local'.
      */
     endpoint?: string;
     /** URL to app that is only visible within the project. */
     endpoint_internal?: string;
-    /** The version of the job instance, which is used to achieve optimistic locking. */
+    /** The version of the app instance, which is used to achieve optimistic locking. */
     entity_tag: string;
     /** When you provision a new app,  a URL is created identifying the location of the instance. */
-    href: string;
+    href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** Optional port the app listens on. While the app will always be exposed via port `443` for end users, this
      *  port is used to connect to the port that is exposed by the container image.
      */
@@ -4026,9 +4032,9 @@ namespace CodeEngineV2 {
     /** The name of the app. */
     name: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the app. */
-    resource_type: string;
+    resource_type?: string;
     /** Optional arguments for the app that are passed to start the container. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
@@ -4088,7 +4094,7 @@ namespace CodeEngineV2 {
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scale_request_timeout: number;
     /** The current status of the app. */
-    status: string;
+    status?: string;
     /** The detailed status of the application. */
     status_details?: AppStatus;
   }
@@ -4110,11 +4116,11 @@ namespace CodeEngineV2 {
     /** Name of the associated app. */
     app_name?: string;
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** When you provision a new revision,  a URL is created identifying the location of the instance. */
-    href: string;
+    href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** Optional port the app listens on. While the app will always be exposed via port `443` for end users, this
      *  port is used to connect to the port that is exposed by the container image.
      */
@@ -4132,11 +4138,11 @@ namespace CodeEngineV2 {
      */
     image_secret?: string;
     /** The name of the app revison. */
-    name: string;
+    name?: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the app revision. */
-    resource_type: string;
+    resource_type?: string;
     /** Optional arguments for the app that are passed to start the container. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
@@ -4196,7 +4202,7 @@ namespace CodeEngineV2 {
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scale_request_timeout: number;
     /** The current status of the app revision. */
-    status: string;
+    status?: string;
     /** The detailed status of the application revision. */
     status_details?: AppRevisionStatus;
   }
@@ -4234,13 +4240,13 @@ namespace CodeEngineV2 {
   /** Response model for build definitions. */
   export interface Build {
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** The version of the build instance, which is used to achieve optimistic locking. */
     entity_tag: string;
     /** When you provision a new build,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** The name of the build. */
     name?: string;
     /** The name of the image. */
@@ -4250,7 +4256,7 @@ namespace CodeEngineV2 {
      */
     output_secret: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the build. */
     resource_type?: string;
     /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
@@ -4315,11 +4321,11 @@ namespace CodeEngineV2 {
      */
     build_name: string;
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** When you trigger a new build run,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** The name of the build run. */
     name: string;
     /** The name of the image. */
@@ -4329,9 +4335,9 @@ namespace CodeEngineV2 {
      */
     output_secret?: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the build run. */
-    resource_type: string;
+    resource_type?: string;
     /** Optional service account which is used for resource control. */
     service_account?: string;
     /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
@@ -4361,7 +4367,7 @@ namespace CodeEngineV2 {
      */
     source_url?: string;
     /** The current status of the build run. */
-    status: string;
+    status?: string;
     /** Current status condition of a build run. */
     status_details?: BuildRunStatus;
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
@@ -4409,7 +4415,7 @@ namespace CodeEngineV2 {
   /** Describes the model of a configmap. */
   export interface ConfigMap {
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** The key-value pair for the config map. Values must be specified in `KEY=VALUE` format. */
     data?: JsonObject;
     /** The version of the config map instance, which is used to achieve optimistic locking. */
@@ -4417,13 +4423,13 @@ namespace CodeEngineV2 {
     /** When you provision a new config map,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** The name of the config map. */
     name: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the config map. */
-    resource_type: string;
+    resource_type?: string;
   }
 
   /** Contains a list of configmaps and pagination information. */
@@ -4473,13 +4479,13 @@ namespace CodeEngineV2 {
   /** Job is the response model for job resources. */
   export interface Job {
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** The version of the job instance, which is used to achieve optimistic locking. */
     entity_tag: string;
     /** When you provision a new job,  a URL is created identifying the location of the instance. */
-    href: string;
+    href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
      *  `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not
      *  specified, the default is `latest`. If the image reference points to a registry that requires authentication,
@@ -4489,15 +4495,15 @@ namespace CodeEngineV2 {
     /** The name of the image registry access secret. The image registry access secret is used to authenticate with
      *  a private registry when you download the container image. If the image reference points to a registry that
      *  requires authentication, the job / job runs will be created but submitted job runs will fail, until this
-     *  property is provided, too.
+     *  property is provided, too. This property must not be set on a job run, which references a job template.
      */
     image_secret?: string;
     /** The name of the job. */
     name: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the job. */
-    resource_type: string;
+    resource_type?: string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
@@ -4513,12 +4519,12 @@ namespace CodeEngineV2 {
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
-     *  and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-     *  indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+     *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
+     *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
     run_mode: string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
-     *  `none`, `reader`, and `writer`.
+     *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
     run_service_account?: string;
     /** Optional mounts of config maps or a secrets. */
@@ -4539,8 +4545,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scale_ephemeral_storage_limit: string;
-    /** The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is
-     *  `task`.
+    /** The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode`
+     *  is `task`.
      */
     scale_max_execution_time?: number;
     /** Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -4550,8 +4556,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scale_memory_limit: string;
-    /** The number of times to rerun an instance of the job before the job is marked as failed. This option can only
-     *  be specified if `mode` is `task`.
+    /** The number of times to rerun an instance of the job before the job is marked as failed. This property can
+     *  only be specified if `run_mode` is `task`.
      */
     scale_retry_limit?: number;
   }
@@ -4585,7 +4591,7 @@ namespace CodeEngineV2 {
     /** The name of the image registry access secret. The image registry access secret is used to authenticate with
      *  a private registry when you download the container image. If the image reference points to a registry that
      *  requires authentication, the job / job runs will be created but submitted job runs will fail, until this
-     *  property is provided, too.
+     *  property is provided, too. This property must not be set on a job run, which references a job template.
      */
     image_secret?: string;
     /** Optional name of the job reference of this job run. If specified, the job run will inherit the configuration
@@ -4595,7 +4601,7 @@ namespace CodeEngineV2 {
     /** The name of the job run. */
     name?: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the job run. */
     resource_type?: string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
@@ -4613,12 +4619,12 @@ namespace CodeEngineV2 {
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
-     *  and `retry_limit` options apply. In `daemon` mode, since there is no timeout and failed instances are restarted
-     *  indefinitely, the `max_execution_time` and `retry_limit` options are not allowed.
+     *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
+     *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
     run_mode?: string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
-     *  `none`, `reader`, and `writer`.
+     *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
     run_service_account?: string;
     /** Optional mounts of config maps or a secrets. */
@@ -4639,8 +4645,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scale_ephemeral_storage_limit?: string;
-    /** The maximum execution time in seconds for runs of the job. This option can only be specified if `mode` is
-     *  `task`.
+    /** The maximum execution time in seconds for runs of the job. This property can only be specified if `run_mode`
+     *  is `task`.
      */
     scale_max_execution_time?: number;
     /** Optional amount of memory set for the instance of the job. For valid values see [Supported memory and CPU
@@ -4650,8 +4656,8 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scale_memory_limit?: string;
-    /** The number of times to rerun an instance of the job before the job is marked as failed. This option can only
-     *  be specified if `mode` is `task`.
+    /** The number of times to rerun an instance of the job before the job is marked as failed. This property can
+     *  only be specified if `run_mode` is `task`.
      */
     scale_retry_limit?: number;
     /** The current status of the job run. */
@@ -4709,29 +4715,29 @@ namespace CodeEngineV2 {
   /** Describes the model of a project. */
   export interface Project {
     /** An alphanumeric value identifying the account ID. */
-    account_id: string;
+    account_id?: string;
     /** The date when the project was created. */
-    created_at: string;
+    created_at?: string;
     /** The CRN of the project. */
-    crn: string;
+    crn?: string;
     /** When you provision a new resource, a URL is created identifying the location of the instance. */
-    href: string;
+    href?: string;
     /** The ID of the project. */
-    id: string;
+    id?: string;
     /** The name of the project. */
     name: string;
     /** The region for your project deployment. Possible values: 'au-syd', 'br-sao', 'ca-tor', 'eu-de', 'eu-gb',
      *  'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
-    region: string;
+    region?: string;
     /** The ID of the resource group. */
     resource_group_id: string;
     /** The type of the project. */
-    resource_type: string;
+    resource_type?: string;
     /** The current state of the project. For example, if the project is created and ready to get used, it will
      *  return active.
      */
-    status: string;
+    status?: string;
   }
 
   /** Contains a list of projects and pagination information. */
@@ -4749,7 +4755,7 @@ namespace CodeEngineV2 {
   /** Describes the model of a secret. */
   export interface Secret {
     /** The date when the resource was created. */
-    created_at: string;
+    created_at?: string;
     /** Data container that allows to specify config parameters and their values as a key-value map. Each key field
      *  must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters.
      *  Each value field can consists of any character and must not be exceed a max length of 1048576 characters.
@@ -4762,13 +4768,19 @@ namespace CodeEngineV2 {
     /** When you provision a new secret,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
-    id: string;
+    id?: string;
     /** The name of the secret. */
     name: string;
     /** The ID of the project the resource is located in. */
-    project_id: string;
+    project_id?: string;
     /** The type of the secret. */
-    resource_type: string;
+    resource_type?: string;
+  }
+
+  /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value field can consists of any character and must not be exceed a max length of 1048576 characters. */
+  export interface SecretData {
+    /** SecretData accepts additional properties. */
+    [propName: string]: any;
   }
 
   /** List of secret resources. */
@@ -4807,6 +4819,45 @@ namespace CodeEngineV2 {
     reference: string;
     /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
     type: string;
+  }
+
+  /** SecretDataBasicAuthSecretData. */
+  export interface SecretDataBasicAuthSecretData extends SecretData {
+    /** Basic auth username. */
+    username: string;
+    /** Basic auth password. */
+    password: string;
+  }
+
+  /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value field can consists of any character and must not be exceed a max length of 1048576 characters. */
+  export interface SecretDataGenericSecretData extends SecretData {}
+
+  /** SecretDataRegistrySecretData. */
+  export interface SecretDataRegistrySecretData extends SecretData {
+    /** Registry username. */
+    username: string;
+    /** Registry password. */
+    password: string;
+    /** Registry server. */
+    server: string;
+    /** Registry email address. */
+    email: string;
+  }
+
+  /** Secret Data field used by SSH secrets. */
+  export interface SecretDataSSHSecretData extends SecretData {
+    /** SSH key. */
+    ssh_key: string;
+    /** Known hosts. */
+    known_hosts?: string;
+  }
+
+  /** SecretDataTLSSecretData. */
+  export interface SecretDataTLSSecretData extends SecretData {
+    /** The TLS certificate used in a TLS secret. */
+    tls_cert: string;
+    /** The TLS key used in a TLS secret. */
+    tls_key: string;
   }
 
   /*************************
