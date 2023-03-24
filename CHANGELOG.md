@@ -1,3 +1,10 @@
+# [3.1.0](https://github.ibm.com/coligo/node-sdk/compare/v3.0.0...v3.1.0) (2023-03-24)
+
+
+### Features
+
+* **api:** added support to retrieve egress ips ([dd3851b](https://github.ibm.com/coligo/node-sdk/commit/dd3851b28566063228e5d89f4a18f1f6eea65474))
+
 # [3.0.0](https://github.ibm.com/coligo/node-sdk/compare/v2.0.1...v3.0.0) (2023-03-23)
 
 
