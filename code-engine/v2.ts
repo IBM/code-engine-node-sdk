@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.64.0-959a5845-20230112-195144
+ * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
  */
 
 /* eslint-disable max-classes-per-file */
@@ -292,6 +292,58 @@ class CodeEngineV2 extends BaseService {
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List egress IP addresses.
+   *
+   * Lists all egress IP addresses (public and private) that are used by components running in this project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.ProjectEgressIPAddresses>>}
+   */
+  public getProjectEgressIps(
+    params: CodeEngineV2.GetProjectEgressIpsParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.ProjectEgressIPAddresses>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getProjectEgressIps'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/egress_ips',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -2921,6 +2973,13 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getProjectEgressIps` operation. */
+  export interface GetProjectEgressIpsParams {
+    /** The ID of the project. */
+    projectId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `listApps` operation. */
   export interface ListAppsParams {
     /** The ID of the project. */
@@ -4738,6 +4797,14 @@ namespace CodeEngineV2 {
      *  return active.
      */
     status?: string;
+  }
+
+  /** Describes the model of egress IP addresses. */
+  export interface ProjectEgressIPAddresses {
+    /** List of IBM private network IP addresses. */
+    private?: string[];
+    /** List of public IP addresses. */
+    public?: string[];
   }
 
   /** Contains a list of projects and pagination information. */

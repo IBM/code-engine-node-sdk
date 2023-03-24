@@ -139,6 +139,17 @@ describe('CodeEngineV2_integration', () => {
     expect(obtainedProject.status).toBe('active');
   });
 
+  test('getProjectEgressIps()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+    };
+
+    const res = await codeEngineService.getProjectEgressIps(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('listApps()', async () => {
     const params = {
       projectId: e2eTestProjectId,

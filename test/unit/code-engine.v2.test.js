@@ -15,9 +15,9 @@
  */
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
-const core = require('ibm-cloud-sdk-core');
+const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = core;
+const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
 const nock = require('nock');
 const CodeEngineV2 = require('../../dist/code-engine/v2');
@@ -55,7 +55,7 @@ function unmock_createRequest() {
 }
 
 // dont actually construct an authenticator
-const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
+const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CodeEngineV2', () => {
@@ -485,6 +485,91 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteProject();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getProjectEgressIps', () => {
+    describe('positive tests', () => {
+      function __getProjectEgressIpsTest() {
+        // Construct the params object for operation getProjectEgressIps
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const getProjectEgressIpsParams = {
+          projectId,
+        };
+
+        const getProjectEgressIpsResult =
+          codeEngineService.getProjectEgressIps(getProjectEgressIpsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getProjectEgressIpsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/egress_ips', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getProjectEgressIpsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getProjectEgressIpsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getProjectEgressIpsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getProjectEgressIpsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getProjectEgressIps(getProjectEgressIpsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectEgressIps({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectEgressIps();
         } catch (e) {
           err = e;
         }

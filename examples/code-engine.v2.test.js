@@ -155,6 +155,34 @@ describe('CodeEngineV2', () => {
     // end-get_project
   });
 
+  test('getProjectEgressIps request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getProjectEgressIps() result:');
+    // begin-get_project_egress_ips
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getProjectEgressIps(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_project_egress_ips
+  });
+
   test('listApps request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
