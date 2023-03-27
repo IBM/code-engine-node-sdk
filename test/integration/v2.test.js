@@ -139,6 +139,17 @@ describe('CodeEngineV2_integration', () => {
     expect(obtainedProject.status).toBe('active');
   });
 
+  test('getProjectEgressIps()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+    };
+
+    const res = await codeEngineService.getProjectEgressIps(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('listApps()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -903,6 +914,195 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('createSSHSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'ssh_auth',
+      name: 'my-ssh-secret',
+      data: { 'ssh_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---' },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getSSHSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ssh-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceSSHSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ssh-secret',
+      ifMatch: '*',
+      data: {
+        'ssh_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---',
+        'known_hosts': 'github.com',
+      },
+      format: 'ssh_auth',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'tls',
+      name: 'my-tls-secret',
+      data: {
+        'tls_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---',
+        'tls_cert': '---BEGIN CERTIFICATE------END CERTIFICATE---',
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-tls-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-tls-secret',
+      ifMatch: '*',
+      data: {
+        'tls_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---',
+        'tls_cert': '---BEGIN CERTIFICATE---test---END CERTIFICATE---',
+      },
+      format: 'tls',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createBasicAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'basic_auth',
+      name: 'my-ba-secret',
+      data: {
+        'username': 'user',
+        'password': 'pass',
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getBasicAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ba-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceBasicAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ba-secret',
+      ifMatch: '*',
+      data: {
+        'username': 'user2',
+        'password': 'pass2',
+      },
+      format: 'basic_auth',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createRegistrySecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'registry',
+      name: 'my-reg-secret',
+      data: {
+        'username': 'user',
+        'password': 'pass',
+        'server': 'github.com',
+        'email': 'test@123.com',
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getRegistrySecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-reg-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceRegistrySecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-reg-secret',
+      ifMatch: '*',
+      data: {
+        'username': 'user2',
+        'password': 'pass2',
+        'server': 'github.com',
+        'email': 'test@123.com',
+      },
+      format: 'registry',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('deleteAppRevision()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -992,6 +1192,51 @@ describe('CodeEngineV2_integration', () => {
     const params = {
       projectId: e2eTestProjectId,
       name: 'my-secret',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteSSHSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ssh-secret',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('deleteTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-tls-secret',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('deleteBasicAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ba-secret',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('deleteRegistrySecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-reg-secret',
     };
 
     const res = await codeEngineService.deleteSecret(params);

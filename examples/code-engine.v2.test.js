@@ -155,6 +155,34 @@ describe('CodeEngineV2', () => {
     // end-get_project
   });
 
+  test('getProjectEgressIps request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getProjectEgressIps() result:');
+    // begin-get_project_egress_ips
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getProjectEgressIps(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_project_egress_ips
+  });
+
   test('listApps request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -329,7 +357,7 @@ describe('CodeEngineV2', () => {
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
       appName: 'my-app',
-      name: 'my-app-001',
+      name: 'my-app-00001',
     };
 
     let res;
@@ -544,7 +572,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job',
+      name: 'my-job-run',
     };
 
     let res;
@@ -825,7 +853,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-configmap',
+      name: 'my-config-map',
     };
 
     let res;
@@ -1087,7 +1115,7 @@ describe('CodeEngineV2', () => {
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
       appName: 'my-app',
-      name: 'my-app-001',
+      name: 'my-app-00001',
     };
 
     try {
@@ -1139,7 +1167,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job',
+      name: 'my-job-run',
     };
 
     try {

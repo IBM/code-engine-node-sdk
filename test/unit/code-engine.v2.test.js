@@ -15,9 +15,9 @@
  */
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
-const core = require('ibm-cloud-sdk-core');
+const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = core;
+const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
 const nock = require('nock');
 const CodeEngineV2 = require('../../dist/code-engine/v2');
@@ -55,7 +55,7 @@ function unmock_createRequest() {
 }
 
 // dont actually construct an authenticator
-const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
+const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CodeEngineV2', () => {
@@ -485,6 +485,91 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteProject();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getProjectEgressIps', () => {
+    describe('positive tests', () => {
+      function __getProjectEgressIpsTest() {
+        // Construct the params object for operation getProjectEgressIps
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const getProjectEgressIpsParams = {
+          projectId,
+        };
+
+        const getProjectEgressIpsResult =
+          codeEngineService.getProjectEgressIps(getProjectEgressIpsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getProjectEgressIpsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/egress_ips', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getProjectEgressIpsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getProjectEgressIpsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getProjectEgressIpsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getProjectEgressIpsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getProjectEgressIps(getProjectEgressIpsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectEgressIps({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectEgressIps();
         } catch (e) {
           err = e;
         }
@@ -1312,7 +1397,7 @@ describe('CodeEngineV2', () => {
         // Construct the params object for operation getAppRevision
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const appName = 'my-app';
-        const name = 'my-app-001';
+        const name = 'my-app-00001';
         const getAppRevisionParams = {
           projectId,
           appName,
@@ -1361,7 +1446,7 @@ describe('CodeEngineV2', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const appName = 'my-app';
-        const name = 'my-app-001';
+        const name = 'my-app-00001';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getAppRevisionParams = {
@@ -1410,7 +1495,7 @@ describe('CodeEngineV2', () => {
         // Construct the params object for operation deleteAppRevision
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const appName = 'my-app';
-        const name = 'my-app-001';
+        const name = 'my-app-00001';
         const deleteAppRevisionParams = {
           projectId,
           appName,
@@ -1460,7 +1545,7 @@ describe('CodeEngineV2', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const appName = 'my-app';
-        const name = 'my-app-001';
+        const name = 'my-app-00001';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const deleteAppRevisionParams = {
@@ -1596,9 +1681,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"total_count":2,"jobs":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1675,7 +1760,7 @@ describe('CodeEngineV2', () => {
         const runAsUser = 1001;
         const runCommands = ['testString'];
         const runEnvVariables = [envVarPrototypeModel];
-        const runMode = 'daemon';
+        const runMode = 'task';
         const runServiceAccount = 'default';
         const runVolumeMounts = [volumeMountPrototypeModel];
         const scaleArraySpec = '1-5,7-8,10';
@@ -2012,7 +2097,7 @@ describe('CodeEngineV2', () => {
         const runAsUser = 1001;
         const runCommands = ['testString'];
         const runEnvVariables = [envVarPrototypeModel];
-        const runMode = 'daemon';
+        const runMode = 'task';
         const runServiceAccount = 'default';
         const runVolumeMounts = [volumeMountPrototypeModel];
         const scaleArraySpec = '1-5,7-8,10';
@@ -2236,9 +2321,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"daemon","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
+        '{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"completed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2318,7 +2403,7 @@ describe('CodeEngineV2', () => {
         const runAsUser = 1001;
         const runCommands = ['testString'];
         const runEnvVariables = [envVarPrototypeModel];
-        const runMode = 'daemon';
+        const runMode = 'task';
         const runServiceAccount = 'default';
         const runVolumeMounts = [volumeMountPrototypeModel];
         const scaleArraySpec = '1-5,7-8,10';
@@ -2447,7 +2532,7 @@ describe('CodeEngineV2', () => {
       function __getJobRunTest() {
         // Construct the params object for operation getJobRun
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
+        const name = 'my-job-run';
         const getJobRunParams = {
           projectId,
           name,
@@ -2489,7 +2574,7 @@ describe('CodeEngineV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
+        const name = 'my-job-run';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const getJobRunParams = {
@@ -2536,7 +2621,7 @@ describe('CodeEngineV2', () => {
       function __deleteJobRunTest() {
         // Construct the params object for operation deleteJobRun
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
+        const name = 'my-job-run';
         const deleteJobRunParams = {
           projectId,
           name,
@@ -2578,7 +2663,7 @@ describe('CodeEngineV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
+        const name = 'my-job-run';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const deleteJobRunParams = {
@@ -3789,7 +3874,7 @@ describe('CodeEngineV2', () => {
       function __createConfigMapTest() {
         // Construct the params object for operation createConfigMap
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-configmap';
+        const name = 'my-config-map';
         const data = { 'key1': 'testString' };
         const createConfigMapParams = {
           projectId,
@@ -3834,7 +3919,7 @@ describe('CodeEngineV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-configmap';
+        const name = 'my-config-map';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createConfigMapParams = {
@@ -4297,12 +4382,21 @@ describe('CodeEngineV2', () => {
 
   describe('createSecret', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // SecretDataSSHSecretData
+      const secretDataModel = {
+        ssh_key: 'testString',
+        known_hosts: 'testString',
+        foo: 'testString',
+      };
+
       function __createSecretTest() {
         // Construct the params object for operation createSecret
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const format = 'generic';
         const name = 'my-secret';
-        const data = { 'key1': 'testString' };
+        const data = secretDataModel;
         const createSecretParams = {
           projectId,
           format,
@@ -4483,12 +4577,21 @@ describe('CodeEngineV2', () => {
 
   describe('replaceSecret', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // SecretDataSSHSecretData
+      const secretDataModel = {
+        ssh_key: 'testString',
+        known_hosts: 'testString',
+        foo: 'testString',
+      };
+
       function __replaceSecretTest() {
         // Construct the params object for operation replaceSecret
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-secret';
         const ifMatch = 'testString';
-        const data = { 'key1': 'testString' };
+        const data = secretDataModel;
         const format = 'generic';
         const replaceSecretParams = {
           projectId,
