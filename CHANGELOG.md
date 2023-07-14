@@ -1,3 +1,10 @@
+## [3.1.1](https://github.ibm.com/coligo/node-sdk/compare/v3.1.0...v3.1.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* **test:** tls test adjusted ([#23](https://github.ibm.com/coligo/node-sdk/issues/23)) ([1d15dca](https://github.ibm.com/coligo/node-sdk/commit/1d15dca72623780aaf653577570815628d5030d8))
+
 # [3.1.0](https://github.ibm.com/coligo/node-sdk/compare/v3.0.0...v3.1.0) (2023-03-24)
 
 
