@@ -183,6 +183,34 @@ describe('CodeEngineV2', () => {
     // end-get_project_egress_ips
   });
 
+  test('getProjectStatusDetails request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getProjectStatusDetails() result:');
+    // begin-get_project_status_details
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getProjectStatusDetails(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_project_status_details
+  });
+
   test('listApps request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -586,6 +614,108 @@ describe('CodeEngineV2', () => {
     // end-get_job_run
   });
 
+  test('listBindings request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listBindings() result:');
+    // begin-list_bindings
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_bindings
+  });
+
+  test('createBinding request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createBinding() result:');
+    // begin-create_binding
+
+    // Request models needed by this operation.
+
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app-1',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      component: componentRefModel,
+      prefix: 'MY_COS',
+      secretName: 'my-service-access',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_binding
+  });
+
+  test('getBinding request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getBinding() result:');
+    // begin-get_binding
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      id: 'a172ced-b5f21bc-71ba50c-1638604',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_binding
+  });
+
   test('listBuilds request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -638,7 +768,6 @@ describe('CodeEngineV2', () => {
       name: 'my-build',
       outputImage: 'private.de.icr.io/icr_namespace/image-name',
       outputSecret: 'ce-auto-icr-private-eu-de',
-      sourceUrl: 'https://github.com/IBM/CodeEngine',
       strategyType: 'dockerfile',
     };
 
@@ -1036,6 +1165,7 @@ describe('CodeEngineV2', () => {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
       name: 'my-secret',
       ifMatch: 'testString',
+      format: 'generic',
     };
 
     let res;
@@ -1177,6 +1307,32 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_job_run
+  });
+
+  test('deleteBinding request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_binding
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      id: 'a172ced-b5f21bc-71ba50c-1638604',
+    };
+
+    try {
+      await codeEngineService.deleteBinding(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_binding
   });
 
   test('deleteBuild request example', async () => {

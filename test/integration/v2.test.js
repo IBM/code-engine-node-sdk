@@ -592,6 +592,97 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('listBindings()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('createServiceAccessSecret', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'service_access',
+      name: 'my-service-access',
+      serviceAccess: {
+        service_instance: {
+          id: '498131b4-d4b0-42ff-8592-ab3a2f6e3be6',
+        },
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createBinding()', async () => {
+    // Request models needed by this operation.
+
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: e2eTestProjectId,
+      component: componentRefModel,
+      prefix: 'MY_BIND',
+      secretName: 'my-service-access',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('getBinding()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      id: 'a172ced-4c9a75c-afe863e-2e70477',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('deleteBinding()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      id: 'a172ced-4c9a75c-afe863e-2e70477',
+    };
+
+    try {
+      await codeEngineService.deleteBinding(params);
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
   test('listBuilds()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -1197,7 +1288,7 @@ describe('CodeEngineV2_integration', () => {
     const params = {
       projectId: e2eTestProjectId,
       appName: 'my-app',
-      name: 'my-app-00001',
+      name: 'my-app-00003',
     };
 
     const res = await codeEngineService.deleteAppRevision(params);
@@ -1301,6 +1392,19 @@ describe('CodeEngineV2_integration', () => {
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
+
+  test('deleteServiceAccessSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-service-access',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
   test('deleteTLSSecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,
