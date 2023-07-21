@@ -592,26 +592,6 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('listBindings()', async () => {
-    const params = {
-      projectId: e2eTestProjectId,
-      limit: 100,
-    };
-
-    const allResults = [];
-    try {
-      const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
-      while (pager.hasNext()) {
-        const nextPage = await pager.getNext();
-        expect(nextPage).not.toBeNull();
-        allResults.push(...nextPage);
-      }
-      console.log(JSON.stringify(allResults, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-  });
-
   test('createServiceAccessSecret', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -665,6 +645,26 @@ describe('CodeEngineV2_integration', () => {
     try {
       res = await codeEngineService.getBinding(params);
       console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('listBindings()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
     } catch (err) {
       console.warn(err);
     }
