@@ -1,3 +1,15 @@
+# [4.0.0](https://github.ibm.com/coligo/node-sdk/compare/v3.1.1...v4.0.0) (2023-07-21)
+
+
+### Features
+
+* **v4:** Added additional int test, commit msg for semantic release ([#27](https://github.ibm.com/coligo/node-sdk/issues/27)) ([79a0f11](https://github.ibm.com/coligo/node-sdk/commit/79a0f11bbafc92090ba78e3e0ec35961701f5215))
+
+
+### BREAKING CHANGES
+
+* **v4:** Removed SoureURL from required fields for build create operations
+
 ## [3.1.1](https://github.ibm.com/coligo/node-sdk/compare/v3.1.0...v3.1.1) (2023-07-14)
 
 
