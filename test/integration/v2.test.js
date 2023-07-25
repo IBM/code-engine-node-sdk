@@ -592,6 +592,97 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('createServiceAccessSecret', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'service_access',
+      name: 'my-service-access',
+      serviceAccess: {
+        service_instance: {
+          id: '498131b4-d4b0-42ff-8592-ab3a2f6e3be6',
+        },
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createBinding()', async () => {
+    // Request models needed by this operation.
+
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: e2eTestProjectId,
+      component: componentRefModel,
+      prefix: 'MY_BIND',
+      secretName: 'my-service-access',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('getBinding()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      id: 'a172ced-4c9a75c-afe863e-2e70477',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getBinding(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('listBindings()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
+  test('deleteBinding()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      id: 'a172ced-4c9a75c-afe863e-2e70477',
+    };
+
+    try {
+      await codeEngineService.deleteBinding(params);
+    } catch (err) {
+      console.warn(err);
+    }
+  });
+
   test('listBuilds()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -964,8 +1055,53 @@ describe('CodeEngineV2_integration', () => {
       format: 'tls',
       name: 'my-tls-secret',
       data: {
-        'tls_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---',
-        'tls_cert': '---BEGIN CERTIFICATE------END CERTIFICATE---',
+        'tls_key':
+          '-----BEGIN PRIVATE KEY-----\n' +
+          'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCr+Qx5OrAHLWwm' +
+          '\nmstn7aEo317g/Lxv/Dmb/N/lanbGZfaVlnE1JrASNnEjps5CrVBLkjctbRYuAWOb' +
+          '\nvX4OKIGbSmT2JDu3gieg1v2gg0iuMmfqh9pgP8szlfB8lG7/rZ5m4ApEEB8iszIe' +
+          '\n+BrPsmlBBqd+tuJ3+t/BY9a7PjphkaMCbGlvoaDZEjT6KqubAMmZqkkYFT8mYx+A' +
+          '\nkwImgqVR5zMs4R2XSEl0QGLsFjnDtWLDvrHGdeGE0hnqTS5OusJ8bmNLJDOvSJSd' +
+          '\nZSWPtyahNQT4wAnp3RKxd3D2pdChqmxGdIs+eeNwzoXD42M2VEE/MgPLu7hPuPmC' +
+          '\nnN6AsET9AgMBAAECggEAc9d1cYv42zzbpz2KWt2VO6ULkl5syLqMS+kRIMaQb6Br' +
+          '\nc+Q9KeJ/pCUMHUnVktCQT/eUN4NN93t0D4qbiQn8FBEO5UcO+tQvwYZQnnkQ0lad' +
+          '\n7TvJ/B+8z2jm7+REyPG4y++KusJpVsSCtJ3H4bR6dhT3asHi15Mkem64TLTkOqf2' +
+          '\n5lWg5BUi3ZR5qFjriZdb7N3A+/Cb1fwOObCwNjRUJX6FAPpCdwEr+L9/o6bod+1N' +
+          '\nUArBYlSP8yMNyct3WzkPSpFnZxaYapjl0Nm9ipOfR5b9CHThoHg007WxdDF+6a/e' +
+          '\nSEJOZ0jRHwSctLhjSuL8/EOIuQGSHsyOK4SOmeHRgQKBgQDYlrafbArou+pStqIU' +
+          '\nZCmV51UqSfqZAAJ+YzV9rqhsM97yQKQYEESeIbgAnWCGlAbY7XrysIA/aOdglOuF' +
+          '\no60oRqlnkYZJT8SXjvnwmyxor67f3G0jbVuoefYL1G1EPdcL9l2K0xehOa2huYm0' +
+          '\n8lvlI8PPKKJkmu22r/TNyp6VEQKBgQDLRAHsDjNdwyMKVGe2G6ZmnyDWhGzVOOZf' +
+          '\n+Ixfmt0BK5AnmJBeABM6WRC/6EM0eX31lcev7sJMpWF4Iw0Op+tW2gmtfphi3j/l' +
+          '\nG7B3lU4V/M6jw0CrASy1RGY257ou3o+/yS4N6/lafZw/V8KDjgJngCeyRhgFf+Rj' +
+          '\nVNC3FIsBLQKBgERN43ILZLVY7eD/78V2gRbhSZ54jitKMX8iUnA8cKkPArRrZlSg' +
+          '\nbMNh5uFqwFIwxKgM3MVEnG1i6/Utgck3gRg+kJY08qCUI2+Yi4IxraOmJAQ9Q730' +
+          '\ncv+C1vGMIJlw1yzSmVV6lO0nf3aNSLxj4k81JD9klTIdGfKPMyjjSXfBAoGBALhl' +
+          '\nWI0JkOWlSZtsWK1mxfzgrMyOU6DWvn8fnlB4z7bpCxwwlf8AeHD9LWm6zYTEFlV8' +
+          '\n7CsZIOChQxvWSFkcUi13HUJrztgaIMK57Mt/AdiGf/sl/Ptk1GcYxtVWQJuWQbfN' +
+          '\nTN9KS+oge2cnOQlZAatdIiXi2pXaoJjP74u2sid9AoGAFuustiKF2vffjhyEg+HL' +
+          '\nU57p6LG7y6x02COLDhKTX4c/bEa6MX4f91ZKXy2S47tCgLSf4SYd49k1H0wQEDkl' +
+          '\nYs+pznN30O/Jxu063JfvFbLZxJkeayLpQL12w+NQUDwsF6MGvIYTnUefhkfb3LWC' +
+          '\njBKCTCcw9u4SVX1jK4f2/OU=' +
+          '\n-----END PRIVATE KEY-----',
+        'tls_cert':
+          '-----BEGIN CERTIFICATE-----' +
+          '\nMIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm' +
+          '\nb28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS' +
+          '\nBgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC' +
+          '\nAQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO' +
+          '\nQq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu' +
+          '\n/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr' +
+          '\nmwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u' +
+          '\nTrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj' +
+          '\nNlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk' +
+          '\nwjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm' +
+          '\n+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw' +
+          '\n/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw' +
+          '\ni4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg' +
+          '\nrv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT' +
+          '\nCyXJ56cw0ffDrXSn' +
+          '\n-----END CERTIFICATE-----',
       },
     };
 
@@ -993,8 +1129,53 @@ describe('CodeEngineV2_integration', () => {
       name: 'my-tls-secret',
       ifMatch: '*',
       data: {
-        'tls_key': '---BEGIN PRIVATE KEY------END PRIVATE KEY---',
-        'tls_cert': '---BEGIN CERTIFICATE---test---END CERTIFICATE---',
+        'tls_key':
+          '-----BEGIN PRIVATE KEY-----' +
+          '\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGfJO9qkAlq8Vy' +
+          '\nKNyJEAwJ+VGurknonWKL+/B/8uS45qDYHP9McyokfHR6GEeL3p/vk4zf+QI/+5Dn' +
+          '\n0IK6jyiLzl4x0FlEVbEesLubi/6B8r6I+pYfWlOX+ShJkryuZcMjuEtvP6sli+Wj' +
+          '\nr5yILu8YHgAVVdvLs7XJmlDPv/kmq9R66Nsl02PgLazJfztijcdBGkQAPxClwwkJ' +
+          '\nzVCWE/G7fS0iYUb76ScHrxLwN7Bh+wTOIMHk6qqK2UA45a8MmyGOkD4SoB4K3z3y' +
+          '\nGNTQrxQbj+wCyK9kY2/sTs++kcsiwTfTx+17UYO05S0+ExqIWrD6bJpnYmWART/2' +
+          '\niBvcAfLvAgMBAAECggEBAKzVj6SJGmBzKXQVxquHEKSiuBC+bVcjrMsuL6aKb8Xd' +
+          '\n9VMaNOhyI9EvmhEzESHnUidAuVvSLbZfLTfeZedjfy/2HCmOPhz17UxHIqX4ij7H' +
+          '\njEgkxBI7Ci18ZStjne7SZ9CzyuPtce842VbmNQyUqde7T+FEKSdArlwFhrbQeHjF' +
+          '\ngJQrsroY8d0h9Xt6UlfVzX/CeNWP98YJLJ7my9WYRhZlcBE5qwyaMRIY2UKcjgpx' +
+          '\nXaViny79P5GwiaVGgOUYZ32bA+GHf7u5WP7lCiqT32SgTZzQ9dov9KN+QSkui7qO' +
+          '\nj0tC0c7OI59zatPAbp+t1LDjsgTjkuoReHes4nhupvECgYEA5b+S9uLtTn3XxLMf' +
+          '\nR00anvek8EUbTA/TRrJWUhCgvyVCafpyx0BqJC9eR5LnmD3f3yFXDvD5DF201zTn' +
+          '\n1Py+sk6oUfuPLXz8P76L5Wpz8ryRjR4LfLu0CTGMuUMDfE3NRHQJHNKnkrPwu0mX' +
+          '\njwbZrI08Xs8yjyx4gapdwE1cEvkCgYEA3SqPHW1AjCdnhSpnzf9QwxX0hzUKvUBK' +
+          '\neuuhKvmwh/AnE2y4b/6VH7TRj+fUvbaSFl63tTKXvUA2J7gHvz8o3j24EYAibwe/' +
+          '\nTvcloLjNxHOEq42vwB9zoZZ1UjvNhRo7lB6626/ffQRHXeSfoyMr2GTFYdpCAZds' +
+          '\nf8/fHA14RycCgYASzd9FfcVWi05Btzd0KodnQ3WohL97NkBgpPATv3CotG//JJSI' +
+          '\nYmlNlOLukMOL3mSYaq4pduerb3ABvT7MW/NvvKhiLWjGnFg5D2t7136t+2keV7sw' +
+          '\n9lwB9KBD+YwrfGK0m5qzVTqJ81hcu+U/u5vNV7H9QJAuz8D9O+h4eNx0YQKBgQC+' +
+          '\naa3dv/oasLJHzEKi8HYv/+8PmXMtjPSS79tKjL6XywNZjfkdMypgqeTi6M4Yp98O' +
+          '\ns22m63AI2AfIGoFQ/qfI74pSRudegGUNL2uN/I3r3SkUKmBuIKYFMOzBaAuB1RwG' +
+          '\nYo6uJbVchRqMlBF8+wL8w4XMwYSiqiQXxnhoRpCPcQKBgE2UoeHxvydgQjcfx7/M' +
+          '\n8BmmLqohWUF6tU62TVBMhYeO77H5Qkn/y0K6UPvar7x0lNAz2ljiUtYvvHc3S9Mc' +
+          '\nwSQ7GGIZu4ro/tLfi1xVfeQH5Ibm/pdk+1BZfcGeYAHC9Gr+LAT0iJRu8nFyWroB' +
+          '\nq/Tq26sIqxRotUdtRDJ6D6jf' +
+          '\n-----END PRIVATE KEY-----',
+        'tls_cert':
+          '-----BEGIN CERTIFICATE-----' +
+          '\nMIICqDCCAZACCQDB2CY2jE7CCjANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtm' +
+          '\nb28uYmFyLmNvbTAeFw0yMzA2MjkyMDM5MzhaFw0yNDA2MjgyMDM5MzhaMBYxFDAS' +
+          '\nBgNVBAMMC2Zvby5iYXIuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC' +
+          '\nAQEAq/kMeTqwBy1sJprLZ+2hKN9e4Py8b/w5m/zf5Wp2xmX2lZZxNSawEjZxI6bO' +
+          '\nQq1QS5I3LW0WLgFjm71+DiiBm0pk9iQ7t4InoNb9oINIrjJn6ofaYD/LM5XwfJRu' +
+          '\n/62eZuAKRBAfIrMyHvgaz7JpQQanfrbid/rfwWPWuz46YZGjAmxpb6Gg2RI0+iqr' +
+          '\nmwDJmapJGBU/JmMfgJMCJoKlUeczLOEdl0hJdEBi7BY5w7Viw76xxnXhhNIZ6k0u' +
+          '\nTrrCfG5jSyQzr0iUnWUlj7cmoTUE+MAJ6d0SsXdw9qXQoapsRnSLPnnjcM6Fw+Nj' +
+          '\nNlRBPzIDy7u4T7j5gpzegLBE/QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCXRwhk' +
+          '\nwjvOzKh5R+QKHGjtcjutSkwZbMj5+5enN/8IwX2BbX0i/aALxEPcZExMK5aIS5rm' +
+          '\n+kUkDyZkYVaMQQoTGNHSnnET8WJf8zGqd/GdiVxZRVXjOnQ5tEezdwFm0a3TEEKw' +
+          '\n/2HG9chz24ywhbIZZMEFmse7LLrcy5XSUQzOTMWBKZ8fTEXBYaEVhD/9b4SPuLpw' +
+          '\ni4vDZPt+e+p96NcGNf0b932aod+X34dARUd55UM9PY4i4Z7UzzV7zK+U6tHjzzmg' +
+          '\nrv+JA2kDt3mwQXn7bfgRxLcpBZFpUHjLRe+MGlQJM2xFYAXop9ZzF1go58ErHbsT' +
+          '\nCyXJ56cw0ffDrXSn' +
+          '\n-----END CERTIFICATE-----',
       },
       format: 'tls',
     };
@@ -1107,7 +1288,7 @@ describe('CodeEngineV2_integration', () => {
     const params = {
       projectId: e2eTestProjectId,
       appName: 'my-app',
-      name: 'my-app-00001',
+      name: 'my-app-00003',
     };
 
     const res = await codeEngineService.deleteAppRevision(params);
@@ -1211,6 +1392,19 @@ describe('CodeEngineV2_integration', () => {
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
+
+  test('deleteServiceAccessSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-service-access',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
   test('deleteTLSSecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,

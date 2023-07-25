@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
+ * IBM OpenAPI SDK Code Generator Version: 3.72.2-2bede9d2-20230601-202845
  */
 
 /* eslint-disable max-classes-per-file */
@@ -301,7 +301,9 @@ class CodeEngineV2 extends BaseService {
   /**
    * List egress IP addresses.
    *
-   * Lists all egress IP addresses (public and private) that are used by components running in this project.
+   * Lists all egress IP addresses (public and private) that are used by components running in this project. For
+   * information about using egress IP addresses, see [Code Engine public and private IP
+   * addresses](https://cloud.ibm.com/docs/codeengine?topic=codeengine-network-addresses).
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
@@ -332,6 +334,58 @@ class CodeEngineV2 extends BaseService {
     const parameters = {
       options: {
         url: '/projects/{project_id}/egress_ips',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get the status details for a project.
+   *
+   * Retrieves status details about the given project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.ProjectStatusDetails>>}
+   */
+  public getProjectStatusDetails(
+    params: CodeEngineV2.GetProjectStatusDetailsParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.ProjectStatusDetails>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getProjectStatusDetails'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/status_details',
         method: 'GET',
         path,
       },
@@ -418,7 +472,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.imageReference - The name of the image that is used for this job. The format is
+   * @param {string} params.imageReference - The name of the image that is used for this app. The format is
    * `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the
    * default is `docker.io`. If `TAG` is not specified, the default is `latest`. If the image reference points to a
    * registry that requires authentication, make sure to also specify the property `image_secret`.
@@ -439,8 +493,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
-   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
-   * values that are exposed as environment variables within the running application.
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal values
+   * that are exposed as environment variables within the running application.
    * @param {string} [params.runServiceAccount] - Optional name of the service account. For built-in service accounts,
    * you can use the shortened names `manager` , `none`, `reader`, and `writer`.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets.
@@ -451,6 +505,8 @@ class CodeEngineV2 extends BaseService {
    * requests. This option defaults to the value of the `scale_concurrency` option, if not specified.
    * @param {string} [params.scaleCpuLimit] - Optional number of CPU set for the instance of the app. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * for an app instance.
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
    * of the app. The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`. The
    * units for specifying ephemeral storage are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand
@@ -496,6 +552,7 @@ class CodeEngineV2 extends BaseService {
       'scaleConcurrency',
       'scaleConcurrencyTarget',
       'scaleCpuLimit',
+      'scaleDownDelay',
       'scaleEphemeralStorageLimit',
       'scaleInitialInstances',
       'scaleMaxInstances',
@@ -524,6 +581,7 @@ class CodeEngineV2 extends BaseService {
       'scale_concurrency': _params.scaleConcurrency,
       'scale_concurrency_target': _params.scaleConcurrencyTarget,
       'scale_cpu_limit': _params.scaleCpuLimit,
+      'scale_down_delay': _params.scaleDownDelay,
       'scale_ephemeral_storage_limit': _params.scaleEphemeralStorageLimit,
       'scale_initial_instances': _params.scaleInitialInstances,
       'scale_max_instances': _params.scaleMaxInstances,
@@ -669,7 +727,7 @@ class CodeEngineV2 extends BaseService {
    * to indicate to update any version available. This might result in stale updates.
    * @param {number} [params.imagePort] - Optional port the app listens on. While the app will always be exposed via
    * port `443` for end users, this port is used to connect to the port that is exposed by the container image.
-   * @param {string} [params.imageReference] - The name of the image that is used for this job. The format is
+   * @param {string} [params.imageReference] - The name of the image that is used for this app. The format is
    * `REGISTRY/NAMESPACE/REPOSITORY:TAG` where `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the
    * default is `docker.io`. If `TAG` is not specified, the default is `latest`. If the image reference points to a
    * registry that requires authentication, make sure to also specify the property `image_secret`.
@@ -687,7 +745,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
-   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runServiceAccount] - Optional name of the service account. For built-in service accounts,
    * you can use the shortened names `manager` , `none`, `reader`, and `writer`.
@@ -700,6 +758,8 @@ class CodeEngineV2 extends BaseService {
    * requests. This option defaults to the value of the `scale_concurrency` option, if not specified.
    * @param {string} [params.scaleCpuLimit] - Optional number of CPU set for the instance of the app. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * for an app instance.
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
    * of the app. The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`. The
    * units for specifying ephemeral storage are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand
@@ -746,6 +806,7 @@ class CodeEngineV2 extends BaseService {
       'scaleConcurrency',
       'scaleConcurrencyTarget',
       'scaleCpuLimit',
+      'scaleDownDelay',
       'scaleEphemeralStorageLimit',
       'scaleInitialInstances',
       'scaleMaxInstances',
@@ -773,6 +834,7 @@ class CodeEngineV2 extends BaseService {
       'scale_concurrency': _params.scaleConcurrency,
       'scale_concurrency_target': _params.scaleConcurrencyTarget,
       'scale_cpu_limit': _params.scaleCpuLimit,
+      'scale_down_delay': _params.scaleDownDelay,
       'scale_ephemeral_storage_limit': _params.scaleEphemeralStorageLimit,
       'scale_initial_instances': _params.scaleInitialInstances,
       'scale_max_instances': _params.scaleMaxInstances,
@@ -1050,11 +1112,11 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the application (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
-   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
    * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
@@ -1281,11 +1343,11 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the application (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
-   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
    * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
@@ -1481,11 +1543,11 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the application (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
-   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or a literal
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
    * mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and
@@ -1691,6 +1753,222 @@ class CodeEngineV2 extends BaseService {
     return this.createRequest(parameters);
   }
   /*************************
+   * serviceBindings
+   ************************/
+
+  /**
+   * List bindings.
+   *
+   * List all bindings in a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {number} [params.limit] - Optional maximum number of bindings per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the 'next_url' field of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.BindingList>>}
+   */
+  public listBindings(
+    params: CodeEngineV2.ListBindingsParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.BindingList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'listBindings');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/bindings',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create a binding.
+   *
+   * Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision.
+   * For more information see the
+   * [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {ComponentRef} params.component - A reference to another component.
+   * @param {string} params.prefix - Optional value that is set as prefix in the component that is bound. Will be
+   * generated if not provided.
+   * @param {string} params.secretName - The service access secret that is binding to a component.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Binding>>}
+   */
+  public createBinding(
+    params: CodeEngineV2.CreateBindingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.Binding>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'component', 'prefix', 'secretName'];
+    const _validParams = ['projectId', 'component', 'prefix', 'secretName', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'component': _params.component,
+      'prefix': _params.prefix,
+      'secret_name': _params.secretName,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'createBinding');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/bindings',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a binding.
+   *
+   * Display the details of a binding.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.id - The id of your binding.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Binding>>}
+   */
+  public getBinding(
+    params: CodeEngineV2.GetBindingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.Binding>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'id'];
+    const _validParams = ['projectId', 'id', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'getBinding');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/bindings/{id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a binding.
+   *
+   * Delete a binding.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.id - The id of your binding.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteBinding(
+    params: CodeEngineV2.DeleteBindingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'id'];
+    const _validParams = ['projectId', 'id', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteBinding');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/bindings/{id}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
    * builds
    ************************/
 
@@ -1761,11 +2039,6 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.outputImage - The name of the image.
    * @param {string} params.outputSecret - The secret that is required to access the image registry. Make sure that the
    * secret is granted with push permissions towards the specified container registry namespace.
-   * @param {string} params.sourceUrl - The URL of the code repository. This field is required if the `source_type` is
-   * `git`. If the `source_type` value is `local`, this field must be omitted. If the repository is publicly available
-   * you can provide a 'https' URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication,
-   * you need to provide a 'ssh' URL like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points
-   * to a secret of format `ssh_auth`.
    * @param {string} params.strategyType - The strategy to use for building the image.
    * @param {string} [params.sourceContextDir] - Option directory in the repository that contains the buildpacks file or
    * the Dockerfile.
@@ -1780,6 +2053,11 @@ class CodeEngineV2 extends BaseService {
    * repository or based on local source code.
    * * local - For builds from local source code.
    * * git - For builds from git version controlled source code.
+   * @param {string} [params.sourceUrl] - The URL of the code repository. This field is required if the `source_type` is
+   * `git`. If the `source_type` value is `local`, this field must be omitted. If the repository is publicly available
+   * you can provide a 'https' URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication,
+   * you need to provide a 'ssh' URL like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points
+   * to a secret of format `ssh_auth`.
    * @param {string} [params.strategySize] - Optional size for the build, which determines the amount of resources used.
    * Build sizes are `small`, `medium`, `large`, `xlarge`.
    * @param {string} [params.strategySpecFile] - Optional path to the specification file that is used for build
@@ -1793,25 +2071,18 @@ class CodeEngineV2 extends BaseService {
     params: CodeEngineV2.CreateBuildParams
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Build>> {
     const _params = { ...params };
-    const _requiredParams = [
-      'projectId',
-      'name',
-      'outputImage',
-      'outputSecret',
-      'sourceUrl',
-      'strategyType',
-    ];
+    const _requiredParams = ['projectId', 'name', 'outputImage', 'outputSecret', 'strategyType'];
     const _validParams = [
       'projectId',
       'name',
       'outputImage',
       'outputSecret',
-      'sourceUrl',
       'strategyType',
       'sourceContextDir',
       'sourceRevision',
       'sourceSecret',
       'sourceType',
+      'sourceUrl',
       'strategySize',
       'strategySpecFile',
       'timeout',
@@ -1826,12 +2097,12 @@ class CodeEngineV2 extends BaseService {
       'name': _params.name,
       'output_image': _params.outputImage,
       'output_secret': _params.outputSecret,
-      'source_url': _params.sourceUrl,
       'strategy_type': _params.strategyType,
       'source_context_dir': _params.sourceContextDir,
       'source_revision': _params.sourceRevision,
       'source_secret': _params.sourceSecret,
       'source_type': _params.sourceType,
+      'source_url': _params.sourceUrl,
       'strategy_size': _params.strategySize,
       'strategy_spec_file': _params.strategySpecFile,
       'timeout': _params.timeout,
@@ -2688,12 +2959,15 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.format - Specify the format of the secret.
+   * @param {string} params.format - Specify the format of the secret. The format of the secret will determine how the
+   * secret is used.
    * @param {string} params.name - The name of the secret.
    * @param {SecretData} [params.data] - Data container that allows to specify config parameters and their values as a
    * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max
    * length of 253 characters. Each value field can consists of any character and must not be exceed a max length of
    * 1048576 characters.
+   * @param {ServiceAccessSecretPrototypeProps} [params.serviceAccess] - Properties for Service Access Secret
+   * Prototypes.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Secret>>}
    */
@@ -2702,7 +2976,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'format', 'name'];
-    const _validParams = ['projectId', 'format', 'name', 'data', 'headers'];
+    const _validParams = ['projectId', 'format', 'name', 'data', 'serviceAccess', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2712,6 +2986,7 @@ class CodeEngineV2 extends BaseService {
       'format': _params.format,
       'name': _params.name,
       'data': _params.data,
+      'service_access': _params.serviceAccess,
     };
 
     const path = {
@@ -2804,11 +3079,12 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.ifMatch - Version of the secret settings to be updated. Specify the version that you
    * retrieved as entity_tag (ETag header) when reading the secret. This value helps identifying parallel usage of this
    * API. Pass * to indicate to update any version available. This might result in stale updates.
+   * @param {string} params.format - Specify the format of the secret. The format of the secret will determine how the
+   * secret is used.
    * @param {SecretData} [params.data] - Data container that allows to specify config parameters and their values as a
    * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max
    * length of 253 characters. Each value field can consists of any character and must not be exceed a max length of
    * 1048576 characters.
-   * @param {string} [params.format] - Specify the format of the secret.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Secret>>}
    */
@@ -2816,16 +3092,16 @@ class CodeEngineV2 extends BaseService {
     params: CodeEngineV2.ReplaceSecretParams
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Secret>> {
     const _params = { ...params };
-    const _requiredParams = ['projectId', 'name', 'ifMatch'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'data', 'format', 'headers'];
+    const _requiredParams = ['projectId', 'name', 'ifMatch', 'format'];
+    const _validParams = ['projectId', 'name', 'ifMatch', 'format', 'data', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      'data': _params.data,
       'format': _params.format,
+      'data': _params.data,
     };
 
     const path = {
@@ -2980,6 +3256,13 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getProjectStatusDetails` operation. */
+  export interface GetProjectStatusDetailsParams {
+    /** The ID of the project. */
+    projectId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `listApps` operation. */
   export interface ListAppsParams {
     /** The ID of the project. */
@@ -2998,7 +3281,7 @@ namespace CodeEngineV2 {
   export interface CreateAppParams {
     /** The ID of the project. */
     projectId: string;
-    /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
+    /** The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
      *  `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not
      *  specified, the default is `latest`. If the image reference points to a registry that requires authentication,
      *  make sure to also specify the property `image_secret`.
@@ -3031,7 +3314,7 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
-    /** Optional references to config maps, secrets or a literal values that are exposed as environment variables
+    /** Optional references to config maps, secrets or literal values that are exposed as environment variables
      *  within the running application.
      */
     runEnvVariables?: EnvVarPrototype[];
@@ -3052,6 +3335,8 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scaleCpuLimit?: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    scaleDownDelay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
      *  Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
@@ -3133,7 +3418,7 @@ namespace CodeEngineV2 {
      *  port is used to connect to the port that is exposed by the container image.
      */
     imagePort?: number;
-    /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
+    /** The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
      *  `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not
      *  specified, the default is `latest`. If the image reference points to a registry that requires authentication,
      *  make sure to also specify the property `image_secret`.
@@ -3160,7 +3445,7 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
-    /** Optional references to config maps, secrets or a literal values. */
+    /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
      *  `manager` , `none`, `reader`, and `writer`.
@@ -3181,6 +3466,8 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scaleCpuLimit?: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    scaleDownDelay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
      *  Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
@@ -3303,13 +3590,13 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the application (e.g., 1001). */
+    /** The user ID (UID) to run the job (e.g., 1001). */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
-    /** Optional references to config maps, secrets or a literal values. */
+    /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
      *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
@@ -3418,13 +3705,13 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the application (e.g., 1001). */
+    /** The user ID (UID) to run the job (e.g., 1001). */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
-    /** Optional references to config maps, secrets or a literal values. */
+    /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
      *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
@@ -3532,13 +3819,13 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the application (e.g., 1001). */
+    /** The user ID (UID) to run the job (e.g., 1001). */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
-    /** Optional references to config maps, secrets or a literal values. */
+    /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
      *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
@@ -3620,6 +3907,51 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `listBindings` operation. */
+  export interface ListBindingsParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Optional maximum number of bindings per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of
+     *  the operation response.
+     */
+    start?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createBinding` operation. */
+  export interface CreateBindingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** A reference to another component. */
+    component: ComponentRef;
+    /** Optional value that is set as prefix in the component that is bound. Will be generated if not provided. */
+    prefix: string;
+    /** The service access secret that is binding to a component. */
+    secretName: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getBinding` operation. */
+  export interface GetBindingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The id of your binding. */
+    id: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteBinding` operation. */
+  export interface DeleteBindingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The id of your binding. */
+    id: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `listBuilds` operation. */
   export interface ListBuildsParams {
     /** The ID of the project. */
@@ -3643,13 +3975,6 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     outputSecret: string;
-    /** The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type`
-     *  value is `local`, this field must be omitted. If the repository is publicly available you can provide a 'https'
-     *  URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a
-     *  'ssh' URL like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of
-     *  format `ssh_auth`.
-     */
-    sourceUrl: string;
     /** The strategy to use for building the image. */
     strategyType: string;
     /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
@@ -3671,6 +3996,13 @@ namespace CodeEngineV2 {
      *  * git - For builds from git version controlled source code.
      */
     sourceType?: CreateBuildConstants.SourceType | string;
+    /** The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type`
+     *  value is `local`, this field must be omitted. If the repository is publicly available you can provide a 'https'
+     *  URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a
+     *  'ssh' URL like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of
+     *  format `ssh_auth`.
+     */
+    sourceUrl?: string;
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`.
      */
@@ -3968,7 +4300,7 @@ namespace CodeEngineV2 {
   export interface CreateSecretParams {
     /** The ID of the project. */
     projectId: string;
-    /** Specify the format of the secret. */
+    /** Specify the format of the secret. The format of the secret will determine how the secret is used. */
     format: CreateSecretConstants.Format | string;
     /** The name of the secret. */
     name: string;
@@ -3977,12 +4309,14 @@ namespace CodeEngineV2 {
      *  Each value field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
     data?: SecretData;
+    /** Properties for Service Access Secret Prototypes. */
+    serviceAccess?: ServiceAccessSecretPrototypeProps;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createSecret` operation. */
   export namespace CreateSecretConstants {
-    /** Specify the format of the secret. */
+    /** Specify the format of the secret. The format of the secret will determine how the secret is used. */
     export enum Format {
       GENERIC = 'generic',
       SSH_AUTH = 'ssh_auth',
@@ -4014,19 +4348,19 @@ namespace CodeEngineV2 {
      *  update any version available. This might result in stale updates.
      */
     ifMatch: string;
+    /** Specify the format of the secret. The format of the secret will determine how the secret is used. */
+    format: ReplaceSecretConstants.Format | string;
     /** Data container that allows to specify config parameters and their values as a key-value map. Each key field
      *  must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters.
      *  Each value field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
     data?: SecretData;
-    /** Specify the format of the secret. */
-    format?: ReplaceSecretConstants.Format | string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `replaceSecret` operation. */
   export namespace ReplaceSecretConstants {
-    /** Specify the format of the secret. */
+    /** Specify the format of the secret. The format of the secret will determine how the secret is used. */
     export enum Format {
       GENERIC = 'generic',
       SSH_AUTH = 'ssh_auth',
@@ -4053,9 +4387,9 @@ namespace CodeEngineV2 {
 
   /** App is the response model for app resources. */
   export interface App {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
-    /** Optional URL to invoke app. Depending on visibility this is accessible publicly ot in the private network
+    /** Optional URL to invoke app. Depending on visibility this is accessible publicly or in the private network
      *  only. Empty in case 'managed_domain_mappings' is set to 'local'.
      */
     endpoint?: string;
@@ -4071,7 +4405,7 @@ namespace CodeEngineV2 {
      *  port is used to connect to the port that is exposed by the container image.
      */
     image_port?: number;
-    /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
+    /** The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
      *  `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not
      *  specified, the default is `latest`. If the image reference points to a registry that requires authentication,
      *  make sure to also specify the property `image_secret`.
@@ -4104,7 +4438,7 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or a literal values, which are exposed as environment variables in the
+    /** References to config maps, secrets or literal values, which are exposed as environment variables in the
      *  application.
      */
     run_env_variables: EnvVar[];
@@ -4125,6 +4459,8 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scale_cpu_limit: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    scale_down_delay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
      *  Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
@@ -4174,7 +4510,7 @@ namespace CodeEngineV2 {
   export interface AppRevision {
     /** Name of the associated app. */
     app_name?: string;
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new revision,  a URL is created identifying the location of the instance. */
     href?: string;
@@ -4184,7 +4520,7 @@ namespace CodeEngineV2 {
      *  port is used to connect to the port that is exposed by the container image.
      */
     image_port?: number;
-    /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
+    /** The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
      *  `REGISTRY` and `TAG` are optional. If `REGISTRY` is not specified, the default is `docker.io`. If `TAG` is not
      *  specified, the default is `latest`. If the image reference points to a registry that requires authentication,
      *  make sure to also specify the property `image_secret`.
@@ -4212,7 +4548,7 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or a literal values, which are exposed as environment variables in the
+    /** References to config maps, secrets or literal values, which are exposed as environment variables in the
      *  application.
      */
     run_env_variables: EnvVar[];
@@ -4233,6 +4569,8 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scale_cpu_limit: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    scale_down_delay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
      *  Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information
@@ -4296,9 +4634,41 @@ namespace CodeEngineV2 {
     reason?: string;
   }
 
+  /** Describes the model of a binding. */
+  export interface Binding {
+    /** A reference to another component. */
+    component: ComponentRef;
+    /** When you provision a new binding,  a URL is created identifying the location of the instance. */
+    href?: string;
+    /** The ID of the binding. */
+    id?: string;
+    /** The value that is set as prefix in the component that is bound. */
+    prefix: string;
+    /** The ID of the project the resource is located in. */
+    project_id?: string;
+    /** The type of the binding. */
+    resource_type?: string;
+    /** The service access secret that is bound to a component. */
+    secret_name: string;
+    /** The current status of the binding. */
+    status?: string;
+  }
+
+  /** Contains a list of bindings and pagination information. */
+  export interface BindingList {
+    /** List of all bindings. */
+    bindings: Binding[];
+    /** Describes properties needed to retrieve the first page of a result list. */
+    first?: ListFirstMetadata;
+    /** Maximum number of resources per page. */
+    limit: number;
+    /** Describes properties needed to retrieve the next page of a result list. */
+    next?: ListNextMetadata;
+  }
+
   /** Response model for build definitions. */
   export interface Build {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** The version of the build instance, which is used to achieve optimistic locking. */
     entity_tag: string;
@@ -4343,7 +4713,7 @@ namespace CodeEngineV2 {
      *  'ssh' URL like `git@github.com:IBM/CodeEngine.git` along with a `source_secret` that points to a secret of
      *  format `ssh_auth`.
      */
-    source_url: string;
+    source_url?: string;
     /** The current status of the build. */
     status?: string;
     /** The detailed status of the build. */
@@ -4379,7 +4749,7 @@ namespace CodeEngineV2 {
      *  `strategy_type`, `source_url`, `output_image` and `output_secret` to describe the build run.
      */
     build_name: string;
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you trigger a new build run,  a URL is created identifying the location of the instance. */
     href?: string;
@@ -4471,9 +4841,17 @@ namespace CodeEngineV2 {
     reason?: string;
   }
 
+  /** A reference to another component. */
+  export interface ComponentRef {
+    /** The name of the referenced component. */
+    name: string;
+    /** The type of the referenced resource. */
+    resource_type: string;
+  }
+
   /** Describes the model of a configmap. */
   export interface ConfigMap {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** The key-value pair for the config map. Values must be specified in `KEY=VALUE` format. */
     data?: JsonObject;
@@ -4537,7 +4915,7 @@ namespace CodeEngineV2 {
 
   /** Job is the response model for job resources. */
   export interface Job {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** The version of the job instance, which is used to achieve optimistic locking. */
     entity_tag: string;
@@ -4567,14 +4945,14 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** The user ID (UID) to run the application (e.g., 1001). */
+    /** The user ID (UID) to run the job (e.g., 1001). */
     run_as_user?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or a literal values, which are exposed as environment variables in the
-     *  job run.
+    /** References to config maps, secrets or literal values, which are exposed as environment variables in the job
+     *  run.
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
@@ -4635,7 +5013,7 @@ namespace CodeEngineV2 {
 
   /** Response model for job run resources. */
   export interface JobRun {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new job run,  a URL is created identifying the location of the instance. */
     href?: string;
@@ -4667,14 +5045,14 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** The user ID (UID) to run the application (e.g., 1001). */
+    /** The user ID (UID) to run the job (e.g., 1001). */
     run_as_user?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or a literal values, which are exposed as environment variables in the
-     *  job run.
+    /** References to config maps, secrets or literal values, which are exposed as environment variables in the job
+     *  run.
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
@@ -4775,7 +5153,7 @@ namespace CodeEngineV2 {
   export interface Project {
     /** An alphanumeric value identifying the account ID. */
     account_id?: string;
-    /** The date when the project was created. */
+    /** The timestamp when the project was created. */
     created_at?: string;
     /** The CRN of the project. */
     crn?: string;
@@ -4819,9 +5197,45 @@ namespace CodeEngineV2 {
     projects: Project[];
   }
 
+  /** Describes the model of a project status details. */
+  export interface ProjectStatusDetails {
+    /** Status of the domain created for the project. */
+    domain: string;
+    /** Defines whether a project is enabled for management and consumption. */
+    project: string;
+  }
+
+  /** The service credential associated with the secret. */
+  export interface ResourceKeyRef {
+    /** ID of the service credential associated with the secret. */
+    id?: string;
+    /** Name of the service credential associated with the secret. */
+    name?: string;
+  }
+
+  /** The service credential associated with the secret. */
+  export interface ResourceKeyRefPrototype {
+    /** ID of the service credential associated with the secret. */
+    id?: string;
+  }
+
+  /** A reference to the Role and Role CRN for service binding. */
+  export interface RoleRef {
+    /** CRN of the IAM Role for thise service access secret. */
+    crn?: string;
+    /** Role of the service credential. */
+    name?: string;
+  }
+
+  /** A reference to the Role and Role CRN for service binding. */
+  export interface RoleRefPrototype {
+    /** CRN of the IAM Role for thise service access secret. */
+    crn?: string;
+  }
+
   /** Describes the model of a secret. */
   export interface Secret {
-    /** The date when the resource was created. */
+    /** The timestamp when the resource was created. */
     created_at?: string;
     /** Data container that allows to specify config parameters and their values as a key-value map. Each key field
      *  must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters.
@@ -4842,6 +5256,8 @@ namespace CodeEngineV2 {
     project_id?: string;
     /** The type of the secret. */
     resource_type?: string;
+    /** Properties for Service Access Secrets. */
+    service_access?: ServiceAccessSecretProps;
   }
 
   /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value field can consists of any character and must not be exceed a max length of 1048576 characters. */
@@ -4860,6 +5276,50 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
     /** List of Secrets. */
     secrets: Secret[];
+  }
+
+  /** Properties for Service Access Secrets. */
+  export interface ServiceAccessSecretProps {
+    /** The service credential associated with the secret. */
+    resource_key: ResourceKeyRef;
+    /** A reference to the Role and Role CRN for service binding. */
+    role?: RoleRef;
+    /** The IBM Cloud service instance associated with the secret. */
+    service_instance: ServiceInstanceRef;
+    /** A reference to the Service ID used to the create service credential. */
+    serviceid?: ServiceIDRef;
+  }
+
+  /** Properties for Service Access Secret Prototypes. */
+  export interface ServiceAccessSecretPrototypeProps {
+    /** The service credential associated with the secret. */
+    resource_key: ResourceKeyRefPrototype;
+    /** A reference to the Role and Role CRN for service binding. */
+    role?: RoleRefPrototype;
+    /** The IBM Cloud service instance associated with the secret. */
+    service_instance: ServiceInstanceRefPrototype;
+    /** A reference to the Service ID used to the create service credential. */
+    serviceid?: ServiceIDRef;
+  }
+
+  /** A reference to the Service ID used to the create service credential. */
+  export interface ServiceIDRef {
+    /** CRN value of a Service ID used to create the service credential. */
+    crn?: string;
+  }
+
+  /** The IBM Cloud service instance associated with the secret. */
+  export interface ServiceInstanceRef {
+    /** ID of the IBM Cloud service instance associated with the secret. */
+    id?: string;
+    /** Type of IBM Cloud service associated with the secret. */
+    type?: string;
+  }
+
+  /** The IBM Cloud service instance associated with the secret. */
+  export interface ServiceInstanceRefPrototype {
+    /** ID of the IBM Cloud service instance associated with the secret. */
+    id?: string;
   }
 
   /** Response model of a volume mount. */
@@ -5318,6 +5778,85 @@ namespace CodeEngineV2 {
      */
     public async getAll(): Promise<CodeEngineV2.JobRun[]> {
       const results: JobRun[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+
+  /**
+   * BindingsPager can be used to simplify the use of listBindings().
+   */
+  export class BindingsPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListBindingsParams;
+
+    /**
+     * Construct a BindingsPager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listBindings()
+     * @param {Object} params - The parameters to be passed to listBindings()
+     * @constructor
+     * @returns {BindingsPager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListBindingsParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listBindings().
+     * @returns {Promise<CodeEngineV2.Binding[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.Binding[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listBindings(this.params);
+      const { result } = response;
+
+      let next = null;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.bindings;
+    }
+
+    /**
+     * Returns all results by invoking listBindings() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.Binding[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.Binding[]> {
+      const results: Binding[] = [];
       while (this.hasNext()) {
         const nextPage = await this.getNext();
         results.push(...nextPage);

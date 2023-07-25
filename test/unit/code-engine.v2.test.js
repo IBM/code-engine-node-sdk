@@ -579,6 +579,92 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('getProjectStatusDetails', () => {
+    describe('positive tests', () => {
+      function __getProjectStatusDetailsTest() {
+        // Construct the params object for operation getProjectStatusDetails
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const getProjectStatusDetailsParams = {
+          projectId,
+        };
+
+        const getProjectStatusDetailsResult = codeEngineService.getProjectStatusDetails(
+          getProjectStatusDetailsParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getProjectStatusDetailsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/status_details', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getProjectStatusDetailsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getProjectStatusDetailsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getProjectStatusDetailsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getProjectStatusDetailsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getProjectStatusDetails(getProjectStatusDetailsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectStatusDetails({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getProjectStatusDetails();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('listApps', () => {
     describe('positive tests', () => {
       function __listAppsTest() {
@@ -672,9 +758,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"apps":[{"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -758,6 +844,7 @@ describe('CodeEngineV2', () => {
         const scaleConcurrency = 100;
         const scaleConcurrencyTarget = 80;
         const scaleCpuLimit = '1';
+        const scaleDownDelay = 300;
         const scaleEphemeralStorageLimit = '4G';
         const scaleInitialInstances = 1;
         const scaleMaxInstances = 10;
@@ -780,6 +867,7 @@ describe('CodeEngineV2', () => {
           scaleConcurrency,
           scaleConcurrencyTarget,
           scaleCpuLimit,
+          scaleDownDelay,
           scaleEphemeralStorageLimit,
           scaleInitialInstances,
           scaleMaxInstances,
@@ -816,6 +904,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
         expect(mockRequestOptions.body.scale_concurrency_target).toEqual(scaleConcurrencyTarget);
         expect(mockRequestOptions.body.scale_cpu_limit).toEqual(scaleCpuLimit);
+        expect(mockRequestOptions.body.scale_down_delay).toEqual(scaleDownDelay);
         expect(mockRequestOptions.body.scale_ephemeral_storage_limit).toEqual(
           scaleEphemeralStorageLimit
         );
@@ -1107,6 +1196,7 @@ describe('CodeEngineV2', () => {
         const scaleConcurrency = 100;
         const scaleConcurrencyTarget = 80;
         const scaleCpuLimit = '1';
+        const scaleDownDelay = 300;
         const scaleEphemeralStorageLimit = '4G';
         const scaleInitialInstances = 1;
         const scaleMaxInstances = 10;
@@ -1130,6 +1220,7 @@ describe('CodeEngineV2', () => {
           scaleConcurrency,
           scaleConcurrencyTarget,
           scaleCpuLimit,
+          scaleDownDelay,
           scaleEphemeralStorageLimit,
           scaleInitialInstances,
           scaleMaxInstances,
@@ -1166,6 +1257,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
         expect(mockRequestOptions.body.scale_concurrency_target).toEqual(scaleConcurrencyTarget);
         expect(mockRequestOptions.body.scale_cpu_limit).toEqual(scaleCpuLimit);
+        expect(mockRequestOptions.body.scale_down_delay).toEqual(scaleDownDelay);
         expect(mockRequestOptions.body.scale_ephemeral_storage_limit).toEqual(
           scaleEphemeralStorageLimit
         );
@@ -1342,9 +1434,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2705,6 +2797,431 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('listBindings', () => {
+    describe('positive tests', () => {
+      function __listBindingsTest() {
+        // Construct the params object for operation listBindings
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const limit = 100;
+        const start = 'testString';
+        const listBindingsParams = {
+          projectId,
+          limit,
+          start,
+        };
+
+        const listBindingsResult = codeEngineService.listBindings(listBindingsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listBindingsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listBindingsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listBindingsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listBindingsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listBindingsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listBindings(listBindingsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.listBindings({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.listBindings();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('BindingsPager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/bindings';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"bindings":[{"component":{"name":"my-app-1","resource_type":"app_v2"},"href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/bindings/my-binding","id":"a172ced-b5f21bc-71ba50c-1638604","prefix":"MY_COS","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"binding_v2","secret_name":"my-service-access","status":"active"}],"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.BindingsPager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
+  describe('createBinding', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ComponentRef
+      const componentRefModel = {
+        name: 'my-app-1',
+        resource_type: 'app_v2',
+      };
+
+      function __createBindingTest() {
+        // Construct the params object for operation createBinding
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const component = componentRefModel;
+        const prefix = 'MY_COS';
+        const secretName = 'my-service-access';
+        const createBindingParams = {
+          projectId,
+          component,
+          prefix,
+          secretName,
+        };
+
+        const createBindingResult = codeEngineService.createBinding(createBindingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createBindingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.component).toEqual(component);
+        expect(mockRequestOptions.body.prefix).toEqual(prefix);
+        expect(mockRequestOptions.body.secret_name).toEqual(secretName);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createBindingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __createBindingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __createBindingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const component = componentRefModel;
+        const prefix = 'MY_COS';
+        const secretName = 'my-service-access';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createBindingParams = {
+          projectId,
+          component,
+          prefix,
+          secretName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.createBinding(createBindingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.createBinding({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.createBinding();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getBinding', () => {
+    describe('positive tests', () => {
+      function __getBindingTest() {
+        // Construct the params object for operation getBinding
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const getBindingParams = {
+          projectId,
+          id,
+        };
+
+        const getBindingResult = codeEngineService.getBinding(getBindingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getBindingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getBindingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getBindingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getBindingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getBindingParams = {
+          projectId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getBinding(getBindingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getBinding({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getBinding();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteBinding', () => {
+    describe('positive tests', () => {
+      function __deleteBindingTest() {
+        // Construct the params object for operation deleteBinding
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const deleteBindingParams = {
+          projectId,
+          id,
+        };
+
+        const deleteBindingResult = codeEngineService.deleteBinding(deleteBindingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteBindingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings/{id}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteBindingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteBindingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteBindingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteBindingParams = {
+          projectId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteBinding(deleteBindingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteBinding({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteBinding();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('listBuilds', () => {
     describe('positive tests', () => {
       function __listBuildsTest() {
@@ -2853,12 +3370,12 @@ describe('CodeEngineV2', () => {
         const name = 'my-build';
         const outputImage = 'private.de.icr.io/icr_namespace/image-name';
         const outputSecret = 'ce-auto-icr-private-eu-de';
-        const sourceUrl = 'https://github.com/IBM/CodeEngine';
         const strategyType = 'dockerfile';
         const sourceContextDir = 'some/subfolder';
         const sourceRevision = 'main';
         const sourceSecret = 'testString';
         const sourceType = 'git';
+        const sourceUrl = 'https://github.com/IBM/CodeEngine';
         const strategySize = 'medium';
         const strategySpecFile = 'Dockerfile';
         const timeout = 600;
@@ -2867,12 +3384,12 @@ describe('CodeEngineV2', () => {
           name,
           outputImage,
           outputSecret,
-          sourceUrl,
           strategyType,
           sourceContextDir,
           sourceRevision,
           sourceSecret,
           sourceType,
+          sourceUrl,
           strategySize,
           strategySpecFile,
           timeout,
@@ -2895,12 +3412,12 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.output_image).toEqual(outputImage);
         expect(mockRequestOptions.body.output_secret).toEqual(outputSecret);
-        expect(mockRequestOptions.body.source_url).toEqual(sourceUrl);
         expect(mockRequestOptions.body.strategy_type).toEqual(strategyType);
         expect(mockRequestOptions.body.source_context_dir).toEqual(sourceContextDir);
         expect(mockRequestOptions.body.source_revision).toEqual(sourceRevision);
         expect(mockRequestOptions.body.source_secret).toEqual(sourceSecret);
         expect(mockRequestOptions.body.source_type).toEqual(sourceType);
+        expect(mockRequestOptions.body.source_url).toEqual(sourceUrl);
         expect(mockRequestOptions.body.strategy_size).toEqual(strategySize);
         expect(mockRequestOptions.body.strategy_spec_file).toEqual(strategySpecFile);
         expect(mockRequestOptions.body.timeout).toEqual(timeout);
@@ -2928,7 +3445,6 @@ describe('CodeEngineV2', () => {
         const name = 'my-build';
         const outputImage = 'private.de.icr.io/icr_namespace/image-name';
         const outputSecret = 'ce-auto-icr-private-eu-de';
-        const sourceUrl = 'https://github.com/IBM/CodeEngine';
         const strategyType = 'dockerfile';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -2937,7 +3453,6 @@ describe('CodeEngineV2', () => {
           name,
           outputImage,
           outputSecret,
-          sourceUrl,
           strategyType,
           headers: {
             Accept: userAccept,
@@ -4333,9 +4848,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"resource_type"}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"resource_type","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn"}}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"resource_type"}]}';
+        '{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","resource_type":"resource_type","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn"}}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -4391,17 +4906,47 @@ describe('CodeEngineV2', () => {
         foo: 'testString',
       };
 
+      // ResourceKeyRefPrototype
+      const resourceKeyRefPrototypeModel = {
+        id: '4e49b3e0-27a8-48d2-a784-c7ee48bb863b',
+      };
+
+      // RoleRefPrototype
+      const roleRefPrototypeModel = {
+        crn: 'crn:v1:bluemix:public:iam::::serviceRole:Writer',
+      };
+
+      // ServiceInstanceRefPrototype
+      const serviceInstanceRefPrototypeModel = {
+        id: '4e49b3e0-27a8-48d2-a784-c7ee48bb863b',
+      };
+
+      // ServiceIDRef
+      const serviceIdRefModel = {
+        crn: 'testString',
+      };
+
+      // ServiceAccessSecretPrototypeProps
+      const serviceAccessSecretPrototypePropsModel = {
+        resource_key: resourceKeyRefPrototypeModel,
+        role: roleRefPrototypeModel,
+        service_instance: serviceInstanceRefPrototypeModel,
+        serviceid: serviceIdRefModel,
+      };
+
       function __createSecretTest() {
         // Construct the params object for operation createSecret
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const format = 'generic';
         const name = 'my-secret';
         const data = secretDataModel;
+        const serviceAccess = serviceAccessSecretPrototypePropsModel;
         const createSecretParams = {
           projectId,
           format,
           name,
           data,
+          serviceAccess,
         };
 
         const createSecretResult = codeEngineService.createSecret(createSecretParams);
@@ -4421,6 +4966,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.format).toEqual(format);
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.body.service_access).toEqual(serviceAccess);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -4591,14 +5137,14 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-secret';
         const ifMatch = 'testString';
-        const data = secretDataModel;
         const format = 'generic';
+        const data = secretDataModel;
         const replaceSecretParams = {
           projectId,
           name,
           ifMatch,
-          data,
           format,
+          data,
         };
 
         const replaceSecretResult = codeEngineService.replaceSecret(replaceSecretParams);
@@ -4616,8 +5162,8 @@ describe('CodeEngineV2', () => {
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         checkUserHeader(createRequestMock, 'If-Match', ifMatch);
-        expect(mockRequestOptions.body.data).toEqual(data);
         expect(mockRequestOptions.body.format).toEqual(format);
+        expect(mockRequestOptions.body.data).toEqual(data);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -4642,12 +5188,14 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-secret';
         const ifMatch = 'testString';
+        const format = 'generic';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const replaceSecretParams = {
           projectId,
           name,
           ifMatch,
+          format,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
