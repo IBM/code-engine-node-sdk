@@ -1,0 +1,18 @@
+{
+  "reviewers": [
+    "team:coligo-api-maintain"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    }
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": true
+}
