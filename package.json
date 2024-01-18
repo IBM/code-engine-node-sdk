@@ -44,8 +44,8 @@
   },
   "devDependencies": {
     "@masterodin/publisher": "^0.10.0",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.24.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
     "axios": "^1.0.0",
     "dotenv": "^16.0.0",
     "eslint": "^7.26.0",
