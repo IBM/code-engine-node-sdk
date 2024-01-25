@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1179,6 +1179,138 @@ describe('CodeEngineV2', () => {
     // end-replace_secret
   });
 
+  test('listDomainMappings request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listDomainMappings() result:');
+    // begin-list_domain_mappings
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_domain_mappings
+  });
+
+  test('createDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createDomainMapping() result:');
+    // begin-create_domain_mapping
+
+    // Request models needed by this operation.
+
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app-1',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      component: componentRefModel,
+      name: 'www.example.com',
+      tlsSecret: 'my-tls-secret',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_domain_mapping
+  });
+
+  test('getDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getDomainMapping() result:');
+    // begin-get_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_domain_mapping
+  });
+
+  test('updateDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateDomainMapping() result:');
+    // begin-update_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+      ifMatch: 'testString',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.updateDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_domain_mapping
+  });
+
   test('deleteProject request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1437,5 +1569,31 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_secret
+  });
+
+  test('deleteDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+    };
+
+    try {
+      await codeEngineService.deleteDomainMapping(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_domain_mapping
   });
 });

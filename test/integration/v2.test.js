@@ -22,6 +22,7 @@ const { readExternalSources } = require('ibm-cloud-sdk-core');
 const fs = require('fs');
 const CodeEngineV2 = require('../../dist/code-engine/v2');
 const authHelper = require('../resources/auth-helper.js');
+const { loadEnv } = require('../resources/auth-helper');
 
 // testcase timeout value (200s).
 const timeout = 200000;
@@ -30,6 +31,7 @@ const timeout = 200000;
 const configFile = 'code_engine_v2.env';
 
 const describe = authHelper.prepareTests(configFile);
+loadEnv();
 
 // the e2e default project
 let e2eTestProjectId;
@@ -41,6 +43,8 @@ function sleep(time) {
 
 describe('CodeEngineV2_integration', () => {
   jest.setTimeout(timeout);
+
+  const domainMappingName = process.env.CODE_ENGINE_DOMAIN_MAPPING_NAME;
 
   // Service instance
   let codeEngineService;
@@ -1050,53 +1054,6 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('createTLSSecret()', async () => {
-    const params = {
-      projectId: e2eTestProjectId,
-      format: 'tls',
-      name: 'my-tls-secret',
-      data: {
-        'tls_key': fs.readFileSync('test/integration/domain.key', 'utf8'),
-        'tls_cert': fs.readFileSync('test/integration/domain.crt', 'utf8'),
-      },
-    };
-
-    const res = await codeEngineService.createSecret(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
-  });
-
-  test('getTLSSecret()', async () => {
-    const params = {
-      projectId: e2eTestProjectId,
-      name: 'my-tls-secret',
-    };
-
-    const res = await codeEngineService.getSecret(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-  });
-
-  test('replaceTLSSecret()', async () => {
-    const params = {
-      projectId: e2eTestProjectId,
-      name: 'my-tls-secret',
-      ifMatch: '*',
-      data: {
-        'tls_key': fs.readFileSync('test/integration/domain.key', 'utf8'),
-        'tls_cert': fs.readFileSync('test/integration/domain.crt', 'utf8'),
-      },
-      format: 'tls',
-    };
-
-    const res = await codeEngineService.replaceSecret(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-  });
-
   test('createBasicAuthSecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -1187,6 +1144,130 @@ describe('CodeEngineV2_integration', () => {
         'email': 'test@123.com',
       },
       format: 'registry',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'tls',
+      name: 'my-tls-secret',
+      data: {
+        'tls_key': fs.readFileSync(process.env.CODE_ENGINE_TLS_KEY_FILE_PATH, 'utf8'),
+        'tls_cert': fs.readFileSync(process.env.CODE_ENGINE_TLS_CERT_FILE_PATH, 'utf8'),
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createDomainMapping()', async () => {
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: e2eTestProjectId,
+      component: componentRefModel,
+      name: domainMappingName,
+      tlsSecret: 'my-tls-secret',
+    };
+
+    const res = await codeEngineService.createDomainMapping(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getDomainMapping()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: domainMappingName,
+    };
+
+    const res = await codeEngineService.getDomainMapping(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createApp2()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      imageReference: 'icr.io/codeengine/helloworld',
+      name: 'my-app-2',
+    };
+
+    const res = await codeEngineService.createApp(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('updateDomainMapping()', async () => {
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app-2',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: e2eTestProjectId,
+      name: domainMappingName,
+      ifMatch: '*',
+      component: componentRefModel,
+    };
+
+    const res = await codeEngineService.updateDomainMapping(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteDomainMapping()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: domainMappingName,
+    };
+
+    const res = await codeEngineService.deleteDomainMapping(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-tls-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceTLSSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-tls-secret',
+      ifMatch: '*',
+      data: {
+        'tls_key': fs.readFileSync('test/integration/domain.key', 'utf8'),
+        'tls_cert': fs.readFileSync('test/integration/domain.crt', 'utf8'),
+      },
+      format: 'tls',
     };
 
     const res = await codeEngineService.replaceSecret(params);
