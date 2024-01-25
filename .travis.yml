@@ -32,6 +32,7 @@ script:
 - npm run test-unit-travis || travis_terminate 1
 - npm run lint
 - npm run check-packages
+- ./scripts/get-dependencies.sh # get api repo for access to latest domain mapping cert
 - npm run test-integration-travis || travis_terminate 1
 
 before_deploy:
