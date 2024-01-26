@@ -7,7 +7,7 @@ version: ~> 1.0
 
 language: node_js
 node_js:
-  - 18
+  - 20
 
 branches:
   only:
@@ -54,5 +54,5 @@ deploy:
   skip_cleanup: true
   script: semantic-release
   on:
-    node: 18
+    node: 20
     branch: main
