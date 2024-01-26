@@ -1,3 +1,20 @@
+# [4.1.0](https://github.ibm.com/coligo/node-sdk/compare/v4.0.0...v4.1.0) (2024-01-26)
+
+
+### Bug Fixes
+
+* **ci:** travis dependencies ([#64](https://github.ibm.com/coligo/node-sdk/issues/64)) ([d623a08](https://github.ibm.com/coligo/node-sdk/commit/d623a08ae4bd3eb166f63968ddc10cb1de2d699e))
+* **deps:** update dependency @kubernetes/client-node to ^0.20.0 ([#39](https://github.ibm.com/coligo/node-sdk/issues/39)) ([babde72](https://github.ibm.com/coligo/node-sdk/commit/babde7246d80f288959d89795ccedf9f373bd93b))
+* **deps:** update dependency @types/node to v20 ([#56](https://github.ibm.com/coligo/node-sdk/issues/56)) ([ca794e0](https://github.ibm.com/coligo/node-sdk/commit/ca794e050e5d1b53ee7147621557e3c7489d6bf4))
+* **deps:** update dependency @types/node to v20.11.6 ([#59](https://github.ibm.com/coligo/node-sdk/issues/59)) ([0288db5](https://github.ibm.com/coligo/node-sdk/commit/0288db5c8171dc8d4d5746f529527ca95eebab6a))
+* **deps:** update dependency ibm-cloud-sdk-core to v4.2.2 ([#40](https://github.ibm.com/coligo/node-sdk/issues/40)) ([1afb3fc](https://github.ibm.com/coligo/node-sdk/commit/1afb3fcef0e11f3b269d896da173e28b4c6f366b))
+* **tests:** fixed broken integration tests ([#33](https://github.ibm.com/coligo/node-sdk/issues/33)) ([f95d70d](https://github.ibm.com/coligo/node-sdk/commit/f95d70d5688c6272388fc2e179e6aba1af4a7733))
+
+
+### Features
+
+* **api:** SDK update 20240124-163103 ([#61](https://github.ibm.com/coligo/node-sdk/issues/61)) ([ffc3dc1](https://github.ibm.com/coligo/node-sdk/commit/ffc3dc1027d7485393b5aec9c731e6c3ba243b45))
+
 # [4.0.0](https://github.ibm.com/coligo/node-sdk/compare/v3.1.1...v4.0.0) (2023-07-21)
 
 
