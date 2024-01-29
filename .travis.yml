@@ -1,58 +1,21 @@
 dist: focal
 
-# Remove this if using external Travis
-group: beta
-
-version: ~> 1.0
-
 language: node_js
 node_js:
-  - 20
+  - 18
+cache: npm
 
 branches:
   only:
   - main
 
-# After creating your SDK project from this template repository,
-# remove the "echo" command from the "before_install" section below.
-before_install:
-- npm i -g npm@8
-- npm --version
-# create an .env file that is pulled in while executing the v2 integration tests
-- echo "CODE_ENGINE_URL=https://$CE_API_HOST/v2" > code_engine_v2.env
-- echo "CODE_ENGINE_AUTH_TYPE=iam" >> code_engine_v2.env
-- echo "CODE_ENGINE_APIKEY=$CE_API_KEY" >> code_engine_v2.env
-- echo "CODE_ENGINE_AUTH_URL=$IAM_ENDPOINT" >> code_engine_v2.env
-- echo "CODE_ENGINE_DOMAIN_MAPPING_NAME=api-unit-test-tls.e2e-board.info" >> code_engine_v2.env
-- echo "CODE_ENGINE_TLS_KEY_FILE_PATH=api/test/integration/tls-files/demohero.key" >> code_engine_v2.env
-- echo "CODE_ENGINE_TLS_CERT_FILE_PATH=api/test/integration/tls-files/demohero.crt" >> code_engine_v2.env
-
-script:
-- npm run build
-- npm run test-unit-travis || travis_terminate 1
-- npm run lint
-- npm run check-packages
-- ./scripts/get-dependencies.sh # get api repo for access to latest domain mapping cert
-- npm run test-integration-travis || travis_terminate 1
-
-before_deploy:
-- pyenv global 3.8
-- pip install --user bump2version
-- echo "@ibm-cloud:registry=https://na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/" > ~/.npmrc
-- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:_auth=$ARTIFACTORY_NPM_AUTH" >> ~/.npmrc #pragma: allowlist secret
-- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:email=$ARTIFACTORY_MAIL" >> ~/.npmrc
-- echo "//na.artifactory.swg-devops.com/artifactory/api/npm/wcp-codeengine-ux-team-npm-local/:always-auth=true" >> ~/.npmrc
-- npm install -g semantic-release
-- npm install -g @semantic-release/changelog
-- npm install -g @semantic-release/exec
-- npm install -g @semantic-release/git
-- npm install -g @semantic-release/github
-- npm install -g @semantic-release/npm
-
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: semantic-release
-  on:
-    node: 20
-    branch: main
+jobs:
+  include:
+  - stage: verify
+    install:
+      - npm install
+    script:
+      - npm run build
+      - npm run test-unit-travis || travis_terminate 1
+      - npm run lint
+      - npm run check-packages
