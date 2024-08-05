@@ -21,9 +21,7 @@ const nock = require('nock');
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
-const CodeEngineV2 = require('../../dist/code-engine/v2');
-
+const { NoAuthAuthenticator } = sdkCorePackage;
 const {
   getOptions,
   checkUrlAndMethod,
@@ -31,11 +29,13 @@ const {
   expectToBePromise,
   checkUserHeader,
   checkForSuccessfulExecution,
-} = unitTestUtils;
+} = require('@ibm-cloud/sdk-test-utilities');
+const CodeEngineV2 = require('../../dist/code-engine/v2');
 
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
+  version: '2024-08-04',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -118,6 +118,16 @@ describe('CodeEngineV2', () => {
       const testInstance = new CodeEngineV2(options);
 
       expect(testInstance.baseOptions.serviceUrl).toBe(CodeEngineV2.DEFAULT_SERVICE_URL);
+    });
+  });
+
+  describe('service-level tests', () => {
+    describe('positive tests', () => {
+      test('construct service with global params', () => {
+        const serviceObj = new CodeEngineV2(codeEngineServiceOptions);
+        expect(serviceObj).not.toBeNull();
+        expect(serviceObj.version).toEqual(codeEngineServiceOptions.version);
+      });
     });
   });
 
@@ -692,6 +702,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -758,9 +769,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -930,6 +941,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
         expect(mockRequestOptions.body.scale_min_instances).toEqual(scaleMinInstances);
         expect(mockRequestOptions.body.scale_request_timeout).toEqual(scaleRequestTimeout);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -1020,6 +1032,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -1109,6 +1122,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -1300,6 +1314,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
         expect(mockRequestOptions.body.scale_min_instances).toEqual(scaleMinInstances);
         expect(mockRequestOptions.body.scale_request_timeout).toEqual(scaleRequestTimeout);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -1401,6 +1416,7 @@ describe('CodeEngineV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.app_name).toEqual(appName);
       }
@@ -1468,9 +1484,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1548,6 +1564,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.app_name).toEqual(appName);
         expect(mockRequestOptions.path.name).toEqual(name);
@@ -1714,6 +1731,157 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('listAppInstances', () => {
+    describe('positive tests', () => {
+      function __listAppInstancesTest() {
+        // Construct the params object for operation listAppInstances
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const appName = 'my-app';
+        const limit = 100;
+        const start = 'testString';
+        const listAppInstancesParams = {
+          projectId,
+          appName,
+          limit,
+          start,
+        };
+
+        const listAppInstancesResult = codeEngineService.listAppInstances(listAppInstancesParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listAppInstancesResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/apps/{app_name}/instances',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.app_name).toEqual(appName);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listAppInstancesTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listAppInstancesTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listAppInstancesTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const appName = 'my-app';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listAppInstancesParams = {
+          projectId,
+          appName,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listAppInstances(listAppInstancesParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.listAppInstances({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.listAppInstances();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('AppInstancesPager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          appName: 'my-app',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.AppInstancesPager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          appName: 'my-app',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.AppInstancesPager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
   describe('listJobs', () => {
     describe('positive tests', () => {
       function __listJobsTest() {
@@ -1741,6 +1909,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -1807,9 +1976,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1947,6 +2116,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_max_execution_time).toEqual(scaleMaxExecutionTime);
         expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
         expect(mockRequestOptions.body.scale_retry_limit).toEqual(scaleRetryLimit);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -2037,6 +2207,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -2126,6 +2297,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -2285,6 +2457,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_max_execution_time).toEqual(scaleMaxExecutionTime);
         expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
         expect(mockRequestOptions.body.scale_retry_limit).toEqual(scaleRetryLimit);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -2380,6 +2553,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.job_name).toEqual(jobName);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
@@ -2447,9 +2621,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"job_runs":[{"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"pending":0,"requested":0,"running":0,"start_time":"2022-09-22T17:34:00Z","succeeded":1,"unknown":0}}],"total_count":2,"limit":1}';
+        '{"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2597,6 +2771,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.scale_max_execution_time).toEqual(scaleMaxExecutionTime);
         expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
         expect(mockRequestOptions.body.scale_retry_limit).toEqual(scaleRetryLimit);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -2683,6 +2858,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -2827,6 +3003,674 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteJobRun();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('listFunctionRuntimes', () => {
+    describe('positive tests', () => {
+      function __listFunctionRuntimesTest() {
+        // Construct the params object for operation listFunctionRuntimes
+        const listFunctionRuntimesParams = {};
+
+        const listFunctionRuntimesResult = codeEngineService.listFunctionRuntimes(
+          listFunctionRuntimesParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(listFunctionRuntimesResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/function_runtimes', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listFunctionRuntimesTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listFunctionRuntimesTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listFunctionRuntimesTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listFunctionRuntimesParams = {
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listFunctionRuntimes(listFunctionRuntimesParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+
+      test('should not have any problems when no parameters are passed in', () => {
+        // invoke the method with no parameters
+        codeEngineService.listFunctionRuntimes({});
+        checkForSuccessfulExecution(createRequestMock);
+      });
+    });
+  });
+
+  describe('listFunctions', () => {
+    describe('positive tests', () => {
+      function __listFunctionsTest() {
+        // Construct the params object for operation listFunctions
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const limit = 100;
+        const start = 'testString';
+        const listFunctionsParams = {
+          projectId,
+          limit,
+          start,
+        };
+
+        const listFunctionsResult = codeEngineService.listFunctions(listFunctionsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listFunctionsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listFunctionsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listFunctionsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listFunctionsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listFunctionsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listFunctions(listFunctionsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.listFunctions({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.listFunctions();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('FunctionsPager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.FunctionsPager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.FunctionsPager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
+  describe('createFunction', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // EnvVarPrototype
+      const envVarPrototypeModel = {
+        key: 'MY_VARIABLE',
+        name: 'SOME',
+        prefix: 'PREFIX_',
+        reference: 'my-secret',
+        type: 'literal',
+        value: 'VALUE',
+      };
+
+      function __createFunctionTest() {
+        // Construct the params object for operation createFunction
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
+        const name = 'my-function';
+        const runtime = 'nodejs-18';
+        const codeBinary = false;
+        const codeMain = 'main';
+        const codeSecret = 'my-secret';
+        const managedDomainMappings = 'local_public';
+        const runEnvVariables = [envVarPrototypeModel];
+        const scaleConcurrency = 1;
+        const scaleCpuLimit = '1';
+        const scaleDownDelay = 300;
+        const scaleMaxExecutionTime = 60;
+        const scaleMemoryLimit = '1G';
+        const createFunctionParams = {
+          projectId,
+          codeReference,
+          name,
+          runtime,
+          codeBinary,
+          codeMain,
+          codeSecret,
+          managedDomainMappings,
+          runEnvVariables,
+          scaleConcurrency,
+          scaleCpuLimit,
+          scaleDownDelay,
+          scaleMaxExecutionTime,
+          scaleMemoryLimit,
+        };
+
+        const createFunctionResult = codeEngineService.createFunction(createFunctionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createFunctionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.code_reference).toEqual(codeReference);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.runtime).toEqual(runtime);
+        expect(mockRequestOptions.body.code_binary).toEqual(codeBinary);
+        expect(mockRequestOptions.body.code_main).toEqual(codeMain);
+        expect(mockRequestOptions.body.code_secret).toEqual(codeSecret);
+        expect(mockRequestOptions.body.managed_domain_mappings).toEqual(managedDomainMappings);
+        expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
+        expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
+        expect(mockRequestOptions.body.scale_cpu_limit).toEqual(scaleCpuLimit);
+        expect(mockRequestOptions.body.scale_down_delay).toEqual(scaleDownDelay);
+        expect(mockRequestOptions.body.scale_max_execution_time).toEqual(scaleMaxExecutionTime);
+        expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createFunctionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __createFunctionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __createFunctionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
+        const name = 'my-function';
+        const runtime = 'nodejs-18';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createFunctionParams = {
+          projectId,
+          codeReference,
+          name,
+          runtime,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.createFunction(createFunctionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.createFunction({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.createFunction();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getFunction', () => {
+    describe('positive tests', () => {
+      function __getFunctionTest() {
+        // Construct the params object for operation getFunction
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const getFunctionParams = {
+          projectId,
+          name,
+        };
+
+        const getFunctionResult = codeEngineService.getFunction(getFunctionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getFunctionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getFunctionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getFunctionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getFunctionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getFunctionParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getFunction(getFunctionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getFunction({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getFunction();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteFunction', () => {
+    describe('positive tests', () => {
+      function __deleteFunctionTest() {
+        // Construct the params object for operation deleteFunction
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const deleteFunctionParams = {
+          projectId,
+          name,
+        };
+
+        const deleteFunctionResult = codeEngineService.deleteFunction(deleteFunctionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteFunctionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions/{name}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteFunctionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteFunctionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteFunctionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteFunctionParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteFunction(deleteFunctionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteFunction({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteFunction();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('updateFunction', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // EnvVarPrototype
+      const envVarPrototypeModel = {
+        key: 'MY_VARIABLE',
+        name: 'SOME',
+        prefix: 'PREFIX_',
+        reference: 'my-secret',
+        type: 'literal',
+        value: 'VALUE',
+      };
+
+      function __updateFunctionTest() {
+        // Construct the params object for operation updateFunction
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const ifMatch = 'testString';
+        const codeBinary = false;
+        const codeMain = 'main';
+        const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
+        const codeSecret = 'my-secret';
+        const managedDomainMappings = 'local_public';
+        const runEnvVariables = [envVarPrototypeModel];
+        const runtime = 'nodejs-18';
+        const scaleConcurrency = 1;
+        const scaleCpuLimit = '1';
+        const scaleDownDelay = 300;
+        const scaleMaxExecutionTime = 60;
+        const scaleMemoryLimit = '1G';
+        const updateFunctionParams = {
+          projectId,
+          name,
+          ifMatch,
+          codeBinary,
+          codeMain,
+          codeReference,
+          codeSecret,
+          managedDomainMappings,
+          runEnvVariables,
+          runtime,
+          scaleConcurrency,
+          scaleCpuLimit,
+          scaleDownDelay,
+          scaleMaxExecutionTime,
+          scaleMemoryLimit,
+        };
+
+        const updateFunctionResult = codeEngineService.updateFunction(updateFunctionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(updateFunctionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions/{name}', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'If-Match', ifMatch);
+        expect(mockRequestOptions.body.code_binary).toEqual(codeBinary);
+        expect(mockRequestOptions.body.code_main).toEqual(codeMain);
+        expect(mockRequestOptions.body.code_reference).toEqual(codeReference);
+        expect(mockRequestOptions.body.code_secret).toEqual(codeSecret);
+        expect(mockRequestOptions.body.managed_domain_mappings).toEqual(managedDomainMappings);
+        expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
+        expect(mockRequestOptions.body.runtime).toEqual(runtime);
+        expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
+        expect(mockRequestOptions.body.scale_cpu_limit).toEqual(scaleCpuLimit);
+        expect(mockRequestOptions.body.scale_down_delay).toEqual(scaleDownDelay);
+        expect(mockRequestOptions.body.scale_max_execution_time).toEqual(scaleMaxExecutionTime);
+        expect(mockRequestOptions.body.scale_memory_limit).toEqual(scaleMemoryLimit);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateFunctionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __updateFunctionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __updateFunctionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const ifMatch = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateFunctionParams = {
+          projectId,
+          name,
+          ifMatch,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.updateFunction(updateFunctionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.updateFunction({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.updateFunction();
         } catch (e) {
           err = e;
         }
@@ -4283,6 +5127,555 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('listDomainMappings', () => {
+    describe('positive tests', () => {
+      function __listDomainMappingsTest() {
+        // Construct the params object for operation listDomainMappings
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const limit = 100;
+        const start = 'testString';
+        const listDomainMappingsParams = {
+          projectId,
+          limit,
+          start,
+        };
+
+        const listDomainMappingsResult =
+          codeEngineService.listDomainMappings(listDomainMappingsParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listDomainMappingsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/domain_mappings', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listDomainMappingsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listDomainMappingsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listDomainMappingsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listDomainMappingsParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listDomainMappings(listDomainMappingsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.listDomainMappings({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.listDomainMappings();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('DomainMappingsPager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":true,"visibility":"public"}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":true,"visibility":"public"}],"total_count":2,"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
+  describe('createDomainMapping', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ComponentRef
+      const componentRefModel = {
+        name: 'my-app-1',
+        resource_type: 'app_v2',
+      };
+
+      function __createDomainMappingTest() {
+        // Construct the params object for operation createDomainMapping
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const component = componentRefModel;
+        const name = 'www.example.com';
+        const tlsSecret = 'my-tls-secret';
+        const createDomainMappingParams = {
+          projectId,
+          component,
+          name,
+          tlsSecret,
+        };
+
+        const createDomainMappingResult =
+          codeEngineService.createDomainMapping(createDomainMappingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(createDomainMappingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/domain_mappings', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.component).toEqual(component);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createDomainMappingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __createDomainMappingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __createDomainMappingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const component = componentRefModel;
+        const name = 'www.example.com';
+        const tlsSecret = 'my-tls-secret';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createDomainMappingParams = {
+          projectId,
+          component,
+          name,
+          tlsSecret,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.createDomainMapping(createDomainMappingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.createDomainMapping({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.createDomainMapping();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getDomainMapping', () => {
+    describe('positive tests', () => {
+      function __getDomainMappingTest() {
+        // Construct the params object for operation getDomainMapping
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const getDomainMappingParams = {
+          projectId,
+          name,
+        };
+
+        const getDomainMappingResult = codeEngineService.getDomainMapping(getDomainMappingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getDomainMappingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/domain_mappings/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getDomainMappingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getDomainMappingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getDomainMappingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getDomainMappingParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getDomainMapping(getDomainMappingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getDomainMapping({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getDomainMapping();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteDomainMapping', () => {
+    describe('positive tests', () => {
+      function __deleteDomainMappingTest() {
+        // Construct the params object for operation deleteDomainMapping
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const deleteDomainMappingParams = {
+          projectId,
+          name,
+        };
+
+        const deleteDomainMappingResult =
+          codeEngineService.deleteDomainMapping(deleteDomainMappingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteDomainMappingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/domain_mappings/{name}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteDomainMappingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteDomainMappingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteDomainMappingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteDomainMappingParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteDomainMapping(deleteDomainMappingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteDomainMapping({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteDomainMapping();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('updateDomainMapping', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ComponentRef
+      const componentRefModel = {
+        name: 'my-app-1',
+        resource_type: 'app_v2',
+      };
+
+      function __updateDomainMappingTest() {
+        // Construct the params object for operation updateDomainMapping
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const ifMatch = 'testString';
+        const component = componentRefModel;
+        const tlsSecret = 'my-tls-secret';
+        const updateDomainMappingParams = {
+          projectId,
+          name,
+          ifMatch,
+          component,
+          tlsSecret,
+        };
+
+        const updateDomainMappingResult =
+          codeEngineService.updateDomainMapping(updateDomainMappingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(updateDomainMappingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/domain_mappings/{name}',
+          'PATCH'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'If-Match', ifMatch);
+        expect(mockRequestOptions.body.component).toEqual(component);
+        expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateDomainMappingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __updateDomainMappingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __updateDomainMappingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const ifMatch = 'testString';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateDomainMappingParams = {
+          projectId,
+          name,
+          ifMatch,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.updateDomainMapping(updateDomainMappingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.updateDomainMapping({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.updateDomainMapping();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('listConfigMaps', () => {
     describe('positive tests', () => {
       function __listConfigMapsTest() {
@@ -4938,10 +6331,8 @@ describe('CodeEngineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // SecretDataSSHSecretData
+      // SecretDataGenericSecretData
       const secretDataModel = {
-        ssh_key: 'testString',
-        known_hosts: 'testString',
         foo: 'testString',
       };
 
@@ -5179,10 +6570,8 @@ describe('CodeEngineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // SecretDataSSHSecretData
+      // SecretDataGenericSecretData
       const secretDataModel = {
-        ssh_key: 'testString',
-        known_hosts: 'testString',
         foo: 'testString',
       };
 
@@ -5366,555 +6755,6 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteSecret();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
-  describe('listDomainMappings', () => {
-    describe('positive tests', () => {
-      function __listDomainMappingsTest() {
-        // Construct the params object for operation listDomainMappings
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const limit = 100;
-        const start = 'testString';
-        const listDomainMappingsParams = {
-          projectId,
-          limit,
-          start,
-        };
-
-        const listDomainMappingsResult =
-          codeEngineService.listDomainMappings(listDomainMappingsParams);
-
-        // all methods should return a Promise
-        expectToBePromise(listDomainMappingsResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/domain_mappings', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.limit).toEqual(limit);
-        expect(mockRequestOptions.qs.start).toEqual(start);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __listDomainMappingsTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __listDomainMappingsTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __listDomainMappingsTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const listDomainMappingsParams = {
-          projectId,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.listDomainMappings(listDomainMappingsParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.listDomainMappings({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.listDomainMappings();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-
-    describe('DomainMappingsPager tests', () => {
-      const serviceUrl = codeEngineServiceOptions.url;
-      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/domain_mappings';
-      const mockPagerResponse1 =
-        '{"next":{"start":"1"},"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":true,"visibility":"public"}],"total_count":2,"limit":1}';
-      const mockPagerResponse2 =
-        '{"domain_mappings":[{"cname_target":"custom.abcdabcdabc.us-east.codeengine.appdomain.cloud","component":{"name":"my-app-1","resource_type":"app_v2"},"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/domain_mappings/www.example.com","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"www.example.com","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"domain_mapping_v2","status":"ready","status_details":{"reason":"ready"},"tls_secret":"my-tls-secret","user_managed":true,"visibility":"public"}],"total_count":2,"limit":1}';
-
-      beforeEach(() => {
-        unmock_createRequest();
-        const scope = nock(serviceUrl)
-          .get((uri) => uri.includes(path))
-          .reply(200, mockPagerResponse1)
-          .get((uri) => uri.includes(path))
-          .reply(200, mockPagerResponse2);
-      });
-
-      afterEach(() => {
-        nock.cleanAll();
-        mock_createRequest();
-      });
-
-      test('getNext()', async () => {
-        const params = {
-          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-          limit: 100,
-        };
-        const allResults = [];
-        const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
-        while (pager.hasNext()) {
-          const nextPage = await pager.getNext();
-          expect(nextPage).not.toBeNull();
-          allResults.push(...nextPage);
-        }
-        expect(allResults).not.toBeNull();
-        expect(allResults).toHaveLength(2);
-      });
-
-      test('getAll()', async () => {
-        const params = {
-          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-          limit: 100,
-        };
-        const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
-        const allResults = await pager.getAll();
-        expect(allResults).not.toBeNull();
-        expect(allResults).toHaveLength(2);
-      });
-    });
-  });
-
-  describe('createDomainMapping', () => {
-    describe('positive tests', () => {
-      // Request models needed by this operation.
-
-      // ComponentRef
-      const componentRefModel = {
-        name: 'my-app-1',
-        resource_type: 'app_v2',
-      };
-
-      function __createDomainMappingTest() {
-        // Construct the params object for operation createDomainMapping
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const component = componentRefModel;
-        const name = 'www.example.com';
-        const tlsSecret = 'my-tls-secret';
-        const createDomainMappingParams = {
-          projectId,
-          component,
-          name,
-          tlsSecret,
-        };
-
-        const createDomainMappingResult =
-          codeEngineService.createDomainMapping(createDomainMappingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(createDomainMappingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/domain_mappings', 'POST');
-        const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.body.component).toEqual(component);
-        expect(mockRequestOptions.body.name).toEqual(name);
-        expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __createDomainMappingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __createDomainMappingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __createDomainMappingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const component = componentRefModel;
-        const name = 'www.example.com';
-        const tlsSecret = 'my-tls-secret';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const createDomainMappingParams = {
-          projectId,
-          component,
-          name,
-          tlsSecret,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.createDomainMapping(createDomainMappingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.createDomainMapping({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.createDomainMapping();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
-  describe('getDomainMapping', () => {
-    describe('positive tests', () => {
-      function __getDomainMappingTest() {
-        // Construct the params object for operation getDomainMapping
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const getDomainMappingParams = {
-          projectId,
-          name,
-        };
-
-        const getDomainMappingResult = codeEngineService.getDomainMapping(getDomainMappingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getDomainMappingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/domain_mappings/{name}',
-          'GET'
-        );
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getDomainMappingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getDomainMappingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getDomainMappingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getDomainMappingParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getDomainMapping(getDomainMappingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getDomainMapping({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getDomainMapping();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
-  describe('deleteDomainMapping', () => {
-    describe('positive tests', () => {
-      function __deleteDomainMappingTest() {
-        // Construct the params object for operation deleteDomainMapping
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const deleteDomainMappingParams = {
-          projectId,
-          name,
-        };
-
-        const deleteDomainMappingResult =
-          codeEngineService.deleteDomainMapping(deleteDomainMappingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(deleteDomainMappingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/domain_mappings/{name}',
-          'DELETE'
-        );
-        const expectedAccept = undefined;
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __deleteDomainMappingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __deleteDomainMappingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __deleteDomainMappingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const deleteDomainMappingParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.deleteDomainMapping(deleteDomainMappingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.deleteDomainMapping({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.deleteDomainMapping();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
-  describe('updateDomainMapping', () => {
-    describe('positive tests', () => {
-      // Request models needed by this operation.
-
-      // ComponentRef
-      const componentRefModel = {
-        name: 'my-app-1',
-        resource_type: 'app_v2',
-      };
-
-      function __updateDomainMappingTest() {
-        // Construct the params object for operation updateDomainMapping
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const ifMatch = 'testString';
-        const component = componentRefModel;
-        const tlsSecret = 'my-tls-secret';
-        const updateDomainMappingParams = {
-          projectId,
-          name,
-          ifMatch,
-          component,
-          tlsSecret,
-        };
-
-        const updateDomainMappingResult =
-          codeEngineService.updateDomainMapping(updateDomainMappingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(updateDomainMappingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/domain_mappings/{name}',
-          'PATCH'
-        );
-        const expectedAccept = 'application/json';
-        const expectedContentType = 'application/merge-patch+json';
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        checkUserHeader(createRequestMock, 'If-Match', ifMatch);
-        expect(mockRequestOptions.body.component).toEqual(component);
-        expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __updateDomainMappingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __updateDomainMappingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __updateDomainMappingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const ifMatch = 'testString';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const updateDomainMappingParams = {
-          projectId,
-          name,
-          ifMatch,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.updateDomainMapping(updateDomainMappingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.updateDomainMapping({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.updateDomainMapping();
         } catch (e) {
           err = e;
         }

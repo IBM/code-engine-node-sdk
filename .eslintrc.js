@@ -48,6 +48,8 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'prettier/prettier': 'error',
         'spaced-comment': ['error', 'always', { 'exceptions': ['*'] }],
+        '@typescript-eslint/no-shadow':
+          'off' /** REGGEENR: required as the term Project is used multiple times by constants */,
       },
     },
   ],

@@ -17,12 +17,16 @@
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const core = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = core;
+const { NoAuthAuthenticator } = core;
 
+const {
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+  checkUserHeader,
+} = require('@ibm-cloud/sdk-test-utilities');
 const IbmCloudCodeEngineV1 = require('../../dist/ibm-cloud-code-engine/v1');
-
-const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise, checkUserHeader } =
-  unitTestUtils;
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
@@ -31,9 +35,13 @@ const service = {
 
 const ibmCloudCodeEngineService = new IbmCloudCodeEngineV1(service);
 
-// dont actually create a request
-const createRequestMock = jest.spyOn(ibmCloudCodeEngineService, 'createRequest');
-createRequestMock.mockImplementation(() => Promise.resolve());
+let createRequestMock = null;
+function mock_createRequest() {
+  if (!createRequestMock) {
+    createRequestMock = jest.spyOn(ibmCloudCodeEngineService, 'createRequest');
+    createRequestMock.mockImplementation(() => Promise.resolve());
+  }
+}
 
 // dont actually construct an authenticator
 const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
@@ -45,6 +53,17 @@ afterEach(() => {
 });
 
 describe('IbmCloudCodeEngineV1', () => {
+  beforeEach(() => {
+    mock_createRequest();
+  });
+
+  afterEach(() => {
+    if (createRequestMock) {
+      createRequestMock.mockClear();
+    }
+    getAuthenticatorMock.mockClear();
+  });
+
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = IbmCloudCodeEngineV1.newInstance();

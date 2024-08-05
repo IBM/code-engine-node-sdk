@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.80.0-29334a73-20230925-151553
+ * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
  */
 
 /* eslint-disable max-classes-per-file */
@@ -53,7 +53,7 @@ class CodeEngineV2 extends BaseService {
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
-   * @param {string} [options.serviceUrl] - The URL for the service
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @returns {CodeEngineV2}
    */
 
@@ -74,11 +74,18 @@ class CodeEngineV2 extends BaseService {
     return service;
   }
 
+  /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
+   *  `2021-03-31` and `2024-08-04`.
+   */
+  version?: string;
+
   /**
    * Construct a CodeEngineV2 object.
    *
    * @param {Object} options - Options for the service.
-   * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
+   * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
+   * specify any date between `2021-03-31` and `2024-08-04`.
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
@@ -93,6 +100,7 @@ class CodeEngineV2 extends BaseService {
     } else {
       this.setServiceUrl(CodeEngineV2.DEFAULT_SERVICE_URL);
     }
+    this.version = options.version;
   }
 
   /*************************
@@ -433,6 +441,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -491,7 +500,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Optional arguments for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - Optional user ID (UID) to run the app (e.g., `1001`).
+   * @param {number} [params.runAsUser] - Optional user ID (UID) to run the app.
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
@@ -507,7 +516,7 @@ class CodeEngineV2 extends BaseService {
    * requests. This option defaults to the value of the `scale_concurrency` option, if not specified.
    * @param {string} [params.scaleCpuLimit] - Optional number of CPU set for the instance of the app. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
-   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale-down behavior
    * for an app instance.
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
    * of the app. The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`. The
@@ -596,6 +605,10 @@ class CodeEngineV2 extends BaseService {
       'scale_request_timeout': _params.scaleRequestTimeout,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -607,6 +620,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/apps',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -647,6 +661,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -658,6 +676,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/apps/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -697,6 +716,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -708,6 +731,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/apps/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -749,7 +773,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Optional arguments for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - Optional user ID (UID) to run the app (e.g., `1001`).
+   * @param {number} [params.runAsUser] - Optional user ID (UID) to run the app.
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
@@ -766,7 +790,7 @@ class CodeEngineV2 extends BaseService {
    * requests. This option defaults to the value of the `scale_concurrency` option, if not specified.
    * @param {string} [params.scaleCpuLimit] - Optional number of CPU set for the instance of the app. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
-   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale-down behavior
    * for an app instance.
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
    * of the app. The amount specified as ephemeral storage, must not exceed the amount of `scale_memory_limit`. The
@@ -855,6 +879,10 @@ class CodeEngineV2 extends BaseService {
       'scale_request_timeout': _params.scaleRequestTimeout,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -867,6 +895,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/apps/{name}',
         method: 'PATCH',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -915,6 +944,7 @@ class CodeEngineV2 extends BaseService {
     const query = {
       'limit': _params.limit,
       'start': _params.start,
+      'version': this.version,
     };
 
     const path = {
@@ -969,6 +999,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'app_name': _params.appName,
@@ -981,6 +1015,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/apps/{app_name}/revisions/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1042,6 +1077,66 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+
+  /**
+   * List application instances.
+   *
+   * List all instances of an application.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.appName - The name of your application.
+   * @param {number} [params.limit] - Optional maximum number of apps per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the `next` object of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AppInstanceList>>}
+   */
+  public listAppInstances(
+    params: CodeEngineV2.ListAppInstancesParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.AppInstanceList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'appName'];
+    const _validParams = ['projectId', 'appName', 'limit', 'start', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'app_name': _params.appName,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'listAppInstances');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/apps/{app_name}/instances',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
   /*************************
    * jobs
    ************************/
@@ -1072,6 +1167,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -1124,7 +1220,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job.
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
@@ -1137,10 +1233,10 @@ class CodeEngineV2 extends BaseService {
    * can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run,
    * which references a job template.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets.
-   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
-   * single values and hyphen-separated ranges like `5,12-14,23,27`. Each instance can pick up its array index via
-   * environment variable `JOB_INDEX`. The number of unique array indices specified here determines the number of job
-   * instances to run.
+   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as a comma-separated list containing
+   * single values and hyphen-separated ranges, such as  5,12-14,23,27. Each instance gets its array index value from
+   * the environment variable JOB_INDEX. The number of unique array indices that you specify with this parameter
+   * determines the number of job instances to run.
    * @param {string} [params.scaleCpuLimit] - Optional amount of CPU set for the instance of the job. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
@@ -1210,6 +1306,10 @@ class CodeEngineV2 extends BaseService {
       'scale_retry_limit': _params.scaleRetryLimit,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -1221,6 +1321,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/jobs',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1261,6 +1362,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -1272,6 +1377,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/jobs/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1311,6 +1417,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -1322,6 +1432,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/jobs/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1355,7 +1466,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job.
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
@@ -1369,10 +1480,10 @@ class CodeEngineV2 extends BaseService {
    * which references a job template.
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets. In case
    * this is provided, existing `run_volume_mounts` will be overwritten.
-   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
-   * single values and hyphen-separated ranges like `5,12-14,23,27`. Each instance can pick up its array index via
-   * environment variable `JOB_INDEX`. The number of unique array indices specified here determines the number of job
-   * instances to run.
+   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as a comma-separated list containing
+   * single values and hyphen-separated ranges, such as  5,12-14,23,27. Each instance gets its array index value from
+   * the environment variable JOB_INDEX. The number of unique array indices that you specify with this parameter
+   * determines the number of job instances to run.
    * @param {string} [params.scaleCpuLimit] - Optional amount of CPU set for the instance of the job. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
@@ -1442,6 +1553,10 @@ class CodeEngineV2 extends BaseService {
       'scale_retry_limit': _params.scaleRetryLimit,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -1454,6 +1569,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/jobs/{name}',
         method: 'PATCH',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1480,7 +1596,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
-   * @param {string} [params.jobName] - Optional name of the job that should be filtered for.
+   * @param {string} [params.jobName] - Optional name of the job that you want to use to filter.
    * @param {number} [params.limit] - Optional maximum number of job runs per page.
    * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
    * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
@@ -1500,6 +1616,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'job_name': _params.jobName,
       'limit': _params.limit,
       'start': _params.start,
@@ -1555,7 +1672,7 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runArguments] - Set arguments for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the arguments specified by the container image, will be
    * used to start the container.
-   * @param {number} [params.runAsUser] - The user ID (UID) to run the job (e.g., 1001).
+   * @param {number} [params.runAsUser] - The user ID (UID) to run the job.
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
@@ -1570,10 +1687,10 @@ class CodeEngineV2 extends BaseService {
    * @param {VolumeMountPrototype[]} [params.runVolumeMounts] - Optional mounts of config maps or a secrets.
    * @param {number} [params.scaleArraySizeVariableOverride] - Optional value to override the JOB_ARRAY_SIZE environment
    * variable for a job run.
-   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as comma-separated list containing
-   * single values and hyphen-separated ranges like `5,12-14,23,27`. Each instance can pick up its array index via
-   * environment variable `JOB_INDEX`. The number of unique array indices specified here determines the number of job
-   * instances to run.
+   * @param {string} [params.scaleArraySpec] - Define a custom set of array indices as a comma-separated list containing
+   * single values and hyphen-separated ranges, such as  5,12-14,23,27. Each instance gets its array index value from
+   * the environment variable JOB_INDEX. The number of unique array indices that you specify with this parameter
+   * determines the number of job instances to run.
    * @param {string} [params.scaleCpuLimit] - Optional amount of CPU set for the instance of the job. For valid values
    * see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
    * @param {string} [params.scaleEphemeralStorageLimit] - Optional amount of ephemeral storage to set for the instance
@@ -1647,6 +1764,10 @@ class CodeEngineV2 extends BaseService {
       'scale_retry_limit': _params.scaleRetryLimit,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -1658,6 +1779,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/job_runs',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1698,6 +1820,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -1709,6 +1835,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/job_runs/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1763,6 +1890,456 @@ class CodeEngineV2 extends BaseService {
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * functions
+   ************************/
+
+  /**
+   * List the function runtimes.
+   *
+   * List all valid function runtimes.
+   *
+   * @param {Object} [params] - The parameters to send to the service.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.FunctionRuntimeList>>}
+   */
+  public listFunctionRuntimes(
+    params?: CodeEngineV2.ListFunctionRuntimesParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.FunctionRuntimeList>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'listFunctionRuntimes'
+    );
+
+    const parameters = {
+      options: {
+        url: '/function_runtimes',
+        method: 'GET',
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List functions.
+   *
+   * List all functions in a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {number} [params.limit] - Optional maximum number of functions per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the 'next_url' field of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.FunctionList>>}
+   */
+  public listFunctions(
+    params: CodeEngineV2.ListFunctionsParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.FunctionList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'listFunctions');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create a function.
+   *
+   * Create a function.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.codeReference - Specifies either a reference to a code bundle or the source code itself. To
+   * specify the source code, use the data URL scheme and include the source code as base64 encoded. The data URL scheme
+   * is defined in [RFC 2397](https://tools.ietf.org/html/rfc2397).
+   * @param {string} params.name - The name of the function. Use a name that is unique within the project.
+   * @param {string} params.runtime - The managed runtime used to execute the injected code.
+   * @param {boolean} [params.codeBinary] - Specifies whether the code is binary or not. Defaults to false when
+   * `code_reference` is set to a data URL. When `code_reference` is set to a code bundle URL, this field is always
+   * true.
+   * @param {string} [params.codeMain] - Specifies the name of the function that should be invoked.
+   * @param {string} [params.codeSecret] - The name of the secret that is used to access the specified `code_reference`.
+   * The secret is used to authenticate with a non-public endpoint that is specified as`code_reference`.
+   * @param {string} [params.managedDomainMappings] - Optional value controlling which of the system managed domain
+   * mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility
+   * can only be 'local_private' if the project supports function private visibility.
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
+   * values.
+   * @param {number} [params.scaleConcurrency] - Number of parallel requests handled by a single instance, supported
+   * only by Node.js, default is `1`.
+   * @param {string} [params.scaleCpuLimit] - Optional amount of CPU set for the instance of the function. For valid
+   * values see [Supported memory and CPU
+   * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * for a function.
+   * @param {number} [params.scaleMaxExecutionTime] - Timeout in secs after which the function is terminated.
+   * @param {string} [params.scaleMemoryLimit] - Optional amount of memory set for the instance of the function. For
+   * valid values see [Supported memory and CPU
+   * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
+   * memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more
+   * information see [Units of
+   * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Function>>}
+   */
+  public createFunction(
+    params: CodeEngineV2.CreateFunctionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.Function>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'codeReference', 'name', 'runtime'];
+    const _validParams = [
+      'projectId',
+      'codeReference',
+      'name',
+      'runtime',
+      'codeBinary',
+      'codeMain',
+      'codeSecret',
+      'managedDomainMappings',
+      'runEnvVariables',
+      'scaleConcurrency',
+      'scaleCpuLimit',
+      'scaleDownDelay',
+      'scaleMaxExecutionTime',
+      'scaleMemoryLimit',
+      'headers',
+    ];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'code_reference': _params.codeReference,
+      'name': _params.name,
+      'runtime': _params.runtime,
+      'code_binary': _params.codeBinary,
+      'code_main': _params.codeMain,
+      'code_secret': _params.codeSecret,
+      'managed_domain_mappings': _params.managedDomainMappings,
+      'run_env_variables': _params.runEnvVariables,
+      'scale_concurrency': _params.scaleConcurrency,
+      'scale_cpu_limit': _params.scaleCpuLimit,
+      'scale_down_delay': _params.scaleDownDelay,
+      'scale_max_execution_time': _params.scaleMaxExecutionTime,
+      'scale_memory_limit': _params.scaleMemoryLimit,
+    };
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'createFunction');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions',
+        method: 'POST',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a function.
+   *
+   * Display the details of a function.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your function.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Function>>}
+   */
+  public getFunction(
+    params: CodeEngineV2.GetFunctionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.Function>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'getFunction');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions/{name}',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a function.
+   *
+   * Delete a function.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your function.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteFunction(
+    params: CodeEngineV2.DeleteFunctionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteFunction');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update a function.
+   *
+   * Update the given function.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your function.
+   * @param {string} params.ifMatch - Version of the function settings to be updated. Specify the version that you
+   * retrieved as entity_tag (ETag header) when reading the function. This value helps identifying parallel usage of
+   * this API. Pass * to indicate to update any version available. This might result in stale updates.
+   * @param {boolean} [params.codeBinary] - Specifies whether the code is binary or not. Defaults to false when
+   * `code_reference` is set to a data URL. When `code_reference` is set to a code bundle URL, this field is always
+   * true.
+   * @param {string} [params.codeMain] - Specifies the name of the function that should be invoked.
+   * @param {string} [params.codeReference] - Specifies either a reference to a code bundle or the source code itself.
+   * To specify the source code, use the data URL scheme and include the source code as base64 encoded. The data URL
+   * scheme is defined in [RFC 2397](https://tools.ietf.org/html/rfc2397).
+   * @param {string} [params.codeSecret] - The name of the secret that is used to access the specified `code_reference`.
+   * The secret is used to authenticate with a non-public endpoint that is specified as`code_reference`.
+   * @param {string} [params.managedDomainMappings] - Optional value controlling which of the system managed domain
+   * mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility
+   * can only be 'local_private' if the project supports function private visibility.
+   * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
+   * values.
+   * @param {string} [params.runtime] - The managed runtime used to execute the injected code.
+   * @param {number} [params.scaleConcurrency] - Number of parallel requests handled by a single instance, supported
+   * only by Node.js, default is `1`.
+   * @param {string} [params.scaleCpuLimit] - Optional amount of CPU set for the instance of the function. For valid
+   * values see [Supported memory and CPU
+   * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+   * @param {number} [params.scaleDownDelay] - Optional amount of time in seconds that delays the scale down behavior
+   * for a function.
+   * @param {number} [params.scaleMaxExecutionTime] - Timeout in secs after which the function is terminated.
+   * @param {string} [params.scaleMemoryLimit] - Optional amount of memory set for the instance of the function. For
+   * valid values see [Supported memory and CPU
+   * combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
+   * memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more
+   * information see [Units of
+   * measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Function>>}
+   */
+  public updateFunction(
+    params: CodeEngineV2.UpdateFunctionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.Function>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name', 'ifMatch'];
+    const _validParams = [
+      'projectId',
+      'name',
+      'ifMatch',
+      'codeBinary',
+      'codeMain',
+      'codeReference',
+      'codeSecret',
+      'managedDomainMappings',
+      'runEnvVariables',
+      'runtime',
+      'scaleConcurrency',
+      'scaleCpuLimit',
+      'scaleDownDelay',
+      'scaleMaxExecutionTime',
+      'scaleMemoryLimit',
+      'headers',
+    ];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'code_binary': _params.codeBinary,
+      'code_main': _params.codeMain,
+      'code_reference': _params.codeReference,
+      'code_secret': _params.codeSecret,
+      'managed_domain_mappings': _params.managedDomainMappings,
+      'run_env_variables': _params.runEnvVariables,
+      'runtime': _params.runtime,
+      'scale_concurrency': _params.scaleConcurrency,
+      'scale_cpu_limit': _params.scaleCpuLimit,
+      'scale_down_delay': _params.scaleDownDelay,
+      'scale_max_execution_time': _params.scaleMaxExecutionTime,
+      'scale_memory_limit': _params.scaleMemoryLimit,
+    };
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'updateFunction');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions/{name}',
+        method: 'PATCH',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
+            'If-Match': _params.ifMatch,
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1842,7 +2419,7 @@ class CodeEngineV2 extends BaseService {
    * @param {ComponentRef} params.component - A reference to another component.
    * @param {string} params.prefix - Optional value that is set as prefix in the component that is bound. Will be
    * generated if not provided.
-   * @param {string} params.secretName - The service access secret that is binding to a component.
+   * @param {string} params.secretName - The service access secret that is bound to a component.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Binding>>}
    */
@@ -1985,7 +2562,7 @@ class CodeEngineV2 extends BaseService {
     return this.createRequest(parameters);
   }
   /*************************
-   * builds
+   * imageBuilds
    ************************/
 
   /**
@@ -1996,7 +2573,9 @@ class CodeEngineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
    * @param {number} [params.limit] - Optional maximum number of builds per page.
-   * @param {string} [params.start] - The token to continue traversing paginated list of builds.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the `next` object of the operation response.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.BuildList>>}
    */
@@ -2056,8 +2635,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.outputSecret - The secret that is required to access the image registry. Make sure that the
    * secret is granted with push permissions towards the specified container registry namespace.
    * @param {string} params.strategyType - The strategy to use for building the image.
-   * @param {string} [params.sourceContextDir] - Option directory in the repository that contains the buildpacks file or
-   * the Dockerfile.
+   * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
+   * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
    * optional if the `source_type` is `git` and uses the HEAD of default branch if not specified. If the `source_type`
    * value is `local`, this field must be omitted.
@@ -2260,8 +2839,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.outputImage] - The name of the image.
    * @param {string} [params.outputSecret] - The secret that is required to access the image registry. Make sure that
    * the secret is granted with push permissions towards the specified container registry namespace.
-   * @param {string} [params.sourceContextDir] - Option directory in the repository that contains the buildpacks file or
-   * the Dockerfile.
+   * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
+   * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
    * optional if the `source_type` is `git` and uses the HEAD of default branch if not specified. If the `source_type`
    * value is `local`, this field must be omitted.
@@ -2436,9 +3015,10 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.outputImage] - The name of the image.
    * @param {string} [params.outputSecret] - The secret that is required to access the image registry. Make sure that
    * the secret is granted with push permissions towards the specified container registry namespace.
-   * @param {string} [params.serviceAccount] - Optional service account which is used for resource control.
-   * @param {string} [params.sourceContextDir] - Option directory in the repository that contains the buildpacks file or
-   * the Dockerfile.
+   * @param {string} [params.serviceAccount] - Optional service account, which is used for resource control.” or
+   * “Optional service account that is used for resource control.
+   * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
+   * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
    * optional if the `source_type` is `git` and uses the HEAD of default branch if not specified. If the `source_type`
    * value is `local`, this field must be omitted.
@@ -2632,7 +3212,297 @@ class CodeEngineV2 extends BaseService {
     return this.createRequest(parameters);
   }
   /*************************
-   * secretsAndConfigMaps
+   * domainMappings
+   ************************/
+
+  /**
+   * List domain mappings.
+   *
+   * List all domain mappings in a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {number} [params.limit] - Optional maximum number of domain mappings per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the `next` object of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMappingList>>}
+   */
+  public listDomainMappings(
+    params: CodeEngineV2.ListDomainMappingsParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMappingList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'listDomainMappings');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create a domain mapping.
+   *
+   * Create a domain mapping.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {ComponentRef} params.component - A reference to another component.
+   * @param {string} params.name - The name of the domain mapping.
+   * @param {string} params.tlsSecret - The name of the TLS secret that includes the certificate and private key of this
+   * domain mapping.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
+   */
+  public createDomainMapping(
+    params: CodeEngineV2.CreateDomainMappingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'component', 'name', 'tlsSecret'];
+    const _validParams = ['projectId', 'component', 'name', 'tlsSecret', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'component': _params.component,
+      'name': _params.name,
+      'tls_secret': _params.tlsSecret,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'createDomainMapping'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get a domain mapping.
+   *
+   * Get domain mapping.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your domain mapping.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
+   */
+  public getDomainMapping(
+    params: CodeEngineV2.GetDomainMappingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'getDomainMapping');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings/{name}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a domain mapping.
+   *
+   * Delete a domain mapping.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your domain mapping.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteDomainMapping(
+    params: CodeEngineV2.DeleteDomainMappingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deleteDomainMapping'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings/{name}',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update a domain mapping.
+   *
+   * Update a domain mapping.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your domain mapping.
+   * @param {string} params.ifMatch - Version of the domain mapping to be updated. Specify the version that you
+   * retrieved as entity_tag (ETag header) when reading the domain mapping. This value helps identify parallel usage of
+   * this API. Pass * to indicate to update any version available. This might result in stale updates.
+   * @param {ComponentRef} [params.component] - A reference to another component.
+   * @param {string} [params.tlsSecret] - The name of the TLS secret that includes the certificate and private key of
+   * this domain mapping.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
+   */
+  public updateDomainMapping(
+    params: CodeEngineV2.UpdateDomainMappingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name', 'ifMatch'];
+    const _validParams = ['projectId', 'name', 'ifMatch', 'component', 'tlsSecret', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'component': _params.component,
+      'tls_secret': _params.tlsSecret,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'updateDomainMapping'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings/{name}',
+        method: 'PATCH',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
+            'If-Match': _params.ifMatch,
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+  /*************************
+   * secretsAndConfigmaps
    ************************/
 
   /**
@@ -2982,10 +3852,8 @@ class CodeEngineV2 extends BaseService {
    * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max
    * length of 253 characters. Each value field can consists of any character and must not exceed a max length of
    * 1048576 characters.
-   * @param {ServiceAccessSecretPrototypeProps} [params.serviceAccess] - Properties for Service Access Secret
-   * Prototypes.
-   * @param {OperatorSecretPrototypeProps} [params.serviceOperator] - Properties for the IBM Cloud Operator Secret
-   * Prototype.
+   * @param {ServiceAccessSecretPrototypeProps} [params.serviceAccess] - Properties for Service Access Secrets.
+   * @param {OperatorSecretPrototypeProps} [params.serviceOperator] - Properties for the IBM Cloud Operator Secrets.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Secret>>}
    */
@@ -3204,294 +4072,6 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
-  /*************************
-   * domainMappings
-   ************************/
-
-  /**
-   * List domain mappings.
-   *
-   * List all domain mappings in a project.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.projectId - The ID of the project.
-   * @param {number} [params.limit] - Optional maximum number of domain mappings per page.
-   * @param {string} [params.start] - The token to continue traversing paginated list of domain mappings.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMappingList>>}
-   */
-  public listDomainMappings(
-    params: CodeEngineV2.ListDomainMappingsParams
-  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMappingList>> {
-    const _params = { ...params };
-    const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const query = {
-      'limit': _params.limit,
-      'start': _params.start,
-    };
-
-    const path = {
-      'project_id': _params.projectId,
-    };
-
-    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'listDomainMappings');
-
-    const parameters = {
-      options: {
-        url: '/projects/{project_id}/domain_mappings',
-        method: 'GET',
-        qs: query,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Create a domain mapping.
-   *
-   * Create a domain mapping.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.projectId - The ID of the project.
-   * @param {ComponentRef} params.component - A reference to another component.
-   * @param {string} params.name - The name of the domain mapping.
-   * @param {string} params.tlsSecret - The name of the TLS secret that holds the certificate and private key of this
-   * domain mapping.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
-   */
-  public createDomainMapping(
-    params: CodeEngineV2.CreateDomainMappingParams
-  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
-    const _params = { ...params };
-    const _requiredParams = ['projectId', 'component', 'name', 'tlsSecret'];
-    const _validParams = ['projectId', 'component', 'name', 'tlsSecret', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = {
-      'component': _params.component,
-      'name': _params.name,
-      'tls_secret': _params.tlsSecret,
-    };
-
-    const path = {
-      'project_id': _params.projectId,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      CodeEngineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createDomainMapping'
-    );
-
-    const parameters = {
-      options: {
-        url: '/projects/{project_id}/domain_mappings',
-        method: 'POST',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Get a domain mapping.
-   *
-   * Get domain mapping.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.name - The name of your domain mapping.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
-   */
-  public getDomainMapping(
-    params: CodeEngineV2.GetDomainMappingParams
-  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
-    const _params = { ...params };
-    const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const path = {
-      'project_id': _params.projectId,
-      'name': _params.name,
-    };
-
-    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'getDomainMapping');
-
-    const parameters = {
-      options: {
-        url: '/projects/{project_id}/domain_mappings/{name}',
-        method: 'GET',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Delete a domain mapping.
-   *
-   * Delete a domain mapping.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.name - The name of your domain mapping.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
-   */
-  public deleteDomainMapping(
-    params: CodeEngineV2.DeleteDomainMappingParams
-  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
-    const _params = { ...params };
-    const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const path = {
-      'project_id': _params.projectId,
-      'name': _params.name,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      CodeEngineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteDomainMapping'
-    );
-
-    const parameters = {
-      options: {
-        url: '/projects/{project_id}/domain_mappings/{name}',
-        method: 'DELETE',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
-   * Update a domain mapping.
-   *
-   * Update a domain mapping.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.name - The name of your domain mapping.
-   * @param {string} params.ifMatch - Version of the domain mapping to be updated. Specify the version that you
-   * retrieved as entity_tag (ETag header) when reading the domain mapping. This value helps identify parallel usage of
-   * this API. Pass * to indicate to update any version available. This might result in stale updates.
-   * @param {ComponentRef} [params.component] - A reference to another component.
-   * @param {string} [params.tlsSecret] - The name of the TLS secret that holds the certificate and private key of this
-   * domain mapping.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>>}
-   */
-  public updateDomainMapping(
-    params: CodeEngineV2.UpdateDomainMappingParams
-  ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
-    const _params = { ...params };
-    const _requiredParams = ['projectId', 'name', 'ifMatch'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'component', 'tlsSecret', 'headers'];
-    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    if (_validationErrors) {
-      return Promise.reject(_validationErrors);
-    }
-
-    const body = {
-      'component': _params.component,
-      'tls_secret': _params.tlsSecret,
-    };
-
-    const path = {
-      'project_id': _params.projectId,
-      'name': _params.name,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      CodeEngineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateDomainMapping'
-    );
-
-    const parameters = {
-      options: {
-        url: '/projects/{project_id}/domain_mappings/{name}',
-        method: 'PATCH',
-        body,
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-            'Accept': 'application/json',
-            'Content-Type': 'application/merge-patch+json',
-            'If-Match': _params.ifMatch,
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
 }
 
 /*************************
@@ -3499,6 +4079,14 @@ class CodeEngineV2 extends BaseService {
  ************************/
 
 namespace CodeEngineV2 {
+  /** Options for the `CodeEngineV2` constructor. */
+  export interface Options extends UserOptions {
+    /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
+     *  `2021-03-31` and `2024-08-04`.
+     */
+    version?: string;
+  }
+
   /** An operation response. */
   export interface Response<T = any> {
     result: T;
@@ -3627,7 +4215,7 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** Optional user ID (UID) to run the app (e.g., `1001`). */
+    /** Optional user ID (UID) to run the app. */
     runAsUser?: number;
     /** Optional commands for the app that are passed to start the container. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
@@ -3654,7 +4242,7 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scaleCpuLimit?: string;
-    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    /** Optional amount of time in seconds that delays the scale-down behavior for an app instance. */
     scaleDownDelay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
@@ -3762,7 +4350,7 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** Optional user ID (UID) to run the app (e.g., `1001`). */
+    /** Optional user ID (UID) to run the app. */
     runAsUser?: number;
     /** Optional commands for the app that are passed to start the container. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
@@ -3789,7 +4377,7 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scaleCpuLimit?: string;
-    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    /** Optional amount of time in seconds that delays the scale-down behavior for an app instance. */
     scaleDownDelay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
@@ -3877,6 +4465,22 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `listAppInstances` operation. */
+  export interface ListAppInstancesParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your application. */
+    appName: string;
+    /** Optional maximum number of apps per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the `next` object of the
+     *  operation response.
+     */
+    start?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `listJobs` operation. */
   export interface ListJobsParams {
     /** The ID of the project. */
@@ -3913,7 +4517,7 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the job (e.g., 1001). */
+    /** The user ID (UID) to run the job. */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
@@ -3932,9 +4536,10 @@ namespace CodeEngineV2 {
     runServiceAccount?: CreateJobConstants.RunServiceAccount | string;
     /** Optional mounts of config maps or a secrets. */
     runVolumeMounts?: VolumeMountPrototype[];
-    /** Define a custom set of array indices as comma-separated list containing single values and hyphen-separated
-     *  ranges like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The
-     *  number of unique array indices specified here determines the number of job instances to run.
+    /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+     *  ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable
+     *  JOB_INDEX. The number of unique array indices that you specify with this parameter determines the number of job
+     *  instances to run.
      */
     scaleArraySpec?: string;
     /** Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -4028,7 +4633,7 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the job (e.g., 1001). */
+    /** The user ID (UID) to run the job. */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
@@ -4049,9 +4654,10 @@ namespace CodeEngineV2 {
      *  overwritten.
      */
     runVolumeMounts?: VolumeMountPrototype[];
-    /** Define a custom set of array indices as comma-separated list containing single values and hyphen-separated
-     *  ranges like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The
-     *  number of unique array indices specified here determines the number of job instances to run.
+    /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+     *  ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable
+     *  JOB_INDEX. The number of unique array indices that you specify with this parameter determines the number of job
+     *  instances to run.
      */
     scaleArraySpec?: string;
     /** Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -4104,7 +4710,7 @@ namespace CodeEngineV2 {
   export interface ListJobRunsParams {
     /** The ID of the project. */
     projectId: string;
-    /** Optional name of the job that should be filtered for. */
+    /** Optional name of the job that you want to use to filter. */
     jobName?: string;
     /** Optional maximum number of job runs per page. */
     limit?: number;
@@ -4142,7 +4748,7 @@ namespace CodeEngineV2 {
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     runArguments?: string[];
-    /** The user ID (UID) to run the job (e.g., 1001). */
+    /** The user ID (UID) to run the job. */
     runAsUser?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
@@ -4163,9 +4769,10 @@ namespace CodeEngineV2 {
     runVolumeMounts?: VolumeMountPrototype[];
     /** Optional value to override the JOB_ARRAY_SIZE environment variable for a job run. */
     scaleArraySizeVariableOverride?: number;
-    /** Define a custom set of array indices as comma-separated list containing single values and hyphen-separated
-     *  ranges like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The
-     *  number of unique array indices specified here determines the number of job instances to run.
+    /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+     *  ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable
+     *  JOB_INDEX. The number of unique array indices that you specify with this parameter determines the number of job
+     *  instances to run.
      */
     scaleArraySpec?: string;
     /** Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -4232,6 +4839,168 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `listFunctionRuntimes` operation. */
+  export interface ListFunctionRuntimesParams {
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `listFunctions` operation. */
+  export interface ListFunctionsParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Optional maximum number of functions per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the 'next_url' field of
+     *  the operation response.
+     */
+    start?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createFunction` operation. */
+  export interface CreateFunctionParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the
+     *  data URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+     *  2397](https://tools.ietf.org/html/rfc2397).
+     */
+    codeReference: string;
+    /** The name of the function. Use a name that is unique within the project. */
+    name: string;
+    /** The managed runtime used to execute the injected code. */
+    runtime: string;
+    /** Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL.
+     *  When `code_reference` is set to a code bundle URL, this field is always true.
+     */
+    codeBinary?: boolean;
+    /** Specifies the name of the function that should be invoked. */
+    codeMain?: string;
+    /** The name of the secret that is used to access the specified `code_reference`. The secret is used to
+     *  authenticate with a non-public endpoint that is specified as`code_reference`.
+     */
+    codeSecret?: string;
+    /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid
+     *  values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
+     *  supports function private visibility.
+     */
+    managedDomainMappings?: CreateFunctionConstants.ManagedDomainMappings | string;
+    /** Optional references to config maps, secrets or literal values. */
+    runEnvVariables?: EnvVarPrototype[];
+    /** Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`. */
+    scaleConcurrency?: number;
+    /** Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+     *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+     */
+    scaleCpuLimit?: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for a function. */
+    scaleDownDelay?: number;
+    /** Timeout in secs after which the function is terminated. */
+    scaleMaxExecutionTime?: number;
+    /** Optional amount of memory set for the instance of the function. For valid values see [Supported memory and
+     *  CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for
+     *  specifying memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB.
+     *  For more information see [Units of
+     *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+     */
+    scaleMemoryLimit?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `createFunction` operation. */
+  export namespace CreateFunctionConstants {
+    /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports function private visibility. */
+    export enum ManagedDomainMappings {
+      LOCAL = 'local',
+      LOCAL_PRIVATE = 'local_private',
+      LOCAL_PUBLIC = 'local_public',
+    }
+  }
+
+  /** Parameters for the `getFunction` operation. */
+  export interface GetFunctionParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your function. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteFunction` operation. */
+  export interface DeleteFunctionParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your function. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateFunction` operation. */
+  export interface UpdateFunctionParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your function. */
+    name: string;
+    /** Version of the function settings to be updated. Specify the version that you retrieved as entity_tag (ETag
+     *  header) when reading the function. This value helps identifying parallel usage of this API. Pass * to indicate
+     *  to update any version available. This might result in stale updates.
+     */
+    ifMatch: string;
+    /** Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL.
+     *  When `code_reference` is set to a code bundle URL, this field is always true.
+     */
+    codeBinary?: boolean;
+    /** Specifies the name of the function that should be invoked. */
+    codeMain?: string;
+    /** Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the
+     *  data URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+     *  2397](https://tools.ietf.org/html/rfc2397).
+     */
+    codeReference?: string;
+    /** The name of the secret that is used to access the specified `code_reference`. The secret is used to
+     *  authenticate with a non-public endpoint that is specified as`code_reference`.
+     */
+    codeSecret?: string;
+    /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid
+     *  values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
+     *  supports function private visibility.
+     */
+    managedDomainMappings?: UpdateFunctionConstants.ManagedDomainMappings | string;
+    /** Optional references to config maps, secrets or literal values. */
+    runEnvVariables?: EnvVarPrototype[];
+    /** The managed runtime used to execute the injected code. */
+    runtime?: string;
+    /** Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`. */
+    scaleConcurrency?: number;
+    /** Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+     *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+     */
+    scaleCpuLimit?: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for a function. */
+    scaleDownDelay?: number;
+    /** Timeout in secs after which the function is terminated. */
+    scaleMaxExecutionTime?: number;
+    /** Optional amount of memory set for the instance of the function. For valid values see [Supported memory and
+     *  CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for
+     *  specifying memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB.
+     *  For more information see [Units of
+     *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+     */
+    scaleMemoryLimit?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `updateFunction` operation. */
+  export namespace UpdateFunctionConstants {
+    /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports function private visibility. */
+    export enum ManagedDomainMappings {
+      LOCAL = 'local',
+      LOCAL_PRIVATE = 'local_private',
+      LOCAL_PUBLIC = 'local_public',
+    }
+  }
+
   /** Parameters for the `listBindings` operation. */
   export interface ListBindingsParams {
     /** The ID of the project. */
@@ -4254,7 +5023,7 @@ namespace CodeEngineV2 {
     component: ComponentRef;
     /** Optional value that is set as prefix in the component that is bound. Will be generated if not provided. */
     prefix: string;
-    /** The service access secret that is binding to a component. */
+    /** The service access secret that is bound to a component. */
     secretName: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -4283,7 +5052,10 @@ namespace CodeEngineV2 {
     projectId: string;
     /** Optional maximum number of builds per page. */
     limit?: number;
-    /** The token to continue traversing paginated list of builds. */
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the `next` object of the
+     *  operation response.
+     */
     start?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -4302,7 +5074,7 @@ namespace CodeEngineV2 {
     outputSecret: string;
     /** The strategy to use for building the image. */
     strategyType: string;
-    /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
+    /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
      *  `git` and uses the HEAD of default branch if not specified. If the `source_type` value is `local`, this field
@@ -4383,7 +5155,7 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     outputSecret?: string;
-    /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
+    /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
      *  `git` and uses the HEAD of default branch if not specified. If the `source_type` value is `local`, this field
@@ -4466,9 +5238,11 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     outputSecret?: string;
-    /** Optional service account which is used for resource control. */
+    /** Optional service account, which is used for resource control.” or “Optional service account that is used for
+     *  resource control.
+     */
     serviceAccount?: CreateBuildRunConstants.ServiceAccount | string;
-    /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
+    /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
      *  `git` and uses the HEAD of default branch if not specified. If the `source_type` value is `local`, this field
@@ -4509,7 +5283,7 @@ namespace CodeEngineV2 {
 
   /** Constants for the `createBuildRun` operation. */
   export namespace CreateBuildRunConstants {
-    /** Optional service account which is used for resource control. */
+    /** Optional service account, which is used for resource control.” or “Optional service account that is used for resource control. */
     export enum ServiceAccount {
       DEFAULT = 'default',
       MANAGER = 'manager',
@@ -4539,6 +5313,69 @@ namespace CodeEngineV2 {
     projectId: string;
     /** The name of your build run. */
     name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `listDomainMappings` operation. */
+  export interface ListDomainMappingsParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Optional maximum number of domain mappings per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the `next` object of the
+     *  operation response.
+     */
+    start?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createDomainMapping` operation. */
+  export interface CreateDomainMappingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** A reference to another component. */
+    component: ComponentRef;
+    /** The name of the domain mapping. */
+    name: string;
+    /** The name of the TLS secret that includes the certificate and private key of this domain mapping. */
+    tlsSecret: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getDomainMapping` operation. */
+  export interface GetDomainMappingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your domain mapping. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteDomainMapping` operation. */
+  export interface DeleteDomainMappingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your domain mapping. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateDomainMapping` operation. */
+  export interface UpdateDomainMappingParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your domain mapping. */
+    name: string;
+    /** Version of the domain mapping to be updated. Specify the version that you retrieved as entity_tag (ETag
+     *  header) when reading the domain mapping. This value helps identify parallel usage of this API. Pass * to
+     *  indicate to update any version available. This might result in stale updates.
+     */
+    ifMatch: string;
+    /** A reference to another component. */
+    component?: ComponentRef;
+    /** The name of the TLS secret that includes the certificate and private key of this domain mapping. */
+    tlsSecret?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -4634,9 +5471,9 @@ namespace CodeEngineV2 {
      *  Each value field can consists of any character and must not exceed a max length of 1048576 characters.
      */
     data?: SecretData;
-    /** Properties for Service Access Secret Prototypes. */
+    /** Properties for Service Access Secrets. */
     serviceAccess?: ServiceAccessSecretPrototypeProps;
-    /** Properties for the IBM Cloud Operator Secret Prototype. */
+    /** Properties for the IBM Cloud Operator Secrets. */
     serviceOperator?: OperatorSecretPrototypeProps;
     headers?: OutgoingHttpHeaders;
   }
@@ -4710,66 +5547,6 @@ namespace CodeEngineV2 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Parameters for the `listDomainMappings` operation. */
-  export interface ListDomainMappingsParams {
-    /** The ID of the project. */
-    projectId: string;
-    /** Optional maximum number of domain mappings per page. */
-    limit?: number;
-    /** The token to continue traversing paginated list of domain mappings. */
-    start?: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `createDomainMapping` operation. */
-  export interface CreateDomainMappingParams {
-    /** The ID of the project. */
-    projectId: string;
-    /** A reference to another component. */
-    component: ComponentRef;
-    /** The name of the domain mapping. */
-    name: string;
-    /** The name of the TLS secret that holds the certificate and private key of this domain mapping. */
-    tlsSecret: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `getDomainMapping` operation. */
-  export interface GetDomainMappingParams {
-    /** The ID of the project. */
-    projectId: string;
-    /** The name of your domain mapping. */
-    name: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `deleteDomainMapping` operation. */
-  export interface DeleteDomainMappingParams {
-    /** The ID of the project. */
-    projectId: string;
-    /** The name of your domain mapping. */
-    name: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
-  /** Parameters for the `updateDomainMapping` operation. */
-  export interface UpdateDomainMappingParams {
-    /** The ID of the project. */
-    projectId: string;
-    /** The name of your domain mapping. */
-    name: string;
-    /** Version of the domain mapping to be updated. Specify the version that you retrieved as entity_tag (ETag
-     *  header) when reading the domain mapping. This value helps identify parallel usage of this API. Pass * to
-     *  indicate to update any version available. This might result in stale updates.
-     */
-    ifMatch: string;
-    /** A reference to another component. */
-    component?: ComponentRef;
-    /** The name of the TLS secret that holds the certificate and private key of this domain mapping. */
-    tlsSecret?: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
   /*************************
    * model interfaces
    ************************/
@@ -4778,15 +5555,19 @@ namespace CodeEngineV2 {
   export interface App {
     /** Reference to a build that is associated with the application. */
     build?: string;
-    /** Reference to a buildrun that is associated with the application. */
+    /** Reference to a build run that is associated with the application. */
     build_run?: string;
+    /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
+     *  exposed as environment variables in the application.
+     */
+    computed_env_variables?: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
-    /** Optional URL to invoke app. Depending on visibility this is accessible publicly or in the private network
-     *  only. Empty in case 'managed_domain_mappings' is set to 'local'.
+    /** Optional URL to invoke the app. Depending on visibility,  this is accessible publicly or in the private
+     *  network only. Empty in case 'managed_domain_mappings' is set to 'local'.
      */
     endpoint?: string;
-    /** URL to app that is only visible within the project. */
+    /** The URL to the app that is only visible within the project. */
     endpoint_internal?: string;
     /** The version of the app instance, which is used to achieve optimistic locking. */
     entity_tag: string;
@@ -4814,39 +5595,39 @@ namespace CodeEngineV2 {
      *  Valid values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the
      *  project supports application private visibility.
      */
-    managed_domain_mappings: string;
+    managed_domain_mappings: App.Constants.ManagedDomainMappings | string;
     /** The name of the app. */
     name: string;
     /** Response model for probes. */
     probe_liveness?: Probe;
     /** Response model for probes. */
     probe_readiness?: Probe;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the app. */
-    resource_type?: string;
+    resource_type?: App.Constants.ResourceType | string;
     /** Optional arguments for the app that are passed to start the container. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** Optional user ID (UID) to run the app (e.g., `1001`). */
+    /** Optional user ID (UID) to run the app. */
     run_as_user?: number;
     /** Optional commands for the app that are passed to start the container. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or literal values, which are exposed as environment variables in the
-     *  application.
+    /** References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+     *  environment variables in the application.
      */
     run_env_variables: EnvVar[];
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
      *  `manager` , `none`, `reader`, and `writer`.
      */
-    run_service_account?: string;
+    run_service_account?: App.Constants.RunServiceAccount | string;
     /** Mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Optional maximum number of requests that can be processed concurrently per instance. */
@@ -4860,7 +5641,7 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scale_cpu_limit: string;
-    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    /** Optional amount of time in seconds that delays the scale-down behavior for an app instance. */
     scale_down_delay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
@@ -4890,9 +5671,114 @@ namespace CodeEngineV2 {
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scale_request_timeout: number;
     /** The current status of the app. */
-    status?: string;
+    status?: App.Constants.Status | string;
     /** The detailed status of the application. */
     status_details?: AppStatus;
+  }
+  export namespace App {
+    export namespace Constants {
+      /** Optional value controlling which of the system managed domain mappings will be setup for the application. Valid values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports application private visibility. */
+      export enum ManagedDomainMappings {
+        LOCAL = 'local',
+        LOCAL_PRIVATE = 'local_private',
+        LOCAL_PUBLIC = 'local_public',
+      }
+      /** The type of the app. */
+      export enum ResourceType {
+        APP_V2 = 'app_v2',
+      }
+      /** Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` , `none`, `reader`, and `writer`. */
+      export enum RunServiceAccount {
+        DEFAULT = 'default',
+        MANAGER = 'manager',
+        READER = 'reader',
+        WRITER = 'writer',
+        NONE = 'none',
+      }
+      /** The current status of the app. */
+      export enum Status {
+        READY = 'ready',
+        DEPLOYING = 'deploying',
+        FAILED = 'failed',
+        WARNING = 'warning',
+      }
+    }
+  }
+
+  /** AppInstance is the response model for app instance resources. */
+  export interface AppInstance {
+    /** The name of the application that is associated with this instance. */
+    app_name: string;
+    /** The timestamp when the resource was created. */
+    created_at?: string;
+    /** When you provision a new app instance, a URL is created identifying the location of the instance. */
+    href?: string;
+    /** The identifier of the resource. */
+    id?: string;
+    /** The name of the app instance. */
+    name?: string;
+    /** The ID of the project in which the resource is located. */
+    project_id?: string;
+    /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
+     *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+     */
+    region?: string;
+    /** The type of the app instance. */
+    resource_type?: AppInstance.Constants.ResourceType | string;
+    /** The number of restarts of the app instance. */
+    restarts?: number;
+    /** The name of the revision that is associated with this instance. */
+    revision_name: string;
+    /** The number of CPU set for the instance. For valid values see [Supported memory and CPU
+     *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+     */
+    scale_cpu_limit: string;
+    /** The amount of ephemeral storage set for the instance. The amount specified as ephemeral storage, must not
+     *  exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are Megabyte (M) or
+     *  Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more information see [Units of
+     *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+     */
+    scale_ephemeral_storage_limit: string;
+    /** The amount of memory set for the instance. For valid values see [Supported memory and CPU
+     *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for specifying
+     *  memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB. For more
+     *  information see [Units of
+     *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+     */
+    scale_memory_limit: string;
+    /** The current status of the instance. */
+    status?: AppInstance.Constants.Status | string;
+    /** The status of a container. */
+    system_container?: ContainerStatus;
+    /** The status of a container. */
+    user_container?: ContainerStatus;
+  }
+  export namespace AppInstance {
+    export namespace Constants {
+      /** The type of the app instance. */
+      export enum ResourceType {
+        APP_INSTANCE_V2 = 'app_instance_v2',
+      }
+      /** The current status of the instance. */
+      export enum Status {
+        PENDING = 'pending',
+        RUNNING = 'running',
+        SUCCEEDED = 'succeeded',
+        FAILED = 'failed',
+      }
+    }
+  }
+
+  /** Contains a list of app instances and pagination information. */
+  export interface AppInstanceList {
+    /** Describes properties needed to retrieve the first page of a result list. */
+    first?: ListFirstMetadata;
+    /** List of all app instances. */
+    instances: AppInstance[];
+    /** Maximum number of resources per page. */
+    limit: number;
+    /** Describes properties needed to retrieve the next page of a result list. */
+    next?: ListNextMetadata;
   }
 
   /** Contains a list of apps and pagination information. */
@@ -4911,6 +5797,10 @@ namespace CodeEngineV2 {
   export interface AppRevision {
     /** Name of the associated app. */
     app_name?: string;
+    /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
+     *  exposed as environment variables in the application.
+     */
+    computed_env_variables?: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new revision,  a URL is created identifying the location of the instance. */
@@ -4933,34 +5823,38 @@ namespace CodeEngineV2 {
      *  provided, too.
      */
     image_secret?: string;
-    /** The name of the app revison. */
+    /** The name of the app revision. */
     name?: string;
-    /** The ID of the project the resource is located in. */
+    /** Response model for probes. */
+    probe_liveness?: Probe;
+    /** Response model for probes. */
+    probe_readiness?: Probe;
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the app revision. */
-    resource_type?: string;
+    resource_type?: AppRevision.Constants.ResourceType | string;
     /** Optional arguments for the app that are passed to start the container. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** Optional user ID (UID) to run the app (e.g., `1001`). */
+    /** Optional user ID (UID) to run the app. */
     run_as_user?: number;
     /** Optional commands for the app that are passed to start the container. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or literal values, which are exposed as environment variables in the
-     *  application.
+    /** References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
+     *  environment variables in the application.
      */
     run_env_variables: EnvVar[];
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
      *  `manager` , `none`, `reader`, and `writer`.
      */
-    run_service_account?: string;
+    run_service_account?: AppRevision.Constants.RunServiceAccount | string;
     /** Mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Optional maximum number of requests that can be processed concurrently per instance. */
@@ -4974,7 +5868,7 @@ namespace CodeEngineV2 {
      *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
      */
     scale_cpu_limit: string;
-    /** Optional amount of time in seconds that delays the scale down behavior for an app instance. */
+    /** Optional amount of time in seconds that delays the scale-down behavior for an app instance. */
     scale_down_delay?: number;
     /** Optional amount of ephemeral storage to set for the instance of the app. The amount specified as ephemeral
      *  storage, must not exceed the amount of `scale_memory_limit`. The units for specifying ephemeral storage are
@@ -5004,9 +5898,32 @@ namespace CodeEngineV2 {
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scale_request_timeout: number;
     /** The current status of the app revision. */
-    status?: string;
+    status?: AppRevision.Constants.Status | string;
     /** The detailed status of the application revision. */
     status_details?: AppRevisionStatus;
+  }
+  export namespace AppRevision {
+    export namespace Constants {
+      /** The type of the app revision. */
+      export enum ResourceType {
+        APP_REVISION_V2 = 'app_revision_v2',
+      }
+      /** Optional name of the service account. For built-in service accounts, you can use the shortened names `manager` , `none`, `reader`, and `writer`. */
+      export enum RunServiceAccount {
+        DEFAULT = 'default',
+        MANAGER = 'manager',
+        READER = 'reader',
+        WRITER = 'writer',
+        NONE = 'none',
+      }
+      /** The current status of the app revision. */
+      export enum Status {
+        READY = 'ready',
+        LOADING = 'loading',
+        WARNING = 'warning',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** Contains a list of app revisions and pagination information. */
@@ -5026,7 +5943,31 @@ namespace CodeEngineV2 {
     /** The number of running instances of the revision. */
     actual_instances?: number;
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
-    reason?: string;
+    reason?: AppRevisionStatus.Constants.Reason | string;
+  }
+  export namespace AppRevisionStatus {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
+      export enum Reason {
+        READY = 'ready',
+        WAITING = 'waiting',
+        DEPLOYING = 'deploying',
+        DEPLOYING_WAITING_FOR_RESOURCES = 'deploying_waiting_for_resources',
+        INITIAL_SCALE_NEVER_ACHIEVED = 'initial_scale_never_achieved',
+        FETCH_IMAGE_FAILED_UNKNOWN_MANIFEST = 'fetch_image_failed_unknown_manifest',
+        FETCH_IMAGE_FAILED_UNKNOWN_REPOSITORY = 'fetch_image_failed_unknown_repository',
+        FETCH_IMAGE_FAILED_REGISTRY_NOT_FOUND = 'fetch_image_failed_registry_not_found',
+        FETCH_IMAGE_FAILED_MISSING_PULL_SECRET = 'fetch_image_failed_missing_pull_secret',
+        FETCH_IMAGE_FAILED_WRONG_PULL_CREDENTIALS = 'fetch_image_failed_wrong_pull_credentials',
+        FETCH_IMAGE_FAILED_MISSING_PULL_CREDENTIALS = 'fetch_image_failed_missing_pull_credentials',
+        CONTAINER_FAILED_EXIT_CODE_0 = 'container_failed_exit_code_0',
+        CONTAINER_FAILED_EXIT_CODE_1 = 'container_failed_exit_code_1',
+        CONTAINER_FAILED_EXIT_CODE_139 = 'container_failed_exit_code_139',
+        CONTAINER_FAILED_EXIT_CODE_24 = 'container_failed_exit_code_24',
+        IMAGE_PULL_BACK_OFF = 'image_pull_back_off',
+        INVALID_TAR_HEADER_IMAGE_PULL_ERR = 'invalid_tar_header_image_pull_err',
+      }
+    }
   }
 
   /** The detailed status of the application. */
@@ -5036,7 +5977,19 @@ namespace CodeEngineV2 {
     /** Latest app revision that reached a ready state. */
     latest_ready_revision?: string;
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
-    reason?: string;
+    reason?: AppStatus.Constants.Reason | string;
+  }
+  export namespace AppStatus {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
+      export enum Reason {
+        READY = 'ready',
+        DEPLOYING = 'deploying',
+        WAITING_FOR_RESOURCES = 'waiting_for_resources',
+        NO_REVISION_READY = 'no_revision_ready',
+        READY_BUT_LATEST_REVISION_FAILED = 'ready_but_latest_revision_failed',
+      }
+    }
   }
 
   /** Describes the model of a binding. */
@@ -5047,16 +6000,24 @@ namespace CodeEngineV2 {
     href?: string;
     /** The ID of the binding. */
     id?: string;
-    /** The value that is set as prefix in the component that is bound. */
+    /** The value that is set as a prefix in the component that is bound. */
     prefix: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The type of the binding. */
-    resource_type?: string;
+    resource_type?: Binding.Constants.ResourceType | string;
     /** The service access secret that is bound to a component. */
     secret_name: string;
     /** The current status of the binding. */
     status?: string;
+  }
+  export namespace Binding {
+    export namespace Constants {
+      /** The type of the binding. */
+      export enum ResourceType {
+        BINDING_V2 = 'binding_v2',
+      }
+    }
   }
 
   /** Contains a list of bindings and pagination information. */
@@ -5089,15 +6050,15 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     output_secret: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the build. */
-    resource_type?: string;
-    /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
+    resource_type?: Build.Constants.ResourceType | string;
+    /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     source_context_dir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
      *  `git` and uses the HEAD of default branch if not specified. If the `source_type` value is `local`, this field
@@ -5115,7 +6076,7 @@ namespace CodeEngineV2 {
      *  * local - For builds from local source code.
      *  * git - For builds from git version controlled source code.
      */
-    source_type: string;
+    source_type: Build.Constants.SourceType | string;
     /** The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type`
      *  value is `local`, this field must be omitted. If the repository is publicly available you can provide a 'https'
      *  URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a
@@ -5124,7 +6085,7 @@ namespace CodeEngineV2 {
      */
     source_url?: string;
     /** The current status of the build. */
-    status?: string;
+    status?: Build.Constants.Status | string;
     /** The detailed status of the build. */
     status_details?: BuildStatus;
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
@@ -5137,6 +6098,24 @@ namespace CodeEngineV2 {
     strategy_type: string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
+  }
+  export namespace Build {
+    export namespace Constants {
+      /** The type of the build. */
+      export enum ResourceType {
+        BUILD_V2 = 'build_v2',
+      }
+      /** Specifies the type of source to determine if your build source is in a repository or based on local source code. * local - For builds from local source code. * git - For builds from git version controlled source code. */
+      export enum SourceType {
+        LOCAL = 'local',
+        GIT = 'git',
+      }
+      /** The current status of the build. */
+      export enum Status {
+        READY = 'ready',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** Contains a list of builds and pagination information. */
@@ -5172,17 +6151,19 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     output_secret?: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the build run. */
-    resource_type?: string;
-    /** Optional service account which is used for resource control. */
-    service_account?: string;
-    /** Option directory in the repository that contains the buildpacks file or the Dockerfile. */
+    resource_type?: BuildRun.Constants.ResourceType | string;
+    /** Optional service account, which is used for resource control.” or “Optional service account that is used for
+     *  resource control.
+     */
+    service_account?: BuildRun.Constants.ServiceAccount | string;
+    /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     source_context_dir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
      *  `git` and uses the HEAD of default branch if not specified. If the `source_type` value is `local`, this field
@@ -5200,7 +6181,7 @@ namespace CodeEngineV2 {
      *  * local - For builds from local source code.
      *  * git - For builds from git version controlled source code.
      */
-    source_type?: string;
+    source_type?: BuildRun.Constants.SourceType | string;
     /** The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type`
      *  value is `local`, this field must be omitted. If the repository is publicly available you can provide a 'https'
      *  URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a
@@ -5209,7 +6190,7 @@ namespace CodeEngineV2 {
      */
     source_url?: string;
     /** The current status of the build run. */
-    status?: string;
+    status?: BuildRun.Constants.Status | string;
     /** Current status condition of a build run. */
     status_details?: BuildRunStatus;
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
@@ -5222,6 +6203,34 @@ namespace CodeEngineV2 {
     strategy_type?: string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
+  }
+  export namespace BuildRun {
+    export namespace Constants {
+      /** The type of the build run. */
+      export enum ResourceType {
+        BUILD_RUN_V2 = 'build_run_v2',
+      }
+      /** Optional service account, which is used for resource control.” or “Optional service account that is used for resource control. */
+      export enum ServiceAccount {
+        DEFAULT = 'default',
+        MANAGER = 'manager',
+        READER = 'reader',
+        WRITER = 'writer',
+        NONE = 'none',
+      }
+      /** Specifies the type of source to determine if your build source is in a repository or based on local source code. * local - For builds from local source code. * git - For builds from git version controlled source code. */
+      export enum SourceType {
+        LOCAL = 'local',
+        GIT = 'git',
+      }
+      /** The current status of the build run. */
+      export enum Status {
+        SUCCEEDED = 'succeeded',
+        RUNNING = 'running',
+        PENDING = 'pending',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** Contains a list of build runs and pagination information. */
@@ -5243,15 +6252,57 @@ namespace CodeEngineV2 {
     /** Describes the time the build run completed. */
     output_digest?: string;
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
-    reason?: string;
+    reason?: BuildRunStatus.Constants.Reason | string;
     /** Time the build run started. */
     start_time?: string;
+  }
+  export namespace BuildRunStatus {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
+      export enum Reason {
+        SUCCEEDED = 'succeeded',
+        RUNNING = 'running',
+        PENDING = 'pending',
+        FAILED_TO_EXECUTE_BUILD_RUN = 'failed_to_execute_build_run',
+        EXCEEDED_EPHEMERAL_STORAGE = 'exceeded_ephemeral_storage',
+        MISSING_REGISTRY_ACCESS = 'missing_registry_access',
+        MISSING_CODE_REPO_ACCESS = 'missing_code_repo_access',
+        MISSING_SECRETS = 'missing_secrets',
+        UNKNOWN_STRATEGY = 'unknown_strategy',
+        INVALID_BUILD_CONFIGURATION = 'invalid_build_configuration',
+        POD_EVICTED_BECAUSE_OF_STORAGE_QUOTA_EXCEEDS = 'pod_evicted_because_of_storage_quota_exceeds',
+        POD_EVICTED = 'pod_evicted',
+        MISSING_TASK_RUN = 'missing_task_run',
+        TASK_RUN_GENERATION_FAILED = 'task_run_generation_failed',
+        BUILD_NOT_FOUND = 'build_not_found',
+        TIMEOUT = 'timeout',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** The detailed status of the build. */
   export interface BuildStatus {
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
-    reason?: string;
+    reason?: BuildStatus.Constants.Reason | string;
+  }
+  export namespace BuildStatus {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
+      export enum Reason {
+        REGISTERED = 'registered',
+        STRATEGY_NOT_FOUND = 'strategy_not_found',
+        CLUSTER_BUILD_STRATEGY_NOT_FOUND = 'cluster_build_strategy_not_found',
+        SET_OWNER_REFERENCE_FAILED = 'set_owner_reference_failed',
+        SPEC_SOURCE_SECRET_NOT_FOUND = 'spec_source_secret_not_found',
+        SPEC_OUTPUT_SECRET_REF_NOT_FOUND = 'spec_output_secret_ref_not_found',
+        SPEC_RUNTIME_SECRET_REF_NOT_FOUND = 'spec_runtime_secret_ref_not_found',
+        MULTIPLE_SECRET_REF_NOT_FOUND = 'multiple_secret_ref_not_found',
+        RUNTIME_PATHS_CAN_NOT_BE_EMPTY = 'runtime_paths_can_not_be_empty',
+        REMOTE_REPOSITORY_UNREACHABLE = 'remote_repository_unreachable',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** A reference to another component. */
@@ -5276,19 +6327,27 @@ namespace CodeEngineV2 {
     id?: string;
     /** The name of the config map. */
     name: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the config map. */
-    resource_type?: string;
+    resource_type?: ConfigMap.Constants.ResourceType | string;
+  }
+  export namespace ConfigMap {
+    export namespace Constants {
+      /** The type of the config map. */
+      export enum ResourceType {
+        CONFIG_MAP_V2 = 'config_map_v2',
+      }
+    }
   }
 
-  /** Contains a list of configmaps and pagination information. */
+  /** Contains a list of config maps and pagination information. */
   export interface ConfigMapList {
-    /** List of all configmaps. */
+    /** List of all config maps. */
     config_maps: ConfigMap[];
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -5298,10 +6357,56 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
+  /** The status of a container. */
+  export interface ContainerStatus {
+    /** Details of the observed container status. */
+    current_state?: ContainerStatusDetails;
+    /** Details of the observed container status. */
+    last_observed_state?: ContainerStatusDetails;
+  }
+
+  /** Details of the observed container status. */
+  export interface ContainerStatusDetails {
+    /** The time the container terminated. Only populated in an observed failure state. */
+    completed_at?: string;
+    /** The status of the container. */
+    container_status?: string;
+    /** The exit code of the last termination of the container. Only populated in an observed failure state. */
+    exit_code?: number;
+    /** The reason the container is not yet running or has failed. Only populated in non-running states. */
+    reason?: ContainerStatusDetails.Constants.Reason | string;
+    /** The time the container started. */
+    started_at?: string;
+  }
+  export namespace ContainerStatusDetails {
+    export namespace Constants {
+      /** The reason the container is not yet running or has failed. Only populated in non-running states. */
+      export enum Reason {
+        READY = 'ready',
+        WAITING = 'waiting',
+        DEPLOYING = 'deploying',
+        DEPLOYING_WAITING_FOR_RESOURCES = 'deploying_waiting_for_resources',
+        INITIAL_SCALE_NEVER_ACHIEVED = 'initial_scale_never_achieved',
+        FETCH_IMAGE_FAILED_UNKNOWN_MANIFEST = 'fetch_image_failed_unknown_manifest',
+        FETCH_IMAGE_FAILED_UNKNOWN_REPOSITORY = 'fetch_image_failed_unknown_repository',
+        FETCH_IMAGE_FAILED_REGISTRY_NOT_FOUND = 'fetch_image_failed_registry_not_found',
+        FETCH_IMAGE_FAILED_MISSING_PULL_SECRET = 'fetch_image_failed_missing_pull_secret',
+        FETCH_IMAGE_FAILED_WRONG_PULL_CREDENTIALS = 'fetch_image_failed_wrong_pull_credentials',
+        FETCH_IMAGE_FAILED_MISSING_PULL_CREDENTIALS = 'fetch_image_failed_missing_pull_credentials',
+        CONTAINER_FAILED_EXIT_CODE_0 = 'container_failed_exit_code_0',
+        CONTAINER_FAILED_EXIT_CODE_1 = 'container_failed_exit_code_1',
+        CONTAINER_FAILED_EXIT_CODE_139 = 'container_failed_exit_code_139',
+        CONTAINER_FAILED_EXIT_CODE_24 = 'container_failed_exit_code_24',
+        IMAGE_PULL_BACK_OFF = 'image_pull_back_off',
+        INVALID_TAR_HEADER_IMAGE_PULL_ERR = 'invalid_tar_header_image_pull_err',
+      }
+    }
+  }
+
   /** Response model for domain mapping definitions. */
   export interface DomainMapping {
-    /** Exposes the value of the CNAME record that needs to be configured in the DNS settings of the domain, to
-     *  route traffic properly to the target Code Engine region.
+    /** The value of the CNAME record that must be configured in the DNS settings of the domain, to route traffic
+     *  properly to the target Code Engine region.
      */
     cname_target?: string;
     /** A reference to another component. */
@@ -5316,26 +6421,47 @@ namespace CodeEngineV2 {
     id?: string;
     /** The name of the domain mapping. */
     name: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
-    /** The type of the CE Resource. */
-    resource_type?: string;
+    /** The type of the Code Engine resource. */
+    resource_type?: DomainMapping.Constants.ResourceType | string;
     /** The current status of the domain mapping. */
-    status?: string;
+    status?: DomainMapping.Constants.Status | string;
     /** The detailed status of the domain mapping. */
     status_details?: DomainMappingStatus;
-    /** The name of the TLS secret that holds the certificate and private key of this domain mapping. */
+    /** The name of the TLS secret that includes the certificate and private key of this domain mapping. */
     tls_secret: string;
-    /** Exposes whether the domain mapping is managed by the user or by Code Engine. */
+    /** Specifies whether the domain mapping is managed by the user or by Code Engine. */
     user_managed?: boolean;
-    /** Exposes whether the domain mapping is reachable through the public internet, or private IBM network, or only
-     *  through other components within the same Code Engine project.
+    /** Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or
+     *  only through other components within the same Code Engine project.
      */
-    visibility?: string;
+    visibility?: DomainMapping.Constants.Visibility | string;
+  }
+  export namespace DomainMapping {
+    export namespace Constants {
+      /** The type of the Code Engine resource. */
+      export enum ResourceType {
+        DOMAIN_MAPPING_V2 = 'domain_mapping_v2',
+      }
+      /** The current status of the domain mapping. */
+      export enum Status {
+        READY = 'ready',
+        FAILED = 'failed',
+        DEPLOYING = 'deploying',
+      }
+      /** Specifies whether the domain mapping is reachable through the public internet, or private IBM network, or only through other components within the same Code Engine project. */
+      export enum Visibility {
+        CUSTOM = 'custom',
+        PRIVATE = 'private',
+        PROJECT = 'project',
+        PUBLIC = 'public',
+      }
+    }
   }
 
   /** Contains a list of domain mappings and pagination information. */
@@ -5353,7 +6479,20 @@ namespace CodeEngineV2 {
   /** The detailed status of the domain mapping. */
   export interface DomainMappingStatus {
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
-    reason?: string;
+    reason?: DomainMappingStatus.Constants.Reason | string;
+  }
+  export namespace DomainMappingStatus {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
+      export enum Reason {
+        READY = 'ready',
+        DOMAIN_ALREADY_CLAIMED = 'domain_already_claimed',
+        APP_REF_FAILED = 'app_ref_failed',
+        FAILED_RECONCILE_INGRESS = 'failed_reconcile_ingress',
+        DEPLOYING = 'deploying',
+        FAILED = 'failed',
+      }
+    }
   }
 
   /** Response model for environment variables. */
@@ -5367,9 +6506,21 @@ namespace CodeEngineV2 {
     /** The name of the secret or config map. */
     reference?: string;
     /** Specify the type of the environment variable. */
-    type: string;
+    type: EnvVar.Constants.Type | string;
     /** The literal value of the environment variable. */
     value?: string;
+  }
+  export namespace EnvVar {
+    export namespace Constants {
+      /** Specify the type of the environment variable. */
+      export enum Type {
+        LITERAL = 'literal',
+        CONFIG_MAP_FULL_REFERENCE = 'config_map_full_reference',
+        SECRET_FULL_REFERENCE = 'secret_full_reference',
+        CONFIG_MAP_KEY_REFERENCE = 'config_map_key_reference',
+        SECRET_KEY_REFERENCE = 'secret_key_reference',
+      }
+    }
   }
 
   /** Prototype model for environment variables. */
@@ -5383,17 +6534,186 @@ namespace CodeEngineV2 {
     /** The name of the secret or config map. */
     reference?: string;
     /** Specify the type of the environment variable. */
-    type?: string;
+    type?: EnvVarPrototype.Constants.Type | string;
     /** The literal value of the environment variable. */
     value?: string;
+  }
+  export namespace EnvVarPrototype {
+    export namespace Constants {
+      /** Specify the type of the environment variable. */
+      export enum Type {
+        LITERAL = 'literal',
+        CONFIG_MAP_FULL_REFERENCE = 'config_map_full_reference',
+        SECRET_FULL_REFERENCE = 'secret_full_reference',
+        CONFIG_MAP_KEY_REFERENCE = 'config_map_key_reference',
+        SECRET_KEY_REFERENCE = 'secret_key_reference',
+      }
+    }
+  }
+
+  /** Function is the response model for function resources. */
+  export interface Function {
+    /** Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL.
+     *  When `code_reference` is set to a code bundle URL, this field is always true.
+     */
+    code_binary: boolean;
+    /** Specifies the name of the function that should be invoked. */
+    code_main?: string;
+    /** Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the
+     *  data URL scheme and include the source code as base64 encoded. The data URL scheme is defined in [RFC
+     *  2397](https://tools.ietf.org/html/rfc2397).
+     */
+    code_reference: string;
+    /** The name of the secret that is used to access the specified `code_reference`. The secret is used to
+     *  authenticate with a non-public endpoint that is specified as`code_reference`.
+     */
+    code_secret?: string;
+    /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
+     *  exposed as environment variables in the function.
+     */
+    computed_env_variables?: EnvVar[];
+    /** The timestamp when the resource was created. */
+    created_at?: string;
+    /** URL to invoke the function. */
+    endpoint?: string;
+    /** URL to function that is only visible within the project. */
+    endpoint_internal?: string;
+    /** The version of the function instance, which is used to achieve optimistic locking. */
+    entity_tag: string;
+    /** When you provision a new function, a relative URL path is created identifying the location of the instance. */
+    href?: string;
+    /** The identifier of the resource. */
+    id?: string;
+    /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid
+     *  values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project
+     *  supports function private visibility.
+     */
+    managed_domain_mappings: Function.Constants.ManagedDomainMappings | string;
+    /** The name of the function. */
+    name: string;
+    /** The ID of the project in which the resource is located. */
+    project_id?: string;
+    /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
+     *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+     */
+    region?: string;
+    /** The type of the function. */
+    resource_type?: Function.Constants.ResourceType | string;
+    /** References to config maps, secrets or literal values, which are defined by the function owner and are
+     *  exposed as environment variables in the function.
+     */
+    run_env_variables: EnvVar[];
+    /** The managed runtime used to execute the injected code. */
+    runtime: string;
+    /** Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`. */
+    scale_concurrency: number;
+    /** Optional amount of CPU set for the instance of the function. For valid values see [Supported memory and CPU
+     *  combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).
+     */
+    scale_cpu_limit: string;
+    /** Optional amount of time in seconds that delays the scale down behavior for a function. */
+    scale_down_delay: number;
+    /** Timeout in secs after which the function is terminated. */
+    scale_max_execution_time: number;
+    /** Optional amount of memory set for the instance of the function. For valid values see [Supported memory and
+     *  CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo). The units for
+     *  specifying memory are Megabyte (M) or Gigabyte (G), whereas G and M are the shorthand expressions for GB and MB.
+     *  For more information see [Units of
+     *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
+     */
+    scale_memory_limit: string;
+    /** The current status of the function. */
+    status?: Function.Constants.Status | string;
+    /** The detailed status of the function. */
+    status_details: FunctionStatus;
+  }
+  export namespace Function {
+    export namespace Constants {
+      /** Optional value controlling which of the system managed domain mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility can only be 'local_private' if the project supports function private visibility. */
+      export enum ManagedDomainMappings {
+        LOCAL = 'local',
+        LOCAL_PRIVATE = 'local_private',
+        LOCAL_PUBLIC = 'local_public',
+      }
+      /** The type of the function. */
+      export enum ResourceType {
+        FUNCTION_V2 = 'function_v2',
+      }
+      /** The current status of the function. */
+      export enum Status {
+        OFFLINE = 'offline',
+        DEPLOYING = 'deploying',
+        READY = 'ready',
+        FAILED = 'failed',
+      }
+    }
+  }
+
+  /** Contains a list of functions and pagination information. */
+  export interface FunctionList {
+    /** Describes properties needed to retrieve the first page of a result list. */
+    first?: ListFirstMetadata;
+    /** List of all functions. */
+    functions: Function[];
+    /** Maximum number of resources per page. */
+    limit: number;
+    /** Describes properties needed to retrieve the next page of a result list. */
+    next?: ListNextMetadata;
+  }
+
+  /** Response model for Function runtime objects. */
+  export interface FunctionRuntime {
+    /** Whether the function runtime is the default for the code bundle family. */
+    default?: boolean;
+    /** Whether the function runtime is deprecated. */
+    deprecated?: boolean;
+    /** The code bundle family of the function runtime. */
+    family?: string;
+    /** The ID of the function runtime. */
+    id?: string;
+    /** The name of the function runtime. */
+    name?: string;
+    /** Whether the function runtime is optimized. */
+    optimized?: boolean;
+  }
+
+  /** Contains a list of Function runtimes. */
+  export interface FunctionRuntimeList {
+    /** List of all Function runtimes. */
+    function_runtimes?: FunctionRuntime[];
+  }
+
+  /** The detailed status of the function. */
+  export interface FunctionStatus {
+    /** Provides additional information about the status of the function. */
+    reason?: FunctionStatus.Constants.Reason | string;
+  }
+  export namespace FunctionStatus {
+    export namespace Constants {
+      /** Provides additional information about the status of the function. */
+      export enum Reason {
+        OFFLINE = 'offline',
+        DEPLOYING_CONFIGURING_ROUTES = 'deploying_configuring_routes',
+        READY_UPDATE_IN_PROGRESS = 'ready_update_in_progress',
+        DEPLOYING = 'deploying',
+        READY_LAST_UPDATE_FAILED = 'ready_last_update_failed',
+        READY = 'ready',
+        UNKNOWN_REASON = 'unknown_reason',
+        NO_CODE_BUNDLE = 'no_code_bundle',
+      }
+    }
   }
 
   /** Job is the response model for job resources. */
   export interface Job {
     /** Reference to a build that is associated with the job. */
     build?: string;
-    /** Reference to a buildrun that is associated with the job. */
+    /** Reference to a build run that is associated with the job. */
     build_run?: string;
+    /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
+     *  exposed as environment variables in the job run.
+     */
+    computed_env_variables?: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** The version of the job instance, which is used to achieve optimistic locking. */
@@ -5416,42 +6736,43 @@ namespace CodeEngineV2 {
     image_secret?: string;
     /** The name of the job. */
     name: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the job. */
-    resource_type?: string;
+    resource_type?: Job.Constants.ResourceType | string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** The user ID (UID) to run the job (e.g., 1001). */
+    /** The user ID (UID) to run the job. */
     run_as_user?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or literal values, which are exposed as environment variables in the job
-     *  run.
+    /** References to config maps, secrets or literal values, which are defined by the function owner and are
+     *  exposed as environment variables in the job run.
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
      *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
      *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
-    run_mode: string;
+    run_mode: Job.Constants.RunMode | string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
      *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
-    run_service_account?: string;
-    /** Optional mounts of config maps or a secrets. */
+    run_service_account?: Job.Constants.RunServiceAccount | string;
+    /** Optional mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
-    /** Define a custom set of array indices as comma-separated list containing single values and hyphen-separated
-     *  ranges like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The
-     *  number of unique array indices specified here determines the number of job instances to run.
+    /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+     *  ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable
+     *  JOB_INDEX. The number of unique array indices that you specify with this parameter determines the number of job
+     *  instances to run.
      */
     scale_array_spec: string;
     /** Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -5481,6 +6802,27 @@ namespace CodeEngineV2 {
      */
     scale_retry_limit?: number;
   }
+  export namespace Job {
+    export namespace Constants {
+      /** The type of the job. */
+      export enum ResourceType {
+        JOB_V2 = 'job_v2',
+      }
+      /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed. */
+      export enum RunMode {
+        TASK = 'task',
+        DAEMON = 'daemon',
+      }
+      /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template. */
+      export enum RunServiceAccount {
+        DEFAULT = 'default',
+        MANAGER = 'manager',
+        READER = 'reader',
+        WRITER = 'writer',
+        NONE = 'none',
+      }
+    }
+  }
 
   /** Contains a list of jobs and pagination information. */
   export interface JobList {
@@ -5496,6 +6838,10 @@ namespace CodeEngineV2 {
 
   /** Response model for job run resources. */
   export interface JobRun {
+    /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
+     *  exposed as environment variables in the job run.
+     */
+    computed_env_variables?: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new job run,  a URL is created identifying the location of the instance. */
@@ -5520,44 +6866,45 @@ namespace CodeEngineV2 {
     job_name?: string;
     /** The name of the job run. */
     name?: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
      */
     region?: string;
     /** The type of the job run. */
-    resource_type?: string;
+    resource_type?: JobRun.Constants.ResourceType | string;
     /** Set arguments for the job that are passed to start job run containers. If not specified an empty string
      *  array will be applied and the arguments specified by the container image, will be used to start the container.
      */
     run_arguments: string[];
-    /** The user ID (UID) to run the job (e.g., 1001). */
+    /** The user ID (UID) to run the job. */
     run_as_user?: number;
     /** Set commands for the job that are passed to start job run containers. If not specified an empty string array
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
-    /** References to config maps, secrets or literal values, which are exposed as environment variables in the job
-     *  run.
+    /** References to config maps, secrets or literal values, which are defined by the function owner and are
+     *  exposed as environment variables in the job run.
      */
     run_env_variables: EnvVar[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
      *  and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are
      *  restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed.
      */
-    run_mode?: string;
+    run_mode?: JobRun.Constants.RunMode | string;
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
      *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
-    run_service_account?: string;
-    /** Optional mounts of config maps or a secrets. */
+    run_service_account?: JobRun.Constants.RunServiceAccount | string;
+    /** Optional mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Optional value to override the JOB_ARRAY_SIZE environment variable for a job run. */
     scale_array_size_variable_override?: number;
-    /** Define a custom set of array indices as comma-separated list containing single values and hyphen-separated
-     *  ranges like `5,12-14,23,27`. Each instance can pick up its array index via environment variable `JOB_INDEX`. The
-     *  number of unique array indices specified here determines the number of job instances to run.
+    /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
+     *  ranges, such as  5,12-14,23,27. Each instance gets its array index value from the environment variable
+     *  JOB_INDEX. The number of unique array indices that you specify with this parameter determines the number of job
+     *  instances to run.
      */
     scale_array_spec?: string;
     /** Optional amount of CPU set for the instance of the job. For valid values see [Supported memory and CPU
@@ -5587,9 +6934,37 @@ namespace CodeEngineV2 {
      */
     scale_retry_limit?: number;
     /** The current status of the job run. */
-    status?: string;
+    status?: JobRun.Constants.Status | string;
     /** The detailed status of the job run. */
     status_details?: JobRunStatus;
+  }
+  export namespace JobRun {
+    export namespace Constants {
+      /** The type of the job run. */
+      export enum ResourceType {
+        JOB_RUN_V2 = 'job_run_v2',
+      }
+      /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time` and `retry_limit` properties apply. In `daemon` mode, since there is no timeout and failed instances are restarted indefinitely, the `max_execution_time` and `retry_limit` properties are not allowed. */
+      export enum RunMode {
+        TASK = 'task',
+        DAEMON = 'daemon',
+      }
+      /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`, `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template. */
+      export enum RunServiceAccount {
+        DEFAULT = 'default',
+        MANAGER = 'manager',
+        READER = 'reader',
+        WRITER = 'writer',
+        NONE = 'none',
+      }
+      /** The current status of the job run. */
+      export enum Status {
+        FAILED = 'failed',
+        COMPLETED = 'completed',
+        RUNNING = 'running',
+        PENDING = 'pending',
+      }
+    }
   }
 
   /** Contains a list of job runs and pagination information. */
@@ -5610,16 +6985,24 @@ namespace CodeEngineV2 {
     completion_time?: string;
     /** Number of failed job run instances. */
     failed?: number;
+    /** List of job run indices that failed. */
+    failed_indices?: string;
     /** Number of pending job run instances. */
     pending?: number;
+    /** List of job run indices that are pending. */
+    pending_indices?: string;
     /** Number of requested job run instances. */
     requested?: number;
     /** Number of running job run instances. */
     running?: number;
+    /** List of job run indices that are running. */
+    running_indices?: string;
     /** Time the job run started. */
     start_time?: string;
     /** Number of succeeded job run instances. */
     succeeded?: number;
+    /** List of job run indices that succeeded. */
+    succeeded_indices?: string;
     /** Number of job run instances with unknown state. */
     unknown?: number;
   }
@@ -5650,7 +7033,7 @@ namespace CodeEngineV2 {
     user_managed: boolean;
   }
 
-  /** Properties for the IBM Cloud Operator Secret Prototype. */
+  /** Properties for the IBM Cloud Operator Secrets. */
   export interface OperatorSecretPrototypeProps {
     /** The list of resource groups (by ID) that the operator secret can bind services in. */
     resource_group_ids?: string[];
@@ -5675,7 +7058,16 @@ namespace CodeEngineV2 {
      */
     timeout?: number;
     /** Specifies whether to use HTTP or TCP for the probe checks. The default is TCP. */
-    type?: string;
+    type?: Probe.Constants.Type | string;
+  }
+  export namespace Probe {
+    export namespace Constants {
+      /** Specifies whether to use HTTP or TCP for the probe checks. The default is TCP. */
+      export enum Type {
+        TCP = 'tcp',
+        HTTP = 'http',
+      }
+    }
   }
 
   /** Request model for probes. */
@@ -5695,7 +7087,16 @@ namespace CodeEngineV2 {
      */
     timeout?: number;
     /** Specifies whether to use HTTP or TCP for the probe checks. The default is TCP. */
-    type?: string;
+    type?: ProbePrototype.Constants.Type | string;
+  }
+  export namespace ProbePrototype {
+    export namespace Constants {
+      /** Specifies whether to use HTTP or TCP for the probe checks. The default is TCP. */
+      export enum Type {
+        TCP = 'tcp',
+        HTTP = 'http',
+      }
+    }
   }
 
   /** Describes the model of a project. */
@@ -5719,11 +7120,34 @@ namespace CodeEngineV2 {
     /** The ID of the resource group. */
     resource_group_id: string;
     /** The type of the project. */
-    resource_type?: string;
-    /** The current state of the project. For example, if the project is created and ready to get used, it will
-     *  return active.
+    resource_type?: Project.Constants.ResourceType | string;
+    /** The current state of the project. For example, when the project is created and is ready for use, the status
+     *  of the project is active.
      */
-    status?: string;
+    status?: Project.Constants.Status | string;
+  }
+  export namespace Project {
+    export namespace Constants {
+      /** The type of the project. */
+      export enum ResourceType {
+        PROJECT_V2 = 'project_v2',
+      }
+      /** The current state of the project. For example, when the project is created and is ready for use, the status of the project is active. */
+      export enum Status {
+        ACTIVE = 'active',
+        INACTIVE = 'inactive',
+        PENDING_REMOVAL = 'pending_removal',
+        HARD_DELETING = 'hard_deleting',
+        HARD_DELETION_FAILED = 'hard_deletion_failed',
+        HARD_DELETED = 'hard_deleted',
+        DELETING = 'deleting',
+        DELETION_FAILED = 'deletion_failed',
+        SOFT_DELETED = 'soft_deleted',
+        PREPARING = 'preparing',
+        CREATING = 'creating',
+        CREATION_FAILED = 'creation_failed',
+      }
+    }
   }
 
   /** Describes the model of egress IP addresses. */
@@ -5749,9 +7173,23 @@ namespace CodeEngineV2 {
   /** Describes the model of a project status details. */
   export interface ProjectStatusDetails {
     /** Status of the domain created for the project. */
-    domain: string;
+    domain: ProjectStatusDetails.Constants.Domain | string;
     /** Defines whether a project is enabled for management and consumption. */
-    project: string;
+    project: ProjectStatusDetails.Constants.Project | string;
+  }
+  export namespace ProjectStatusDetails {
+    export namespace Constants {
+      /** Status of the domain created for the project. */
+      export enum Domain {
+        UNKNOWN = 'unknown',
+        READY = 'ready',
+      }
+      /** Defines whether a project is enabled for management and consumption. */
+      export enum Project {
+        ENABLED = 'enabled',
+        DISABLED = 'disabled',
+      }
+    }
   }
 
   /** The service credential associated with the secret. */
@@ -5794,14 +7232,14 @@ namespace CodeEngineV2 {
     /** The version of the secret instance, which is used to achieve optimistic locking. */
     entity_tag: string;
     /** Specify the format of the secret. */
-    format?: string;
+    format?: Secret.Constants.Format | string;
     /** When you provision a new secret,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
     id?: string;
     /** The name of the secret. */
     name: string;
-    /** The ID of the project the resource is located in. */
+    /** The ID of the project in which the resource is located. */
     project_id?: string;
     /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
      *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
@@ -5813,6 +7251,21 @@ namespace CodeEngineV2 {
     service_access?: ServiceAccessSecretProps;
     /** Properties for the IBM Cloud Operator Secret. */
     service_operator?: OperatorSecretProps;
+  }
+  export namespace Secret {
+    export namespace Constants {
+      /** Specify the format of the secret. */
+      export enum Format {
+        GENERIC = 'generic',
+        SSH_AUTH = 'ssh_auth',
+        BASIC_AUTH = 'basic_auth',
+        TLS = 'tls',
+        SERVICE_ACCESS = 'service_access',
+        REGISTRY = 'registry',
+        SERVICE_OPERATOR = 'service_operator',
+        OTHER = 'other',
+      }
+    }
   }
 
   /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value field can consists of any character and must not exceed a max length of 1048576 characters. */
@@ -5829,7 +7282,7 @@ namespace CodeEngineV2 {
     limit: number;
     /** Describes properties needed to retrieve the next page of a result list. */
     next?: ListNextMetadata;
-    /** List of Secrets. */
+    /** List of secrets. */
     secrets: Secret[];
   }
 
@@ -5845,7 +7298,7 @@ namespace CodeEngineV2 {
     serviceid?: ServiceIDRef;
   }
 
-  /** Properties for Service Access Secret Prototypes. */
+  /** Properties for Service Access Secrets. */
   export interface ServiceAccessSecretPrototypeProps {
     /** The service credential associated with the secret. */
     resource_key: ResourceKeyRefPrototype;
@@ -5894,7 +7347,16 @@ namespace CodeEngineV2 {
     /** The name of the referenced secret or config map. */
     reference: string;
     /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
-    type: string;
+    type: VolumeMount.Constants.Type | string;
+  }
+  export namespace VolumeMount {
+    export namespace Constants {
+      /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
+      export enum Type {
+        CONFIG_MAP = 'config_map',
+        SECRET = 'secret',
+      }
+    }
   }
 
   /** Prototype model of a volume mount. */
@@ -5908,7 +7370,16 @@ namespace CodeEngineV2 {
     /** The name of the referenced secret or config map. */
     reference: string;
     /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
-    type: string;
+    type: VolumeMountPrototype.Constants.Type | string;
+  }
+  export namespace VolumeMountPrototype {
+    export namespace Constants {
+      /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
+      export enum Type {
+        CONFIG_MAP = 'config_map',
+        SECRET = 'secret',
+      }
+    }
   }
 
   /** SecretDataBasicAuthSecretData. */
@@ -5931,7 +7402,7 @@ namespace CodeEngineV2 {
     /** Registry server. */
     server: string;
     /** Registry email address. */
-    email: string;
+    email?: string;
   }
 
   /** Secret Data field used by SSH secrets. */
@@ -6192,6 +7663,85 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * AppInstancesPager can be used to simplify the use of listAppInstances().
+   */
+  export class AppInstancesPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListAppInstancesParams;
+
+    /**
+     * Construct a AppInstancesPager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listAppInstances()
+     * @param {Object} params - The parameters to be passed to listAppInstances()
+     * @constructor
+     * @returns {AppInstancesPager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListAppInstancesParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listAppInstances().
+     * @returns {Promise<CodeEngineV2.AppInstance[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.AppInstance[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listAppInstances(this.params);
+      const { result } = response;
+
+      let next;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.instances;
+    }
+
+    /**
+     * Returns all results by invoking listAppInstances() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.AppInstance[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.AppInstance[]> {
+      const results: AppInstance[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+
+  /**
    * JobsPager can be used to simplify the use of listJobs().
    */
   export class JobsPager {
@@ -6341,6 +7891,85 @@ namespace CodeEngineV2 {
      */
     public async getAll(): Promise<CodeEngineV2.JobRun[]> {
       const results: JobRun[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+
+  /**
+   * FunctionsPager can be used to simplify the use of listFunctions().
+   */
+  export class FunctionsPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListFunctionsParams;
+
+    /**
+     * Construct a FunctionsPager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listFunctions()
+     * @param {Object} params - The parameters to be passed to listFunctions()
+     * @constructor
+     * @returns {FunctionsPager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListFunctionsParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listFunctions().
+     * @returns {Promise<CodeEngineV2.Function[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.Function[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listFunctions(this.params);
+      const { result } = response;
+
+      let next;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.functions;
+    }
+
+    /**
+     * Returns all results by invoking listFunctions() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.Function[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.Function[]> {
+      const results: Function[] = [];
       while (this.hasNext()) {
         const nextPage = await this.getNext();
         results.push(...nextPage);
@@ -6587,6 +8216,85 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * DomainMappingsPager can be used to simplify the use of listDomainMappings().
+   */
+  export class DomainMappingsPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListDomainMappingsParams;
+
+    /**
+     * Construct a DomainMappingsPager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listDomainMappings()
+     * @param {Object} params - The parameters to be passed to listDomainMappings()
+     * @constructor
+     * @returns {DomainMappingsPager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListDomainMappingsParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listDomainMappings().
+     * @returns {Promise<CodeEngineV2.DomainMapping[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.DomainMapping[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listDomainMappings(this.params);
+      const { result } = response;
+
+      let next;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.domain_mappings;
+    }
+
+    /**
+     * Returns all results by invoking listDomainMappings() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.DomainMapping[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.DomainMapping[]> {
+      const results: DomainMapping[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+
+  /**
    * ConfigMapsPager can be used to simplify the use of listConfigMaps().
    */
   export class ConfigMapsPager {
@@ -6736,85 +8444,6 @@ namespace CodeEngineV2 {
      */
     public async getAll(): Promise<CodeEngineV2.Secret[]> {
       const results: Secret[] = [];
-      while (this.hasNext()) {
-        const nextPage = await this.getNext();
-        results.push(...nextPage);
-      }
-      return results;
-    }
-  }
-
-  /**
-   * DomainMappingsPager can be used to simplify the use of listDomainMappings().
-   */
-  export class DomainMappingsPager {
-    protected _hasNext: boolean;
-
-    protected pageContext: any;
-
-    protected client: CodeEngineV2;
-
-    protected params: CodeEngineV2.ListDomainMappingsParams;
-
-    /**
-     * Construct a DomainMappingsPager object.
-     *
-     * @param {CodeEngineV2}  client - The service client instance used to invoke listDomainMappings()
-     * @param {Object} params - The parameters to be passed to listDomainMappings()
-     * @constructor
-     * @returns {DomainMappingsPager}
-     */
-    constructor(client: CodeEngineV2, params: CodeEngineV2.ListDomainMappingsParams) {
-      if (params && params.start) {
-        throw new Error(`the params.start field should not be set`);
-      }
-
-      this._hasNext = true;
-      this.pageContext = { next: undefined };
-      this.client = client;
-      this.params = JSON.parse(JSON.stringify(params || {}));
-    }
-
-    /**
-     * Returns true if there are potentially more results to be retrieved by invoking getNext().
-     * @returns {boolean}
-     */
-    public hasNext(): boolean {
-      return this._hasNext;
-    }
-
-    /**
-     * Returns the next page of results by invoking listDomainMappings().
-     * @returns {Promise<CodeEngineV2.DomainMapping[]>}
-     */
-    public async getNext(): Promise<CodeEngineV2.DomainMapping[]> {
-      if (!this.hasNext()) {
-        throw new Error('No more results available');
-      }
-
-      if (this.pageContext.next) {
-        this.params.start = this.pageContext.next;
-      }
-      const response = await this.client.listDomainMappings(this.params);
-      const { result } = response;
-
-      let next;
-      if (result && result.next) {
-        next = result.next.start;
-      }
-      this.pageContext.next = next;
-      if (!this.pageContext.next) {
-        this._hasNext = false;
-      }
-      return result.domain_mappings;
-    }
-
-    /**
-     * Returns all results by invoking listDomainMappings() repeatedly until all pages of results have been retrieved.
-     * @returns {Promise<CodeEngineV2.DomainMapping[]>}
-     */
-    public async getAll(): Promise<CodeEngineV2.DomainMapping[]> {
-      const results: DomainMapping[] = [];
       while (this.hasNext()) {
         const nextPage = await this.getNext();
         results.push(...nextPage);

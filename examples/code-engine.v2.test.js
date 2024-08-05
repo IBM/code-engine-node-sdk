@@ -61,7 +61,9 @@ describe('CodeEngineV2', () => {
   test('Initialize service', async () => {
     // begin-common
 
-    codeEngineService = CodeEngineV2.newInstance();
+    codeEngineService = CodeEngineV2.newInstance({
+      version: '2024-08-04',
+    });
 
     // end-common
   });
@@ -399,6 +401,41 @@ describe('CodeEngineV2', () => {
     // end-get_app_revision
   });
 
+  test('listAppInstances request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listAppInstances() result:');
+    // begin-list_app_instances
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      appName: 'my-app',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.AppInstancesPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_app_instances
+  });
+
   test('listJobs request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -612,6 +649,154 @@ describe('CodeEngineV2', () => {
     }
 
     // end-get_job_run
+  });
+
+  test('listFunctionRuntimes request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listFunctionRuntimes() result:');
+    // begin-list_function_runtimes
+
+    let res;
+    try {
+      res = await codeEngineService.listFunctionRuntimes({});
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_function_runtimes
+  });
+
+  test('listFunctions request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listFunctions() result:');
+    // begin-list_functions
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.FunctionsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_functions
+  });
+
+  test('createFunction request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createFunction() result:');
+    // begin-create_function
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      codeReference: 'data:text/plain;base64,<base64encoded-source-code>',
+      name: 'my-function',
+      runtime: 'nodejs-18',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createFunction(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_function
+  });
+
+  test('getFunction request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getFunction() result:');
+    // begin-get_function
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-function',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getFunction(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_function
+  });
+
+  test('updateFunction request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateFunction() result:');
+    // begin-update_function
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-function',
+      ifMatch: 'testString',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.updateFunction(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_function
   });
 
   test('listBindings request example', async () => {
@@ -933,6 +1118,138 @@ describe('CodeEngineV2', () => {
     // end-get_build_run
   });
 
+  test('listDomainMappings request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listDomainMappings() result:');
+    // begin-list_domain_mappings
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_domain_mappings
+  });
+
+  test('createDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createDomainMapping() result:');
+    // begin-create_domain_mapping
+
+    // Request models needed by this operation.
+
+    // ComponentRef
+    const componentRefModel = {
+      name: 'my-app-1',
+      resource_type: 'app_v2',
+    };
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      component: componentRefModel,
+      name: 'www.example.com',
+      tlsSecret: 'my-tls-secret',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_domain_mapping
+  });
+
+  test('getDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getDomainMapping() result:');
+    // begin-get_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_domain_mapping
+  });
+
+  test('updateDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateDomainMapping() result:');
+    // begin-update_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+      ifMatch: 'testString',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.updateDomainMapping(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_domain_mapping
+  });
+
   test('listConfigMaps request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1179,138 +1496,6 @@ describe('CodeEngineV2', () => {
     // end-replace_secret
   });
 
-  test('listDomainMappings request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('listDomainMappings() result:');
-    // begin-list_domain_mappings
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      limit: 100,
-    };
-
-    const allResults = [];
-    try {
-      const pager = new CodeEngineV2.DomainMappingsPager(codeEngineService, params);
-      while (pager.hasNext()) {
-        const nextPage = await pager.getNext();
-        expect(nextPage).not.toBeNull();
-        allResults.push(...nextPage);
-      }
-      console.log(JSON.stringify(allResults, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-list_domain_mappings
-  });
-
-  test('createDomainMapping request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('createDomainMapping() result:');
-    // begin-create_domain_mapping
-
-    // Request models needed by this operation.
-
-    // ComponentRef
-    const componentRefModel = {
-      name: 'my-app-1',
-      resource_type: 'app_v2',
-    };
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      component: componentRefModel,
-      name: 'www.example.com',
-      tlsSecret: 'my-tls-secret',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.createDomainMapping(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-create_domain_mapping
-  });
-
-  test('getDomainMapping request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('getDomainMapping() result:');
-    // begin-get_domain_mapping
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'www.example.com',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.getDomainMapping(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-get_domain_mapping
-  });
-
-  test('updateDomainMapping request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('updateDomainMapping() result:');
-    // begin-update_domain_mapping
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'www.example.com',
-      ifMatch: 'testString',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.updateDomainMapping(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-update_domain_mapping
-  });
-
   test('deleteProject request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1441,6 +1626,32 @@ describe('CodeEngineV2', () => {
     // end-delete_job_run
   });
 
+  test('deleteFunction request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_function
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-function',
+    };
+
+    try {
+      await codeEngineService.deleteFunction(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_function
+  });
+
   test('deleteBinding request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1519,6 +1730,32 @@ describe('CodeEngineV2', () => {
     // end-delete_build_run
   });
 
+  test('deleteDomainMapping request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_domain_mapping
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'www.example.com',
+    };
+
+    try {
+      await codeEngineService.deleteDomainMapping(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_domain_mapping
+  });
+
   test('deleteConfigMap request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1569,31 +1806,5 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_secret
-  });
-
-  test('deleteDomainMapping request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-delete_domain_mapping
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'www.example.com',
-    };
-
-    try {
-      await codeEngineService.deleteDomainMapping(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-delete_domain_mapping
   });
 });
