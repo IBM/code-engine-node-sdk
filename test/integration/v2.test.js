@@ -1276,6 +1276,82 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('listFunctionRuntimes()', async () => {
+    const res = await codeEngineService.listFunctionRuntimes();
+
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('listFunctions()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const res = await codeEngineService.listFunctions(params);
+
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createFunction()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      codeReference:
+        'data:text/plain;base64,YXN5bmMgZnVuY3Rpb24gbWFpbihwYXJhbXMpIHsKICByZXR1cm4gewogICAgICBzdGF0dXNDb2RlOiAyMDAsCiAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICBib2R5OiBwYXJhbXMgfTsKfQptb2R1bGUuZXhwb3J0cy5tYWluID0gbWFpbjs=',
+      name: 'my-function',
+      runtime: 'nodejs-20',
+    };
+
+    const res = await codeEngineService.createFunction(params);
+
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getFunction()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-function',
+    };
+
+    const res = await codeEngineService.getFunction(params);
+
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('updateFunction()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-function',
+      ifMatch: '*',
+      scaleMaxExecutionTime: 30,
+    };
+
+    const res = await codeEngineService.updateFunction(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteFunction()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-function',
+    };
+
+    const res = await codeEngineService.deleteFunction(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
   test('deleteAppRevision()', async () => {
     const params = {
       projectId: e2eTestProjectId,

@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2024-08-04',
+      version: '2024-09-27',
     });
 
     // end-common

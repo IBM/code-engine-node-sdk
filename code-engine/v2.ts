@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.92.1-44330004-20240620-143510
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 /* eslint-disable max-classes-per-file */
@@ -75,7 +75,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2024-08-04`.
+   *  `2021-03-31` and `2024-09-27`.
    */
   version?: string;
 
@@ -84,7 +84,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2024-08-04`.
+   * specify any date between `2021-03-31` and `2024-09-27`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -4082,7 +4082,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2024-08-04`.
+     *  `2021-03-31` and `2024-09-27`.
      */
     version?: string;
   }
@@ -5551,7 +5551,9 @@ namespace CodeEngineV2 {
    * model interfaces
    ************************/
 
-  /** App is the response model for app resources. */
+  /**
+   * App is the response model for app resources.
+   */
   export interface App {
     /** Reference to a build that is associated with the application. */
     build?: string;
@@ -5705,7 +5707,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** AppInstance is the response model for app instance resources. */
+  /**
+   * AppInstance is the response model for app instance resources.
+   */
   export interface AppInstance {
     /** The name of the application that is associated with this instance. */
     app_name: string;
@@ -5769,7 +5773,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of app instances and pagination information. */
+  /**
+   * Contains a list of app instances and pagination information.
+   */
   export interface AppInstanceList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -5781,7 +5787,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Contains a list of apps and pagination information. */
+  /**
+   * Contains a list of apps and pagination information.
+   */
   export interface AppList {
     /** List of all apps. */
     apps: App[];
@@ -5793,7 +5801,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** AppRevision is the response model for app revision resources. */
+  /**
+   * AppRevision is the response model for app revision resources.
+   */
   export interface AppRevision {
     /** Name of the associated app. */
     app_name?: string;
@@ -5926,7 +5936,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of app revisions and pagination information. */
+  /**
+   * Contains a list of app revisions and pagination information.
+   */
   export interface AppRevisionList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -5938,7 +5950,9 @@ namespace CodeEngineV2 {
     revisions: AppRevision[];
   }
 
-  /** The detailed status of the application revision. */
+  /**
+   * The detailed status of the application revision.
+   */
   export interface AppRevisionStatus {
     /** The number of running instances of the revision. */
     actual_instances?: number;
@@ -5970,7 +5984,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** The detailed status of the application. */
+  /**
+   * The detailed status of the application.
+   */
   export interface AppStatus {
     /** Latest app revision that has been created. */
     latest_created_revision?: string;
@@ -5992,7 +6008,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Describes the model of a binding. */
+  /**
+   * Describes the model of a binding.
+   */
   export interface Binding {
     /** A reference to another component. */
     component: ComponentRef;
@@ -6020,7 +6038,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of bindings and pagination information. */
+  /**
+   * Contains a list of bindings and pagination information.
+   */
   export interface BindingList {
     /** List of all bindings. */
     bindings: Binding[];
@@ -6032,7 +6052,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Response model for build definitions. */
+  /**
+   * Response model for build definitions.
+   */
   export interface Build {
     /** The timestamp when the resource was created. */
     created_at?: string;
@@ -6118,7 +6140,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of builds and pagination information. */
+  /**
+   * Contains a list of builds and pagination information.
+   */
   export interface BuildList {
     /** List of all builds. */
     builds: Build[];
@@ -6130,7 +6154,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Response model for build run objects. */
+  /**
+   * Response model for build run objects.
+   */
   export interface BuildRun {
     /** Optional name of the build on which this build run is based on. If specified, the build run will inherit the
      *  configuration of the referenced build. If not specified, make sure to specify at least the fields
@@ -6233,7 +6259,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of build runs and pagination information. */
+  /**
+   * Contains a list of build runs and pagination information.
+   */
   export interface BuildRunList {
     /** List of all build runs. */
     build_runs: BuildRun[];
@@ -6245,14 +6273,24 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Current status condition of a build run. */
+  /**
+   * Current status condition of a build run.
+   */
   export interface BuildRunStatus {
     /** Time the build run completed. */
     completion_time?: string;
+    /** The default branch name of the git source. */
+    git_branch_name?: string;
+    /** The commit author of a git source. */
+    git_commit_author?: string;
+    /** The commit sha of the git source. */
+    git_commit_sha?: string;
     /** Describes the time the build run completed. */
     output_digest?: string;
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
     reason?: BuildRunStatus.Constants.Reason | string;
+    /** The timestamp of the source. */
+    source_timestamp?: string;
     /** Time the build run started. */
     start_time?: string;
   }
@@ -6281,7 +6319,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** The detailed status of the build. */
+  /**
+   * The detailed status of the build.
+   */
   export interface BuildStatus {
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
     reason?: BuildStatus.Constants.Reason | string;
@@ -6305,7 +6345,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** A reference to another component. */
+  /**
+   * A reference to another component.
+   */
   export interface ComponentRef {
     /** The name of the referenced component. */
     name: string;
@@ -6313,7 +6355,9 @@ namespace CodeEngineV2 {
     resource_type: string;
   }
 
-  /** Describes the model of a configmap. */
+  /**
+   * Describes the model of a configmap.
+   */
   export interface ConfigMap {
     /** The timestamp when the resource was created. */
     created_at?: string;
@@ -6345,7 +6389,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of config maps and pagination information. */
+  /**
+   * Contains a list of config maps and pagination information.
+   */
   export interface ConfigMapList {
     /** List of all config maps. */
     config_maps: ConfigMap[];
@@ -6357,7 +6403,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** The status of a container. */
+  /**
+   * The status of a container.
+   */
   export interface ContainerStatus {
     /** Details of the observed container status. */
     current_state?: ContainerStatusDetails;
@@ -6365,7 +6413,9 @@ namespace CodeEngineV2 {
     last_observed_state?: ContainerStatusDetails;
   }
 
-  /** Details of the observed container status. */
+  /**
+   * Details of the observed container status.
+   */
   export interface ContainerStatusDetails {
     /** The time the container terminated. Only populated in an observed failure state. */
     completed_at?: string;
@@ -6403,7 +6453,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Response model for domain mapping definitions. */
+  /**
+   * Response model for domain mapping definitions.
+   */
   export interface DomainMapping {
     /** The value of the CNAME record that must be configured in the DNS settings of the domain, to route traffic
      *  properly to the target Code Engine region.
@@ -6464,7 +6516,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of domain mappings and pagination information. */
+  /**
+   * Contains a list of domain mappings and pagination information.
+   */
   export interface DomainMappingList {
     /** List of all domain mappings. */
     domain_mappings: DomainMapping[];
@@ -6476,7 +6530,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** The detailed status of the domain mapping. */
+  /**
+   * The detailed status of the domain mapping.
+   */
   export interface DomainMappingStatus {
     /** Optional information to provide more context in case of a 'failed' or 'warning' status. */
     reason?: DomainMappingStatus.Constants.Reason | string;
@@ -6495,7 +6551,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Response model for environment variables. */
+  /**
+   * Response model for environment variables.
+   */
   export interface EnvVar {
     /** The key to reference as environment variable. */
     key?: string;
@@ -6523,7 +6581,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Prototype model for environment variables. */
+  /**
+   * Prototype model for environment variables.
+   */
   export interface EnvVarPrototype {
     /** The key to reference as environment variable. */
     key?: string;
@@ -6551,7 +6611,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Function is the response model for function resources. */
+  /**
+   * Function is the response model for function resources.
+   */
   export interface Function {
     /** Specifies whether the code is binary or not. Defaults to false when `code_reference` is set to a data URL.
      *  When `code_reference` is set to a code bundle URL, this field is always true.
@@ -6649,7 +6711,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of functions and pagination information. */
+  /**
+   * Contains a list of functions and pagination information.
+   */
   export interface FunctionList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -6661,7 +6725,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Response model for Function runtime objects. */
+  /**
+   * Response model for Function runtime objects.
+   */
   export interface FunctionRuntime {
     /** Whether the function runtime is the default for the code bundle family. */
     default?: boolean;
@@ -6677,13 +6743,17 @@ namespace CodeEngineV2 {
     optimized?: boolean;
   }
 
-  /** Contains a list of Function runtimes. */
+  /**
+   * Contains a list of Function runtimes.
+   */
   export interface FunctionRuntimeList {
     /** List of all Function runtimes. */
     function_runtimes?: FunctionRuntime[];
   }
 
-  /** The detailed status of the function. */
+  /**
+   * The detailed status of the function.
+   */
   export interface FunctionStatus {
     /** Provides additional information about the status of the function. */
     reason?: FunctionStatus.Constants.Reason | string;
@@ -6704,7 +6774,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Job is the response model for job resources. */
+  /**
+   * Job is the response model for job resources.
+   */
   export interface Job {
     /** Reference to a build that is associated with the job. */
     build?: string;
@@ -6824,7 +6896,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of jobs and pagination information. */
+  /**
+   * Contains a list of jobs and pagination information.
+   */
   export interface JobList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -6836,7 +6910,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** Response model for job run resources. */
+  /**
+   * Response model for job run resources.
+   */
   export interface JobRun {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the job run.
@@ -6967,7 +7043,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Contains a list of job runs and pagination information. */
+  /**
+   * Contains a list of job runs and pagination information.
+   */
   export interface JobRunList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -6979,7 +7057,9 @@ namespace CodeEngineV2 {
     next?: ListNextMetadata;
   }
 
-  /** The detailed status of the job run. */
+  /**
+   * The detailed status of the job run.
+   */
   export interface JobRunStatus {
     /** Time the job run completed. */
     completion_time?: string;
@@ -7007,13 +7087,17 @@ namespace CodeEngineV2 {
     unknown?: number;
   }
 
-  /** Describes properties needed to retrieve the first page of a result list. */
+  /**
+   * Describes properties needed to retrieve the first page of a result list.
+   */
   export interface ListFirstMetadata {
     /** Href that points to the first page. */
     href?: string;
   }
 
-  /** Describes properties needed to retrieve the next page of a result list. */
+  /**
+   * Describes properties needed to retrieve the next page of a result list.
+   */
   export interface ListNextMetadata {
     /** Href that points to the next page. */
     href?: string;
@@ -7021,7 +7105,9 @@ namespace CodeEngineV2 {
     start?: string;
   }
 
-  /** Properties for the IBM Cloud Operator Secret. */
+  /**
+   * Properties for the IBM Cloud Operator Secret.
+   */
   export interface OperatorSecretProps {
     /** The ID of the apikey associated with the operator secret. */
     apikey_id: string;
@@ -7033,7 +7119,9 @@ namespace CodeEngineV2 {
     user_managed: boolean;
   }
 
-  /** Properties for the IBM Cloud Operator Secrets. */
+  /**
+   * Properties for the IBM Cloud Operator Secrets.
+   */
   export interface OperatorSecretPrototypeProps {
     /** The list of resource groups (by ID) that the operator secret can bind services in. */
     resource_group_ids?: string[];
@@ -7041,7 +7129,9 @@ namespace CodeEngineV2 {
     serviceid?: ServiceIDRefPrototype;
   }
 
-  /** Response model for probes. */
+  /**
+   * Response model for probes.
+   */
   export interface Probe {
     /** The number of consecutive, unsuccessful checks for the probe to be considered failed. */
     failure_threshold?: number;
@@ -7070,7 +7160,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Request model for probes. */
+  /**
+   * Request model for probes.
+   */
   export interface ProbePrototype {
     /** The number of consecutive, unsuccessful checks for the probe to be considered failed. */
     failure_threshold?: number;
@@ -7099,7 +7191,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Describes the model of a project. */
+  /**
+   * Describes the model of a project.
+   */
   export interface Project {
     /** An alphanumeric value identifying the account ID. */
     account_id?: string;
@@ -7150,7 +7244,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Describes the model of egress IP addresses. */
+  /**
+   * Describes the model of egress IP addresses.
+   */
   export interface ProjectEgressIPAddresses {
     /** List of IBM private network IP addresses. */
     private?: string[];
@@ -7158,7 +7254,9 @@ namespace CodeEngineV2 {
     public?: string[];
   }
 
-  /** Contains a list of projects and pagination information. */
+  /**
+   * Contains a list of projects and pagination information.
+   */
   export interface ProjectList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -7170,12 +7268,16 @@ namespace CodeEngineV2 {
     projects: Project[];
   }
 
-  /** Describes the model of a project status details. */
+  /**
+   * Describes the model of a project status details.
+   */
   export interface ProjectStatusDetails {
     /** Status of the domain created for the project. */
     domain: ProjectStatusDetails.Constants.Domain | string;
     /** Defines whether a project is enabled for management and consumption. */
     project: ProjectStatusDetails.Constants.Project | string;
+    /** Return true when project is not VPE enabled. */
+    vpe_not_enabled?: boolean;
   }
   export namespace ProjectStatusDetails {
     export namespace Constants {
@@ -7192,7 +7294,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** The service credential associated with the secret. */
+  /**
+   * The service credential associated with the secret.
+   */
   export interface ResourceKeyRef {
     /** ID of the service credential associated with the secret. */
     id?: string;
@@ -7200,13 +7304,17 @@ namespace CodeEngineV2 {
     name?: string;
   }
 
-  /** The service credential associated with the secret. */
+  /**
+   * The service credential associated with the secret.
+   */
   export interface ResourceKeyRefPrototype {
     /** ID of the service credential associated with the secret. */
     id?: string;
   }
 
-  /** A reference to the Role and Role CRN for service binding. */
+  /**
+   * A reference to the Role and Role CRN for service binding.
+   */
   export interface RoleRef {
     /** CRN of the IAM Role for this service access secret. */
     crn?: string;
@@ -7214,13 +7322,17 @@ namespace CodeEngineV2 {
     name?: string;
   }
 
-  /** A reference to the Role and Role CRN for service binding. */
+  /**
+   * A reference to the Role and Role CRN for service binding.
+   */
   export interface RoleRefPrototype {
     /** CRN of the IAM Role for this service access secret. */
     crn?: string;
   }
 
-  /** Describes the model of a secret. */
+  /**
+   * Describes the model of a secret.
+   */
   export interface Secret {
     /** The timestamp when the resource was created. */
     created_at?: string;
@@ -7268,13 +7380,23 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value field can consists of any character and must not exceed a max length of 1048576 characters. */
+  /**
+   * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
+   *
+   * This type supports additional properties of type string.
+   */
   export interface SecretData {
-    /** SecretData accepts additional properties. */
+    /**
+     * SecretData accepts additional properties of type string.
+     */
     [propName: string]: any;
   }
 
-  /** List of secret resources. */
+  /**
+   * List of secret resources.
+   */
   export interface SecretList {
     /** Describes properties needed to retrieve the first page of a result list. */
     first?: ListFirstMetadata;
@@ -7286,7 +7408,9 @@ namespace CodeEngineV2 {
     secrets: Secret[];
   }
 
-  /** Properties for Service Access Secrets. */
+  /**
+   * Properties for Service Access Secrets.
+   */
   export interface ServiceAccessSecretProps {
     /** The service credential associated with the secret. */
     resource_key: ResourceKeyRef;
@@ -7298,7 +7422,9 @@ namespace CodeEngineV2 {
     serviceid?: ServiceIDRef;
   }
 
-  /** Properties for Service Access Secrets. */
+  /**
+   * Properties for Service Access Secrets.
+   */
   export interface ServiceAccessSecretPrototypeProps {
     /** The service credential associated with the secret. */
     resource_key: ResourceKeyRefPrototype;
@@ -7310,7 +7436,9 @@ namespace CodeEngineV2 {
     serviceid?: ServiceIDRef;
   }
 
-  /** A reference to a Service ID. */
+  /**
+   * A reference to a Service ID.
+   */
   export interface ServiceIDRef {
     /** CRN value of a Service ID. */
     crn?: string;
@@ -7318,13 +7446,17 @@ namespace CodeEngineV2 {
     id?: string;
   }
 
-  /** A reference to the Service ID. */
+  /**
+   * A reference to the Service ID.
+   */
   export interface ServiceIDRefPrototype {
     /** The ID of the Service ID. */
     id?: string;
   }
 
-  /** The IBM Cloud service instance associated with the secret. */
+  /**
+   * The IBM Cloud service instance associated with the secret.
+   */
   export interface ServiceInstanceRef {
     /** ID of the IBM Cloud service instance associated with the secret. */
     id?: string;
@@ -7332,13 +7464,17 @@ namespace CodeEngineV2 {
     type?: string;
   }
 
-  /** The IBM Cloud service instance associated with the secret. */
+  /**
+   * The IBM Cloud service instance associated with the secret.
+   */
   export interface ServiceInstanceRefPrototype {
     /** ID of the IBM Cloud service instance associated with the secret. */
     id?: string;
   }
 
-  /** Response model of a volume mount. */
+  /**
+   * Response model of a volume mount.
+   */
   export interface VolumeMount {
     /** The path that should be mounted. */
     mount_path: string;
@@ -7359,7 +7495,9 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Prototype model of a volume mount. */
+  /**
+   * Prototype model of a volume mount.
+   */
   export interface VolumeMountPrototype {
     /** The path that should be mounted. */
     mount_path: string;
@@ -7382,18 +7520,42 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** SecretDataBasicAuthSecretData. */
+  /**
+   * SecretDataBasicAuthSecretData.
+   *
+   * This type supports additional properties of type string.
+   */
   export interface SecretDataBasicAuthSecretData extends SecretData {
     /** Basic auth username. */
     username: string;
     /** Basic auth password. */
     password: string;
+
+    /**
+     * SecretDataBasicAuthSecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
   }
 
-  /** Data container that allows to specify config parameters and their values as a key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each value field can consists of any character and must not be exceed a max length of 1048576 characters. */
-  export interface SecretDataGenericSecretData extends SecretData {}
+  /**
+   * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not be exceed a max length of 253 characters. Each
+   * value field can consists of any character and must not be exceed a max length of 1048576 characters.
+   *
+   * This type supports additional properties of type string.
+   */
+  export interface SecretDataGenericSecretData extends SecretData {
+    /**
+     * SecretDataGenericSecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
+  }
 
-  /** SecretDataRegistrySecretData. */
+  /**
+   * SecretDataRegistrySecretData.
+   *
+   * This type supports additional properties of type string.
+   */
   export interface SecretDataRegistrySecretData extends SecretData {
     /** Registry username. */
     username: string;
@@ -7403,22 +7565,45 @@ namespace CodeEngineV2 {
     server: string;
     /** Registry email address. */
     email?: string;
+
+    /**
+     * SecretDataRegistrySecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
   }
 
-  /** Secret Data field used by SSH secrets. */
+  /**
+   * Secret Data field used by SSH secrets.
+   *
+   * This type supports additional properties of type string.
+   */
   export interface SecretDataSSHSecretData extends SecretData {
     /** SSH key. */
     ssh_key: string;
     /** Known hosts. */
     known_hosts?: string;
+
+    /**
+     * SecretDataSSHSecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
   }
 
-  /** SecretDataTLSSecretData. */
+  /**
+   * SecretDataTLSSecretData.
+   *
+   * This type supports additional properties of type string.
+   */
   export interface SecretDataTLSSecretData extends SecretData {
     /** The TLS certificate used in a TLS secret. */
     tls_cert: string;
     /** The TLS key used in a TLS secret. */
     tls_key: string;
+
+    /**
+     * SecretDataTLSSecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
   }
 
   /*************************
