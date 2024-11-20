@@ -24,6 +24,8 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const authHelper = require('../resources/auth-helper.js');
 const { loadEnv } = require('../resources/auth-helper');
 
+const cidrBlockType = 'cidr_block';
+
 // testcase timeout value (200s).
 const timeout = 200000;
 
@@ -142,6 +144,106 @@ describe('CodeEngineV2_integration', () => {
       }
     }
     expect(obtainedProject.status).toBe('active');
+  });
+
+  test('listAllowedOutboundDestination()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const res = await codeEngineService.listAllowedOutboundDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('listAllowedOutboundDestination() via AllowedOutboundDestinationPager', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
+  });
+
+  test('createAllowedOutboundDestination()', async () => {
+    // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+    const allowedOutboundDestinationPrototypeModel = {
+      type: cidrBlockType,
+      cidr_block: '192.68.3.0/24',
+      name: 'test-cidr',
+    };
+    const params = {
+      projectId: e2eTestProjectId,
+      allowedOutboundDestination: allowedOutboundDestinationPrototypeModel,
+    };
+
+    const res = await codeEngineService.createAllowedOutboundDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status >= 200 && res.status <= 299).toBe(true);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getAllowedOutboundDestination()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'test-cidr',
+    };
+
+    const res = await codeEngineService.getAllowedOutboundDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('updateAllowedOutboundDestination request example', async () => {
+    // Request models needed by this operation.
+
+    // AllowedOutboundDestinationPatchCidrBlockDataPatch
+    const allowedOutboundDestinationPatchModel = {
+      cidr_block: '192.68.2.0/24',
+      type: cidrBlockType,
+    };
+
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'test-cidr',
+      ifMatch: '*',
+      allowedOutboundDestination: allowedOutboundDestinationPatchModel,
+    };
+
+    const res = await codeEngineService.updateAllowedOutboundDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteAllowedOutboundDestination()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'test-cidr',
+    };
+
+    const res = await codeEngineService.deleteAllowedOutboundDestination(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
   });
 
   test('getProjectEgressIps()', async () => {

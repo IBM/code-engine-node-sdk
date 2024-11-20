@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2024-09-27',
+  version: '2024-11-18',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -495,6 +495,565 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteProject();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('listAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      function __listAllowedOutboundDestinationTest() {
+        // Construct the params object for operation listAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const limit = 100;
+        const start = 'testString';
+        const listAllowedOutboundDestinationParams = {
+          projectId,
+          limit,
+          start,
+        };
+
+        const listAllowedOutboundDestinationResult =
+          codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationParams);
+
+        // all methods should return a Promise
+        expectToBePromise(listAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __listAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __listAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __listAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const listAllowedOutboundDestinationParams = {
+          projectId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.listAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.listAllowedOutboundDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('AllowedOutboundDestinationPager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"cidr_block","name":"name"}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"cidr_block","name":"name"}],"total_count":2,"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
+  describe('createAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+      const allowedOutboundDestinationPrototypeModel = {
+        type: 'cidr_block',
+        cidr_block: 'testString',
+        name: 'testString',
+      };
+
+      function __createAllowedOutboundDestinationTest() {
+        // Construct the params object for operation createAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const allowedOutboundDestination = allowedOutboundDestinationPrototypeModel;
+        const createAllowedOutboundDestinationParams = {
+          projectId,
+          allowedOutboundDestination,
+        };
+
+        const createAllowedOutboundDestinationResult =
+          codeEngineService.createAllowedOutboundDestination(
+            createAllowedOutboundDestinationParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(createAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(allowedOutboundDestination);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __createAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __createAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const allowedOutboundDestination = allowedOutboundDestinationPrototypeModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createAllowedOutboundDestinationParams = {
+          projectId,
+          allowedOutboundDestination,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.createAllowedOutboundDestination(createAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.createAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.createAllowedOutboundDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      function __getAllowedOutboundDestinationTest() {
+        // Construct the params object for operation getAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const getAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+        };
+
+        const getAllowedOutboundDestinationResult = codeEngineService.getAllowedOutboundDestination(
+          getAllowedOutboundDestinationParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getAllowedOutboundDestination(getAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getAllowedOutboundDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deleteAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      function __deleteAllowedOutboundDestinationTest() {
+        // Construct the params object for operation deleteAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const deleteAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+        };
+
+        const deleteAllowedOutboundDestinationResult =
+          codeEngineService.deleteAllowedOutboundDestination(
+            deleteAllowedOutboundDestinationParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(deleteAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations/{name}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteAllowedOutboundDestination(deleteAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteAllowedOutboundDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('updateAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // AllowedOutboundDestinationPatchCidrBlockDataPatch
+      const allowedOutboundDestinationPatchModel = {
+        type: 'cidr_block',
+        cidr_block: 'testString',
+      };
+
+      function __updateAllowedOutboundDestinationTest() {
+        // Construct the params object for operation updateAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const ifMatch = 'testString';
+        const allowedOutboundDestination = allowedOutboundDestinationPatchModel;
+        const updateAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+          ifMatch,
+          allowedOutboundDestination,
+        };
+
+        const updateAllowedOutboundDestinationResult =
+          codeEngineService.updateAllowedOutboundDestination(
+            updateAllowedOutboundDestinationParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(updateAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations/{name}',
+          'PATCH'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        checkUserHeader(createRequestMock, 'If-Match', ifMatch);
+        expect(mockRequestOptions.body).toEqual(allowedOutboundDestination);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __updateAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __updateAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const ifMatch = 'testString';
+        const allowedOutboundDestination = allowedOutboundDestinationPatchModel;
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+          ifMatch,
+          allowedOutboundDestination,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.updateAllowedOutboundDestination(updateAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.updateAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.updateAllowedOutboundDestination();
         } catch (e) {
           err = e;
         }

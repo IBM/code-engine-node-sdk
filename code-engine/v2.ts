@@ -75,7 +75,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2024-09-27`.
+   *  `2021-03-31` and `2024-11-18`.
    */
   version?: string;
 
@@ -84,7 +84,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2024-09-27`.
+   * specify any date between `2021-03-31` and `2024-11-18`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -300,6 +300,309 @@ class CodeEngineV2 extends BaseService {
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * List allowed outbound destinations.
+   *
+   * List all allowed outbound destinations in a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {number} [params.limit] - Optional maximum number of allowed outbound destinations per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the `next` object of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestinationList>>}
+   */
+  public listAllowedOutboundDestination(
+    params: CodeEngineV2.ListAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestinationList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'listAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create an allowed outbound destination.
+   *
+   * Create an allowed outbound destination.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {AllowedOutboundDestinationPrototype} params.allowedOutboundDestination - AllowedOutboundDestination
+   * prototype.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>>}
+   */
+  public createAllowedOutboundDestination(
+    params: CodeEngineV2.CreateAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'allowedOutboundDestination'];
+    const _validParams = ['projectId', 'allowedOutboundDestination', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = _params.allowedOutboundDestination;
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'createAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations',
+        method: 'POST',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get an allowed outbound destination.
+   *
+   * Display the details of an allowed outbound destination.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your allowed outbound destination.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>>}
+   */
+  public getAllowedOutboundDestination(
+    params: CodeEngineV2.GetAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations/{name}',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete an allowed outbound destination.
+   *
+   * Delete an allowed outbound destination.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your allowed outbound destination.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteAllowedOutboundDestination(
+    params: CodeEngineV2.DeleteAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deleteAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update an allowed outbound destination.
+   *
+   * Update an allowed outbound destination.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your allowed outbound destination.
+   * @param {string} params.ifMatch - Version of the allowed outbound destination to be updated. Specify the version
+   * that you retrieved as entity_tag (ETag header) when reading the allowed outbound destination. This value helps
+   * identifying parallel usage of this API. Pass * to indicate to update any version available. This might result in
+   * stale updates.
+   * @param {AllowedOutboundDestinationPatch} params.allowedOutboundDestination - AllowedOutboundDestination patch.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>>}
+   */
+  public updateAllowedOutboundDestination(
+    params: CodeEngineV2.UpdateAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name', 'ifMatch', 'allowedOutboundDestination'];
+    const _validParams = ['projectId', 'name', 'ifMatch', 'allowedOutboundDestination', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = _params.allowedOutboundDestination;
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'updateAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations/{name}',
+        method: 'PATCH',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
+            'If-Match': _params.ifMatch,
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -4082,7 +4385,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2024-09-27`.
+     *  `2021-03-31` and `2024-11-18`.
      */
     version?: string;
   }
@@ -4149,6 +4452,63 @@ namespace CodeEngineV2 {
   export interface DeleteProjectParams {
     /** The ID of the project. */
     id: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `listAllowedOutboundDestination` operation. */
+  export interface ListAllowedOutboundDestinationParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Optional maximum number of allowed outbound destinations per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the `next` object of the
+     *  operation response.
+     */
+    start?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createAllowedOutboundDestination` operation. */
+  export interface CreateAllowedOutboundDestinationParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** AllowedOutboundDestination prototype. */
+    allowedOutboundDestination: AllowedOutboundDestinationPrototype;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getAllowedOutboundDestination` operation. */
+  export interface GetAllowedOutboundDestinationParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your allowed outbound destination. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteAllowedOutboundDestination` operation. */
+  export interface DeleteAllowedOutboundDestinationParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your allowed outbound destination. */
+    name: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateAllowedOutboundDestination` operation. */
+  export interface UpdateAllowedOutboundDestinationParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your allowed outbound destination. */
+    name: string;
+    /** Version of the allowed outbound destination to be updated. Specify the version that you retrieved as
+     *  entity_tag (ETag header) when reading the allowed outbound destination. This value helps identifying parallel
+     *  usage of this API. Pass * to indicate to update any version available. This might result in stale updates.
+     */
+    ifMatch: string;
+    /** AllowedOutboundDestination patch. */
+    allowedOutboundDestination: AllowedOutboundDestinationPatch;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -5550,6 +5910,70 @@ namespace CodeEngineV2 {
   /*************************
    * model interfaces
    ************************/
+
+  /**
+   * AllowedOutboundDestination Describes the model of an allowed outbound destination.
+   */
+  export interface AllowedOutboundDestination {
+    /** The version of the allowed outbound destination, which is used to achieve optimistic locking. */
+    entity_tag: string;
+    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+    type: AllowedOutboundDestination.Constants.Type | string;
+  }
+  export namespace AllowedOutboundDestination {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
+
+  /**
+   * Contains a list of allowed outbound destinations and pagination information.
+   */
+  export interface AllowedOutboundDestinationList {
+    /** List of all allowed outbound destinations. */
+    allowed_outbound_destinations: AllowedOutboundDestination[];
+    /** Describes properties needed to retrieve the first page of a result list. */
+    first?: ListFirstMetadata;
+    /** Maximum number of resources per page. */
+    limit: number;
+    /** Describes properties needed to retrieve the next page of a result list. */
+    next?: ListNextMetadata;
+  }
+
+  /**
+   * AllowedOutboundDestinationPatch is the request model for allowed outbound destination update operations.
+   */
+  export interface AllowedOutboundDestinationPatch {
+    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+    type?: AllowedOutboundDestinationPatch.Constants.Type | string;
+  }
+  export namespace AllowedOutboundDestinationPatch {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
+
+  /**
+   * AllowedOutboundDestinationPrototype is the request model for allowed outbound destination create operations.
+   */
+  export interface AllowedOutboundDestinationPrototype {
+    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+    type: AllowedOutboundDestinationPrototype.Constants.Type | string;
+  }
+  export namespace AllowedOutboundDestinationPrototype {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
 
   /**
    * App is the response model for app resources.
@@ -7521,6 +7945,60 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * Update an allowed outbound destination by using a CIDR block.
+   */
+  export interface AllowedOutboundDestinationPatchCidrBlockDataPatch
+    extends AllowedOutboundDestinationPatch {
+    /** The IP address range. */
+    cidr_block?: string;
+  }
+  export namespace AllowedOutboundDestinationPatchCidrBlockDataPatch {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
+
+  /**
+   * Create an allowed outbound destination by using a CIDR block.
+   */
+  export interface AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+    extends AllowedOutboundDestinationPrototype {
+    /** The IP address range. */
+    cidr_block: string;
+    /** The name of the CIDR block. */
+    name: string;
+  }
+  export namespace AllowedOutboundDestinationPrototypeCidrBlockDataPrototype {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
+
+  /**
+   * Allowed outbound destination CIDR block.
+   */
+  export interface AllowedOutboundDestinationCidrBlockData extends AllowedOutboundDestination {
+    /** The IP address range. */
+    cidr_block: string;
+    /** The name of the CIDR block. */
+    name: string;
+  }
+  export namespace AllowedOutboundDestinationCidrBlockData {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+      }
+    }
+  }
+
+  /**
    * SecretDataBasicAuthSecretData.
    *
    * This type supports additional properties of type string.
@@ -7681,6 +8159,85 @@ namespace CodeEngineV2 {
      */
     public async getAll(): Promise<CodeEngineV2.Project[]> {
       const results: Project[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+
+  /**
+   * AllowedOutboundDestinationPager can be used to simplify the use of listAllowedOutboundDestination().
+   */
+  export class AllowedOutboundDestinationPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListAllowedOutboundDestinationParams;
+
+    /**
+     * Construct a AllowedOutboundDestinationPager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listAllowedOutboundDestination()
+     * @param {Object} params - The parameters to be passed to listAllowedOutboundDestination()
+     * @constructor
+     * @returns {AllowedOutboundDestinationPager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListAllowedOutboundDestinationParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listAllowedOutboundDestination().
+     * @returns {Promise<CodeEngineV2.AllowedOutboundDestination[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.AllowedOutboundDestination[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listAllowedOutboundDestination(this.params);
+      const { result } = response;
+
+      let next;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.allowed_outbound_destinations;
+    }
+
+    /**
+     * Returns all results by invoking listAllowedOutboundDestination() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.AllowedOutboundDestination[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.AllowedOutboundDestination[]> {
+      const results: AllowedOutboundDestination[] = [];
       while (this.hasNext()) {
         const nextPage = await this.getNext();
         results.push(...nextPage);

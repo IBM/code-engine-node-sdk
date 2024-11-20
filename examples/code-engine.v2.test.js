@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2024-09-27',
+      version: '2024-11-18',
     });
 
     // end-common
@@ -155,6 +155,143 @@ describe('CodeEngineV2', () => {
     }
 
     // end-get_project
+  });
+
+  test('listAllowedOutboundDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listAllowedOutboundDestination() result:');
+    // begin-list_allowed_outbound_destination
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_allowed_outbound_destination
+  });
+
+  test('createAllowedOutboundDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createAllowedOutboundDestination() result:');
+    // begin-create_allowed_outbound_destination
+
+    // Request models needed by this operation.
+
+    // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
+    const allowedOutboundDestinationPrototypeModel = {
+      type: 'cidr_block',
+      cidr_block: 'testString',
+      name: 'testString',
+    };
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      allowedOutboundDestination: allowedOutboundDestinationPrototypeModel,
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createAllowedOutboundDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_allowed_outbound_destination
+  });
+
+  test('getAllowedOutboundDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getAllowedOutboundDestination() result:');
+    // begin-get_allowed_outbound_destination
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-allowed-outbound-destination',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getAllowedOutboundDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_allowed_outbound_destination
+  });
+
+  test('updateAllowedOutboundDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateAllowedOutboundDestination() result:');
+    // begin-update_allowed_outbound_destination
+
+    // Request models needed by this operation.
+
+    // AllowedOutboundDestinationPatchCidrBlockDataPatch
+    const allowedOutboundDestinationPatchModel = {};
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-allowed-outbound-destination',
+      ifMatch: 'testString',
+      allowedOutboundDestination: allowedOutboundDestinationPatchModel,
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.updateAllowedOutboundDestination(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_allowed_outbound_destination
   });
 
   test('getProjectEgressIps request example', async () => {
@@ -1519,6 +1656,32 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_project
+  });
+
+  test('deleteAllowedOutboundDestination request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_allowed_outbound_destination
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-allowed-outbound-destination',
+    };
+
+    try {
+      await codeEngineService.deleteAllowedOutboundDestination(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_allowed_outbound_destination
   });
 
   test('deleteApp request example', async () => {
