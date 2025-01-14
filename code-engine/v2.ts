@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2024-11-18`.
+   *  `2021-03-31` and `2025-01-10`.
    */
   version?: string;
 
@@ -84,7 +84,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2024-11-18`.
+   * specify any date between `2021-03-31` and `2025-01-10`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -4385,7 +4385,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2024-11-18`.
+     *  `2021-03-31` and `2025-01-10`.
      */
     version?: string;
   }
@@ -5433,7 +5433,7 @@ namespace CodeEngineV2 {
      */
     outputSecret: string;
     /** The strategy to use for building the image. */
-    strategyType: string;
+    strategyType: CreateBuildConstants.StrategyType | string;
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -5463,7 +5463,7 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategySize?: string;
+    strategySize?: CreateBuildConstants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategySpecFile?: string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
@@ -5473,10 +5473,23 @@ namespace CodeEngineV2 {
 
   /** Constants for the `createBuild` operation. */
   export namespace CreateBuildConstants {
+    /** The strategy to use for building the image. */
+    export enum StrategyType {
+      DOCKERFILE = 'dockerfile',
+      BUILDPACKS = 'buildpacks',
+    }
     /** Specifies the type of source to determine if your build source is in a repository or based on local source code. * local - For builds from local source code. * git - For builds from git version controlled source code. */
     export enum SourceType {
       LOCAL = 'local',
       GIT = 'git',
+    }
+    /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`, `large`, `xlarge`, `xxlarge`. */
+    export enum StrategySize {
+      SMALL = 'small',
+      MEDIUM = 'medium',
+      LARGE = 'large',
+      XLARGE = 'xlarge',
+      XXLARGE = 'xxlarge',
     }
   }
 
@@ -5544,11 +5557,11 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategySize?: string;
+    strategySize?: UpdateBuildConstants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategySpecFile?: string;
     /** The strategy to use for building the image. */
-    strategyType?: string;
+    strategyType?: UpdateBuildConstants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
     headers?: OutgoingHttpHeaders;
@@ -5560,6 +5573,19 @@ namespace CodeEngineV2 {
     export enum SourceType {
       LOCAL = 'local',
       GIT = 'git',
+    }
+    /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`, `large`, `xlarge`, `xxlarge`. */
+    export enum StrategySize {
+      SMALL = 'small',
+      MEDIUM = 'medium',
+      LARGE = 'large',
+      XLARGE = 'xlarge',
+      XXLARGE = 'xxlarge',
+    }
+    /** The strategy to use for building the image. */
+    export enum StrategyType {
+      DOCKERFILE = 'dockerfile',
+      BUILDPACKS = 'buildpacks',
     }
   }
 
@@ -5631,11 +5657,11 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategySize?: string;
+    strategySize?: CreateBuildRunConstants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategySpecFile?: string;
     /** The strategy to use for building the image. */
-    strategyType?: string;
+    strategyType?: CreateBuildRunConstants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
     headers?: OutgoingHttpHeaders;
@@ -5655,6 +5681,19 @@ namespace CodeEngineV2 {
     export enum SourceType {
       LOCAL = 'local',
       GIT = 'git',
+    }
+    /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`, `large`, `xlarge`, `xxlarge`. */
+    export enum StrategySize {
+      SMALL = 'small',
+      MEDIUM = 'medium',
+      LARGE = 'large',
+      XLARGE = 'xlarge',
+      XXLARGE = 'xxlarge',
+    }
+    /** The strategy to use for building the image. */
+    export enum StrategyType {
+      DOCKERFILE = 'dockerfile',
+      BUILDPACKS = 'buildpacks',
     }
   }
 
@@ -6537,11 +6576,11 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategy_size: string;
+    strategy_size: Build.Constants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategy_spec_file?: string;
     /** The strategy to use for building the image. */
-    strategy_type: string;
+    strategy_type: Build.Constants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
   }
@@ -6560,6 +6599,19 @@ namespace CodeEngineV2 {
       export enum Status {
         READY = 'ready',
         FAILED = 'failed',
+      }
+      /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`, `large`, `xlarge`, `xxlarge`. */
+      export enum StrategySize {
+        SMALL = 'small',
+        MEDIUM = 'medium',
+        LARGE = 'large',
+        XLARGE = 'xlarge',
+        XXLARGE = 'xxlarge',
+      }
+      /** The strategy to use for building the image. */
+      export enum StrategyType {
+        DOCKERFILE = 'dockerfile',
+        BUILDPACKS = 'buildpacks',
       }
     }
   }
@@ -6646,11 +6698,11 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategy_size?: string;
+    strategy_size?: BuildRun.Constants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategy_spec_file?: string;
     /** The strategy to use for building the image. */
-    strategy_type?: string;
+    strategy_type?: BuildRun.Constants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
   }
@@ -6679,6 +6731,19 @@ namespace CodeEngineV2 {
         RUNNING = 'running',
         PENDING = 'pending',
         FAILED = 'failed',
+      }
+      /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`, `medium`, `large`, `xlarge`, `xxlarge`. */
+      export enum StrategySize {
+        SMALL = 'small',
+        MEDIUM = 'medium',
+        LARGE = 'large',
+        XLARGE = 'xlarge',
+        XXLARGE = 'xxlarge',
+      }
+      /** The strategy to use for building the image. */
+      export enum StrategyType {
+        DOCKERFILE = 'dockerfile',
+        BUILDPACKS = 'buildpacks',
       }
     }
   }
@@ -7199,6 +7264,36 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * IndexDetails.
+   */
+  export interface IndexDetails {
+    /** The timestamp when the job run index finished processing. */
+    finished_at?: string;
+    /** Reason why latest retry of the job run index failed. Possible values include but are not limited to
+     *  `OOMKilled`, `ContainerExitedCode1` or `ExceededEphemeralStorage`.
+     */
+    last_failure_reason?: string;
+    /** Number of retries of this job run index. */
+    retries?: number;
+    /** The timestamp when the job run index started processing. */
+    started_at?: string;
+    /** Current status of the job run index. */
+    status?: IndexDetails.Constants.Status | string;
+  }
+  export namespace IndexDetails {
+    export namespace Constants {
+      /** Current status of the job run index. */
+      export enum Status {
+        PENDING = 'pending',
+        RUNNING = 'running',
+        SUCCEEDED = 'succeeded',
+        FAILED = 'failed',
+        UNKNOWN = 'unknown',
+      }
+    }
+  }
+
+  /**
    * Job is the response model for job resources.
    */
   export interface Job {
@@ -7491,6 +7586,8 @@ namespace CodeEngineV2 {
     failed?: number;
     /** List of job run indices that failed. */
     failed_indices?: string;
+    /** Detailed process information per index. */
+    indices_details?: JsonObject;
     /** Number of pending job run instances. */
     pending?: number;
     /** List of job run indices that are pending. */
@@ -7782,7 +7879,7 @@ namespace CodeEngineV2 {
      */
     region?: string;
     /** The type of the secret. */
-    resource_type?: string;
+    resource_type?: Secret.Constants.ResourceType | string;
     /** Properties for Service Access Secrets. */
     service_access?: ServiceAccessSecretProps;
     /** Properties for the IBM Cloud Operator Secret. */
@@ -7800,6 +7897,18 @@ namespace CodeEngineV2 {
         REGISTRY = 'registry',
         SERVICE_OPERATOR = 'service_operator',
         OTHER = 'other',
+      }
+      /** The type of the secret. */
+      export enum ResourceType {
+        SECRET_V2 = 'secret_v2',
+        SECRET_AUTH_SSH_V2 = 'secret_auth_ssh_v2',
+        SECRET_BASIC_AUTH_V2 = 'secret_basic_auth_v2',
+        SECRET_GENERIC_V2 = 'secret_generic_v2',
+        SECRET_OPERATOR_V2 = 'secret_operator_v2',
+        SECRET_OTHER_V2 = 'secret_other_v2',
+        SECRET_REGISTRY_V2 = 'secret_registry_v2',
+        SECRET_SERVICE_ACCESS_V2 = 'secret_service_access_v2',
+        SECRET_TLS_V2 = 'secret_tls_v2',
       }
     }
   }
@@ -7949,7 +8058,7 @@ namespace CodeEngineV2 {
    */
   export interface AllowedOutboundDestinationPatchCidrBlockDataPatch
     extends AllowedOutboundDestinationPatch {
-    /** The IP address range. */
+    /** The IPv4 address range. */
     cidr_block?: string;
   }
   export namespace AllowedOutboundDestinationPatchCidrBlockDataPatch {
@@ -7966,7 +8075,7 @@ namespace CodeEngineV2 {
    */
   export interface AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
     extends AllowedOutboundDestinationPrototype {
-    /** The IP address range. */
+    /** The IPv4 address range. */
     cidr_block: string;
     /** The name of the CIDR block. */
     name: string;
@@ -7984,7 +8093,7 @@ namespace CodeEngineV2 {
    * Allowed outbound destination CIDR block.
    */
   export interface AllowedOutboundDestinationCidrBlockData extends AllowedOutboundDestination {
-    /** The IP address range. */
+    /** The IPv4 address range. */
     cidr_block: string;
     /** The name of the CIDR block. */
     name: string;

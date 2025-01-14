@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/ibm-code-engine-sdk",
-  "version": "4.14.1",
+  "version": "4.19.0",
   "description": "IBM Cloud Code Engine NodeJS SDK",
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "extend": "^3.0.2",
     "ibm-cloud-sdk-core": "^5.0.0"
   },
