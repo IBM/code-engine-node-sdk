@@ -827,11 +827,19 @@ describe('CodeEngineV2_integration', () => {
   });
 
   test('createBuild()', async () => {
+    // BuildParamPrototype
+    const buildParamPrototypeModel = {
+      name: 'SOME',
+      type: 'literal',
+      value: 'VALUE',
+    };
+
     const params = {
       projectId: e2eTestProjectId,
       name: 'my-build',
       outputImage: 'private.de.icr.io/icr_namespace/image-name',
       outputSecret: 'ce-auto-icr-private-eu-de',
+      runBuildParams: [buildParamPrototypeModel],
       sourceUrl: 'https://github.com/IBM/CodeEngine',
       strategyType: 'dockerfile',
       sourceContextDir: 'some/subfolder',
@@ -862,12 +870,20 @@ describe('CodeEngineV2_integration', () => {
   });
 
   test('updateBuild()', async () => {
+    // BuildParamPrototype
+    const buildParamPrototypeModel = {
+      name: 'SOME',
+      type: 'literal',
+      value: 'VALUE',
+    };
+
     const params = {
       projectId: e2eTestProjectId,
       name: 'my-build',
       ifMatch: '*',
       outputImage: 'private.de.icr.io/icr_namespace/image-name',
       outputSecret: 'ce-auto-icr-private-eu-de',
+      runBuildParams: [buildParamPrototypeModel],
       sourceContextDir: 'some/subfolder',
       sourceRevision: 'main',
       sourceSecret: 'my-secret',
@@ -924,12 +940,20 @@ describe('CodeEngineV2_integration', () => {
   });
 
   test('createBuildRun()', async () => {
+    // BuildParamPrototype
+    const buildParamPrototypeModel = {
+      name: 'SOME',
+      type: 'literal',
+      value: 'VALUE',
+    };
+
     const params = {
       projectId: e2eTestProjectId,
       buildName: 'my-build',
       name: 'my-build-run',
       outputImage: 'private.de.icr.io/icr_namespace/image-name',
       outputSecret: 'ce-auto-icr-private-eu-de',
+      runBuildParams: [buildParamPrototypeModel],
       serviceAccount: 'default',
       sourceContextDir: 'some/subfolder',
       sourceRevision: 'main',

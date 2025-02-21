@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2025-01-10',
+  version: '2025-02-20',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -2392,9 +2392,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","restarts":4,"revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"container_status","exit_code":100,"reason":"ready","started_at":"2022-09-22T17:34:00Z"}}}],"total_count":2,"limit":1}';
+        '{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -4757,9 +4757,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/builds';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_v2","run_build_params":[{"key":"MY_VARIABLE","name":"SOME","reference":"my-secret","type":"literal","value":"VALUE"}],"source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_v2","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
+        '{"total_count":2,"limit":1,"builds":[{"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/builds/my-build","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_v2","run_build_params":[{"key":"MY_VARIABLE","name":"SOME","reference":"my-secret","type":"literal","value":"VALUE"}],"source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"ready","status_details":{"reason":"registered"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -4806,6 +4806,17 @@ describe('CodeEngineV2', () => {
 
   describe('createBuild', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // BuildParamPrototype
+      const buildParamPrototypeModel = {
+        key: 'MY_VARIABLE',
+        name: 'SOME',
+        reference: 'my-secret',
+        type: 'literal',
+        value: 'VALUE',
+      };
+
       function __createBuildTest() {
         // Construct the params object for operation createBuild
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
@@ -4813,6 +4824,7 @@ describe('CodeEngineV2', () => {
         const outputImage = 'private.de.icr.io/icr_namespace/image-name';
         const outputSecret = 'ce-auto-icr-private-eu-de';
         const strategyType = 'dockerfile';
+        const runBuildParams = [buildParamPrototypeModel];
         const sourceContextDir = 'some/subfolder';
         const sourceRevision = 'main';
         const sourceSecret = 'testString';
@@ -4827,6 +4839,7 @@ describe('CodeEngineV2', () => {
           outputImage,
           outputSecret,
           strategyType,
+          runBuildParams,
           sourceContextDir,
           sourceRevision,
           sourceSecret,
@@ -4855,6 +4868,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.output_image).toEqual(outputImage);
         expect(mockRequestOptions.body.output_secret).toEqual(outputSecret);
         expect(mockRequestOptions.body.strategy_type).toEqual(strategyType);
+        expect(mockRequestOptions.body.run_build_params).toEqual(runBuildParams);
         expect(mockRequestOptions.body.source_context_dir).toEqual(sourceContextDir);
         expect(mockRequestOptions.body.source_revision).toEqual(sourceRevision);
         expect(mockRequestOptions.body.source_secret).toEqual(sourceSecret);
@@ -5112,6 +5126,17 @@ describe('CodeEngineV2', () => {
 
   describe('updateBuild', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // BuildParamPrototype
+      const buildParamPrototypeModel = {
+        key: 'MY_VARIABLE',
+        name: 'SOME',
+        reference: 'my-secret',
+        type: 'literal',
+        value: 'VALUE',
+      };
+
       function __updateBuildTest() {
         // Construct the params object for operation updateBuild
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
@@ -5119,6 +5144,7 @@ describe('CodeEngineV2', () => {
         const ifMatch = 'testString';
         const outputImage = 'private.de.icr.io/icr_namespace/image-name';
         const outputSecret = 'ce-auto-icr-private-eu-de';
+        const runBuildParams = [buildParamPrototypeModel];
         const sourceContextDir = 'some/subfolder';
         const sourceRevision = 'main';
         const sourceSecret = 'testString';
@@ -5134,6 +5160,7 @@ describe('CodeEngineV2', () => {
           ifMatch,
           outputImage,
           outputSecret,
+          runBuildParams,
           sourceContextDir,
           sourceRevision,
           sourceSecret,
@@ -5162,6 +5189,7 @@ describe('CodeEngineV2', () => {
         checkUserHeader(createRequestMock, 'If-Match', ifMatch);
         expect(mockRequestOptions.body.output_image).toEqual(outputImage);
         expect(mockRequestOptions.body.output_secret).toEqual(outputSecret);
+        expect(mockRequestOptions.body.run_build_params).toEqual(runBuildParams);
         expect(mockRequestOptions.body.source_context_dir).toEqual(sourceContextDir);
         expect(mockRequestOptions.body.source_revision).toEqual(sourceRevision);
         expect(mockRequestOptions.body.source_secret).toEqual(sourceSecret);
@@ -5333,9 +5361,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/build_runs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"build_name":"build_name","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","git_branch_name":"main","git_commit_author":"John Doe","git_commit_sha":"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","source_timestamp":"2022-09-22T17:34:00Z","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"build_runs":[{"build_name":"build_name","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_run_v2","run_build_params":[{"key":"MY_VARIABLE","name":"SOME","reference":"my-secret","type":"literal","value":"VALUE"}],"service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","git_branch_name":"main","git_commit_author":"John Doe","git_commit_sha":"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","source_timestamp":"2022-09-22T17:34:00Z","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"build_runs":[{"build_name":"build_name","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_run_v2","service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","git_branch_name":"main","git_commit_author":"John Doe","git_commit_sha":"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","source_timestamp":"2022-09-22T17:34:00Z","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
+        '{"total_count":2,"limit":1,"build_runs":[{"build_name":"build_name","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/build_runs/my-build-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-build-run","output_image":"private.de.icr.io/icr_namespace/image-name","output_secret":"ce-auto-icr-private-eu-de","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"build_run_v2","run_build_params":[{"key":"MY_VARIABLE","name":"SOME","reference":"my-secret","type":"literal","value":"VALUE"}],"service_account":"default","source_context_dir":"some/subfolder","source_revision":"main","source_secret":"source_secret","source_type":"git","source_url":"https://github.com/IBM/CodeEngine","status":"succeeded","status_details":{"completion_time":"2022-09-22T17:40:00Z","git_branch_name":"main","git_commit_author":"John Doe","git_commit_sha":"9a3d845c629d2b4a6b271b1d526dfafc1e7d9511","output_digest":"sha256:9a3d845c629d2b4a6b271b1d526dfafc1e7d9511f8863b43b5bb0483ef626384","reason":"succeeded","source_timestamp":"2022-09-22T17:34:00Z","start_time":"2022-09-22T17:34:00Z"},"strategy_size":"medium","strategy_spec_file":"Dockerfile","strategy_type":"dockerfile","timeout":600}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -5384,6 +5412,17 @@ describe('CodeEngineV2', () => {
 
   describe('createBuildRun', () => {
     describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // BuildParamPrototype
+      const buildParamPrototypeModel = {
+        key: 'MY_VARIABLE',
+        name: 'SOME',
+        reference: 'my-secret',
+        type: 'literal',
+        value: 'VALUE',
+      };
+
       function __createBuildRunTest() {
         // Construct the params object for operation createBuildRun
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
@@ -5391,6 +5430,7 @@ describe('CodeEngineV2', () => {
         const name = 'testString';
         const outputImage = 'private.de.icr.io/icr_namespace/image-name';
         const outputSecret = 'ce-auto-icr-private-eu-de';
+        const runBuildParams = [buildParamPrototypeModel];
         const serviceAccount = 'default';
         const sourceContextDir = 'some/subfolder';
         const sourceRevision = 'main';
@@ -5407,6 +5447,7 @@ describe('CodeEngineV2', () => {
           name,
           outputImage,
           outputSecret,
+          runBuildParams,
           serviceAccount,
           sourceContextDir,
           sourceRevision,
@@ -5437,6 +5478,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.output_image).toEqual(outputImage);
         expect(mockRequestOptions.body.output_secret).toEqual(outputSecret);
+        expect(mockRequestOptions.body.run_build_params).toEqual(runBuildParams);
         expect(mockRequestOptions.body.service_account).toEqual(serviceAccount);
         expect(mockRequestOptions.body.source_context_dir).toEqual(sourceContextDir);
         expect(mockRequestOptions.body.source_revision).toEqual(sourceRevision);
@@ -6751,10 +6793,12 @@ describe('CodeEngineV2', () => {
       function __listSecretsTest() {
         // Construct the params object for operation listSecrets
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const format = 'ssh_auth';
         const limit = 100;
         const start = 'testString';
         const listSecretsParams = {
           projectId,
+          format,
           limit,
           start,
         };
@@ -6773,6 +6817,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.format).toEqual(format);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -6860,6 +6905,7 @@ describe('CodeEngineV2', () => {
       test('getNext()', async () => {
         const params = {
           projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          format: 'ssh_auth',
           limit: 100,
         };
         const allResults = [];
@@ -6876,6 +6922,7 @@ describe('CodeEngineV2', () => {
       test('getAll()', async () => {
         const params = {
           projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          format: 'ssh_auth',
           limit: 100,
         };
         const pager = new CodeEngineV2.SecretsPager(codeEngineService, params);

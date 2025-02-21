@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
+ * IBM OpenAPI SDK Code Generator Version: 3.99.0-d27cee72-20250129-204831
  */
 
 /* eslint-disable max-classes-per-file */
@@ -75,7 +75,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2025-01-10`.
+   *  `2021-03-31` and `2025-02-20`.
    */
   version?: string;
 
@@ -84,7 +84,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2025-01-10`.
+   * specify any date between `2021-03-31` and `2025-02-20`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -2938,6 +2938,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} params.outputSecret - The secret that is required to access the image registry. Make sure that the
    * secret is granted with push permissions towards the specified container registry namespace.
    * @param {string} params.strategyType - The strategy to use for building the image.
+   * @param {BuildParamPrototype[]} [params.runBuildParams] - Optional references to config maps and secret keys, or
+   * literal values that are exposed as build arguments within the Docker file.
    * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
    * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
@@ -2976,6 +2978,7 @@ class CodeEngineV2 extends BaseService {
       'outputImage',
       'outputSecret',
       'strategyType',
+      'runBuildParams',
       'sourceContextDir',
       'sourceRevision',
       'sourceSecret',
@@ -2996,6 +2999,7 @@ class CodeEngineV2 extends BaseService {
       'output_image': _params.outputImage,
       'output_secret': _params.outputSecret,
       'strategy_type': _params.strategyType,
+      'run_build_params': _params.runBuildParams,
       'source_context_dir': _params.sourceContextDir,
       'source_revision': _params.sourceRevision,
       'source_secret': _params.sourceSecret,
@@ -3142,6 +3146,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.outputImage] - The name of the image.
    * @param {string} [params.outputSecret] - The secret that is required to access the image registry. Make sure that
    * the secret is granted with push permissions towards the specified container registry namespace.
+   * @param {BuildParamPrototype[]} [params.runBuildParams] - Optional references to config maps and secret keys, or
+   * literal values that are exposed as build arguments within the Docker file.
    * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
    * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
@@ -3181,6 +3187,7 @@ class CodeEngineV2 extends BaseService {
       'ifMatch',
       'outputImage',
       'outputSecret',
+      'runBuildParams',
       'sourceContextDir',
       'sourceRevision',
       'sourceSecret',
@@ -3200,6 +3207,7 @@ class CodeEngineV2 extends BaseService {
     const body = {
       'output_image': _params.outputImage,
       'output_secret': _params.outputSecret,
+      'run_build_params': _params.runBuildParams,
       'source_context_dir': _params.sourceContextDir,
       'source_revision': _params.sourceRevision,
       'source_secret': _params.sourceSecret,
@@ -3318,6 +3326,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.outputImage] - The name of the image.
    * @param {string} [params.outputSecret] - The secret that is required to access the image registry. Make sure that
    * the secret is granted with push permissions towards the specified container registry namespace.
+   * @param {BuildParamPrototype[]} [params.runBuildParams] - Optional references to config maps and secret keys, or
+   * literal values that are exposed as build arguments within the Docker file.
    * @param {string} [params.serviceAccount] - Optional service account, which is used for resource control.” or
    * “Optional service account that is used for resource control.
    * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
@@ -3359,6 +3369,7 @@ class CodeEngineV2 extends BaseService {
       'name',
       'outputImage',
       'outputSecret',
+      'runBuildParams',
       'serviceAccount',
       'sourceContextDir',
       'sourceRevision',
@@ -3381,6 +3392,7 @@ class CodeEngineV2 extends BaseService {
       'name': _params.name,
       'output_image': _params.outputImage,
       'output_secret': _params.outputSecret,
+      'run_build_params': _params.runBuildParams,
       'service_account': _params.serviceAccount,
       'source_context_dir': _params.sourceContextDir,
       'source_revision': _params.sourceRevision,
@@ -4090,6 +4102,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
+   * @param {string} [params.format] - Secret format to filter results by.
    * @param {number} [params.limit] - Optional maximum number of secrets per page.
    * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
    * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
@@ -4102,13 +4115,14 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.SecretList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'format', 'limit', 'start', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const query = {
+      'format': _params.format,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -4385,7 +4399,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2025-01-10`.
+     *  `2021-03-31` and `2025-02-20`.
      */
     version?: string;
   }
@@ -5434,6 +5448,10 @@ namespace CodeEngineV2 {
     outputSecret: string;
     /** The strategy to use for building the image. */
     strategyType: CreateBuildConstants.StrategyType | string;
+    /** Optional references to config maps and secret keys, or literal values that are exposed as build arguments
+     *  within the Docker file.
+     */
+    runBuildParams?: BuildParamPrototype[];
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -5528,6 +5546,10 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     outputSecret?: string;
+    /** Optional references to config maps and secret keys, or literal values that are exposed as build arguments
+     *  within the Docker file.
+     */
+    runBuildParams?: BuildParamPrototype[];
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -5624,6 +5646,10 @@ namespace CodeEngineV2 {
      *  permissions towards the specified container registry namespace.
      */
     outputSecret?: string;
+    /** Optional references to config maps and secret keys, or literal values that are exposed as build arguments
+     *  within the Docker file.
+     */
+    runBuildParams?: BuildParamPrototype[];
     /** Optional service account, which is used for resource control.” or “Optional service account that is used for
      *  resource control.
      */
@@ -5847,6 +5873,8 @@ namespace CodeEngineV2 {
   export interface ListSecretsParams {
     /** The ID of the project. */
     projectId: string;
+    /** Secret format to filter results by. */
+    format?: ListSecretsConstants.Format | string;
     /** Optional maximum number of secrets per page. */
     limit?: number;
     /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
@@ -5855,6 +5883,20 @@ namespace CodeEngineV2 {
      */
     start?: string;
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `listSecrets` operation. */
+  export namespace ListSecretsConstants {
+    /** Secret format to filter results by. */
+    export enum Format {
+      GENERIC = 'generic',
+      SSH_AUTH = 'ssh_auth',
+      REGISTRY = 'registry',
+      BASIC_AUTH = 'basic_auth',
+      TLS = 'tls',
+      SERVICE_ACCESS = 'service_access',
+      SERVICE_OPERATOR = 'service_operator',
+    }
   }
 
   /** Parameters for the `createSecret` operation. */
@@ -6192,8 +6234,6 @@ namespace CodeEngineV2 {
     region?: string;
     /** The type of the app instance. */
     resource_type?: AppInstance.Constants.ResourceType | string;
-    /** The number of restarts of the app instance. */
-    restarts?: number;
     /** The name of the revision that is associated with this instance. */
     revision_name: string;
     /** The number of CPU set for the instance. For valid values see [Supported memory and CPU
@@ -6215,10 +6255,8 @@ namespace CodeEngineV2 {
     scale_memory_limit: string;
     /** The current status of the instance. */
     status?: AppInstance.Constants.Status | string;
-    /** The status of a container. */
-    system_container?: ContainerStatus;
-    /** The status of a container. */
-    user_container?: ContainerStatus;
+    /** The status of the pod and it's containers. */
+    status_details?: AppInstanceStatusDetails;
   }
   export namespace AppInstance {
     export namespace Constants {
@@ -6248,6 +6286,18 @@ namespace CodeEngineV2 {
     limit: number;
     /** Describes properties needed to retrieve the next page of a result list. */
     next?: ListNextMetadata;
+  }
+
+  /**
+   * The status of the pod and it's containers.
+   */
+  export interface AppInstanceStatusDetails {
+    /** The number of restarts of the app instance. */
+    restarts?: number;
+    /** The status of a container. */
+    system_container?: ContainerStatus;
+    /** The status of a container. */
+    user_container?: ContainerStatus;
   }
 
   /**
@@ -6543,6 +6593,10 @@ namespace CodeEngineV2 {
     region?: string;
     /** The type of the build. */
     resource_type?: Build.Constants.ResourceType | string;
+    /** References to config maps and secret keys, or literal values, which are defined by the build owner and are
+     *  exposed as build arguments in Docker files.
+     */
+    run_build_params?: BuildParam[];
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     source_context_dir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -6631,6 +6685,58 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * Response model for build params.
+   */
+  export interface BuildParam {
+    /** The key to reference as build param. */
+    key?: string;
+    /** The name of the build param. */
+    name?: string;
+    /** The name of the secret or config map. */
+    reference?: string;
+    /** Specify the type of the build param. */
+    type: BuildParam.Constants.Type | string;
+    /** The literal value of the build param. */
+    value?: string;
+  }
+  export namespace BuildParam {
+    export namespace Constants {
+      /** Specify the type of the build param. */
+      export enum Type {
+        LITERAL = 'literal',
+        CONFIG_MAP_KEY_REFERENCE = 'config_map_key_reference',
+        SECRET_KEY_REFERENCE = 'secret_key_reference',
+      }
+    }
+  }
+
+  /**
+   * Prototype model for build params.
+   */
+  export interface BuildParamPrototype {
+    /** The key to reference as build param. */
+    key?: string;
+    /** The name of the build param. */
+    name?: string;
+    /** The name of the secret or config map. */
+    reference?: string;
+    /** Specify the type of the build param. */
+    type: BuildParamPrototype.Constants.Type | string;
+    /** The literal value of the build param. */
+    value?: string;
+  }
+  export namespace BuildParamPrototype {
+    export namespace Constants {
+      /** Specify the type of the build param. */
+      export enum Type {
+        LITERAL = 'literal',
+        CONFIG_MAP_KEY_REFERENCE = 'config_map_key_reference',
+        SECRET_KEY_REFERENCE = 'secret_key_reference',
+      }
+    }
+  }
+
+  /**
    * Response model for build run objects.
    */
   export interface BuildRun {
@@ -6661,6 +6767,10 @@ namespace CodeEngineV2 {
     region?: string;
     /** The type of the build run. */
     resource_type?: BuildRun.Constants.ResourceType | string;
+    /** References to config maps and secret keys, or literal values, which are defined by the build owner and are
+     *  exposed as build arguments in Docker files.
+     */
+    run_build_params?: BuildParam[];
     /** Optional service account, which is used for resource control.” or “Optional service account that is used for
      *  resource control.
      */
@@ -6909,35 +7019,21 @@ namespace CodeEngineV2 {
     /** The time the container terminated. Only populated in an observed failure state. */
     completed_at?: string;
     /** The status of the container. */
-    container_status?: string;
+    container_status?: ContainerStatusDetails.Constants.ContainerStatus | string;
     /** The exit code of the last termination of the container. Only populated in an observed failure state. */
     exit_code?: number;
     /** The reason the container is not yet running or has failed. Only populated in non-running states. */
-    reason?: ContainerStatusDetails.Constants.Reason | string;
+    reason?: string;
     /** The time the container started. */
     started_at?: string;
   }
   export namespace ContainerStatusDetails {
     export namespace Constants {
-      /** The reason the container is not yet running or has failed. Only populated in non-running states. */
-      export enum Reason {
-        READY = 'ready',
-        WAITING = 'waiting',
-        DEPLOYING = 'deploying',
-        DEPLOYING_WAITING_FOR_RESOURCES = 'deploying_waiting_for_resources',
-        INITIAL_SCALE_NEVER_ACHIEVED = 'initial_scale_never_achieved',
-        FETCH_IMAGE_FAILED_UNKNOWN_MANIFEST = 'fetch_image_failed_unknown_manifest',
-        FETCH_IMAGE_FAILED_UNKNOWN_REPOSITORY = 'fetch_image_failed_unknown_repository',
-        FETCH_IMAGE_FAILED_REGISTRY_NOT_FOUND = 'fetch_image_failed_registry_not_found',
-        FETCH_IMAGE_FAILED_MISSING_PULL_SECRET = 'fetch_image_failed_missing_pull_secret',
-        FETCH_IMAGE_FAILED_WRONG_PULL_CREDENTIALS = 'fetch_image_failed_wrong_pull_credentials',
-        FETCH_IMAGE_FAILED_MISSING_PULL_CREDENTIALS = 'fetch_image_failed_missing_pull_credentials',
-        CONTAINER_FAILED_EXIT_CODE_0 = 'container_failed_exit_code_0',
-        CONTAINER_FAILED_EXIT_CODE_1 = 'container_failed_exit_code_1',
-        CONTAINER_FAILED_EXIT_CODE_139 = 'container_failed_exit_code_139',
-        CONTAINER_FAILED_EXIT_CODE_24 = 'container_failed_exit_code_24',
-        IMAGE_PULL_BACK_OFF = 'image_pull_back_off',
-        INVALID_TAR_HEADER_IMAGE_PULL_ERR = 'invalid_tar_header_image_pull_err',
+      /** The status of the container. */
+      export enum ContainerStatus {
+        RUNNING = 'running',
+        PENDING = 'pending',
+        TERMINATED = 'terminated',
       }
     }
   }

@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2025-01-10',
+      version: '2025-02-20',
     });
 
     // end-common
@@ -1524,6 +1524,7 @@ describe('CodeEngineV2', () => {
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      format: 'ssh_auth',
       limit: 100,
     };
 
