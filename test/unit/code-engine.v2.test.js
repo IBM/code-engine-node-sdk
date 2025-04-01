@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2025-02-20',
+  version: '2025-03-29',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -156,6 +156,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
       }
@@ -276,6 +277,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.resource_group_id).toEqual(resourceGroupId);
         expect(mockRequestOptions.body.tags).toEqual(tags);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -359,6 +361,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
 
@@ -443,6 +446,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
 
@@ -1087,6 +1091,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -1173,6 +1178,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -1328,9 +1334,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1421,6 +1427,7 @@ describe('CodeEngineV2', () => {
         const runArguments = ['testString'];
         const runAsUser = 1001;
         const runCommands = ['testString'];
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const runServiceAccount = 'default';
         const runVolumeMounts = [volumeMountPrototypeModel];
@@ -1446,6 +1453,7 @@ describe('CodeEngineV2', () => {
           runArguments,
           runAsUser,
           runCommands,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runServiceAccount,
           runVolumeMounts,
@@ -1485,6 +1493,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.run_arguments).toEqual(runArguments);
         expect(mockRequestOptions.body.run_as_user).toEqual(runAsUser);
         expect(mockRequestOptions.body.run_commands).toEqual(runCommands);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.run_service_account).toEqual(runServiceAccount);
         expect(mockRequestOptions.body.run_volume_mounts).toEqual(runVolumeMounts);
@@ -1662,9 +1673,11 @@ describe('CodeEngineV2', () => {
         // Construct the params object for operation deleteApp
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-app';
+        const keepServiceAccess = false;
         const deleteAppParams = {
           projectId,
           name,
+          keepServiceAccess,
         };
 
         const deleteAppResult = codeEngineService.deleteApp(deleteAppParams);
@@ -1682,6 +1695,7 @@ describe('CodeEngineV2', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.qs.keep_service_access).toEqual(keepServiceAccess);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -1793,6 +1807,7 @@ describe('CodeEngineV2', () => {
         const runArguments = ['testString'];
         const runAsUser = 1001;
         const runCommands = ['testString'];
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const runServiceAccount = 'default';
         const runVolumeMounts = [volumeMountPrototypeModel];
@@ -1819,6 +1834,7 @@ describe('CodeEngineV2', () => {
           runArguments,
           runAsUser,
           runCommands,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runServiceAccount,
           runVolumeMounts,
@@ -1858,6 +1874,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.run_arguments).toEqual(runArguments);
         expect(mockRequestOptions.body.run_as_user).toEqual(runAsUser);
         expect(mockRequestOptions.body.run_commands).toEqual(runCommands);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.run_service_account).toEqual(runServiceAccount);
         expect(mockRequestOptions.body.run_volume_mounts).toEqual(runVolumeMounts);
@@ -2043,9 +2062,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2223,6 +2242,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.app_name).toEqual(appName);
         expect(mockRequestOptions.path.name).toEqual(name);
@@ -2325,6 +2345,7 @@ describe('CodeEngineV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.app_name).toEqual(appName);
       }
@@ -2535,9 +2556,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2613,6 +2634,7 @@ describe('CodeEngineV2', () => {
         const runArguments = ['testString'];
         const runAsUser = 1001;
         const runCommands = ['testString'];
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const runMode = 'task';
         const runServiceAccount = 'default';
@@ -2631,6 +2653,7 @@ describe('CodeEngineV2', () => {
           runArguments,
           runAsUser,
           runCommands,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runMode,
           runServiceAccount,
@@ -2663,6 +2686,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.run_arguments).toEqual(runArguments);
         expect(mockRequestOptions.body.run_as_user).toEqual(runAsUser);
         expect(mockRequestOptions.body.run_commands).toEqual(runCommands);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.run_mode).toEqual(runMode);
         expect(mockRequestOptions.body.run_service_account).toEqual(runServiceAccount);
@@ -2837,9 +2863,11 @@ describe('CodeEngineV2', () => {
         // Construct the params object for operation deleteJob
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-job';
+        const keepServiceAccess = false;
         const deleteJobParams = {
           projectId,
           name,
+          keepServiceAccess,
         };
 
         const deleteJobResult = codeEngineService.deleteJob(deleteJobParams);
@@ -2857,6 +2885,7 @@ describe('CodeEngineV2', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.qs.keep_service_access).toEqual(keepServiceAccess);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -2953,6 +2982,7 @@ describe('CodeEngineV2', () => {
         const runArguments = ['testString'];
         const runAsUser = 1001;
         const runCommands = ['testString'];
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const runMode = 'task';
         const runServiceAccount = 'default';
@@ -2972,6 +3002,7 @@ describe('CodeEngineV2', () => {
           runArguments,
           runAsUser,
           runCommands,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runMode,
           runServiceAccount,
@@ -3004,6 +3035,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.run_arguments).toEqual(runArguments);
         expect(mockRequestOptions.body.run_as_user).toEqual(runAsUser);
         expect(mockRequestOptions.body.run_commands).toEqual(runCommands);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.run_mode).toEqual(runMode);
         expect(mockRequestOptions.body.run_service_account).toEqual(runServiceAccount);
@@ -3180,9 +3214,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
+        '{"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -3261,6 +3295,7 @@ describe('CodeEngineV2', () => {
         const runArguments = ['testString'];
         const runAsUser = 1001;
         const runCommands = ['testString'];
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const runMode = 'task';
         const runServiceAccount = 'default';
@@ -3281,6 +3316,7 @@ describe('CodeEngineV2', () => {
           runArguments,
           runAsUser,
           runCommands,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runMode,
           runServiceAccount,
@@ -3315,6 +3351,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.run_arguments).toEqual(runArguments);
         expect(mockRequestOptions.body.run_as_user).toEqual(runAsUser);
         expect(mockRequestOptions.body.run_commands).toEqual(runCommands);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.run_mode).toEqual(runMode);
         expect(mockRequestOptions.body.run_service_account).toEqual(runServiceAccount);
@@ -3507,6 +3546,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -3727,9 +3767,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-20","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-18","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+        '{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-20","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -3793,11 +3833,12 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
         const name = 'my-function';
-        const runtime = 'nodejs-18';
+        const runtime = 'nodejs-20';
         const codeBinary = false;
         const codeMain = 'main';
         const codeSecret = 'my-secret';
         const managedDomainMappings = 'local_public';
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
         const scaleConcurrency = 1;
         const scaleCpuLimit = '1';
@@ -3813,6 +3854,7 @@ describe('CodeEngineV2', () => {
           codeMain,
           codeSecret,
           managedDomainMappings,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           scaleConcurrency,
           scaleCpuLimit,
@@ -3842,6 +3884,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.code_main).toEqual(codeMain);
         expect(mockRequestOptions.body.code_secret).toEqual(codeSecret);
         expect(mockRequestOptions.body.managed_domain_mappings).toEqual(managedDomainMappings);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
         expect(mockRequestOptions.body.scale_cpu_limit).toEqual(scaleCpuLimit);
@@ -3872,7 +3917,7 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
         const name = 'my-function';
-        const runtime = 'nodejs-18';
+        const runtime = 'nodejs-20';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createFunctionParams = {
@@ -4012,9 +4057,11 @@ describe('CodeEngineV2', () => {
         // Construct the params object for operation deleteFunction
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const name = 'my-function';
+        const keepServiceAccess = false;
         const deleteFunctionParams = {
           projectId,
           name,
+          keepServiceAccess,
         };
 
         const deleteFunctionResult = codeEngineService.deleteFunction(deleteFunctionParams);
@@ -4032,6 +4079,7 @@ describe('CodeEngineV2', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.qs.keep_service_access).toEqual(keepServiceAccess);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -4120,8 +4168,9 @@ describe('CodeEngineV2', () => {
         const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
         const codeSecret = 'my-secret';
         const managedDomainMappings = 'local_public';
+        const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
-        const runtime = 'nodejs-18';
+        const runtime = 'nodejs-20';
         const scaleConcurrency = 1;
         const scaleCpuLimit = '1';
         const scaleDownDelay = 300;
@@ -4136,6 +4185,7 @@ describe('CodeEngineV2', () => {
           codeReference,
           codeSecret,
           managedDomainMappings,
+          runComputeResourceTokenEnabled,
           runEnvVariables,
           runtime,
           scaleConcurrency,
@@ -4165,6 +4215,9 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.code_reference).toEqual(codeReference);
         expect(mockRequestOptions.body.code_secret).toEqual(codeSecret);
         expect(mockRequestOptions.body.managed_domain_mappings).toEqual(managedDomainMappings);
+        expect(mockRequestOptions.body.run_compute_resource_token_enabled).toEqual(
+          runComputeResourceTokenEnabled
+        );
         expect(mockRequestOptions.body.run_env_variables).toEqual(runEnvVariables);
         expect(mockRequestOptions.body.runtime).toEqual(runtime);
         expect(mockRequestOptions.body.scale_concurrency).toEqual(scaleConcurrency);
@@ -4266,6 +4319,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -4419,6 +4473,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.component).toEqual(component);
         expect(mockRequestOptions.body.prefix).toEqual(prefix);
         expect(mockRequestOptions.body.secret_name).toEqual(secretName);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -4511,6 +4566,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
@@ -4600,6 +4656,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
@@ -4691,6 +4748,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -4877,6 +4935,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.strategy_size).toEqual(strategySize);
         expect(mockRequestOptions.body.strategy_spec_file).toEqual(strategySpecFile);
         expect(mockRequestOptions.body.timeout).toEqual(timeout);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -4971,6 +5030,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -5060,6 +5120,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -5199,6 +5260,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.strategy_spec_file).toEqual(strategySpecFile);
         expect(mockRequestOptions.body.strategy_type).toEqual(strategyType);
         expect(mockRequestOptions.body.timeout).toEqual(timeout);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -5294,6 +5356,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.build_name).toEqual(buildName);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
@@ -5489,6 +5552,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.strategy_spec_file).toEqual(strategySpecFile);
         expect(mockRequestOptions.body.strategy_type).toEqual(strategyType);
         expect(mockRequestOptions.body.timeout).toEqual(timeout);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -5575,6 +5639,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -5664,6 +5729,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -5756,6 +5822,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -5910,6 +5977,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.component).toEqual(component);
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -6006,6 +6074,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6100,6 +6169,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6211,6 +6281,7 @@ describe('CodeEngineV2', () => {
         checkUserHeader(createRequestMock, 'If-Match', ifMatch);
         expect(mockRequestOptions.body.component).toEqual(component);
         expect(mockRequestOptions.body.tls_secret).toEqual(tlsSecret);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6304,6 +6375,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
@@ -6446,6 +6518,7 @@ describe('CodeEngineV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -6534,6 +6607,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6629,6 +6703,7 @@ describe('CodeEngineV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         checkUserHeader(createRequestMock, 'If-Match', ifMatch);
         expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6724,6 +6799,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -6817,6 +6893,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.qs.format).toEqual(format);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
@@ -6884,9 +6961,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/secrets';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"secret_v2","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["resource_group_ids"],"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":true}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","generated_by":"user","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"secret_v2","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["resource_group_ids"],"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":true}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"secret_v2","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["resource_group_ids"],"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":true}}]}';
+        '{"total_count":2,"limit":1,"secrets":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"mapKey":"inner"},"entity_tag":"2385407409","format":"generic","generated_by":"user","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/secrets/my-secret","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-secret","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"secret_v2","service_access":{"resource_key":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","name":"name"},"role":{"crn":"crn:v1:bluemix:public:iam::::serviceRole:Writer","name":"Manager"},"service_instance":{"id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","type":"type"},"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"}},"service_operator":{"apikey_id":"ApiKey-17041d26-55e4-40a8-8ab5-5a69b68e204b","resource_group_ids":["resource_group_ids"],"serviceid":{"crn":"crn","id":"ServiceId-8fa4bc74-6441-4e5b-af3a-2b1af325a637"},"user_managed":true}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -7018,6 +7095,7 @@ describe('CodeEngineV2', () => {
         expect(mockRequestOptions.body.data).toEqual(data);
         expect(mockRequestOptions.body.service_access).toEqual(serviceAccess);
         expect(mockRequestOptions.body.service_operator).toEqual(serviceOperator);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
       }
 
@@ -7108,6 +7186,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -7213,6 +7292,7 @@ describe('CodeEngineV2', () => {
         checkUserHeader(createRequestMock, 'If-Match', ifMatch);
         expect(mockRequestOptions.body.format).toEqual(format);
         expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }
@@ -7306,6 +7386,7 @@ describe('CodeEngineV2', () => {
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
         expect(mockRequestOptions.path.name).toEqual(name);
       }

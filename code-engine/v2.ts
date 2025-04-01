@@ -75,7 +75,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2025-02-20`.
+   *  `2021-03-31` and `2025-03-29`.
    */
   version?: string;
 
@@ -84,7 +84,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2025-02-20`.
+   * specify any date between `2021-03-31` and `2025-03-29`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -133,6 +133,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -193,6 +194,10 @@ class CodeEngineV2 extends BaseService {
       'tags': _params.tags,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'createProject');
 
     const parameters = {
@@ -200,6 +205,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects',
         method: 'POST',
         body,
+        qs: query,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
         headers: extend(
@@ -238,6 +244,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'id': _params.id,
     };
@@ -248,6 +258,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{id}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -286,6 +297,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'id': _params.id,
     };
@@ -296,6 +311,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{id}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -632,6 +648,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -646,6 +666,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/egress_ips',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -684,6 +705,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -698,6 +723,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/status_details',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -807,6 +833,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal values
    * that are exposed as environment variables within the running application.
    * @param {string} [params.runServiceAccount] - Optional name of the service account. For built-in service accounts,
@@ -862,6 +890,7 @@ class CodeEngineV2 extends BaseService {
       'runArguments',
       'runAsUser',
       'runCommands',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runServiceAccount',
       'runVolumeMounts',
@@ -893,6 +922,7 @@ class CodeEngineV2 extends BaseService {
       'run_arguments': _params.runArguments,
       'run_as_user': _params.runAsUser,
       'run_commands': _params.runCommands,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'run_service_account': _params.runServiceAccount,
       'run_volume_mounts': _params.runVolumeMounts,
@@ -1005,6 +1035,8 @@ class CodeEngineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
    * @param {string} params.name - The name of your application.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * app deletion.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
    */
@@ -1013,7 +1045,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1021,6 +1053,7 @@ class CodeEngineV2 extends BaseService {
 
     const query = {
       'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
     };
 
     const path = {
@@ -1080,6 +1113,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Optional commands for the app that are passed to start the container. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runServiceAccount] - Optional name of the service account. For built-in service accounts,
@@ -1137,6 +1172,7 @@ class CodeEngineV2 extends BaseService {
       'runArguments',
       'runAsUser',
       'runCommands',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runServiceAccount',
       'runVolumeMounts',
@@ -1167,6 +1203,7 @@ class CodeEngineV2 extends BaseService {
       'run_arguments': _params.runArguments,
       'run_as_user': _params.runAsUser,
       'run_commands': _params.runCommands,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'run_service_account': _params.runServiceAccount,
       'run_volume_mounts': _params.runVolumeMounts,
@@ -1359,6 +1396,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'app_name': _params.appName,
@@ -1371,6 +1412,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/apps/{app_name}/revisions/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -1410,6 +1452,7 @@ class CodeEngineV2 extends BaseService {
     const query = {
       'limit': _params.limit,
       'start': _params.start,
+      'version': this.version,
     };
 
     const path = {
@@ -1527,6 +1570,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
@@ -1573,6 +1618,7 @@ class CodeEngineV2 extends BaseService {
       'runArguments',
       'runAsUser',
       'runCommands',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runMode',
       'runServiceAccount',
@@ -1597,6 +1643,7 @@ class CodeEngineV2 extends BaseService {
       'run_arguments': _params.runArguments,
       'run_as_user': _params.runAsUser,
       'run_commands': _params.runCommands,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'run_mode': _params.runMode,
       'run_service_account': _params.runServiceAccount,
@@ -1706,6 +1753,8 @@ class CodeEngineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
    * @param {string} params.name - The name of your job.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * job deletion.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
    */
@@ -1714,7 +1763,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1722,6 +1771,7 @@ class CodeEngineV2 extends BaseService {
 
     const query = {
       'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
     };
 
     const path = {
@@ -1773,6 +1823,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
@@ -1821,6 +1873,7 @@ class CodeEngineV2 extends BaseService {
       'runArguments',
       'runAsUser',
       'runCommands',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runMode',
       'runServiceAccount',
@@ -1844,6 +1897,7 @@ class CodeEngineV2 extends BaseService {
       'run_arguments': _params.runArguments,
       'run_as_user': _params.runAsUser,
       'run_commands': _params.runCommands,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'run_mode': _params.runMode,
       'run_service_account': _params.runServiceAccount,
@@ -1979,6 +2033,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string[]} [params.runCommands] - Set commands for the job that are passed to start job run containers. If
    * not specified an empty string array will be applied and the command specified by the container image, will be used
    * to start the container.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runMode] - The mode for runs of the job. Valid values are `task` and `daemon`. In `task`
@@ -2028,6 +2084,7 @@ class CodeEngineV2 extends BaseService {
       'runArguments',
       'runAsUser',
       'runCommands',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runMode',
       'runServiceAccount',
@@ -2054,6 +2111,7 @@ class CodeEngineV2 extends BaseService {
       'run_arguments': _params.runArguments,
       'run_as_user': _params.runAsUser,
       'run_commands': _params.runCommands,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'run_mode': _params.runMode,
       'run_service_account': _params.runServiceAccount,
@@ -2178,6 +2236,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -2189,6 +2251,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/job_runs/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -2328,6 +2391,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.managedDomainMappings] - Optional value controlling which of the system managed domain
    * mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility
    * can only be 'local_private' if the project supports function private visibility.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {number} [params.scaleConcurrency] - Number of parallel requests handled by a single instance, supported
@@ -2361,6 +2426,7 @@ class CodeEngineV2 extends BaseService {
       'codeMain',
       'codeSecret',
       'managedDomainMappings',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'scaleConcurrency',
       'scaleCpuLimit',
@@ -2382,6 +2448,7 @@ class CodeEngineV2 extends BaseService {
       'code_main': _params.codeMain,
       'code_secret': _params.codeSecret,
       'managed_domain_mappings': _params.managedDomainMappings,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'scale_concurrency': _params.scaleConcurrency,
       'scale_cpu_limit': _params.scaleCpuLimit,
@@ -2487,6 +2554,8 @@ class CodeEngineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
    * @param {string} params.name - The name of your function.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * function deletion.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
    */
@@ -2495,7 +2564,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2503,6 +2572,7 @@ class CodeEngineV2 extends BaseService {
 
     const query = {
       'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
     };
 
     const path = {
@@ -2550,6 +2620,8 @@ class CodeEngineV2 extends BaseService {
    * @param {string} [params.managedDomainMappings] - Optional value controlling which of the system managed domain
    * mappings will be setup for the function. Valid values are 'local_public', 'local_private' and 'local'. Visibility
    * can only be 'local_private' if the project supports function private visibility.
+   * @param {boolean} [params.runComputeResourceTokenEnabled] - Optional flag to enable the use of a compute resource
+   * token mounted to the container file system.
    * @param {EnvVarPrototype[]} [params.runEnvVariables] - Optional references to config maps, secrets or literal
    * values.
    * @param {string} [params.runtime] - The managed runtime used to execute the injected code.
@@ -2584,6 +2656,7 @@ class CodeEngineV2 extends BaseService {
       'codeReference',
       'codeSecret',
       'managedDomainMappings',
+      'runComputeResourceTokenEnabled',
       'runEnvVariables',
       'runtime',
       'scaleConcurrency',
@@ -2604,6 +2677,7 @@ class CodeEngineV2 extends BaseService {
       'code_reference': _params.codeReference,
       'code_secret': _params.codeSecret,
       'managed_domain_mappings': _params.managedDomainMappings,
+      'run_compute_resource_token_enabled': _params.runComputeResourceTokenEnabled,
       'run_env_variables': _params.runEnvVariables,
       'runtime': _params.runtime,
       'scale_concurrency': _params.scaleConcurrency,
@@ -2678,6 +2752,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -2743,6 +2818,10 @@ class CodeEngineV2 extends BaseService {
       'secret_name': _params.secretName,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -2754,6 +2833,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/bindings',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -2794,6 +2874,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'id': _params.id,
@@ -2805,6 +2889,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/bindings/{id}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -2844,6 +2929,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'id': _params.id,
@@ -2855,6 +2944,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/bindings/{id}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -2894,6 +2984,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -3010,6 +3101,10 @@ class CodeEngineV2 extends BaseService {
       'timeout': _params.timeout,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -3021,6 +3116,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/builds',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3061,6 +3157,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3072,6 +3172,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/builds/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3111,6 +3212,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3122,6 +3227,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/builds/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3219,6 +3325,10 @@ class CodeEngineV2 extends BaseService {
       'timeout': _params.timeout,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3231,6 +3341,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/builds/{name}',
         method: 'PATCH',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3277,6 +3388,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'build_name': _params.buildName,
       'limit': _params.limit,
       'start': _params.start,
@@ -3405,6 +3517,10 @@ class CodeEngineV2 extends BaseService {
       'timeout': _params.timeout,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -3416,6 +3532,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/build_runs',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3456,6 +3573,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3467,6 +3588,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/build_runs/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3506,6 +3628,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3517,6 +3643,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/build_runs/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3556,6 +3683,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -3619,6 +3747,10 @@ class CodeEngineV2 extends BaseService {
       'tls_secret': _params.tlsSecret,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -3634,6 +3766,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/domain_mappings',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3674,6 +3807,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3685,6 +3822,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/domain_mappings/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3724,6 +3862,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3739,6 +3881,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/domain_mappings/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3782,6 +3925,10 @@ class CodeEngineV2 extends BaseService {
       'tls_secret': _params.tlsSecret,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3798,6 +3945,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/domain_mappings/{name}',
         method: 'PATCH',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3846,6 +3994,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -3909,6 +4058,10 @@ class CodeEngineV2 extends BaseService {
       'data': _params.data,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -3920,6 +4073,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/config_maps',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -3960,6 +4114,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -3971,6 +4129,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/config_maps/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4021,6 +4180,10 @@ class CodeEngineV2 extends BaseService {
       'data': _params.data,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -4033,6 +4196,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/config_maps/{name}',
         method: 'PUT',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4074,6 +4238,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -4085,6 +4253,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/config_maps/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4122,6 +4291,7 @@ class CodeEngineV2 extends BaseService {
     }
 
     const query = {
+      'version': this.version,
       'format': _params.format,
       'limit': _params.limit,
       'start': _params.start,
@@ -4201,6 +4371,10 @@ class CodeEngineV2 extends BaseService {
       'service_operator': _params.serviceOperator,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
     };
@@ -4212,6 +4386,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/secrets',
         method: 'POST',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4252,6 +4427,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -4263,6 +4442,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/secrets/{name}',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4316,6 +4496,10 @@ class CodeEngineV2 extends BaseService {
       'data': _params.data,
     };
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -4328,6 +4512,7 @@ class CodeEngineV2 extends BaseService {
         url: '/projects/{project_id}/secrets/{name}',
         method: 'PUT',
         body,
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4369,6 +4554,10 @@ class CodeEngineV2 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
+    const query = {
+      'version': this.version,
+    };
+
     const path = {
       'project_id': _params.projectId,
       'name': _params.name,
@@ -4380,6 +4569,7 @@ class CodeEngineV2 extends BaseService {
       options: {
         url: '/projects/{project_id}/secrets/{name}',
         method: 'DELETE',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -4399,7 +4589,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2025-02-20`.
+     *  `2021-03-31` and `2025-03-29`.
      */
     version?: string;
   }
@@ -4595,6 +4785,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values that are exposed as environment variables
      *  within the running application.
      */
@@ -4681,6 +4873,8 @@ namespace CodeEngineV2 {
     projectId: string;
     /** The name of your application. */
     name: string;
+    /** Determines if connected service access secrets remain intact after app deletion. */
+    keepServiceAccess?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -4730,6 +4924,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
@@ -4897,6 +5093,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
@@ -4977,6 +5175,8 @@ namespace CodeEngineV2 {
     projectId: string;
     /** The name of your job. */
     name: string;
+    /** Determines if connected service access secrets remain intact after job deletion. */
+    keepServiceAccess?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -5013,6 +5213,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
@@ -5128,6 +5330,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     runCommands?: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The mode for runs of the job. Valid values are `task` and `daemon`. In `task` mode, the `max_execution_time`
@@ -5260,6 +5464,8 @@ namespace CodeEngineV2 {
      *  supports function private visibility.
      */
     managedDomainMappings?: CreateFunctionConstants.ManagedDomainMappings | string;
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** Number of parallel requests handled by a single instance, supported only by Node.js, default is `1`. */
@@ -5307,6 +5513,8 @@ namespace CodeEngineV2 {
     projectId: string;
     /** The name of your function. */
     name: string;
+    /** Determines if connected service access secrets remain intact after function deletion. */
+    keepServiceAccess?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -5341,6 +5549,8 @@ namespace CodeEngineV2 {
      *  supports function private visibility.
      */
     managedDomainMappings?: UpdateFunctionConstants.ManagedDomainMappings | string;
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    runComputeResourceTokenEnabled?: boolean;
     /** Optional references to config maps, secrets or literal values. */
     runEnvVariables?: EnvVarPrototype[];
     /** The managed runtime used to execute the injected code. */
@@ -5893,6 +6103,7 @@ namespace CodeEngineV2 {
       SSH_AUTH = 'ssh_auth',
       REGISTRY = 'registry',
       BASIC_AUTH = 'basic_auth',
+      HMAC_AUTH = 'hmac_auth',
       TLS = 'tls',
       SERVICE_ACCESS = 'service_access',
       SERVICE_OPERATOR = 'service_operator',
@@ -5926,6 +6137,7 @@ namespace CodeEngineV2 {
       GENERIC = 'generic',
       SSH_AUTH = 'ssh_auth',
       BASIC_AUTH = 'basic_auth',
+      HMAC_AUTH = 'hmac_auth',
       TLS = 'tls',
       SERVICE_ACCESS = 'service_access',
       REGISTRY = 'registry',
@@ -5971,6 +6183,7 @@ namespace CodeEngineV2 {
       GENERIC = 'generic',
       SSH_AUTH = 'ssh_auth',
       BASIC_AUTH = 'basic_auth',
+      HMAC_AUTH = 'hmac_auth',
       TLS = 'tls',
       SERVICE_ACCESS = 'service_access',
       REGISTRY = 'registry',
@@ -6127,6 +6340,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    run_compute_resource_token_enabled?: boolean;
     /** References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
      *  environment variables in the application.
      */
@@ -6370,6 +6585,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    run_compute_resource_token_enabled?: boolean;
     /** References to config maps, secrets or literal values, which are defined by the app owner and are exposed as
      *  environment variables in the application.
      */
@@ -7246,6 +7463,8 @@ namespace CodeEngineV2 {
     region?: string;
     /** The type of the function. */
     resource_type?: Function.Constants.ResourceType | string;
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    run_compute_resource_token_enabled?: boolean;
     /** References to config maps, secrets or literal values, which are defined by the function owner and are
      *  exposed as environment variables in the function.
      */
@@ -7441,6 +7660,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    run_compute_resource_token_enabled?: boolean;
     /** References to config maps, secrets or literal values, which are defined by the function owner and are
      *  exposed as environment variables in the job run.
      */
@@ -7575,6 +7796,8 @@ namespace CodeEngineV2 {
      *  will be applied and the command specified by the container image, will be used to start the container.
      */
     run_commands: string[];
+    /** Optional flag to enable the use of a compute resource token mounted to the container file system. */
+    run_compute_resource_token_enabled?: boolean;
     /** References to config maps, secrets or literal values, which are defined by the function owner and are
      *  exposed as environment variables in the job run.
      */
@@ -7962,6 +8185,8 @@ namespace CodeEngineV2 {
     entity_tag: string;
     /** Specify the format of the secret. */
     format?: Secret.Constants.Format | string;
+    /** Specifies whether the secret is user generated. */
+    generated_by?: Secret.Constants.GeneratedBy | string;
     /** When you provision a new secret,  a URL is created identifying the location of the instance. */
     href?: string;
     /** The identifier of the resource. */
@@ -7988,11 +8213,17 @@ namespace CodeEngineV2 {
         GENERIC = 'generic',
         SSH_AUTH = 'ssh_auth',
         BASIC_AUTH = 'basic_auth',
+        HMAC_AUTH = 'hmac_auth',
         TLS = 'tls',
         SERVICE_ACCESS = 'service_access',
         REGISTRY = 'registry',
         SERVICE_OPERATOR = 'service_operator',
         OTHER = 'other',
+      }
+      /** Specifies whether the secret is user generated. */
+      export enum GeneratedBy {
+        USER = 'user',
+        SYSTEM = 'system',
       }
       /** The type of the secret. */
       export enum ResourceType {
@@ -8005,6 +8236,7 @@ namespace CodeEngineV2 {
         SECRET_REGISTRY_V2 = 'secret_registry_v2',
         SECRET_SERVICE_ACCESS_V2 = 'secret_service_access_v2',
         SECRET_TLS_V2 = 'secret_tls_v2',
+        SECRET_HMAC_AUTH_V2 = 'secret_hmac_auth_v2',
       }
     }
   }
@@ -8042,7 +8274,7 @@ namespace CodeEngineV2 {
    */
   export interface ServiceAccessSecretProps {
     /** The service credential associated with the secret. */
-    resource_key: ResourceKeyRef;
+    resource_key?: ResourceKeyRef;
     /** A reference to the Role and Role CRN for service binding. */
     role?: RoleRef;
     /** The IBM Cloud service instance associated with the secret. */
@@ -8056,7 +8288,7 @@ namespace CodeEngineV2 {
    */
   export interface ServiceAccessSecretPrototypeProps {
     /** The service credential associated with the secret. */
-    resource_key: ResourceKeyRefPrototype;
+    resource_key?: ResourceKeyRefPrototype;
     /** A reference to the Role and Role CRN for service binding. */
     role?: RoleRefPrototype;
     /** The IBM Cloud service instance associated with the secret. */
@@ -8230,6 +8462,23 @@ namespace CodeEngineV2 {
   export interface SecretDataGenericSecretData extends SecretData {
     /**
      * SecretDataGenericSecretData accepts additional properties of type string.
+     */
+    [propName: string]: any;
+  }
+
+  /**
+   * Secret Data field used by HMAC secrets.
+   *
+   * This type supports additional properties of type string.
+   */
+  export interface SecretDataHMACAuthSecretData extends SecretData {
+    /** HMAC access key id. */
+    access_key_id: string;
+    /** HMAC secret access key. */
+    secret_access_key: string;
+
+    /**
+     * SecretDataHMACAuthSecretData accepts additional properties of type string.
      */
     [propName: string]: any;
   }

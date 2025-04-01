@@ -1227,6 +1227,53 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('createHMACAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      format: 'hmac_auth',
+      name: 'my-ha-secret',
+      data: {
+        'access_key_id': 'access-key-id',
+        'secret_access_key': 'secret-access-key',
+      },
+    };
+
+    const res = await codeEngineService.createSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getHMACAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ha-secret',
+    };
+
+    const res = await codeEngineService.getSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceHMACAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ha-secret',
+      ifMatch: '*',
+      data: {
+        'access_key_id': 'access-key-id-2',
+        'secret_access_key': 'secret-access-key-2',
+      },
+      format: 'hmac_auth',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('createRegistrySecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,
@@ -1614,6 +1661,17 @@ describe('CodeEngineV2_integration', () => {
     const params = {
       projectId: e2eTestProjectId,
       name: 'my-ba-secret',
+    };
+
+    const res = await codeEngineService.deleteSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('deleteHMACAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-ha-secret',
     };
 
     const res = await codeEngineService.deleteSecret(params);
