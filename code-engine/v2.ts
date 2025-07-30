@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.99.0-d27cee72-20250129-204831
+ * IBM OpenAPI SDK Code Generator Version: 3.102.0-615ec964-20250307-203034
  */
 
 /* eslint-disable max-classes-per-file */
@@ -24,6 +24,7 @@
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
+  AbortSignal,
   Authenticator,
   BaseService,
   UserOptions,
@@ -126,7 +127,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ProjectList>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['limit', 'start', 'headers'];
+    const _validParams = ['limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -150,11 +151,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -182,7 +187,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Project>> {
     const _params = { ...params };
     const _requiredParams = ['name'];
-    const _validParams = ['name', 'resourceGroupId', 'tags', 'headers'];
+    const _validParams = ['name', 'resourceGroupId', 'tags', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -211,12 +216,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -238,7 +247,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Project>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -265,11 +274,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -291,7 +304,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'headers'];
+    const _validParams = ['id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -315,7 +328,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -341,7 +357,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestinationList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -373,11 +389,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -401,7 +421,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'allowedOutboundDestination'];
-    const _validParams = ['projectId', 'allowedOutboundDestination', 'headers'];
+    const _validParams = ['projectId', 'allowedOutboundDestination', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -434,12 +454,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -462,7 +486,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -494,11 +518,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -521,7 +549,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -550,7 +578,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -578,7 +609,14 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestination>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name', 'ifMatch', 'allowedOutboundDestination'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'allowedOutboundDestination', 'headers'];
+    const _validParams = [
+      'projectId',
+      'name',
+      'ifMatch',
+      'allowedOutboundDestination',
+      'signal',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -612,6 +650,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -619,6 +658,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -642,7 +684,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ProjectEgressIPAddresses>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'headers'];
+    const _validParams = ['projectId', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -673,11 +715,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -699,7 +745,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ProjectStatusDetails>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'headers'];
+    const _validParams = ['projectId', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -730,11 +776,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -763,7 +813,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AppList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -792,11 +842,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -904,6 +958,7 @@ class CodeEngineV2 extends BaseService {
       'scaleMemoryLimit',
       'scaleMinInstances',
       'scaleRequestTimeout',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -960,12 +1015,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -988,7 +1047,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.App>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1016,11 +1075,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1045,7 +1108,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1071,7 +1134,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1186,6 +1252,7 @@ class CodeEngineV2 extends BaseService {
       'scaleMemoryLimit',
       'scaleMinInstances',
       'scaleRequestTimeout',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -1242,6 +1309,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -1249,6 +1317,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1275,7 +1346,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AppRevisionList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'appName'];
-    const _validParams = ['projectId', 'appName', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'appName', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1305,11 +1376,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1333,7 +1408,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AppRevision>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'appName', 'name'];
-    const _validParams = ['projectId', 'appName', 'name', 'headers'];
+    const _validParams = ['projectId', 'appName', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1362,11 +1437,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1390,7 +1469,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'appName', 'name'];
-    const _validParams = ['projectId', 'appName', 'name', 'headers'];
+    const _validParams = ['projectId', 'appName', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1416,7 +1495,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1443,7 +1525,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AppInstanceList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'appName'];
-    const _validParams = ['projectId', 'appName', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'appName', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1473,11 +1555,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1506,7 +1592,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.JobList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1535,11 +1621,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1629,6 +1719,7 @@ class CodeEngineV2 extends BaseService {
       'scaleMaxExecutionTime',
       'scaleMemoryLimit',
       'scaleRetryLimit',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -1678,12 +1769,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1706,7 +1801,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Job>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1734,11 +1829,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1763,7 +1862,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1789,7 +1888,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1884,6 +1986,7 @@ class CodeEngineV2 extends BaseService {
       'scaleMaxExecutionTime',
       'scaleMemoryLimit',
       'scaleRetryLimit',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -1933,6 +2036,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -1940,6 +2044,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -1966,7 +2073,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.JobRunList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'jobName', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'jobName', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1996,11 +2103,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2096,6 +2207,7 @@ class CodeEngineV2 extends BaseService {
       'scaleMaxExecutionTime',
       'scaleMemoryLimit',
       'scaleRetryLimit',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2147,12 +2259,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2175,7 +2291,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.JobRun>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2203,11 +2319,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2230,7 +2350,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2255,7 +2375,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2279,7 +2402,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.FunctionRuntimeList>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['headers'];
+    const _validParams = ['signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2300,11 +2423,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2330,7 +2457,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.FunctionList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2359,11 +2486,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2433,6 +2564,7 @@ class CodeEngineV2 extends BaseService {
       'scaleDownDelay',
       'scaleMaxExecutionTime',
       'scaleMemoryLimit',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2479,12 +2611,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2507,7 +2643,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Function>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2535,11 +2671,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2564,7 +2704,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'headers'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2590,7 +2730,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2664,6 +2807,7 @@ class CodeEngineV2 extends BaseService {
       'scaleDownDelay',
       'scaleMaxExecutionTime',
       'scaleMemoryLimit',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2710,6 +2854,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -2717,6 +2862,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2745,7 +2893,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.BindingList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2774,11 +2922,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2806,7 +2958,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Binding>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'component', 'prefix', 'secretName'];
-    const _validParams = ['projectId', 'component', 'prefix', 'secretName', 'headers'];
+    const _validParams = ['projectId', 'component', 'prefix', 'secretName', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2840,12 +2992,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2868,7 +3024,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Binding>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'id'];
-    const _validParams = ['projectId', 'id', 'headers'];
+    const _validParams = ['projectId', 'id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2896,11 +3052,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2923,7 +3083,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'id'];
-    const _validParams = ['projectId', 'id', 'headers'];
+    const _validParams = ['projectId', 'id', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2948,7 +3108,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -2977,7 +3140,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.BuildList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3006,11 +3169,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3078,6 +3245,7 @@ class CodeEngineV2 extends BaseService {
       'strategySize',
       'strategySpecFile',
       'timeout',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -3123,12 +3291,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3151,7 +3323,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Build>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3179,11 +3351,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3206,7 +3382,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3231,7 +3407,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3303,6 +3482,7 @@ class CodeEngineV2 extends BaseService {
       'strategySpecFile',
       'strategyType',
       'timeout',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -3348,6 +3528,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -3355,6 +3536,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3381,7 +3565,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.BuildRunList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'buildName', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'buildName', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3411,11 +3595,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3492,6 +3680,7 @@ class CodeEngineV2 extends BaseService {
       'strategySpecFile',
       'strategyType',
       'timeout',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -3539,12 +3728,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3567,7 +3760,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.BuildRun>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3595,11 +3788,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3622,7 +3819,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3647,7 +3844,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3676,7 +3876,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMappingList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3705,11 +3905,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3735,7 +3939,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'component', 'name', 'tlsSecret'];
-    const _validParams = ['projectId', 'component', 'name', 'tlsSecret', 'headers'];
+    const _validParams = ['projectId', 'component', 'name', 'tlsSecret', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3773,12 +3977,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3801,7 +4009,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3829,11 +4037,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3856,7 +4068,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3885,7 +4097,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3914,7 +4129,15 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.DomainMapping>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name', 'ifMatch'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'component', 'tlsSecret', 'headers'];
+    const _validParams = [
+      'projectId',
+      'name',
+      'ifMatch',
+      'component',
+      'tlsSecret',
+      'signal',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -3952,6 +4175,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/merge-patch+json',
@@ -3959,6 +4183,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -3987,7 +4214,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ConfigMapList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4016,11 +4243,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4047,7 +4278,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ConfigMap>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'data', 'headers'];
+    const _validParams = ['projectId', 'name', 'data', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4080,12 +4311,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4108,7 +4343,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ConfigMap>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4136,11 +4371,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4170,7 +4409,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.ConfigMap>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name', 'ifMatch'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'data', 'headers'];
+    const _validParams = ['projectId', 'name', 'ifMatch', 'data', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4203,6 +4442,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -4210,6 +4450,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4232,7 +4475,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4257,7 +4500,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4284,7 +4530,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.SecretList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
-    const _validParams = ['projectId', 'format', 'limit', 'start', 'headers'];
+    const _validParams = ['projectId', 'format', 'limit', 'start', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4314,11 +4560,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4356,6 +4606,7 @@ class CodeEngineV2 extends BaseService {
       'data',
       'serviceAccess',
       'serviceOperator',
+      'signal',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -4393,12 +4644,16 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4421,7 +4676,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4449,11 +4704,15 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4485,7 +4744,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.Secret>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name', 'ifMatch', 'format'];
-    const _validParams = ['projectId', 'name', 'ifMatch', 'format', 'data', 'headers'];
+    const _validParams = ['projectId', 'name', 'ifMatch', 'format', 'data', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4519,6 +4778,7 @@ class CodeEngineV2 extends BaseService {
         headers: extend(
           true,
           sdkHeaders,
+          this.baseOptions.headers,
           {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -4526,6 +4786,9 @@ class CodeEngineV2 extends BaseService {
           },
           _params.headers
         ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4548,7 +4811,7 @@ class CodeEngineV2 extends BaseService {
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
-    const _validParams = ['projectId', 'name', 'headers'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -4573,7 +4836,10 @@ class CodeEngineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
       }),
     };
 
@@ -4617,8 +4883,13 @@ namespace CodeEngineV2 {
    * request interfaces
    ************************/
 
+  interface DefaultParams {
+    headers?: OutgoingHttpHeaders;
+    signal?: AbortSignal;
+  }
+
   /** Parameters for the `listProjects` operation. */
-  export interface ListProjectsParams {
+  export interface ListProjectsParams extends DefaultParams {
     /** Optional maximum number of projects per page. */
     limit?: number;
     /** An optional token that indicates the beginning of the page of results to be returned. Any additional query
@@ -4626,11 +4897,10 @@ namespace CodeEngineV2 {
      *  is obtained from the 'start' query parameter in the `next` object of the operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createProject` operation. */
-  export interface CreateProjectParams {
+  export interface CreateProjectParams extends DefaultParams {
     /** The name of the project. */
     name: string;
     /** Optional ID of the resource group for your project deployment. If this field is not defined, the default
@@ -4642,25 +4912,22 @@ namespace CodeEngineV2 {
      *  information on [Global Tagging API docs](https://cloud.ibm.com/apidocs/tagging).
      */
     tags?: string[];
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getProject` operation. */
-  export interface GetProjectParams {
+  export interface GetProjectParams extends DefaultParams {
     /** The ID of the project. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteProject` operation. */
-  export interface DeleteProjectParams {
+  export interface DeleteProjectParams extends DefaultParams {
     /** The ID of the project. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listAllowedOutboundDestination` operation. */
-  export interface ListAllowedOutboundDestinationParams {
+  export interface ListAllowedOutboundDestinationParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of allowed outbound destinations per page. */
@@ -4670,38 +4937,34 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createAllowedOutboundDestination` operation. */
-  export interface CreateAllowedOutboundDestinationParams {
+  export interface CreateAllowedOutboundDestinationParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** AllowedOutboundDestination prototype. */
     allowedOutboundDestination: AllowedOutboundDestinationPrototype;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getAllowedOutboundDestination` operation. */
-  export interface GetAllowedOutboundDestinationParams {
+  export interface GetAllowedOutboundDestinationParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your allowed outbound destination. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteAllowedOutboundDestination` operation. */
-  export interface DeleteAllowedOutboundDestinationParams {
+  export interface DeleteAllowedOutboundDestinationParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your allowed outbound destination. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateAllowedOutboundDestination` operation. */
-  export interface UpdateAllowedOutboundDestinationParams {
+  export interface UpdateAllowedOutboundDestinationParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your allowed outbound destination. */
@@ -4713,25 +4976,22 @@ namespace CodeEngineV2 {
     ifMatch: string;
     /** AllowedOutboundDestination patch. */
     allowedOutboundDestination: AllowedOutboundDestinationPatch;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getProjectEgressIps` operation. */
-  export interface GetProjectEgressIpsParams {
+  export interface GetProjectEgressIpsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getProjectStatusDetails` operation. */
-  export interface GetProjectStatusDetailsParams {
+  export interface GetProjectStatusDetailsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listApps` operation. */
-  export interface ListAppsParams {
+  export interface ListAppsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of apps per page. */
@@ -4741,11 +5001,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createApp` operation. */
-  export interface CreateAppParams {
+  export interface CreateAppParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of the image that is used for this app. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
@@ -4837,7 +5096,6 @@ namespace CodeEngineV2 {
     scaleMinInstances?: number;
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scaleRequestTimeout?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createApp` operation. */
@@ -4859,27 +5117,25 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getApp` operation. */
-  export interface GetAppParams {
+  export interface GetAppParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteApp` operation. */
-  export interface DeleteAppParams {
+  export interface DeleteAppParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
     name: string;
     /** Determines if connected service access secrets remain intact after app deletion. */
     keepServiceAccess?: boolean;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateApp` operation. */
-  export interface UpdateAppParams {
+  export interface UpdateAppParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
@@ -4976,7 +5232,6 @@ namespace CodeEngineV2 {
     scaleMinInstances?: number;
     /** Optional amount of time in seconds that is allowed for a running app to respond to a request. */
     scaleRequestTimeout?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `updateApp` operation. */
@@ -4998,7 +5253,7 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `listAppRevisions` operation. */
-  export interface ListAppRevisionsParams {
+  export interface ListAppRevisionsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
@@ -5010,33 +5265,30 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getAppRevision` operation. */
-  export interface GetAppRevisionParams {
+  export interface GetAppRevisionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
     appName: string;
     /** The name of your application revision. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteAppRevision` operation. */
-  export interface DeleteAppRevisionParams {
+  export interface DeleteAppRevisionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
     appName: string;
     /** The name of your application revision. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listAppInstances` operation. */
-  export interface ListAppInstancesParams {
+  export interface ListAppInstancesParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
@@ -5048,11 +5300,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listJobs` operation. */
-  export interface ListJobsParams {
+  export interface ListJobsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of jobs per page. */
@@ -5062,11 +5313,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createJob` operation. */
-  export interface CreateJobParams {
+  export interface CreateJobParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
@@ -5140,7 +5390,6 @@ namespace CodeEngineV2 {
      *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createJob` operation. */
@@ -5161,27 +5410,25 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getJob` operation. */
-  export interface GetJobParams {
+  export interface GetJobParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your job. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteJob` operation. */
-  export interface DeleteJobParams {
+  export interface DeleteJobParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your job. */
     name: string;
     /** Determines if connected service access secrets remain intact after job deletion. */
     keepServiceAccess?: boolean;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateJob` operation. */
-  export interface UpdateJobParams {
+  export interface UpdateJobParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your job. */
@@ -5262,7 +5509,6 @@ namespace CodeEngineV2 {
      *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `updateJob` operation. */
@@ -5283,7 +5529,7 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `listJobRuns` operation. */
-  export interface ListJobRunsParams {
+  export interface ListJobRunsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional name of the job that you want to use to filter. */
@@ -5295,11 +5541,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createJobRun` operation. */
-  export interface CreateJobRunParams {
+  export interface CreateJobRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of the image that is used for this job. The format is `REGISTRY/NAMESPACE/REPOSITORY:TAG` where
@@ -5379,7 +5624,6 @@ namespace CodeEngineV2 {
      *  only be specified if `run_mode` is `task`.
      */
     scaleRetryLimit?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createJobRun` operation. */
@@ -5400,30 +5644,26 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getJobRun` operation. */
-  export interface GetJobRunParams {
+  export interface GetJobRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your job run. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteJobRun` operation. */
-  export interface DeleteJobRunParams {
+  export interface DeleteJobRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your job run. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listFunctionRuntimes` operation. */
-  export interface ListFunctionRuntimesParams {
-    headers?: OutgoingHttpHeaders;
-  }
+  export interface ListFunctionRuntimesParams extends DefaultParams {}
 
   /** Parameters for the `listFunctions` operation. */
-  export interface ListFunctionsParams {
+  export interface ListFunctionsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of functions per page. */
@@ -5433,11 +5673,10 @@ namespace CodeEngineV2 {
      *  the operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createFunction` operation. */
-  export interface CreateFunctionParams {
+  export interface CreateFunctionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Specifies either a reference to a code bundle or the source code itself. To specify the source code, use the
@@ -5485,7 +5724,6 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleMemoryLimit?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createFunction` operation. */
@@ -5499,27 +5737,25 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getFunction` operation. */
-  export interface GetFunctionParams {
+  export interface GetFunctionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your function. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteFunction` operation. */
-  export interface DeleteFunctionParams {
+  export interface DeleteFunctionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your function. */
     name: string;
     /** Determines if connected service access secrets remain intact after function deletion. */
     keepServiceAccess?: boolean;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateFunction` operation. */
-  export interface UpdateFunctionParams {
+  export interface UpdateFunctionParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your function. */
@@ -5572,7 +5808,6 @@ namespace CodeEngineV2 {
      *  measurement](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo#unit-measurements).
      */
     scaleMemoryLimit?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `updateFunction` operation. */
@@ -5586,7 +5821,7 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `listBindings` operation. */
-  export interface ListBindingsParams {
+  export interface ListBindingsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of bindings per page. */
@@ -5596,11 +5831,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createBinding` operation. */
-  export interface CreateBindingParams {
+  export interface CreateBindingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** A reference to another component. */
@@ -5609,29 +5843,26 @@ namespace CodeEngineV2 {
     prefix: string;
     /** The service access secret that is bound to a component. */
     secretName: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getBinding` operation. */
-  export interface GetBindingParams {
+  export interface GetBindingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The id of your binding. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteBinding` operation. */
-  export interface DeleteBindingParams {
+  export interface DeleteBindingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The id of your binding. */
     id: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listBuilds` operation. */
-  export interface ListBuildsParams {
+  export interface ListBuildsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of builds per page. */
@@ -5641,11 +5872,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createBuild` operation. */
-  export interface CreateBuildParams {
+  export interface CreateBuildParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of the build. Use a name that is unique within the project. */
@@ -5696,7 +5926,6 @@ namespace CodeEngineV2 {
     strategySpecFile?: string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createBuild` operation. */
@@ -5722,25 +5951,23 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getBuild` operation. */
-  export interface GetBuildParams {
+  export interface GetBuildParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your build. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteBuild` operation. */
-  export interface DeleteBuildParams {
+  export interface DeleteBuildParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your build. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateBuild` operation. */
-  export interface UpdateBuildParams {
+  export interface UpdateBuildParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your build. */
@@ -5796,7 +6023,6 @@ namespace CodeEngineV2 {
     strategyType?: UpdateBuildConstants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `updateBuild` operation. */
@@ -5822,7 +6048,7 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `listBuildRuns` operation. */
-  export interface ListBuildRunsParams {
+  export interface ListBuildRunsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional name of the build that should be filtered for. */
@@ -5834,11 +6060,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createBuildRun` operation. */
-  export interface CreateBuildRunParams {
+  export interface CreateBuildRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional name of the build on which this build run is based on. If specified, the build run will inherit the
@@ -5900,7 +6125,6 @@ namespace CodeEngineV2 {
     strategyType?: CreateBuildRunConstants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createBuildRun` operation. */
@@ -5934,25 +6158,23 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getBuildRun` operation. */
-  export interface GetBuildRunParams {
+  export interface GetBuildRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your build run. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteBuildRun` operation. */
-  export interface DeleteBuildRunParams {
+  export interface DeleteBuildRunParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your build run. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listDomainMappings` operation. */
-  export interface ListDomainMappingsParams {
+  export interface ListDomainMappingsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of domain mappings per page. */
@@ -5962,11 +6184,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createDomainMapping` operation. */
-  export interface CreateDomainMappingParams {
+  export interface CreateDomainMappingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** A reference to another component. */
@@ -5975,29 +6196,26 @@ namespace CodeEngineV2 {
     name: string;
     /** The name of the TLS secret that includes the certificate and private key of this domain mapping. */
     tlsSecret: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getDomainMapping` operation. */
-  export interface GetDomainMappingParams {
+  export interface GetDomainMappingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your domain mapping. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteDomainMapping` operation. */
-  export interface DeleteDomainMappingParams {
+  export interface DeleteDomainMappingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your domain mapping. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `updateDomainMapping` operation. */
-  export interface UpdateDomainMappingParams {
+  export interface UpdateDomainMappingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your domain mapping. */
@@ -6011,11 +6229,10 @@ namespace CodeEngineV2 {
     component?: ComponentRef;
     /** The name of the TLS secret that includes the certificate and private key of this domain mapping. */
     tlsSecret?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listConfigMaps` operation. */
-  export interface ListConfigMapsParams {
+  export interface ListConfigMapsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of config maps per page. */
@@ -6025,11 +6242,10 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `createConfigMap` operation. */
-  export interface CreateConfigMapParams {
+  export interface CreateConfigMapParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of the configmap. Use a name that is unique within the project. */
@@ -6039,20 +6255,18 @@ namespace CodeEngineV2 {
      *  `VALUE` field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
     data?: JsonObject;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getConfigMap` operation. */
-  export interface GetConfigMapParams {
+  export interface GetConfigMapParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your configmap. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `replaceConfigMap` operation. */
-  export interface ReplaceConfigMapParams {
+  export interface ReplaceConfigMapParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your configmap. */
@@ -6067,20 +6281,18 @@ namespace CodeEngineV2 {
      *  `VALUE` field can consists of any character and must not be exceed a max length of 1048576 characters.
      */
     data?: JsonObject;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteConfigMap` operation. */
-  export interface DeleteConfigMapParams {
+  export interface DeleteConfigMapParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your configmap. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `listSecrets` operation. */
-  export interface ListSecretsParams {
+  export interface ListSecretsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Secret format to filter results by. */
@@ -6092,7 +6304,6 @@ namespace CodeEngineV2 {
      *  operation response.
      */
     start?: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `listSecrets` operation. */
@@ -6111,7 +6322,7 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `createSecret` operation. */
-  export interface CreateSecretParams {
+  export interface CreateSecretParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Specify the format of the secret. The format of the secret will determine how the secret is used. */
@@ -6127,7 +6338,6 @@ namespace CodeEngineV2 {
     serviceAccess?: ServiceAccessSecretPrototypeProps;
     /** Properties for the IBM Cloud Operator Secrets. */
     serviceOperator?: OperatorSecretPrototypeProps;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createSecret` operation. */
@@ -6147,16 +6357,15 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `getSecret` operation. */
-  export interface GetSecretParams {
+  export interface GetSecretParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your secret. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `replaceSecret` operation. */
-  export interface ReplaceSecretParams {
+  export interface ReplaceSecretParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your secret. */
@@ -6173,7 +6382,6 @@ namespace CodeEngineV2 {
      *  Each value field can consists of any character and must not exceed a max length of 1048576 characters.
      */
     data?: SecretData;
-    headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `replaceSecret` operation. */
@@ -6193,12 +6401,11 @@ namespace CodeEngineV2 {
   }
 
   /** Parameters for the `deleteSecret` operation. */
-  export interface DeleteSecretParams {
+  export interface DeleteSecretParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your secret. */
     name: string;
-    headers?: OutgoingHttpHeaders;
   }
 
   /*************************
