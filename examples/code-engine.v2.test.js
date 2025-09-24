@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2025-08-27',
+      version: '2025-03-29',
     });
 
     // end-common
@@ -1970,5 +1970,5 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_secret
-  });  
+  });
 });
