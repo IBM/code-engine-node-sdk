@@ -1970,6 +1970,5 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_secret
-  });
-  
+  });  
 });
