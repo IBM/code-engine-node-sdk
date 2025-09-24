@@ -76,7 +76,11 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
+<<<<<<< HEAD
    *  `2021-03-31` and `2025-03-29`.
+=======
+   *  `2021-03-31` and `2025-08-27`.
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    */
   version?: string;
 
@@ -85,7 +89,11 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
+<<<<<<< HEAD
    * specify any date between `2021-03-31` and `2025-03-29`.
+=======
+   * specify any date between `2021-03-31` and `2025-08-27`.
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -233,6 +241,58 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a project.
+   *
+   * Delete a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.id - The ID of the project.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteProject(
+    params: CodeEngineV2.DeleteProjectParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['id'];
+    const _validParams = ['id', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteProject');
+
+    const parameters = {
+      options: {
+        url: '/projects/{id}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a project.
    *
    * Display the details of a single project.
@@ -290,6 +350,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a project.
    *
    * Delete a project.
@@ -339,6 +400,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * List allowed outbound destinations.
    *
    * List all allowed outbound destinations in a project.
@@ -471,6 +534,64 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete an allowed outbound destination.
+   *
+   * Delete an allowed outbound destination.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your allowed outbound destination.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteAllowedOutboundDestination(
+    params: CodeEngineV2.DeleteAllowedOutboundDestinationParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deleteAllowedOutboundDestination'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/allowed_outbound_destinations/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get an allowed outbound destination.
    *
    * Display the details of an allowed outbound destination.
@@ -534,6 +655,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete an allowed outbound destination.
    *
    * Delete an allowed outbound destination.
@@ -589,6 +711,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update an allowed outbound destination.
    *
    * Update an allowed outbound destination.
@@ -1032,6 +1156,63 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete an application.
+   *
+   * Delete an application.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your application.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * app deletion.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteApp(
+    params: CodeEngineV2.DeleteAppParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteApp');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/apps/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get an application.
    *
    * Display the details of an application.
@@ -1091,6 +1272,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete an application.
    *
    * Delete an application.
@@ -1145,6 +1327,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update an application.
    *
    * An application contains one or more revisions. A revision represents an immutable version of the configuration
@@ -1392,6 +1576,62 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete an application revision.
+   *
+   * Delete an application revision.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.appName - The name of your application.
+   * @param {string} params.name - The name of your application revision.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteAppRevision(
+    params: CodeEngineV2.DeleteAppRevisionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'appName', 'name'];
+    const _validParams = ['projectId', 'appName', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'app_name': _params.appName,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteAppRevision');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/apps/{app_name}/revisions/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get an application revision.
    *
    * Display the details of an application revision.
@@ -1453,6 +1693,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete an application revision.
    *
    * Delete an application revision.
@@ -1506,6 +1747,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * List application instances.
    *
    * List all instances of an application.
@@ -1786,6 +2029,63 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a job.
+   *
+   * Delete a job.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your job.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * job deletion.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteJob(
+    params: CodeEngineV2.DeleteJobParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteJob');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/jobs/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a job.
    *
    * Display the details of a job.
@@ -1845,6 +2145,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a job.
    *
    * Delete a job.
@@ -1899,6 +2200,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update a job.
    *
    * Update the given job.
@@ -2276,6 +2579,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a job run.
+   *
+   * Delete a job run.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your job run.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteJobRun(
+    params: CodeEngineV2.DeleteJobRunParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteJobRun');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/job_runs/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a job run.
    *
    * Display the details of a job run.
@@ -2333,6 +2690,7 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+<<<<<<< HEAD
 
   /**
    * Delete a job run.
@@ -2384,6 +2742,8 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /*************************
    * functions
    ************************/
@@ -2628,6 +2988,63 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a function.
+   *
+   * Delete a function.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your function.
+   * @param {boolean} [params.keepServiceAccess] - Determines if connected service access secrets remain intact after
+   * function deletion.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteFunction(
+    params: CodeEngineV2.DeleteFunctionParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'keepServiceAccess', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+      'keep_service_access': _params.keepServiceAccess,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteFunction');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/functions/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a function.
    *
    * Display the details of a function.
@@ -2687,6 +3104,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a function.
    *
    * Delete a function.
@@ -2741,6 +3159,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update a function.
    *
    * Update the given function.
@@ -3009,6 +3429,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a binding.
+   *
+   * Delete a binding.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.id - The id of your binding.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteBinding(
+    params: CodeEngineV2.DeleteBindingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'id'];
+    const _validParams = ['projectId', 'id', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'id': _params.id,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteBinding');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/bindings/{id}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a binding.
    *
    * Display the details of a binding.
@@ -3066,6 +3540,7 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+<<<<<<< HEAD
 
   /**
    * Delete a binding.
@@ -3117,6 +3592,8 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /*************************
    * imageBuilds
    ************************/
@@ -3308,6 +3785,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a build.
+   *
+   * Delete a build.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your build.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteBuild(
+    params: CodeEngineV2.DeleteBuildParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteBuild');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/builds/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a build.
    *
    * Display the details of a build.
@@ -3367,6 +3898,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a build.
    *
    * Delete a build.
@@ -3418,6 +3950,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update a build.
    *
    * Update a build.
@@ -3745,6 +4279,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a build run.
+   *
+   * Delete a build run.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your build run.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteBuildRun(
+    params: CodeEngineV2.DeleteBuildRunParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteBuildRun');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/build_runs/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a build run.
    *
    * Display the details of a build run.
@@ -3802,6 +4390,7 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+<<<<<<< HEAD
 
   /**
    * Delete a build run.
@@ -3853,6 +4442,8 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /*************************
    * domainMappings
    ************************/
@@ -3994,6 +4585,64 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a domain mapping.
+   *
+   * Delete a domain mapping.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your domain mapping.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteDomainMapping(
+    params: CodeEngineV2.DeleteDomainMappingParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deleteDomainMapping'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/domain_mappings/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a domain mapping.
    *
    * Get domain mapping.
@@ -4053,6 +4702,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a domain mapping.
    *
    * Delete a domain mapping.
@@ -4108,6 +4758,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Update a domain mapping.
    *
    * Update a domain mapping.
@@ -4328,6 +4980,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a config map.
+   *
+   * Delete a config map.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your configmap.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteConfigMap(
+    params: CodeEngineV2.DeleteConfigMapParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteConfigMap');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/config_maps/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a config map.
    *
    * Display the details of a config map.
@@ -4460,6 +5166,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
    * Delete a config map.
    *
    * Delete a config map.
@@ -4511,6 +5218,8 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * List secrets.
    *
    * List all secrets in a project.
@@ -4661,6 +5370,60 @@ class CodeEngineV2 extends BaseService {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Delete a secret.
+   *
+   * Delete a secret.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your secret.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deleteSecret(
+    params: CodeEngineV2.DeleteSecretParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecret');
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/secrets/{name}',
+        method: 'DELETE',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Get a secret.
    *
    * Get a secret.
@@ -4794,6 +5557,7 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+<<<<<<< HEAD
 
   /**
    * Delete a secret.
@@ -4808,6 +5572,167 @@ class CodeEngineV2 extends BaseService {
    */
   public deleteSecret(
     params: CodeEngineV2.DeleteSecretParams
+=======
+  /*************************
+   * persistentDataStores
+   ************************/
+
+  /**
+   * List persistent data stores.
+   *
+   * List all persistent data stores in a project.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {number} [params.limit] - Optional maximum number of persistent data stores per page.
+   * @param {string} [params.start] - An optional token that indicates the beginning of the page of results to be
+   * returned. If omitted, the first page of results is returned. This value is obtained from the 'start' query
+   * parameter in the `next` object of the operation response.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStoreList>>}
+   */
+  public listPersistentDataStore(
+    params: CodeEngineV2.ListPersistentDataStoreParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStoreList>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId'];
+    const _validParams = ['projectId', 'limit', 'start', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+      'limit': _params.limit,
+      'start': _params.start,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'listPersistentDataStore'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/persistent_data_stores',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Create a persistent data store.
+   *
+   * Create a persistent data store.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of the persistent data store.
+   * @param {string} params.storageType - Specify the storage type of the persistent data store.
+   * @param {StorageData} [params.data] - Data container that allows to specify config parameters and their values as a
+   * key-value map. Each key field must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max
+   * length of 253 characters. Each value field can consists of any character and must not exceed a max length of
+   * 1048576 characters.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStore>>}
+   */
+  public createPersistentDataStore(
+    params: CodeEngineV2.CreatePersistentDataStoreParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStore>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name', 'storageType'];
+    const _validParams = ['projectId', 'name', 'storageType', 'data', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'name': _params.name,
+      'storage_type': _params.storageType,
+      'data': _params.data,
+    };
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'createPersistentDataStore'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/persistent_data_stores',
+        method: 'POST',
+        body,
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete a persistent data store.
+   *
+   * Delete a persistent data store.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your persistent data store.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
+   */
+  public deletePersistentDataStore(
+    params: CodeEngineV2.DeletePersistentDataStoreParams
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   ): Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['projectId', 'name'];
@@ -4826,11 +5751,23 @@ class CodeEngineV2 extends BaseService {
       'name': _params.name,
     };
 
+<<<<<<< HEAD
     const sdkHeaders = getSdkHeaders(CodeEngineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteSecret');
 
     const parameters = {
       options: {
         url: '/projects/{project_id}/secrets/{name}',
+=======
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deletePersistentDataStore'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/persistent_data_stores/{name}',
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
         method: 'DELETE',
         qs: query,
         path,
@@ -4845,6 +5782,72 @@ class CodeEngineV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+<<<<<<< HEAD
+=======
+
+  /**
+   * Get a persistent data store.
+   *
+   * Get a persistent data store.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.projectId - The ID of the project.
+   * @param {string} params.name - The name of your persistent data store.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStore>>}
+   */
+  public getPersistentDataStore(
+    params: CodeEngineV2.GetPersistentDataStoreParams
+  ): Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStore>> {
+    const _params = { ...params };
+    const _requiredParams = ['projectId', 'name'];
+    const _validParams = ['projectId', 'name', 'signal', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const query = {
+      'version': this.version,
+    };
+
+    const path = {
+      'project_id': _params.projectId,
+      'name': _params.name,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CodeEngineV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getPersistentDataStore'
+    );
+
+    const parameters = {
+      options: {
+        url: '/projects/{project_id}/persistent_data_stores/{name}',
+        method: 'GET',
+        qs: query,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+        axiosOptions: {
+          signal: _params.signal,
+        },
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
 }
 
 /*************************
@@ -4855,7 +5858,11 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
+<<<<<<< HEAD
      *  `2021-03-31` and `2025-03-29`.
+=======
+     *  `2021-03-31` and `2025-08-27`.
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
      */
     version?: string;
   }
@@ -4914,14 +5921,24 @@ namespace CodeEngineV2 {
     tags?: string[];
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getProject` operation. */
   export interface GetProjectParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteProject` operation. */
+  export interface DeleteProjectParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     id: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteProject` operation. */
   export interface DeleteProjectParams extends DefaultParams {
+=======
+  /** Parameters for the `getProject` operation. */
+  export interface GetProjectParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     id: string;
   }
@@ -4947,16 +5964,26 @@ namespace CodeEngineV2 {
     allowedOutboundDestination: AllowedOutboundDestinationPrototype;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getAllowedOutboundDestination` operation. */
   export interface GetAllowedOutboundDestinationParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteAllowedOutboundDestination` operation. */
+  export interface DeleteAllowedOutboundDestinationParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your allowed outbound destination. */
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteAllowedOutboundDestination` operation. */
   export interface DeleteAllowedOutboundDestinationParams extends DefaultParams {
+=======
+  /** Parameters for the `getAllowedOutboundDestination` operation. */
+  export interface GetAllowedOutboundDestinationParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your allowed outbound destination. */
@@ -5116,6 +6143,7 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getApp` operation. */
   export interface GetAppParams extends DefaultParams {
     /** The ID of the project. */
@@ -5124,6 +6152,8 @@ namespace CodeEngineV2 {
     name: string;
   }
 
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `deleteApp` operation. */
   export interface DeleteAppParams extends DefaultParams {
     /** The ID of the project. */
@@ -5134,6 +6164,17 @@ namespace CodeEngineV2 {
     keepServiceAccess?: boolean;
   }
 
+<<<<<<< HEAD
+=======
+  /** Parameters for the `getApp` operation. */
+  export interface GetAppParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your application. */
+    name: string;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `updateApp` operation. */
   export interface UpdateAppParams extends DefaultParams {
     /** The ID of the project. */
@@ -5267,8 +6308,13 @@ namespace CodeEngineV2 {
     start?: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getAppRevision` operation. */
   export interface GetAppRevisionParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteAppRevision` operation. */
+  export interface DeleteAppRevisionParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
@@ -5277,8 +6323,13 @@ namespace CodeEngineV2 {
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteAppRevision` operation. */
   export interface DeleteAppRevisionParams extends DefaultParams {
+=======
+  /** Parameters for the `getAppRevision` operation. */
+  export interface GetAppRevisionParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your application. */
@@ -5409,6 +6460,7 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getJob` operation. */
   export interface GetJobParams extends DefaultParams {
     /** The ID of the project. */
@@ -5417,6 +6469,8 @@ namespace CodeEngineV2 {
     name: string;
   }
 
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `deleteJob` operation. */
   export interface DeleteJobParams extends DefaultParams {
     /** The ID of the project. */
@@ -5427,6 +6481,17 @@ namespace CodeEngineV2 {
     keepServiceAccess?: boolean;
   }
 
+<<<<<<< HEAD
+=======
+  /** Parameters for the `getJob` operation. */
+  export interface GetJobParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your job. */
+    name: string;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `updateJob` operation. */
   export interface UpdateJobParams extends DefaultParams {
     /** The ID of the project. */
@@ -5643,16 +6708,26 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getJobRun` operation. */
   export interface GetJobRunParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteJobRun` operation. */
+  export interface DeleteJobRunParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your job run. */
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteJobRun` operation. */
   export interface DeleteJobRunParams extends DefaultParams {
+=======
+  /** Parameters for the `getJobRun` operation. */
+  export interface GetJobRunParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your job run. */
@@ -5736,6 +6811,7 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getFunction` operation. */
   export interface GetFunctionParams extends DefaultParams {
     /** The ID of the project. */
@@ -5744,6 +6820,8 @@ namespace CodeEngineV2 {
     name: string;
   }
 
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `deleteFunction` operation. */
   export interface DeleteFunctionParams extends DefaultParams {
     /** The ID of the project. */
@@ -5754,6 +6832,17 @@ namespace CodeEngineV2 {
     keepServiceAccess?: boolean;
   }
 
+<<<<<<< HEAD
+=======
+  /** Parameters for the `getFunction` operation. */
+  export interface GetFunctionParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your function. */
+    name: string;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `updateFunction` operation. */
   export interface UpdateFunctionParams extends DefaultParams {
     /** The ID of the project. */
@@ -5845,16 +6934,26 @@ namespace CodeEngineV2 {
     secretName: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getBinding` operation. */
   export interface GetBindingParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteBinding` operation. */
+  export interface DeleteBindingParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The id of your binding. */
     id: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteBinding` operation. */
   export interface DeleteBindingParams extends DefaultParams {
+=======
+  /** Parameters for the `getBinding` operation. */
+  export interface GetBindingParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The id of your binding. */
@@ -5950,16 +7049,26 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getBuild` operation. */
   export interface GetBuildParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteBuild` operation. */
+  export interface DeleteBuildParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your build. */
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteBuild` operation. */
   export interface DeleteBuildParams extends DefaultParams {
+=======
+  /** Parameters for the `getBuild` operation. */
+  export interface GetBuildParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your build. */
@@ -6157,16 +7266,26 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getBuildRun` operation. */
   export interface GetBuildRunParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteBuildRun` operation. */
+  export interface DeleteBuildRunParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your build run. */
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteBuildRun` operation. */
   export interface DeleteBuildRunParams extends DefaultParams {
+=======
+  /** Parameters for the `getBuildRun` operation. */
+  export interface GetBuildRunParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your build run. */
@@ -6198,16 +7317,26 @@ namespace CodeEngineV2 {
     tlsSecret: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `getDomainMapping` operation. */
   export interface GetDomainMappingParams extends DefaultParams {
+=======
+  /** Parameters for the `deleteDomainMapping` operation. */
+  export interface DeleteDomainMappingParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your domain mapping. */
     name: string;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteDomainMapping` operation. */
   export interface DeleteDomainMappingParams extends DefaultParams {
+=======
+  /** Parameters for the `getDomainMapping` operation. */
+  export interface GetDomainMappingParams extends DefaultParams {
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** The ID of the project. */
     projectId: string;
     /** The name of your domain mapping. */
@@ -6257,6 +7386,17 @@ namespace CodeEngineV2 {
     data?: JsonObject;
   }
 
+<<<<<<< HEAD
+=======
+  /** Parameters for the `deleteConfigMap` operation. */
+  export interface DeleteConfigMapParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your configmap. */
+    name: string;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `getConfigMap` operation. */
   export interface GetConfigMapParams extends DefaultParams {
     /** The ID of the project. */
@@ -6283,6 +7423,7 @@ namespace CodeEngineV2 {
     data?: JsonObject;
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteConfigMap` operation. */
   export interface DeleteConfigMapParams extends DefaultParams {
     /** The ID of the project. */
@@ -6291,6 +7432,8 @@ namespace CodeEngineV2 {
     name: string;
   }
 
+=======
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `listSecrets` operation. */
   export interface ListSecretsParams extends DefaultParams {
     /** The ID of the project. */
@@ -6356,6 +7499,17 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
+=======
+  /** Parameters for the `deleteSecret` operation. */
+  export interface DeleteSecretParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your secret. */
+    name: string;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /** Parameters for the `getSecret` operation. */
   export interface GetSecretParams extends DefaultParams {
     /** The ID of the project. */
@@ -6400,11 +7554,63 @@ namespace CodeEngineV2 {
     }
   }
 
+<<<<<<< HEAD
   /** Parameters for the `deleteSecret` operation. */
   export interface DeleteSecretParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** The name of your secret. */
+=======
+  /** Parameters for the `listPersistentDataStore` operation. */
+  export interface ListPersistentDataStoreParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** Optional maximum number of persistent data stores per page. */
+    limit?: number;
+    /** An optional token that indicates the beginning of the page of results to be returned. If omitted, the first
+     *  page of results is returned. This value is obtained from the 'start' query parameter in the `next` object of the
+     *  operation response.
+     */
+    start?: string;
+  }
+
+  /** Parameters for the `createPersistentDataStore` operation. */
+  export interface CreatePersistentDataStoreParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of the persistent data store. */
+    name: string;
+    /** Specify the storage type of the persistent data store. */
+    storageType: CreatePersistentDataStoreConstants.StorageType | string;
+    /** Data container that allows to specify config parameters and their values as a key-value map. Each key field
+     *  must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters.
+     *  Each value field can consists of any character and must not exceed a max length of 1048576 characters.
+     */
+    data?: StorageData;
+  }
+
+  /** Constants for the `createPersistentDataStore` operation. */
+  export namespace CreatePersistentDataStoreConstants {
+    /** Specify the storage type of the persistent data store. */
+    export enum StorageType {
+      OBJECT_STORAGE = 'object_storage',
+    }
+  }
+
+  /** Parameters for the `deletePersistentDataStore` operation. */
+  export interface DeletePersistentDataStoreParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your persistent data store. */
+    name: string;
+  }
+
+  /** Parameters for the `getPersistentDataStore` operation. */
+  export interface GetPersistentDataStoreParams extends DefaultParams {
+    /** The ID of the project. */
+    projectId: string;
+    /** The name of your persistent data store. */
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     name: string;
   }
 
@@ -7369,6 +8575,17 @@ namespace CodeEngineV2 {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Describes the model of a CBR status of a project.
+   */
+  export interface CbrStatus {
+    /** Describes the model of the enforcement status of a CBR status. */
+    data_plane: EnforcementStatus;
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * A reference to another component.
    */
   export interface ComponentRef {
@@ -7561,6 +8778,28 @@ namespace CodeEngineV2 {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Describes the model of the enforcement status of a CBR status.
+   */
+  export interface EnforcementStatus {
+    enforcement: EnforcementStatus.Constants.Enforcement | string;
+    last_synced_at?: string;
+  }
+  export namespace EnforcementStatus {
+    export namespace Constants {
+      /** Enforcement */
+      export enum Enforcement {
+        APPLIED = 'applied',
+        OUT_OF_SYNC = 'out_of_sync',
+        NONE = 'none',
+        UNKNOWN = 'unknown',
+      }
+    }
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Response model for environment variables.
    */
   export interface EnvVar {
@@ -8177,6 +9416,58 @@ namespace CodeEngineV2 {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Describes the model of a persistent data store.
+   */
+  export interface PersistentDataStore {
+    /** The timestamp when the resource was created. */
+    created_at?: string;
+    /** Data container that allows to specify config parameters and their values as a key-value map. Each key field
+     *  must consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters.
+     *  Each value field can consists of any character and must not exceed a max length of 1048576 characters.
+     */
+    data: StorageData;
+    /** The version of the persistent data store, which is used to achieve optimistic locking. */
+    entity_tag: string;
+    /** The identifier of the resource. */
+    id?: string;
+    /** The name of the persistent data store. */
+    name: string;
+    /** The ID of the project in which the resource is located. */
+    project_id?: string;
+    /** The region of the project the resource is located in. Possible values: 'au-syd', 'br-sao', 'ca-tor',
+     *  'eu-de', 'eu-gb', 'jp-osa', 'jp-tok', 'us-east', 'us-south'.
+     */
+    region?: string;
+    /** Specify the storage type of the persistent data store. */
+    storage_type: PersistentDataStore.Constants.StorageType | string;
+  }
+  export namespace PersistentDataStore {
+    export namespace Constants {
+      /** Specify the storage type of the persistent data store. */
+      export enum StorageType {
+        OBJECT_STORAGE = 'object_storage',
+      }
+    }
+  }
+
+  /**
+   * List of all persistent data stores.
+   */
+  export interface PersistentDataStoreList {
+    /** Describes properties needed to retrieve the first page of a result list. */
+    first?: ListFirstMetadata;
+    /** Maximum number of resources per page. */
+    limit: number;
+    /** Describes properties needed to retrieve the next page of a result list. */
+    next?: ListNextMetadata;
+    /** List of persistent data stores. */
+    persistent_data_stores: PersistentDataStore[];
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Response model for probes.
    */
   export interface Probe {
@@ -8319,10 +9610,20 @@ namespace CodeEngineV2 {
    * Describes the model of a project status details.
    */
   export interface ProjectStatusDetails {
+<<<<<<< HEAD
+=======
+    /** Status of the Context-based-restriction configuration applicable for this project. */
+    cbr: CbrStatus;
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** Status of the domain created for the project. */
     domain: ProjectStatusDetails.Constants.Domain | string;
     /** Defines whether a project is enabled for management and consumption. */
     project: ProjectStatusDetails.Constants.Project | string;
+<<<<<<< HEAD
+=======
+    /** Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network. */
+    vpe: ProjectStatusDetails.Constants.Vpe | string;
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     /** Return true when project is not VPE enabled. */
     vpe_not_enabled?: boolean;
   }
@@ -8338,6 +9639,14 @@ namespace CodeEngineV2 {
         ENABLED = 'enabled',
         DISABLED = 'disabled',
       }
+<<<<<<< HEAD
+=======
+      /** Status of the Virtual Private Endpoint that exposes the project on the IBM Cloud private network. */
+      export enum Vpe {
+        READY = 'ready',
+        UNKNOWN = 'unknown',
+      }
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     }
   }
 
@@ -8541,23 +9850,58 @@ namespace CodeEngineV2 {
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
+   *
+   * This type supports additional properties of type string.
+   */
+  export interface StorageData {
+    /**
+     * StorageData accepts additional properties of type string.
+     */
+    [propName: string]: any;
+  }
+
+  /**
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
    * Response model of a volume mount.
    */
   export interface VolumeMount {
     /** The path that should be mounted. */
     mount_path: string;
     /** The name of the mount. */
+<<<<<<< HEAD
     name: string;
     /** The name of the referenced secret or config map. */
     reference: string;
     /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
+=======
+    name?: string;
+    /** Optional flag to specify if the volume mount is read only. */
+    read_only?: boolean;
+    /** The name of the referenced secret, config map, or persistent data store. */
+    reference: string;
+    /** The path mounted at the mount path. */
+    sub_path?: string;
+    /** Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'. */
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     type: VolumeMount.Constants.Type | string;
   }
   export namespace VolumeMount {
     export namespace Constants {
+<<<<<<< HEAD
       /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
       export enum Type {
         CONFIG_MAP = 'config_map',
+=======
+      /** Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'. */
+      export enum Type {
+        CONFIG_MAP = 'config_map',
+        PERSISTENT_DATA_STORE = 'persistent_data_store',
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
         SECRET = 'secret',
       }
     }
@@ -8573,16 +9917,33 @@ namespace CodeEngineV2 {
      *  `ref` is longer than 58 characters, it will be cut off.
      */
     name?: string;
+<<<<<<< HEAD
     /** The name of the referenced secret or config map. */
     reference: string;
     /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
+=======
+    /** Optional flag to specify if the volume mount is read only. */
+    read_only?: boolean;
+    /** The name of the referenced secret, config map, or persistent data store. */
+    reference: string;
+    /** The path mounted at the mount path. */
+    sub_path?: string;
+    /** Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'. */
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
     type: VolumeMountPrototype.Constants.Type | string;
   }
   export namespace VolumeMountPrototype {
     export namespace Constants {
+<<<<<<< HEAD
       /** Specify the type of the volume mount. Allowed types are: 'config_map', 'secret'. */
       export enum Type {
         CONFIG_MAP = 'config_map',
+=======
+      /** Specify the type of the volume mount. Allowed types are: 'config_map', 'persistent_data_store', 'secret'. */
+      export enum Type {
+        CONFIG_MAP = 'config_map',
+        PERSISTENT_DATA_STORE = 'persistent_data_store',
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
         SECRET = 'secret',
       }
     }
@@ -8745,6 +10106,28 @@ namespace CodeEngineV2 {
     [propName: string]: any;
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * StorageDataObjectStorageData.
+   *
+   * This type supports additional properties of type string.
+   */
+  export interface StorageDataObjectStorageData extends StorageData {
+    /** Specify the location of the bucket. */
+    bucket_location: string;
+    /** Specify the name of the bucket. */
+    bucket_name: string;
+    /** Specify the name of the HMAC secret. */
+    secret_name: string;
+
+    /**
+     * StorageDataObjectStorageData accepts additional properties of type string.
+     */
+    [propName: string]: any;
+  }
+
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
   /*************************
    * pager classes
    ************************/
@@ -9854,6 +11237,88 @@ namespace CodeEngineV2 {
       return results;
     }
   }
+<<<<<<< HEAD
+=======
+
+  /**
+   * PersistentDataStorePager can be used to simplify the use of listPersistentDataStore().
+   */
+  export class PersistentDataStorePager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: CodeEngineV2;
+
+    protected params: CodeEngineV2.ListPersistentDataStoreParams;
+
+    /**
+     * Construct a PersistentDataStorePager object.
+     *
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listPersistentDataStore()
+     * @param {Object} params - The parameters to be passed to listPersistentDataStore()
+     * @constructor
+     * @returns {PersistentDataStorePager}
+     */
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListPersistentDataStoreParams) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listPersistentDataStore().
+     * @returns {Promise<CodeEngineV2.PersistentDataStore[]>}
+     */
+    public async getNext(): Promise<CodeEngineV2.PersistentDataStore[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listPersistentDataStore(this.params);
+      const { result } = response;
+
+      let next;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.persistent_data_stores;
+    }
+
+    /**
+     * Returns all results by invoking listPersistentDataStore() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CodeEngineV2.PersistentDataStore[]>}
+     */
+    public async getAll(): Promise<CodeEngineV2.PersistentDataStore[]> {
+      const results: PersistentDataStore[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
+  }
+>>>>>>> c6b05a7 (feat(api): Updated  to adopt Code Engine API specification changes)
 }
 
 export = CodeEngineV2;
