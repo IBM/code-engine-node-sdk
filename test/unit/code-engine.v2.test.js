@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2025-03-29',
+  version: '2025-08-27',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -338,91 +338,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getProject', () => {
-    describe('positive tests', () => {
-      function __getProjectTest() {
-        // Construct the params object for operation getProject
-        const id = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const getProjectParams = {
-          id,
-        };
-
-        const getProjectResult = codeEngineService.getProject(getProjectParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getProjectResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{id}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.id).toEqual(id);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getProjectTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getProjectTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getProjectTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const id = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getProjectParams = {
-          id,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getProject(getProjectParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getProject({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getProject();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteProject', () => {
     describe('positive tests', () => {
       function __deleteProjectTest() {
@@ -499,6 +414,91 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteProject();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getProject', () => {
+    describe('positive tests', () => {
+      function __getProjectTest() {
+        // Construct the params object for operation getProject
+        const id = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const getProjectParams = {
+          id,
+        };
+
+        const getProjectResult = codeEngineService.getProject(getProjectParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getProjectResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getProjectTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getProjectTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getProjectTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const id = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getProjectParams = {
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getProject(getProjectParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getProject({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getProject();
         } catch (e) {
           err = e;
         }
@@ -759,102 +759,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getAllowedOutboundDestination', () => {
-    describe('positive tests', () => {
-      function __getAllowedOutboundDestinationTest() {
-        // Construct the params object for operation getAllowedOutboundDestination
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-allowed-outbound-destination';
-        const getAllowedOutboundDestinationParams = {
-          projectId,
-          name,
-        };
-
-        const getAllowedOutboundDestinationResult = codeEngineService.getAllowedOutboundDestination(
-          getAllowedOutboundDestinationParams
-        );
-
-        // all methods should return a Promise
-        expectToBePromise(getAllowedOutboundDestinationResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/allowed_outbound_destinations/{name}',
-          'GET'
-        );
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getAllowedOutboundDestinationTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getAllowedOutboundDestinationTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getAllowedOutboundDestinationTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-allowed-outbound-destination';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getAllowedOutboundDestinationParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getAllowedOutboundDestination(getAllowedOutboundDestinationParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getAllowedOutboundDestination({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getAllowedOutboundDestination();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteAllowedOutboundDestination', () => {
     describe('positive tests', () => {
       function __deleteAllowedOutboundDestinationTest() {
@@ -943,6 +847,102 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteAllowedOutboundDestination();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getAllowedOutboundDestination', () => {
+    describe('positive tests', () => {
+      function __getAllowedOutboundDestinationTest() {
+        // Construct the params object for operation getAllowedOutboundDestination
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const getAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+        };
+
+        const getAllowedOutboundDestinationResult = codeEngineService.getAllowedOutboundDestination(
+          getAllowedOutboundDestinationParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getAllowedOutboundDestinationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/allowed_outbound_destinations/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getAllowedOutboundDestinationTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getAllowedOutboundDestinationTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getAllowedOutboundDestinationTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-allowed-outbound-destination';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getAllowedOutboundDestinationParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getAllowedOutboundDestination(getAllowedOutboundDestinationParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getAllowedOutboundDestination({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getAllowedOutboundDestination();
         } catch (e) {
           err = e;
         }
@@ -1334,9 +1334,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"apps":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-app.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-app.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","managed_domain_mappings":"local_public","name":"my-app","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"latest_created_revision":"my-app-00001","latest_ready_revision":"my-app-00001","reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1410,7 +1410,9 @@ describe('CodeEngineV2', () => {
       const volumeMountPrototypeModel = {
         mount_path: '/app',
         name: 'codeengine-mount-b69u90',
+        read_only: true,
         reference: 'my-secret',
+        sub_path: 'some-path',
         type: 'secret',
       };
 
@@ -1577,96 +1579,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getApp', () => {
-    describe('positive tests', () => {
-      function __getAppTest() {
-        // Construct the params object for operation getApp
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-app';
-        const getAppParams = {
-          projectId,
-          name,
-        };
-
-        const getAppResult = codeEngineService.getApp(getAppParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getAppResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/apps/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getAppTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getAppTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getAppTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-app';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getAppParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getApp(getAppParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getApp({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getApp();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteApp', () => {
     describe('positive tests', () => {
       function __deleteAppTest() {
@@ -1760,6 +1672,96 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('getApp', () => {
+    describe('positive tests', () => {
+      function __getAppTest() {
+        // Construct the params object for operation getApp
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-app';
+        const getAppParams = {
+          projectId,
+          name,
+        };
+
+        const getAppResult = codeEngineService.getApp(getAppParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getAppResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/apps/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getAppTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getAppTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getAppTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-app';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getAppParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getApp(getAppParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getApp({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getApp();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('updateApp', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1789,7 +1791,9 @@ describe('CodeEngineV2', () => {
       const volumeMountPrototypeModel = {
         mount_path: '/app',
         name: 'codeengine-mount-b69u90',
+        read_only: true,
         reference: 'my-secret',
+        sub_path: 'some-path',
         type: 'secret',
       };
 
@@ -2062,9 +2066,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/revisions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
+        '{"total_count":2,"limit":1,"revisions":[{"app_name":"my-app","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/revisions/my-app-00001","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_port":8080,"image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-app-00001","probe_liveness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"probe_readiness":{"failure_threshold":5,"initial_delay":5,"interval":5,"path":"path","port":8080,"timeout":300,"type":"tcp"},"project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_revision_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_concurrency":100,"scale_concurrency_target":80,"scale_cpu_limit":"1","scale_down_delay":300,"scale_ephemeral_storage_limit":"4G","scale_initial_instances":1,"scale_max_instances":10,"scale_memory_limit":"4G","scale_min_instances":1,"scale_request_timeout":300,"status":"ready","status_details":{"actual_instances":1,"reason":"ready"}}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2107,105 +2111,6 @@ describe('CodeEngineV2', () => {
         const allResults = await pager.getAll();
         expect(allResults).not.toBeNull();
         expect(allResults).toHaveLength(2);
-      });
-    });
-  });
-
-  describe('getAppRevision', () => {
-    describe('positive tests', () => {
-      function __getAppRevisionTest() {
-        // Construct the params object for operation getAppRevision
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const appName = 'my-app';
-        const name = 'my-app-00001';
-        const getAppRevisionParams = {
-          projectId,
-          appName,
-          name,
-        };
-
-        const getAppRevisionResult = codeEngineService.getAppRevision(getAppRevisionParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getAppRevisionResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/apps/{app_name}/revisions/{name}',
-          'GET'
-        );
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.app_name).toEqual(appName);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getAppRevisionTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getAppRevisionTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getAppRevisionTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const appName = 'my-app';
-        const name = 'my-app-00001';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getAppRevisionParams = {
-          projectId,
-          appName,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getAppRevision(getAppRevisionParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getAppRevision({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getAppRevision();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
       });
     });
   });
@@ -2301,6 +2206,105 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteAppRevision();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getAppRevision', () => {
+    describe('positive tests', () => {
+      function __getAppRevisionTest() {
+        // Construct the params object for operation getAppRevision
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const appName = 'my-app';
+        const name = 'my-app-00001';
+        const getAppRevisionParams = {
+          projectId,
+          appName,
+          name,
+        };
+
+        const getAppRevisionResult = codeEngineService.getAppRevision(getAppRevisionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getAppRevisionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/apps/{app_name}/revisions/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.app_name).toEqual(appName);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getAppRevisionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getAppRevisionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getAppRevisionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const appName = 'my-app';
+        const name = 'my-app-00001';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getAppRevisionParams = {
+          projectId,
+          appName,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getAppRevision(getAppRevisionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getAppRevision({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getAppRevision();
         } catch (e) {
           err = e;
         }
@@ -2556,9 +2560,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/jobs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
+        '{"total_count":2,"jobs":[{"build":"my-build","build_run":"my-build-run","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/jobs/my-job","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","name":"my-job","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -2621,7 +2625,9 @@ describe('CodeEngineV2', () => {
       const volumeMountPrototypeModel = {
         mount_path: '/app',
         name: 'codeengine-mount-b69u90',
+        read_only: true,
         reference: 'my-secret',
+        sub_path: 'some-path',
         type: 'secret',
       };
 
@@ -2767,96 +2773,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getJob', () => {
-    describe('positive tests', () => {
-      function __getJobTest() {
-        // Construct the params object for operation getJob
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
-        const getJobParams = {
-          projectId,
-          name,
-        };
-
-        const getJobResult = codeEngineService.getJob(getJobParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getJobResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/jobs/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getJobTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getJobTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getJobTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getJobParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getJob(getJobParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getJob({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getJob();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteJob', () => {
     describe('positive tests', () => {
       function __deleteJobTest() {
@@ -2950,6 +2866,96 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('getJob', () => {
+    describe('positive tests', () => {
+      function __getJobTest() {
+        // Construct the params object for operation getJob
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-job';
+        const getJobParams = {
+          projectId,
+          name,
+        };
+
+        const getJobResult = codeEngineService.getJob(getJobParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getJobResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/jobs/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getJobTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getJobTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getJobTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-job';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getJobParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getJob(getJobParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getJob({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getJob();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('updateJob', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2968,7 +2974,9 @@ describe('CodeEngineV2', () => {
       const volumeMountPrototypeModel = {
         mount_path: '/app',
         name: 'codeengine-mount-b69u90',
+        read_only: true,
         reference: 'my-secret',
+        sub_path: 'some-path',
         type: 'secret',
       };
 
@@ -3214,9 +3222,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/job_runs';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","reference":"my-secret","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
+        '{"job_runs":[{"computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/job_runs/my-job-run","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","image_reference":"icr.io/codeengine/helloworld","image_secret":"my-secret","job_name":"my-job","name":"my-job-run","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"job_run_v2","run_arguments":["run_arguments"],"run_as_user":1001,"run_commands":["run_commands"],"run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"run_mode":"task","run_service_account":"default","run_volume_mounts":[{"mount_path":"/app","name":"codeengine-mount-b69u90","read_only":true,"reference":"my-secret","sub_path":"some-path","type":"secret"}],"scale_array_size_variable_override":2,"scale_array_spec":"1-5,7-8,10","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_max_execution_time":7200,"scale_memory_limit":"4G","scale_retry_limit":3,"status":"failed","status_details":{"completion_time":"2022-09-22T17:40:00Z","failed":0,"failed_indices":"1,5","indices_details":{"mapKey":{"finished_at":"2024-12-23T16:30:45Z","last_failure_reason":"OOMKilled","retries":3,"started_at":"2024-12-23T16:20:30Z","status":"running"}},"pending":0,"pending_indices":"9,12-15","requested":0,"running":0,"running_indices":"10-11","start_time":"2022-09-22T17:34:00Z","succeeded":1,"succeeded_indices":"2-4,6-8","unknown":0}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -3281,7 +3289,9 @@ describe('CodeEngineV2', () => {
       const volumeMountPrototypeModel = {
         mount_path: '/app',
         name: 'codeengine-mount-b69u90',
+        read_only: true,
         reference: 'my-secret',
+        sub_path: 'some-path',
         type: 'secret',
       };
 
@@ -3431,96 +3441,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getJobRun', () => {
-    describe('positive tests', () => {
-      function __getJobRunTest() {
-        // Construct the params object for operation getJobRun
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job-run';
-        const getJobRunParams = {
-          projectId,
-          name,
-        };
-
-        const getJobRunResult = codeEngineService.getJobRun(getJobRunParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getJobRunResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/job_runs/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getJobRunTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getJobRunTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getJobRunTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-job-run';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getJobRunParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getJobRun(getJobRunParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getJobRun({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getJobRun();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteJobRun', () => {
     describe('positive tests', () => {
       function __deleteJobRunTest() {
@@ -3602,6 +3522,96 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteJobRun();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getJobRun', () => {
+    describe('positive tests', () => {
+      function __getJobRunTest() {
+        // Construct the params object for operation getJobRun
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-job-run';
+        const getJobRunParams = {
+          projectId,
+          name,
+        };
+
+        const getJobRunResult = codeEngineService.getJobRun(getJobRunParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getJobRunResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/job_runs/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getJobRunTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getJobRunTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getJobRunTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-job-run';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getJobRunParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getJobRun(getJobRunParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getJobRun({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getJobRun();
         } catch (e) {
           err = e;
         }
@@ -3961,96 +3971,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getFunction', () => {
-    describe('positive tests', () => {
-      function __getFunctionTest() {
-        // Construct the params object for operation getFunction
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-function';
-        const getFunctionParams = {
-          projectId,
-          name,
-        };
-
-        const getFunctionResult = codeEngineService.getFunction(getFunctionParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getFunctionResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getFunctionTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getFunctionTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getFunctionTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-function';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getFunctionParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getFunction(getFunctionParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getFunction({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getFunction();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteFunction', () => {
     describe('positive tests', () => {
       function __deleteFunctionTest() {
@@ -4135,6 +4055,96 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteFunction();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getFunction', () => {
+    describe('positive tests', () => {
+      function __getFunctionTest() {
+        // Construct the params object for operation getFunction
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const getFunctionParams = {
+          projectId,
+          name,
+        };
+
+        const getFunctionResult = codeEngineService.getFunction(getFunctionParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getFunctionResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/functions/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getFunctionTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getFunctionTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getFunctionTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-function';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getFunctionParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getFunction(getFunctionParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getFunction({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getFunction();
         } catch (e) {
           err = e;
         }
@@ -4541,96 +4551,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getBinding', () => {
-    describe('positive tests', () => {
-      function __getBindingTest() {
-        // Construct the params object for operation getBinding
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const id = 'a172ced-b5f21bc-71ba50c-1638604';
-        const getBindingParams = {
-          projectId,
-          id,
-        };
-
-        const getBindingResult = codeEngineService.getBinding(getBindingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getBindingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings/{id}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.id).toEqual(id);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getBindingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getBindingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getBindingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const id = 'a172ced-b5f21bc-71ba50c-1638604';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getBindingParams = {
-          projectId,
-          id,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getBinding(getBindingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getBinding({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getBinding();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteBinding', () => {
     describe('positive tests', () => {
       function __deleteBindingTest() {
@@ -4712,6 +4632,96 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteBinding();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getBinding', () => {
+    describe('positive tests', () => {
+      function __getBindingTest() {
+        // Construct the params object for operation getBinding
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const getBindingParams = {
+          projectId,
+          id,
+        };
+
+        const getBindingResult = codeEngineService.getBinding(getBindingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getBindingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/bindings/{id}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.id).toEqual(id);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getBindingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getBindingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getBindingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const id = 'a172ced-b5f21bc-71ba50c-1638604';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getBindingParams = {
+          projectId,
+          id,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getBinding(getBindingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getBinding({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getBinding();
         } catch (e) {
           err = e;
         }
@@ -5005,96 +5015,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getBuild', () => {
-    describe('positive tests', () => {
-      function __getBuildTest() {
-        // Construct the params object for operation getBuild
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-build';
-        const getBuildParams = {
-          projectId,
-          name,
-        };
-
-        const getBuildResult = codeEngineService.getBuild(getBuildParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getBuildResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/builds/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getBuildTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getBuildTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getBuildTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-build';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getBuildParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getBuild(getBuildParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getBuild({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getBuild();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteBuild', () => {
     describe('positive tests', () => {
       function __deleteBuildTest() {
@@ -5176,6 +5096,96 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteBuild();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getBuild', () => {
+    describe('positive tests', () => {
+      function __getBuildTest() {
+        // Construct the params object for operation getBuild
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-build';
+        const getBuildParams = {
+          projectId,
+          name,
+        };
+
+        const getBuildResult = codeEngineService.getBuild(getBuildParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getBuildResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/builds/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getBuildTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getBuildTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getBuildTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-build';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getBuildParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getBuild(getBuildParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getBuild({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getBuild();
         } catch (e) {
           err = e;
         }
@@ -5614,96 +5624,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getBuildRun', () => {
-    describe('positive tests', () => {
-      function __getBuildRunTest() {
-        // Construct the params object for operation getBuildRun
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-build-run';
-        const getBuildRunParams = {
-          projectId,
-          name,
-        };
-
-        const getBuildRunResult = codeEngineService.getBuildRun(getBuildRunParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getBuildRunResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/build_runs/{name}', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getBuildRunTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getBuildRunTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getBuildRunTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-build-run';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getBuildRunParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getBuildRun(getBuildRunParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getBuildRun({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getBuildRun();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteBuildRun', () => {
     describe('positive tests', () => {
       function __deleteBuildRunTest() {
@@ -5785,6 +5705,96 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteBuildRun();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getBuildRun', () => {
+    describe('positive tests', () => {
+      function __getBuildRunTest() {
+        // Construct the params object for operation getBuildRun
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-build-run';
+        const getBuildRunParams = {
+          projectId,
+          name,
+        };
+
+        const getBuildRunResult = codeEngineService.getBuildRun(getBuildRunParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getBuildRunResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/build_runs/{name}', 'GET');
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getBuildRunTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getBuildRunTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getBuildRunTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-build-run';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getBuildRunParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getBuildRun(getBuildRunParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getBuildRun({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getBuildRun();
         } catch (e) {
           err = e;
         }
@@ -6045,100 +6055,6 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('getDomainMapping', () => {
-    describe('positive tests', () => {
-      function __getDomainMappingTest() {
-        // Construct the params object for operation getDomainMapping
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const getDomainMappingParams = {
-          projectId,
-          name,
-        };
-
-        const getDomainMappingResult = codeEngineService.getDomainMapping(getDomainMappingParams);
-
-        // all methods should return a Promise
-        expectToBePromise(getDomainMappingResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/domain_mappings/{name}',
-          'GET'
-        );
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __getDomainMappingTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __getDomainMappingTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __getDomainMappingTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'www.example.com';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const getDomainMappingParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.getDomainMapping(getDomainMappingParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.getDomainMapping({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.getDomainMapping();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
   describe('deleteDomainMapping', () => {
     describe('positive tests', () => {
       function __deleteDomainMappingTest() {
@@ -6225,6 +6141,100 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.deleteDomainMapping();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getDomainMapping', () => {
+    describe('positive tests', () => {
+      function __getDomainMappingTest() {
+        // Construct the params object for operation getDomainMapping
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const getDomainMappingParams = {
+          projectId,
+          name,
+        };
+
+        const getDomainMappingResult = codeEngineService.getDomainMapping(getDomainMappingParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getDomainMappingResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/domain_mappings/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getDomainMappingTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getDomainMappingTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getDomainMappingTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'www.example.com';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getDomainMappingParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getDomainMapping(getDomainMappingParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getDomainMapping({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getDomainMapping();
         } catch (e) {
           err = e;
         }
@@ -6582,6 +6592,100 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('deleteConfigMap', () => {
+    describe('positive tests', () => {
+      function __deleteConfigMapTest() {
+        // Construct the params object for operation deleteConfigMap
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-config-map';
+        const deleteConfigMapParams = {
+          projectId,
+          name,
+        };
+
+        const deleteConfigMapResult = codeEngineService.deleteConfigMap(deleteConfigMapParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteConfigMapResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/config_maps/{name}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteConfigMapTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteConfigMapTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteConfigMapTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-config-map';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteConfigMapParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteConfigMap(deleteConfigMapParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteConfigMap({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteConfigMap();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('getConfigMap', () => {
     describe('positive tests', () => {
       function __getConfigMapTest() {
@@ -6761,100 +6865,6 @@ describe('CodeEngineV2', () => {
         let err;
         try {
           await codeEngineService.replaceConfigMap();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-
-  describe('deleteConfigMap', () => {
-    describe('positive tests', () => {
-      function __deleteConfigMapTest() {
-        // Construct the params object for operation deleteConfigMap
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-config-map';
-        const deleteConfigMapParams = {
-          projectId,
-          name,
-        };
-
-        const deleteConfigMapResult = codeEngineService.deleteConfigMap(deleteConfigMapParams);
-
-        // all methods should return a Promise
-        expectToBePromise(deleteConfigMapResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/projects/{project_id}/config_maps/{name}',
-          'DELETE'
-        );
-        const expectedAccept = undefined;
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
-        expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __deleteConfigMapTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.enableRetries();
-        __deleteConfigMapTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        codeEngineService.disableRetries();
-        __deleteConfigMapTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-config-map';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const deleteConfigMapParams = {
-          projectId,
-          name,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        codeEngineService.deleteConfigMap(deleteConfigMapParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await codeEngineService.deleteConfigMap({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await codeEngineService.deleteConfigMap();
         } catch (e) {
           err = e;
         }
@@ -7161,6 +7171,96 @@ describe('CodeEngineV2', () => {
     });
   });
 
+  describe('deleteSecret', () => {
+    describe('positive tests', () => {
+      function __deleteSecretTest() {
+        // Construct the params object for operation deleteSecret
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-secret';
+        const deleteSecretParams = {
+          projectId,
+          name,
+        };
+
+        const deleteSecretResult = codeEngineService.deleteSecret(deleteSecretParams);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteSecretResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/secrets/{name}', 'DELETE');
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deleteSecretTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deleteSecretTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deleteSecretTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-secret';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deleteSecretParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deleteSecret(deleteSecretParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteSecret({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deleteSecret();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('getSecret', () => {
     describe('positive tests', () => {
       function __getSecretTest() {
@@ -7361,67 +7461,74 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('deleteSecret', () => {
+  describe('listPersistentDataStore', () => {
     describe('positive tests', () => {
-      function __deleteSecretTest() {
-        // Construct the params object for operation deleteSecret
+      function __listPersistentDataStoreTest() {
+        // Construct the params object for operation listPersistentDataStore
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-secret';
-        const deleteSecretParams = {
+        const limit = 100;
+        const start = 'testString';
+        const listPersistentDataStoreParams = {
           projectId,
-          name,
+          limit,
+          start,
         };
 
-        const deleteSecretResult = codeEngineService.deleteSecret(deleteSecretParams);
+        const listPersistentDataStoreResult = codeEngineService.listPersistentDataStore(
+          listPersistentDataStoreParams
+        );
 
         // all methods should return a Promise
-        expectToBePromise(deleteSecretResult);
+        expectToBePromise(listPersistentDataStoreResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/projects/{project_id}/secrets/{name}', 'DELETE');
-        const expectedAccept = undefined;
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/persistent_data_stores',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.project_id).toEqual(projectId);
-        expect(mockRequestOptions.path.name).toEqual(name);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
         // baseline test
-        __deleteSecretTest();
+        __listPersistentDataStoreTest();
 
         // enable retries and test again
         createRequestMock.mockClear();
         codeEngineService.enableRetries();
-        __deleteSecretTest();
+        __listPersistentDataStoreTest();
 
         // disable retries and test again
         createRequestMock.mockClear();
         codeEngineService.disableRetries();
-        __deleteSecretTest();
+        __listPersistentDataStoreTest();
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
-        const name = 'my-secret';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const deleteSecretParams = {
+        const listPersistentDataStoreParams = {
           projectId,
-          name,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
           },
         };
 
-        codeEngineService.deleteSecret(deleteSecretParams);
+        codeEngineService.listPersistentDataStore(listPersistentDataStoreParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -7430,7 +7537,7 @@ describe('CodeEngineV2', () => {
       test('should enforce required parameters', async () => {
         let err;
         try {
-          await codeEngineService.deleteSecret({});
+          await codeEngineService.listPersistentDataStore({});
         } catch (e) {
           err = e;
         }
@@ -7441,7 +7548,363 @@ describe('CodeEngineV2', () => {
       test('should reject promise when required params are not given', async () => {
         let err;
         try {
-          await codeEngineService.deleteSecret();
+          await codeEngineService.listPersistentDataStore();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('PersistentDataStorePager tests', () => {
+      const serviceUrl = codeEngineServiceOptions.url;
+      const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+      const mockPagerResponse2 =
+        '{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const allResults = [];
+        const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+          limit: 100,
+        };
+        const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
+  });
+
+  describe('createPersistentDataStore', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // StorageDataObjectStorageData
+      const storageDataModel = {
+        bucket_location: 'testString',
+        bucket_name: 'testString',
+        secret_name: 'testString',
+        foo: 'testString',
+      };
+
+      function __createPersistentDataStoreTest() {
+        // Construct the params object for operation createPersistentDataStore
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const storageType = 'object_storage';
+        const data = storageDataModel;
+        const createPersistentDataStoreParams = {
+          projectId,
+          name,
+          storageType,
+          data,
+        };
+
+        const createPersistentDataStoreResult = codeEngineService.createPersistentDataStore(
+          createPersistentDataStoreParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(createPersistentDataStoreResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/persistent_data_stores',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.storage_type).toEqual(storageType);
+        expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createPersistentDataStoreTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __createPersistentDataStoreTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __createPersistentDataStoreTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const storageType = 'object_storage';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createPersistentDataStoreParams = {
+          projectId,
+          name,
+          storageType,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.createPersistentDataStore(createPersistentDataStoreParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.createPersistentDataStore({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.createPersistentDataStore();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('deletePersistentDataStore', () => {
+    describe('positive tests', () => {
+      function __deletePersistentDataStoreTest() {
+        // Construct the params object for operation deletePersistentDataStore
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const deletePersistentDataStoreParams = {
+          projectId,
+          name,
+        };
+
+        const deletePersistentDataStoreResult = codeEngineService.deletePersistentDataStore(
+          deletePersistentDataStoreParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(deletePersistentDataStoreResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/persistent_data_stores/{name}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __deletePersistentDataStoreTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __deletePersistentDataStoreTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __deletePersistentDataStoreTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const deletePersistentDataStoreParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.deletePersistentDataStore(deletePersistentDataStoreParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.deletePersistentDataStore({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.deletePersistentDataStore();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getPersistentDataStore', () => {
+    describe('positive tests', () => {
+      function __getPersistentDataStoreTest() {
+        // Construct the params object for operation getPersistentDataStore
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const getPersistentDataStoreParams = {
+          projectId,
+          name,
+        };
+
+        const getPersistentDataStoreResult = codeEngineService.getPersistentDataStore(
+          getPersistentDataStoreParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getPersistentDataStoreResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/projects/{project_id}/persistent_data_stores/{name}',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.version).toEqual(codeEngineServiceOptions.version);
+        expect(mockRequestOptions.path.project_id).toEqual(projectId);
+        expect(mockRequestOptions.path.name).toEqual(name);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getPersistentDataStoreTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.enableRetries();
+        __getPersistentDataStoreTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        codeEngineService.disableRetries();
+        __getPersistentDataStoreTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
+        const name = 'my-persistent-data-store';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getPersistentDataStoreParams = {
+          projectId,
+          name,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        codeEngineService.getPersistentDataStore(getPersistentDataStoreParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await codeEngineService.getPersistentDataStore({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await codeEngineService.getPersistentDataStore();
         } catch (e) {
           err = e;
         }
