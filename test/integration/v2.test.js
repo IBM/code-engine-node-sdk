@@ -1231,10 +1231,10 @@ describe('CodeEngineV2_integration', () => {
     const params = {
       projectId: e2eTestProjectId,
       format: 'hmac_auth',
-      name: 'my-ha-secret',
+      name: 'ce-api-int-test-hmac-secret',
       data: {
-        'access_key_id': 'access-key-id',
-        'secret_access_key': 'secret-access-key',
+        'access_key_id': process.env.COS_ACCESS_KEY_ID,
+        'secret_access_key': process.env.COS_SECRET_ACCESS_KEY,
       },
     };
 
@@ -1247,28 +1247,10 @@ describe('CodeEngineV2_integration', () => {
   test('getHMACAuthSecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,
-      name: 'my-ha-secret',
+      name: 'ce-api-int-test-hmac-secret',
     };
 
     const res = await codeEngineService.getSecret(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-  });
-
-  test('replaceHMACAuthSecret()', async () => {
-    const params = {
-      projectId: e2eTestProjectId,
-      name: 'my-ha-secret',
-      ifMatch: '*',
-      data: {
-        'access_key_id': 'access-key-id-2',
-        'secret_access_key': 'secret-access-key-2',
-      },
-      format: 'hmac_auth',
-    };
-
-    const res = await codeEngineService.replaceSecret(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
@@ -1339,6 +1321,102 @@ describe('CodeEngineV2_integration', () => {
     const res = await codeEngineService.createSecret(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('listPersistentDataStore()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const res = await codeEngineService.listPersistentDataStore(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('listPersistentDataStore() via PersistentDataStorePager', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      limit: 100,
+    };
+
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
+  });
+
+  test('createPersistentDataStore()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-persistent-data-store',
+      storageType: 'object_storage',
+      data: {
+        'bucket_location': 'eu-de',
+        'bucket_name': 'e2e-api-bucket-eu-de',
+        'secret_name': 'ce-api-int-test-hmac-secret',
+      },
+    };
+
+    const res = await codeEngineService.createPersistentDataStore(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
+  test('getPersistentDataStore()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-persistent-data-store',
+    };
+
+    const res = await codeEngineService.getPersistentDataStore(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deletePersistentDataStore()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'my-persistent-data-store',
+    };
+
+    const res = await codeEngineService.deletePersistentDataStore(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+
+  test('replaceHMACAuthSecret()', async () => {
+    const params = {
+      projectId: e2eTestProjectId,
+      name: 'ce-api-int-test-hmac-secret',
+      ifMatch: '*',
+      data: {
+        'access_key_id': 'access-key-id-2',
+        'secret_access_key': 'secret-access-key-2',
+      },
+      format: 'hmac_auth',
+    };
+
+    const res = await codeEngineService.replaceSecret(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
 
@@ -1671,7 +1749,7 @@ describe('CodeEngineV2_integration', () => {
   test('deleteHMACAuthSecret()', async () => {
     const params = {
       projectId: e2eTestProjectId,
-      name: 'my-ha-secret',
+      name: 'ce-api-int-test-hmac-secret',
     };
 
     const res = await codeEngineService.deleteSecret(params);
