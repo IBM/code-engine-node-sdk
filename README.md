@@ -4,7 +4,9 @@
 [![npm-version](https://img.shields.io/npm/v/IBM/code-engine-node-sdk.svg)](https://www.npmjs.com/package/code-engine-sdk)
 [![codecov](https://codecov.io/gh/IBM/code-engine-node-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/IBM/code-engine-node-sdk)
 -->
+
 # NodeJS SDK for IBM Cloud Code Engine
+
 Node.js client library to interact with the [Code Engine API](https://cloud.ibm.com/apidocs/codeengine).
 
 ## Table of Contents
@@ -23,6 +25,7 @@ Node.js client library to interact with the [Code Engine API](https://cloud.ibm.
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
+- [Breaking Changes (March 2026)](#breaking-changes-march-2026)
 - [Installation](#installation)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
@@ -46,6 +49,94 @@ Service Name | Import Path
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
 * **Node.js >=14**: This SDK is tested with Node.js versions 14 and up. It may work on previous versions but this is not officially supported.
+
+## Breaking Changes (March 2026)
+
+For consistency, the March 2026 update introduces **pluralized list APIs**, **new outbound destination types**, and updated **constructor/patch models**. These changes require updates to existing client code.
+
+- **Method renames (pluralization)**
+    Update all list calls:
+
+    ```javascript
+    // before
+    const response = await codeEngineService.listAllowedOutboundDestination(params);
+
+    // after
+    const response = await codeEngineService.listAllowedOutboundDestinations(params);
+    ```
+
+    ```javascript
+    // before
+    const response = await codeEngineService.listPersistentDataStore(params);
+
+    // after
+    const response = await codeEngineService.listPersistentDataStores(params);
+    ```
+
+- **Pager class renames**
+    Switch to the new pager names:
+
+    ```javascript
+    // before
+    const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+
+    // after
+    const pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
+    ```
+
+    ```javascript
+    // before
+    const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+
+    // after
+    const pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
+    ```
+
+- **Allowed outbound destination patch payloads changed**
+    Do **not** send `type` in patch payloads anymore. Use the specific fields instead:
+
+    ```javascript
+    // before
+    const patch = {
+      type: 'cidr_block',
+      cidr_block: '10.0.1.0/24',
+    };
+
+    // after (remove type field)
+    const patch = {
+      cidr_block: '10.0.1.0/24',
+    };
+    ```
+
+- **Allowed outbound destination prototypes now require `name`**
+    The `name` field is now required when creating allowed outbound destinations. Ensure you set it for all create flows:
+
+    ```javascript
+    const prototype = {
+      type: 'cidr_block',
+      name: 'allow-all',  // now required
+      cidr_block: '10.0.0.0/24',
+    };
+    ```
+
+    For Private Path service gateway (new type):
+
+    ```javascript
+    const prototype = {
+      type: 'private_path_service_gateway',
+      name: 'pps-to-service-x',
+      private_path_service_gateway_crn: '<private-path-service-gateway-crn>',
+      isolation_policy: 'shared',  // optional: 'shared' or 'dedicated'
+    };
+    ```
+
+> **Action checklist:**
+>
+> - [ ] Rename the list methods and pager classes as shown above.
+> - [ ] Adjust parameter order for CIDR block prototypes (name before cidr_block).
+> - [ ] Remove `type` from allowed-outbound-destination patch payloads.
+> - [ ] Ensure `name` is provided when creating allowed outbound destinations.
+> - [ ] Include the new `private_path_service_gateway` type in any client-side branching/validation.
 
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 

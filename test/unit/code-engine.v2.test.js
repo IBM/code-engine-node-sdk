@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2025-08-27',
+  version: '2026-02-23',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -508,24 +508,24 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('listAllowedOutboundDestination', () => {
+  describe('listAllowedOutboundDestinations', () => {
     describe('positive tests', () => {
-      function __listAllowedOutboundDestinationTest() {
-        // Construct the params object for operation listAllowedOutboundDestination
+      function __listAllowedOutboundDestinationsTest() {
+        // Construct the params object for operation listAllowedOutboundDestinations
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const limit = 100;
         const start = 'testString';
-        const listAllowedOutboundDestinationParams = {
+        const listAllowedOutboundDestinationsParams = {
           projectId,
           limit,
           start,
         };
 
-        const listAllowedOutboundDestinationResult =
-          codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationParams);
+        const listAllowedOutboundDestinationsResult =
+          codeEngineService.listAllowedOutboundDestinations(listAllowedOutboundDestinationsParams);
 
         // all methods should return a Promise
-        expectToBePromise(listAllowedOutboundDestinationResult);
+        expectToBePromise(listAllowedOutboundDestinationsResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -547,17 +547,17 @@ describe('CodeEngineV2', () => {
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
         // baseline test
-        __listAllowedOutboundDestinationTest();
+        __listAllowedOutboundDestinationsTest();
 
         // enable retries and test again
         createRequestMock.mockClear();
         codeEngineService.enableRetries();
-        __listAllowedOutboundDestinationTest();
+        __listAllowedOutboundDestinationsTest();
 
         // disable retries and test again
         createRequestMock.mockClear();
         codeEngineService.disableRetries();
-        __listAllowedOutboundDestinationTest();
+        __listAllowedOutboundDestinationsTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -565,7 +565,7 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const listAllowedOutboundDestinationParams = {
+        const listAllowedOutboundDestinationsParams = {
           projectId,
           headers: {
             Accept: userAccept,
@@ -573,7 +573,7 @@ describe('CodeEngineV2', () => {
           },
         };
 
-        codeEngineService.listAllowedOutboundDestination(listAllowedOutboundDestinationParams);
+        codeEngineService.listAllowedOutboundDestinations(listAllowedOutboundDestinationsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -582,7 +582,7 @@ describe('CodeEngineV2', () => {
       test('should enforce required parameters', async () => {
         let err;
         try {
-          await codeEngineService.listAllowedOutboundDestination({});
+          await codeEngineService.listAllowedOutboundDestinations({});
         } catch (e) {
           err = e;
         }
@@ -593,7 +593,7 @@ describe('CodeEngineV2', () => {
       test('should reject promise when required params are not given', async () => {
         let err;
         try {
-          await codeEngineService.listAllowedOutboundDestination();
+          await codeEngineService.listAllowedOutboundDestinations();
         } catch (e) {
           err = e;
         }
@@ -602,13 +602,13 @@ describe('CodeEngineV2', () => {
       });
     });
 
-    describe('AllowedOutboundDestinationPager tests', () => {
+    describe('AllowedOutboundDestinationsPager tests', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/allowed_outbound_destinations';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"cidr_block","name":"name"}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"allowed_outbound_destinations":[{"entity_tag":"2385407409","name":"allow-all","status":"ready","status_details":{"endpoint_gateway":{"account_id":"account_id","created_at":"2025-09-13T11:41:35+02:00","ips":["ips"],"name":"my-endpoint-gateway"},"private_path_service_gateway":{"id":"r006-7268d425-59b7-48fd-9735-81a7271657d5","name":"my-private-path-service-gateway","service_endpoints":["service_endpoints"]},"reason":"ready"},"type":"cidr_block","cidr_block":"cidr_block"}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"allowed_outbound_destinations":[{"entity_tag":"2385407409","type":"cidr_block","cidr_block":"cidr_block","name":"name"}],"total_count":2,"limit":1}';
+        '{"allowed_outbound_destinations":[{"entity_tag":"2385407409","name":"allow-all","status":"ready","status_details":{"endpoint_gateway":{"account_id":"account_id","created_at":"2025-09-13T11:41:35+02:00","ips":["ips"],"name":"my-endpoint-gateway"},"private_path_service_gateway":{"id":"r006-7268d425-59b7-48fd-9735-81a7271657d5","name":"my-private-path-service-gateway","service_endpoints":["service_endpoints"]},"reason":"ready"},"type":"cidr_block","cidr_block":"cidr_block"}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -630,7 +630,7 @@ describe('CodeEngineV2', () => {
           limit: 100,
         };
         const allResults = [];
-        const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+        const pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
         while (pager.hasNext()) {
           const nextPage = await pager.getNext();
           expect(nextPage).not.toBeNull();
@@ -645,7 +645,7 @@ describe('CodeEngineV2', () => {
           projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
           limit: 100,
         };
-        const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+        const pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
         const allResults = await pager.getAll();
         expect(allResults).not.toBeNull();
         expect(allResults).toHaveLength(2);
@@ -660,8 +660,8 @@ describe('CodeEngineV2', () => {
       // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
       const allowedOutboundDestinationPrototypeModel = {
         type: 'cidr_block',
+        name: 'allow-all',
         cidr_block: 'testString',
-        name: 'testString',
       };
 
       function __createAllowedOutboundDestinationTest() {
@@ -958,7 +958,6 @@ describe('CodeEngineV2', () => {
 
       // AllowedOutboundDestinationPatchCidrBlockDataPatch
       const allowedOutboundDestinationPatchModel = {
-        type: 'cidr_block',
         cidr_block: 'testString',
       };
 
@@ -2417,9 +2416,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/apps/my-app/instances';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":100,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
+        '{"instances":[{"app_name":"my-app","created_at":"2022-09-13T11:41:35+02:00","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/apps/my-app/instances","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-app-00001-deployment-6c9b5cf966-wjs44","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"app_instance_v2","revision_name":"my-app","scale_cpu_limit":"1","scale_ephemeral_storage_limit":"4G","scale_memory_limit":"4G","status":"pending","status_details":{"restarts":4,"system_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}},"user_container":{"current_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"},"last_observed_state":{"completed_at":"2022-09-22T17:40:00Z","container_status":"running","exit_code":0,"reason":"some_error_reason","started_at":"2022-09-22T17:34:00Z"}}}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -7461,25 +7460,25 @@ describe('CodeEngineV2', () => {
     });
   });
 
-  describe('listPersistentDataStore', () => {
+  describe('listPersistentDataStores', () => {
     describe('positive tests', () => {
-      function __listPersistentDataStoreTest() {
-        // Construct the params object for operation listPersistentDataStore
+      function __listPersistentDataStoresTest() {
+        // Construct the params object for operation listPersistentDataStores
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const limit = 100;
         const start = 'testString';
-        const listPersistentDataStoreParams = {
+        const listPersistentDataStoresParams = {
           projectId,
           limit,
           start,
         };
 
-        const listPersistentDataStoreResult = codeEngineService.listPersistentDataStore(
-          listPersistentDataStoreParams
+        const listPersistentDataStoresResult = codeEngineService.listPersistentDataStores(
+          listPersistentDataStoresParams
         );
 
         // all methods should return a Promise
-        expectToBePromise(listPersistentDataStoreResult);
+        expectToBePromise(listPersistentDataStoresResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -7502,17 +7501,17 @@ describe('CodeEngineV2', () => {
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
         // baseline test
-        __listPersistentDataStoreTest();
+        __listPersistentDataStoresTest();
 
         // enable retries and test again
         createRequestMock.mockClear();
         codeEngineService.enableRetries();
-        __listPersistentDataStoreTest();
+        __listPersistentDataStoresTest();
 
         // disable retries and test again
         createRequestMock.mockClear();
         codeEngineService.disableRetries();
-        __listPersistentDataStoreTest();
+        __listPersistentDataStoresTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -7520,7 +7519,7 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const listPersistentDataStoreParams = {
+        const listPersistentDataStoresParams = {
           projectId,
           headers: {
             Accept: userAccept,
@@ -7528,7 +7527,7 @@ describe('CodeEngineV2', () => {
           },
         };
 
-        codeEngineService.listPersistentDataStore(listPersistentDataStoreParams);
+        codeEngineService.listPersistentDataStores(listPersistentDataStoresParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -7537,7 +7536,7 @@ describe('CodeEngineV2', () => {
       test('should enforce required parameters', async () => {
         let err;
         try {
-          await codeEngineService.listPersistentDataStore({});
+          await codeEngineService.listPersistentDataStores({});
         } catch (e) {
           err = e;
         }
@@ -7548,7 +7547,7 @@ describe('CodeEngineV2', () => {
       test('should reject promise when required params are not given', async () => {
         let err;
         try {
-          await codeEngineService.listPersistentDataStore();
+          await codeEngineService.listPersistentDataStores();
         } catch (e) {
           err = e;
         }
@@ -7557,13 +7556,13 @@ describe('CodeEngineV2', () => {
       });
     });
 
-    describe('PersistentDataStorePager tests', () => {
+    describe('PersistentDataStoresPager tests', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"au-syd","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+        '{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"au-syd","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","storage_type":"object_storage"}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -7585,7 +7584,7 @@ describe('CodeEngineV2', () => {
           limit: 100,
         };
         const allResults = [];
-        const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+        const pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
         while (pager.hasNext()) {
           const nextPage = await pager.getNext();
           expect(nextPage).not.toBeNull();
@@ -7600,7 +7599,7 @@ describe('CodeEngineV2', () => {
           projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
           limit: 100,
         };
-        const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+        const pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
         const allResults = await pager.getAll();
         expect(allResults).not.toBeNull();
         expect(allResults).toHaveLength(2);
@@ -7614,7 +7613,7 @@ describe('CodeEngineV2', () => {
 
       // StorageDataObjectStorageData
       const storageDataModel = {
-        bucket_location: 'testString',
+        bucket_location: 'au-syd',
         bucket_name: 'testString',
         secret_name: 'testString',
         foo: 'testString',

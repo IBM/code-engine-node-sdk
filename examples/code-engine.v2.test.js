@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2025-08-27',
+      version: '2026-02-23',
     });
 
     // end-common
@@ -157,7 +157,7 @@ describe('CodeEngineV2', () => {
     // end-get_project
   });
 
-  test('listAllowedOutboundDestination request example', async () => {
+  test('listAllowedOutboundDestinations request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -167,8 +167,8 @@ describe('CodeEngineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    originalLog('listAllowedOutboundDestination() result:');
-    // begin-list_allowed_outbound_destination
+    originalLog('listAllowedOutboundDestinations() result:');
+    // begin-list_allowed_outbound_destinations
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
@@ -177,7 +177,7 @@ describe('CodeEngineV2', () => {
 
     const allResults = [];
     try {
-      const pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+      const pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
         expect(nextPage).not.toBeNull();
@@ -188,7 +188,7 @@ describe('CodeEngineV2', () => {
       console.warn(err);
     }
 
-    // end-list_allowed_outbound_destination
+    // end-list_allowed_outbound_destinations
   });
 
   test('createAllowedOutboundDestination request example', async () => {
@@ -209,8 +209,8 @@ describe('CodeEngineV2', () => {
     // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
     const allowedOutboundDestinationPrototypeModel = {
       type: 'cidr_block',
+      name: 'allow-all',
       cidr_block: 'testString',
-      name: 'testString',
     };
 
     const params = {
@@ -1634,7 +1634,7 @@ describe('CodeEngineV2', () => {
     // end-replace_secret
   });
 
-  test('listPersistentDataStore request example', async () => {
+  test('listPersistentDataStores request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -1644,8 +1644,8 @@ describe('CodeEngineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    originalLog('listPersistentDataStore() result:');
-    // begin-list_persistent_data_store
+    originalLog('listPersistentDataStores() result:');
+    // begin-list_persistent_data_stores
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
@@ -1654,7 +1654,7 @@ describe('CodeEngineV2', () => {
 
     const allResults = [];
     try {
-      const pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+      const pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
         expect(nextPage).not.toBeNull();
@@ -1665,7 +1665,7 @@ describe('CodeEngineV2', () => {
       console.warn(err);
     }
 
-    // end-list_persistent_data_store
+    // end-list_persistent_data_stores
   });
 
   test('createPersistentDataStore request example', async () => {

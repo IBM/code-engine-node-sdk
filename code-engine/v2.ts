@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2025-08-27`.
+   *  `2021-03-31` and `2026-02-23`.
    */
   version?: string;
 
@@ -85,7 +85,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2025-08-27`.
+   * specify any date between `2021-03-31` and `2026-02-23`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -352,8 +352,8 @@ class CodeEngineV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestinationList>>}
    */
-  public listAllowedOutboundDestination(
-    params: CodeEngineV2.ListAllowedOutboundDestinationParams
+  public listAllowedOutboundDestinations(
+    params: CodeEngineV2.ListAllowedOutboundDestinationsParams
   ): Promise<CodeEngineV2.Response<CodeEngineV2.AllowedOutboundDestinationList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
@@ -375,7 +375,7 @@ class CodeEngineV2 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       CodeEngineV2.DEFAULT_SERVICE_NAME,
       'v2',
-      'listAllowedOutboundDestination'
+      'listAllowedOutboundDestinations'
     );
 
     const parameters = {
@@ -2942,7 +2942,7 @@ class CodeEngineV2 extends BaseService {
    *
    * Create a binding. Creating a service binding with a Code Engine app will update the app, creating a new revision.
    * For more information see the
-   * [documentaion](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
+   * [documentation](https://cloud.ibm.com/docs/codeengine?topic=codeengine-service-binding).
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
@@ -3015,7 +3015,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.id - The id of your binding.
+   * @param {string} params.id - The ID of the binding.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.EmptyObject>>}
    */
@@ -3066,7 +3066,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.projectId - The ID of the project.
-   * @param {string} params.id - The id of your binding.
+   * @param {string} params.id - The ID of the binding.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.Binding>>}
    */
@@ -3628,8 +3628,7 @@ class CodeEngineV2 extends BaseService {
    * the secret is granted with push permissions towards the specified container registry namespace.
    * @param {BuildParamPrototype[]} [params.runBuildParams] - Optional references to config maps and secret keys, or
    * literal values that are exposed as build arguments within the Docker file.
-   * @param {string} [params.serviceAccount] - Optional service account, which is used for resource control.” or
-   * “Optional service account that is used for resource control.
+   * @param {string} [params.serviceAccount] - Optional service account, which is used for resource control.
    * @param {string} [params.sourceContextDir] - Optional directory in the repository that contains the buildpacks file
    * or the Dockerfile.
    * @param {string} [params.sourceRevision] - Commit, tag, or branch in the source repository to pull. This field is
@@ -4863,8 +4862,8 @@ class CodeEngineV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStoreList>>}
    */
-  public listPersistentDataStore(
-    params: CodeEngineV2.ListPersistentDataStoreParams
+  public listPersistentDataStores(
+    params: CodeEngineV2.ListPersistentDataStoresParams
   ): Promise<CodeEngineV2.Response<CodeEngineV2.PersistentDataStoreList>> {
     const _params = { ...params };
     const _requiredParams = ['projectId'];
@@ -4887,7 +4886,7 @@ class CodeEngineV2 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       CodeEngineV2.DEFAULT_SERVICE_NAME,
       'v2',
-      'listPersistentDataStore'
+      'listPersistentDataStores'
     );
 
     const parameters = {
@@ -5118,7 +5117,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2025-08-27`.
+     *  `2021-03-31` and `2026-02-23`.
      */
     version?: string;
   }
@@ -5189,8 +5188,8 @@ namespace CodeEngineV2 {
     id: string;
   }
 
-  /** Parameters for the `listAllowedOutboundDestination` operation. */
-  export interface ListAllowedOutboundDestinationParams extends DefaultParams {
+  /** Parameters for the `listAllowedOutboundDestinations` operation. */
+  export interface ListAllowedOutboundDestinationsParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of allowed outbound destinations per page. */
@@ -6112,7 +6111,7 @@ namespace CodeEngineV2 {
   export interface DeleteBindingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
-    /** The id of your binding. */
+    /** The ID of the binding. */
     id: string;
   }
 
@@ -6120,7 +6119,7 @@ namespace CodeEngineV2 {
   export interface GetBindingParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
-    /** The id of your binding. */
+    /** The ID of the binding. */
     id: string;
   }
 
@@ -6348,9 +6347,7 @@ namespace CodeEngineV2 {
      *  within the Docker file.
      */
     runBuildParams?: BuildParamPrototype[];
-    /** Optional service account, which is used for resource control.” or “Optional service account that is used for
-     *  resource control.
-     */
+    /** Optional service account, which is used for resource control. */
     serviceAccount?: CreateBuildRunConstants.ServiceAccount | string;
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     sourceContextDir?: string;
@@ -6392,7 +6389,7 @@ namespace CodeEngineV2 {
 
   /** Constants for the `createBuildRun` operation. */
   export namespace CreateBuildRunConstants {
-    /** Optional service account, which is used for resource control.” or “Optional service account that is used for resource control. */
+    /** Optional service account, which is used for resource control. */
     export enum ServiceAccount {
       DEFAULT = 'default',
       MANAGER = 'manager',
@@ -6671,8 +6668,8 @@ namespace CodeEngineV2 {
     }
   }
 
-  /** Parameters for the `listPersistentDataStore` operation. */
-  export interface ListPersistentDataStoreParams extends DefaultParams {
+  /** Parameters for the `listPersistentDataStores` operation. */
+  export interface ListPersistentDataStoresParams extends DefaultParams {
     /** The ID of the project. */
     projectId: string;
     /** Optional maximum number of persistent data stores per page. */
@@ -6732,15 +6729,29 @@ namespace CodeEngineV2 {
    */
   export interface AllowedOutboundDestination {
     /** The version of the allowed outbound destination, which is used to achieve optimistic locking. */
-    entity_tag: string;
-    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+    entity_tag?: string;
+    /** The name of the allowed outbound destination. */
+    name?: string;
+    /** The current status of the outbound destination. */
+    status?: AllowedOutboundDestination.Constants.Status | string;
+    status_details?: AllowedOutboundStatusDetails;
+    /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+     *  `private_path_service_gateway`.
+     */
     type: AllowedOutboundDestination.Constants.Type | string;
   }
   export namespace AllowedOutboundDestination {
     export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      /** The current status of the outbound destination. */
+      export enum Status {
+        READY = 'ready',
+        FAILED = 'failed',
+        DEPLOYING = 'deploying',
+      }
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
       export enum Type {
         CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
       }
     }
   }
@@ -6760,36 +6771,35 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * AllowedOutboundDestinationPatch is the request model for allowed outbound destination update operations.
+   * The request model for allowed outbound destination update operations.
    */
-  export interface AllowedOutboundDestinationPatch {
-    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
-    type?: AllowedOutboundDestinationPatch.Constants.Type | string;
-  }
-  export namespace AllowedOutboundDestinationPatch {
-    export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
-      export enum Type {
-        CIDR_BLOCK = 'cidr_block',
-      }
-    }
-  }
+  export interface AllowedOutboundDestinationPatch {}
 
   /**
    * AllowedOutboundDestinationPrototype is the request model for allowed outbound destination create operations.
    */
   export interface AllowedOutboundDestinationPrototype {
-    /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+    /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and
+     *  `private_path_service_gateway`.
+     */
     type: AllowedOutboundDestinationPrototype.Constants.Type | string;
+    /** The name of the allowed outbound destination. */
+    name: string;
   }
   export namespace AllowedOutboundDestinationPrototype {
     export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
       export enum Type {
         CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
       }
     }
   }
+
+  /**
+   * AllowedOutboundStatusDetails.
+   */
+  export interface AllowedOutboundStatusDetails {}
 
   /**
    * App is the response model for app resources.
@@ -6802,7 +6812,7 @@ namespace CodeEngineV2 {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the application.
      */
-    computed_env_variables?: EnvVar[];
+    computed_env_variables: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** Optional URL to invoke the app. Depending on visibility,  this is accessible publicly or in the private
@@ -6871,7 +6881,7 @@ namespace CodeEngineV2 {
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
      *  `manager` , `none`, `reader`, and `writer`.
      */
-    run_service_account?: App.Constants.RunServiceAccount | string;
+    run_service_account: App.Constants.RunServiceAccount | string;
     /** Mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Optional maximum number of requests that can be processed concurrently per instance. */
@@ -7060,7 +7070,7 @@ namespace CodeEngineV2 {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the application.
      */
-    computed_env_variables?: EnvVar[];
+    computed_env_variables: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new revision,  a URL is created identifying the location of the instance. */
@@ -7116,7 +7126,7 @@ namespace CodeEngineV2 {
     /** Optional name of the service account. For built-in service accounts, you can use the shortened names
      *  `manager` , `none`, `reader`, and `writer`.
      */
-    run_service_account?: AppRevision.Constants.RunServiceAccount | string;
+    run_service_account: AppRevision.Constants.RunServiceAccount | string;
     /** Mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Optional maximum number of requests that can be processed concurrently per instance. */
@@ -7335,7 +7345,7 @@ namespace CodeEngineV2 {
     /** References to config maps and secret keys, or literal values, which are defined by the build owner and are
      *  exposed as build arguments in Docker files.
      */
-    run_build_params?: BuildParam[];
+    run_build_params: BuildParam[];
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     source_context_dir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -7509,11 +7519,9 @@ namespace CodeEngineV2 {
     /** References to config maps and secret keys, or literal values, which are defined by the build owner and are
      *  exposed as build arguments in Docker files.
      */
-    run_build_params?: BuildParam[];
-    /** Optional service account, which is used for resource control.” or “Optional service account that is used for
-     *  resource control.
-     */
-    service_account?: BuildRun.Constants.ServiceAccount | string;
+    run_build_params: BuildParam[];
+    /** Optional service account, which is used for resource control. */
+    service_account: BuildRun.Constants.ServiceAccount | string;
     /** Optional directory in the repository that contains the buildpacks file or the Dockerfile. */
     source_context_dir?: string;
     /** Commit, tag, or branch in the source repository to pull. This field is optional if the `source_type` is
@@ -7532,7 +7540,7 @@ namespace CodeEngineV2 {
      *  * local - For builds from local source code.
      *  * git - For builds from git version controlled source code.
      */
-    source_type?: BuildRun.Constants.SourceType | string;
+    source_type: BuildRun.Constants.SourceType | string;
     /** The URL of the code repository. This field is required if the `source_type` is `git`. If the `source_type`
      *  value is `local`, this field must be omitted. If the repository is publicly available you can provide a 'https'
      *  URL like `https://github.com/IBM/CodeEngine`. If the repository requires authentication, you need to provide a
@@ -7547,11 +7555,11 @@ namespace CodeEngineV2 {
     /** Optional size for the build, which determines the amount of resources used. Build sizes are `small`,
      *  `medium`, `large`, `xlarge`, `xxlarge`.
      */
-    strategy_size?: BuildRun.Constants.StrategySize | string;
+    strategy_size: BuildRun.Constants.StrategySize | string;
     /** Optional path to the specification file that is used for build strategies for building an image. */
     strategy_spec_file?: string;
     /** The strategy to use for building the image. */
-    strategy_type?: BuildRun.Constants.StrategyType | string;
+    strategy_type: BuildRun.Constants.StrategyType | string;
     /** The maximum amount of time, in seconds, that can pass before the build must succeed or fail. */
     timeout?: number;
   }
@@ -7561,7 +7569,7 @@ namespace CodeEngineV2 {
       export enum ResourceType {
         BUILD_RUN_V2 = 'build_run_v2',
       }
-      /** Optional service account, which is used for resource control.” or “Optional service account that is used for resource control. */
+      /** Optional service account, which is used for resource control. */
       export enum ServiceAccount {
         DEFAULT = 'default',
         MANAGER = 'manager',
@@ -7684,7 +7692,7 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * Describes the model of a CBR status of a project.
+   * Status of the Context-based-restriction configuration applicable for this project.
    */
   export interface CbrStatus {
     /** Describes the model of the enforcement status of a CBR status. */
@@ -7884,15 +7892,32 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private path
+   * service gateway.
+   */
+  export interface EndpointGatewayDetails {
+    /** The account that created the endpoint gateway. */
+    account_id?: string;
+    /** The timestamp when the endpoint gateway was created. */
+    created_at?: string;
+    /** The reserved IPs bound to this endpoint gateway. */
+    ips?: string[];
+    /** The name for this endpoint gateway. The name is unique across all endpoint gateways in the VPC. */
+    name?: string;
+  }
+
+  /**
    * Describes the model of the enforcement status of a CBR status.
    */
   export interface EnforcementStatus {
+    /** Detailed information on the condition of the CBR enforcement. */
     enforcement: EnforcementStatus.Constants.Enforcement | string;
+    /** Date time information specifying when the last synchronization happened. */
     last_synced_at?: string;
   }
   export namespace EnforcementStatus {
     export namespace Constants {
-      /** Enforcement */
+      /** Detailed information on the condition of the CBR enforcement. */
       export enum Enforcement {
         APPLIED = 'applied',
         OUT_OF_SYNC = 'out_of_sync',
@@ -7984,7 +8009,7 @@ namespace CodeEngineV2 {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the function.
      */
-    computed_env_variables?: EnvVar[];
+    computed_env_variables: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** URL to invoke the function. */
@@ -8101,7 +8126,7 @@ namespace CodeEngineV2 {
    */
   export interface FunctionRuntimeList {
     /** List of all Function runtimes. */
-    function_runtimes?: FunctionRuntime[];
+    function_runtimes: FunctionRuntime[];
   }
 
   /**
@@ -8168,7 +8193,7 @@ namespace CodeEngineV2 {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the job run.
      */
-    computed_env_variables?: EnvVar[];
+    computed_env_variables: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** The version of the job instance, which is used to achieve optimistic locking. */
@@ -8223,7 +8248,7 @@ namespace CodeEngineV2 {
     /** The name of the service account. For built-in service accounts, you can use the shortened names `manager`,
      *  `none`, `reader`, and `writer`. This property must not be set on a job run, which references a job template.
      */
-    run_service_account?: Job.Constants.RunServiceAccount | string;
+    run_service_account: Job.Constants.RunServiceAccount | string;
     /** Optional mounts of config maps or secrets. */
     run_volume_mounts: VolumeMount[];
     /** Define a custom set of array indices as a comma-separated list containing single values and hyphen-separated
@@ -8302,7 +8327,7 @@ namespace CodeEngineV2 {
     /** References to config maps, secrets or literal values, which are defined and set by Code Engine and are
      *  exposed as environment variables in the job run.
      */
-    computed_env_variables?: EnvVar[];
+    computed_env_variables: EnvVar[];
     /** The timestamp when the resource was created. */
     created_at?: string;
     /** When you provision a new job run,  a URL is created identifying the location of the instance. */
@@ -8568,6 +8593,20 @@ namespace CodeEngineV2 {
   }
 
   /**
+   * Optional information about the private path service gateway that this allowed outbound destination points to.
+   */
+  export interface PrivatePathServiceGatewayDetails {
+    /** The private path service gateway identifier. */
+    id?: string;
+    /** The name of private path service gateway. */
+    name?: string;
+    /** The fully qualified domain names for this private path service gateway. The domains are used for endpoint
+     *  gateways to connect to the service and are configured in the VPC for each endpoint gateway.
+     */
+    service_endpoints?: string[];
+  }
+
+  /**
    * Response model for probes.
    */
   export interface Probe {
@@ -8586,7 +8625,7 @@ namespace CodeEngineV2 {
      */
     timeout?: number;
     /** Specifies whether to use HTTP or TCP for the probe checks. The default is TCP. */
-    type?: Probe.Constants.Type | string;
+    type: Probe.Constants.Type | string;
   }
   export namespace Probe {
     export namespace Constants {
@@ -8791,7 +8830,7 @@ namespace CodeEngineV2 {
     /** The version of the secret instance, which is used to achieve optimistic locking. */
     entity_tag: string;
     /** Specify the format of the secret. */
-    format?: Secret.Constants.Format | string;
+    format: Secret.Constants.Format | string;
     /** Specifies whether the secret is user generated. */
     generated_by?: Secret.Constants.GeneratedBy | string;
     /** When you provision a new secret,  a URL is created identifying the location of the instance. */
@@ -8962,7 +9001,7 @@ namespace CodeEngineV2 {
     mount_path: string;
     /** The name of the mount. */
     name?: string;
-    /** Optional flag to specify if the volume mount is read only. */
+    /** Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only. */
     read_only?: boolean;
     /** The name of the referenced secret, config map, or persistent data store. */
     reference: string;
@@ -8988,11 +9027,11 @@ namespace CodeEngineV2 {
   export interface VolumeMountPrototype {
     /** The path that should be mounted. */
     mount_path: string;
-    /** Optional name of the mount. If not set, it will be generated based on the `ref` and a random ID. In case the
-     *  `ref` is longer than 58 characters, it will be cut off.
+    /** Optional name of the mount. If not set, it will be generated based on the `reference` and a random ID. In
+     *  case the `reference` is longer than 58 characters, it will be cut off.
      */
     name?: string;
-    /** Optional flag to specify if the volume mount is read only. */
+    /** Optional flag for a volume mount of type 'persistent_data_store' to specify whether it is read-only. */
     read_only?: boolean;
     /** The name of the referenced secret, config map, or persistent data store. */
     reference: string;
@@ -9020,11 +9059,27 @@ namespace CodeEngineV2 {
     /** The IPv4 address range. */
     cidr_block?: string;
   }
-  export namespace AllowedOutboundDestinationPatchCidrBlockDataPatch {
+
+  /**
+   * Updating properties of an allowed outbound destination of type VPC Private Path service.
+   */
+  export interface AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch
+    extends AllowedOutboundDestinationPatch {
+    /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`,
+     *  other projects within the same account or enterprise account family can connect to Private Path service, too. If
+     *  set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation
+     *  policy will be set to `shared`.
+     */
+    isolation_policy?:
+      | AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch.Constants.IsolationPolicy
+      | string;
+  }
+  export namespace AllowedOutboundDestinationPatchPrivatePathServiceGatewayDataPatch {
     export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
-      export enum Type {
-        CIDR_BLOCK = 'cidr_block',
+      /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other projects within the same account or enterprise account family can connect to Private Path service, too. If set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will be set to `shared`. */
+      export enum IsolationPolicy {
+        SHARED = 'shared',
+        DEDICATED = 'dedicated',
       }
     }
   }
@@ -9036,32 +9091,143 @@ namespace CodeEngineV2 {
     extends AllowedOutboundDestinationPrototype {
     /** The IPv4 address range. */
     cidr_block: string;
-    /** The name of the CIDR block. */
-    name: string;
   }
   export namespace AllowedOutboundDestinationPrototypeCidrBlockDataPrototype {
     export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
       export enum Type {
         CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
       }
     }
   }
 
   /**
-   * Allowed outbound destination CIDR block.
+   * Create an allowed outbound destination by connecting to a VPC Private Path service.
+   */
+  export interface AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype
+    extends AllowedOutboundDestinationPrototype {
+    /** The CRN of the Private Path service. The CRN can be obtained in the resource details of the target Private
+     *  Path service. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-pps-ui-communicate).
+     */
+    private_path_service_gateway_crn: string;
+    /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`,
+     *  other projects within the same account or enterprise account family can connect to Private Path service, too. If
+     *  set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation
+     *  policy will be set to `shared`.
+     */
+    isolation_policy?:
+      | AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype.Constants.IsolationPolicy
+      | string;
+  }
+  export namespace AllowedOutboundDestinationPrototypePrivatePathServiceGatewayDataPrototype {
+    export namespace Constants {
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
+      }
+      /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other projects within the same account or enterprise account family can connect to Private Path service, too. If set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will be set to `shared`. */
+      export enum IsolationPolicy {
+        SHARED = 'shared',
+        DEDICATED = 'dedicated',
+      }
+    }
+  }
+
+  /**
+   * Allowed outbound destination of type CIDR block.
    */
   export interface AllowedOutboundDestinationCidrBlockData extends AllowedOutboundDestination {
     /** The IPv4 address range. */
     cidr_block: string;
-    /** The name of the CIDR block. */
-    name: string;
   }
   export namespace AllowedOutboundDestinationCidrBlockData {
     export namespace Constants {
-      /** Specify the type of the allowed outbound destination. Allowed types are: 'cidr_block'. */
+      /** The current status of the outbound destination. */
+      export enum Status {
+        READY = 'ready',
+        FAILED = 'failed',
+        DEPLOYING = 'deploying',
+      }
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
       export enum Type {
         CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
+      }
+    }
+  }
+
+  /**
+   * Allowed outbound destination of type VPC Private Path service.
+   */
+  export interface AllowedOutboundDestinationPrivatePathServiceGatewayData
+    extends AllowedOutboundDestination {
+    /** The CRN of the Private Path service. */
+    private_path_service_gateway_crn: string;
+    /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`,
+     *  other projects within the same account or enterprise account family can connect to Private Path service, too. If
+     *  set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation
+     *  policy will be set to `shared`.
+     */
+    isolation_policy:
+      | AllowedOutboundDestinationPrivatePathServiceGatewayData.Constants.IsolationPolicy
+      | string;
+  }
+  export namespace AllowedOutboundDestinationPrivatePathServiceGatewayData {
+    export namespace Constants {
+      /** The current status of the outbound destination. */
+      export enum Status {
+        READY = 'ready',
+        FAILED = 'failed',
+        DEPLOYING = 'deploying',
+      }
+      /** Specify the type of the allowed outbound destination. Allowed types are: `cidr_block` and `private_path_service_gateway`. */
+      export enum Type {
+        CIDR_BLOCK = 'cidr_block',
+        PRIVATE_PATH_SERVICE_GATEWAY = 'private_path_service_gateway',
+      }
+      /** Optional property to specify the isolation policy of the private path service gateway. If set to `shared`, other projects within the same account or enterprise account family can connect to Private Path service, too. If set to `dedicated` the gateway can only be used by a single Code Engine project. If not specified the isolation policy will be set to `shared`. */
+      export enum IsolationPolicy {
+        SHARED = 'shared',
+        DEDICATED = 'dedicated',
+      }
+    }
+  }
+
+  /**
+   * Detailed status information related to the corresponding VPC Private Path service.
+   */
+  export interface AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails
+    extends AllowedOutboundStatusDetails {
+    /** Optional information about the endpoint gateway located in the Code Engine VPC that connects to the private
+     *  path service gateway.
+     */
+    endpoint_gateway?: EndpointGatewayDetails;
+    /** Optional information about the private path service gateway that this allowed outbound destination points
+     *  to.
+     */
+    private_path_service_gateway?: PrivatePathServiceGatewayDetails;
+    /** Optional information to provide more context in case of a 'failed' or 'deploying' status. */
+    reason?:
+      | AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails.Constants.Reason
+      | string;
+  }
+  export namespace AllowedOutboundStatusDetailsPrivatePathServiceGatewayStatusDetails {
+    export namespace Constants {
+      /** Optional information to provide more context in case of a 'failed' or 'deploying' status. */
+      export enum Reason {
+        READY = 'ready',
+        PRIVATE_PATH_CRN_INVALID = 'private_path_crn_invalid',
+        PRIVATE_PATH_NOT_IN_SAME_REGION = 'private_path_not_in_same_region',
+        PRIVATE_PATH_NOT_IN_SAME_ACCOUNT_FAMILY = 'private_path_not_in_same_account_family',
+        PRIVATE_PATH_NOT_FOUND = 'private_path_not_found',
+        PRIVATE_PATH_NOT_PUBLISHED = 'private_path_not_published',
+        PRIVATE_PATH_CONNECTION_ALREADY_EXISTS = 'private_path_connection_already_exists',
+        PRIVATE_PATH_CONNECTION_APPROVAL_DENIED = 'private_path_connection_approval_denied',
+        PRIVATE_PATH_CONNECTION_APPROVAL_PENDING = 'private_path_connection_approval_pending',
+        DEPLOYING = 'deploying',
+        FAILED = 'failed',
       }
     }
   }
@@ -9170,13 +9336,15 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * StorageDataObjectStorageData.
+   * Data container that allows to specify config parameters and their values as a key-value map. Each key field must
+   * consist of alphanumeric characters, `-`, `_` or `.` and must not exceed a max length of 253 characters. Each value
+   * field can consists of any character and must not exceed a max length of 1048576 characters.
    *
    * This type supports additional properties of type string.
    */
   export interface StorageDataObjectStorageData extends StorageData {
     /** Specify the location of the bucket. */
-    bucket_location: string;
+    bucket_location: StorageDataObjectStorageData.Constants.BucketLocation | string;
     /** Specify the name of the bucket. */
     bucket_name: string;
     /** Specify the name of the HMAC secret. */
@@ -9186,6 +9354,34 @@ namespace CodeEngineV2 {
      * StorageDataObjectStorageData accepts additional properties of type string.
      */
     [propName: string]: any;
+  }
+  export namespace StorageDataObjectStorageData {
+    export namespace Constants {
+      /** Specify the location of the bucket. */
+      export enum BucketLocation {
+        AU_SYD = 'au-syd',
+        BR_SAO = 'br-sao',
+        CA_MON = 'ca-mon',
+        CA_TOR = 'ca-tor',
+        EU_DE = 'eu-de',
+        EU_ES = 'eu-es',
+        EU_GB = 'eu-gb',
+        JP_OSA = 'jp-osa',
+        JP_TOK = 'jp-tok',
+        US_EAST = 'us-east',
+        US_SOUTH = 'us-south',
+        AP = 'ap',
+        EU = 'eu',
+        US = 'us',
+        AMS03 = 'ams03',
+        CHE01 = 'che01',
+        MIL01 = 'mil01',
+        MON01 = 'mon01',
+        PAR01 = 'par01',
+        SJC04 = 'sjc04',
+        SNG01 = 'sng01',
+      }
+    }
   }
 
   /*************************
@@ -9272,26 +9468,26 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * AllowedOutboundDestinationPager can be used to simplify the use of listAllowedOutboundDestination().
+   * AllowedOutboundDestinationsPager can be used to simplify the use of listAllowedOutboundDestinations().
    */
-  export class AllowedOutboundDestinationPager {
+  export class AllowedOutboundDestinationsPager {
     protected _hasNext: boolean;
 
     protected pageContext: any;
 
     protected client: CodeEngineV2;
 
-    protected params: CodeEngineV2.ListAllowedOutboundDestinationParams;
+    protected params: CodeEngineV2.ListAllowedOutboundDestinationsParams;
 
     /**
-     * Construct a AllowedOutboundDestinationPager object.
+     * Construct a AllowedOutboundDestinationsPager object.
      *
-     * @param {CodeEngineV2}  client - The service client instance used to invoke listAllowedOutboundDestination()
-     * @param {Object} params - The parameters to be passed to listAllowedOutboundDestination()
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listAllowedOutboundDestinations()
+     * @param {Object} params - The parameters to be passed to listAllowedOutboundDestinations()
      * @constructor
-     * @returns {AllowedOutboundDestinationPager}
+     * @returns {AllowedOutboundDestinationsPager}
      */
-    constructor(client: CodeEngineV2, params: CodeEngineV2.ListAllowedOutboundDestinationParams) {
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListAllowedOutboundDestinationsParams) {
       if (params && params.start) {
         throw new Error(`the params.start field should not be set`);
       }
@@ -9311,7 +9507,7 @@ namespace CodeEngineV2 {
     }
 
     /**
-     * Returns the next page of results by invoking listAllowedOutboundDestination().
+     * Returns the next page of results by invoking listAllowedOutboundDestinations().
      * @returns {Promise<CodeEngineV2.AllowedOutboundDestination[]>}
      */
     public async getNext(): Promise<CodeEngineV2.AllowedOutboundDestination[]> {
@@ -9322,7 +9518,7 @@ namespace CodeEngineV2 {
       if (this.pageContext.next) {
         this.params.start = this.pageContext.next;
       }
-      const response = await this.client.listAllowedOutboundDestination(this.params);
+      const response = await this.client.listAllowedOutboundDestinations(this.params);
       const { result } = response;
 
       let next;
@@ -9337,7 +9533,7 @@ namespace CodeEngineV2 {
     }
 
     /**
-     * Returns all results by invoking listAllowedOutboundDestination() repeatedly until all pages of results have been retrieved.
+     * Returns all results by invoking listAllowedOutboundDestinations() repeatedly until all pages of results have been retrieved.
      * @returns {Promise<CodeEngineV2.AllowedOutboundDestination[]>}
      */
     public async getAll(): Promise<CodeEngineV2.AllowedOutboundDestination[]> {
@@ -10299,26 +10495,26 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * PersistentDataStorePager can be used to simplify the use of listPersistentDataStore().
+   * PersistentDataStoresPager can be used to simplify the use of listPersistentDataStores().
    */
-  export class PersistentDataStorePager {
+  export class PersistentDataStoresPager {
     protected _hasNext: boolean;
 
     protected pageContext: any;
 
     protected client: CodeEngineV2;
 
-    protected params: CodeEngineV2.ListPersistentDataStoreParams;
+    protected params: CodeEngineV2.ListPersistentDataStoresParams;
 
     /**
-     * Construct a PersistentDataStorePager object.
+     * Construct a PersistentDataStoresPager object.
      *
-     * @param {CodeEngineV2}  client - The service client instance used to invoke listPersistentDataStore()
-     * @param {Object} params - The parameters to be passed to listPersistentDataStore()
+     * @param {CodeEngineV2}  client - The service client instance used to invoke listPersistentDataStores()
+     * @param {Object} params - The parameters to be passed to listPersistentDataStores()
      * @constructor
-     * @returns {PersistentDataStorePager}
+     * @returns {PersistentDataStoresPager}
      */
-    constructor(client: CodeEngineV2, params: CodeEngineV2.ListPersistentDataStoreParams) {
+    constructor(client: CodeEngineV2, params: CodeEngineV2.ListPersistentDataStoresParams) {
       if (params && params.start) {
         throw new Error(`the params.start field should not be set`);
       }
@@ -10338,7 +10534,7 @@ namespace CodeEngineV2 {
     }
 
     /**
-     * Returns the next page of results by invoking listPersistentDataStore().
+     * Returns the next page of results by invoking listPersistentDataStores().
      * @returns {Promise<CodeEngineV2.PersistentDataStore[]>}
      */
     public async getNext(): Promise<CodeEngineV2.PersistentDataStore[]> {
@@ -10349,7 +10545,7 @@ namespace CodeEngineV2 {
       if (this.pageContext.next) {
         this.params.start = this.pageContext.next;
       }
-      const response = await this.client.listPersistentDataStore(this.params);
+      const response = await this.client.listPersistentDataStores(this.params);
       const { result } = response;
 
       let next;
@@ -10364,7 +10560,7 @@ namespace CodeEngineV2 {
     }
 
     /**
-     * Returns all results by invoking listPersistentDataStore() repeatedly until all pages of results have been retrieved.
+     * Returns all results by invoking listPersistentDataStores() repeatedly until all pages of results have been retrieved.
      * @returns {Promise<CodeEngineV2.PersistentDataStore[]>}
      */
     public async getAll(): Promise<CodeEngineV2.PersistentDataStore[]> {

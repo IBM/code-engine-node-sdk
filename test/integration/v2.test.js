@@ -146,19 +146,19 @@ describe('CodeEngineV2_integration', () => {
     expect(obtainedProject.status).toBe('active');
   });
 
-  test('listAllowedOutboundDestination()', async () => {
+  test('listAllowedOutboundDestinations()', async () => {
     const params = {
       projectId: e2eTestProjectId,
       limit: 100,
     };
 
-    const res = await codeEngineService.listAllowedOutboundDestination(params);
+    const res = await codeEngineService.listAllowedOutboundDestinations(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
 
-  test('listAllowedOutboundDestination() via AllowedOutboundDestinationPager', async () => {
+  test('listAllowedOutboundDestinations() via AllowedOutboundDestinationsPager', async () => {
     const params = {
       projectId: e2eTestProjectId,
       limit: 100,
@@ -167,7 +167,7 @@ describe('CodeEngineV2_integration', () => {
     const allResults = [];
 
     // Test getNext().
-    let pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+    let pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
     while (pager.hasNext()) {
       const nextPage = await pager.getNext();
       expect(nextPage).not.toBeNull();
@@ -175,7 +175,7 @@ describe('CodeEngineV2_integration', () => {
     }
 
     // Test getAll().
-    pager = new CodeEngineV2.AllowedOutboundDestinationPager(codeEngineService, params);
+    pager = new CodeEngineV2.AllowedOutboundDestinationsPager(codeEngineService, params);
     const allItems = await pager.getAll();
     expect(allItems).not.toBeNull();
     expect(allItems).toHaveLength(allResults.length);
@@ -706,7 +706,7 @@ describe('CodeEngineV2_integration', () => {
       name: 'my-service-access',
       serviceAccess: {
         service_instance: {
-          id: '498131b4-d4b0-42ff-8592-ab3a2f6e3be6',
+          id: process.env.COS_SERVICE_INSTANCE_ID,
         },
       },
     };
@@ -1324,19 +1324,19 @@ describe('CodeEngineV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('listPersistentDataStore()', async () => {
+  test('listPersistentDataStores()', async () => {
     const params = {
       projectId: e2eTestProjectId,
       limit: 100,
     };
 
-    const res = await codeEngineService.listPersistentDataStore(params);
+    const res = await codeEngineService.listPersistentDataStores(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
 
-  test('listPersistentDataStore() via PersistentDataStorePager', async () => {
+  test('listPersistentDataStores() via PersistentDataStoresPager', async () => {
     const params = {
       projectId: e2eTestProjectId,
       limit: 100,
@@ -1345,7 +1345,7 @@ describe('CodeEngineV2_integration', () => {
     const allResults = [];
 
     // Test getNext().
-    let pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+    let pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
     while (pager.hasNext()) {
       const nextPage = await pager.getNext();
       expect(nextPage).not.toBeNull();
@@ -1353,7 +1353,7 @@ describe('CodeEngineV2_integration', () => {
     }
 
     // Test getAll().
-    pager = new CodeEngineV2.PersistentDataStorePager(codeEngineService, params);
+    pager = new CodeEngineV2.PersistentDataStoresPager(codeEngineService, params);
     const allItems = await pager.getAll();
     expect(allItems).not.toBeNull();
     expect(allItems).toHaveLength(allResults.length);
@@ -1366,8 +1366,8 @@ describe('CodeEngineV2_integration', () => {
       name: 'my-persistent-data-store',
       storageType: 'object_storage',
       data: {
-        'bucket_location': 'eu-de',
-        'bucket_name': 'e2e-api-bucket-eu-de',
+        'bucket_location': process.env.COS_BUCKET_LOCATION,
+        'bucket_name': process.env.COS_BUCKET_NAME,
         'secret_name': 'ce-api-int-test-hmac-secret',
       },
     };

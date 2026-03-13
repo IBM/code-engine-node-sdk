@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/ibm-code-engine-sdk",
-  "version": "4.35.0",
+  "version": "5.0.0",
   "description": "IBM Cloud Code Engine NodeJS SDK",
   "repository": {
     "type": "git",
@@ -22,11 +22,8 @@
     "jest": "jest",
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest test/unit/",
-    "test-integration": "./test/integration/prepare-integration-tests.sh && jest --testPathIgnorePatterns '^(.*/code-engine.v2.test.js)$' --runInBand  test/integration/",
+    "test-integration": "./test/integration/prepare-integration-tests.sh && jest --testPathIgnorePatterns '^(.*/code-engine.v2.test.js)$' --runInBand test/integration/",
     "test-examples": "npm run build && jest examples/",
-    "test-travis": "jest --runInBand --testNamePattern='^((?!@slow).)*$' test/",
-    "test-unit-travis": "jest --runInBand test/unit/",
-    "test-integration-travis": "./test/integration/prepare-integration-tests.sh && jest --testPathIgnorePatterns '^(.*/code-engine.v2.test.js)$' --runInBand test/integration",
     "check-packages": "installed-check -e -d -v",
     "all": "npm run test-unit && npm run lint"
   },
