@@ -62,7 +62,7 @@ describe('CodeEngineV2', () => {
     // begin-common
 
     codeEngineService = CodeEngineV2.newInstance({
-      version: '2026-02-23',
+      version: '2026-03-27',
     });
 
     // end-common
@@ -208,8 +208,8 @@ describe('CodeEngineV2', () => {
 
     // AllowedOutboundDestinationPrototypeCidrBlockDataPrototype
     const allowedOutboundDestinationPrototypeModel = {
-      type: 'cidr_block',
       name: 'allow-all',
+      type: 'cidr_block',
       cidr_block: 'testString',
     };
 
@@ -414,7 +414,7 @@ describe('CodeEngineV2', () => {
     // end-create_app
   });
 
-  test('getApp request example', async () => {
+  test('listAppInstances request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -424,53 +424,29 @@ describe('CodeEngineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    originalLog('getApp() result:');
-    // begin-get_app
+    originalLog('listAppInstances() result:');
+    // begin-list_app_instances
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-app',
+      appName: 'my-app',
+      limit: 100,
     };
 
-    let res;
+    const allResults = [];
     try {
-      res = await codeEngineService.getApp(params);
-      console.log(JSON.stringify(res.result, null, 2));
+      const pager = new CodeEngineV2.AppInstancesPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
     } catch (err) {
       console.warn(err);
     }
 
-    // end-get_app
-  });
-
-  test('updateApp request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('updateApp() result:');
-    // begin-update_app
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-app',
-      ifMatch: 'testString',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.updateApp(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-update_app
+    // end-list_app_instances
   });
 
   test('listAppRevisions request example', async () => {
@@ -538,7 +514,7 @@ describe('CodeEngineV2', () => {
     // end-get_app_revision
   });
 
-  test('listAppInstances request example', async () => {
+  test('getApp request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -548,18 +524,77 @@ describe('CodeEngineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    originalLog('listAppInstances() result:');
-    // begin-list_app_instances
+    originalLog('getApp() result:');
+    // begin-get_app
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      appName: 'my-app',
+      name: 'my-app',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getApp(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_app
+  });
+
+  test('updateApp request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateApp() result:');
+    // begin-update_app
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-app',
+      ifMatch: 'testString',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.updateApp(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_app
+  });
+
+  test('listJobRuns request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listJobRuns() result:');
+    // begin-list_job_runs
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      jobName: 'my-job',
       limit: 100,
     };
 
     const allResults = [];
     try {
-      const pager = new CodeEngineV2.AppInstancesPager(codeEngineService, params);
+      const pager = new CodeEngineV2.JobRunsPager(codeEngineService, params);
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
         expect(nextPage).not.toBeNull();
@@ -570,7 +605,64 @@ describe('CodeEngineV2', () => {
       console.warn(err);
     }
 
-    // end-list_app_instances
+    // end-list_job_runs
+  });
+
+  test('createJobRun request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createJobRun() result:');
+    // begin-create_job_run
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createJobRun(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_job_run
+  });
+
+  test('getJobRun request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getJobRun() result:');
+    // begin-get_job_run
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-job-run',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getJobRun(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_job_run
   });
 
   test('listJobs request example', async () => {
@@ -694,98 +786,6 @@ describe('CodeEngineV2', () => {
     }
 
     // end-update_job
-  });
-
-  test('listJobRuns request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('listJobRuns() result:');
-    // begin-list_job_runs
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      jobName: 'my-job',
-      limit: 100,
-    };
-
-    const allResults = [];
-    try {
-      const pager = new CodeEngineV2.JobRunsPager(codeEngineService, params);
-      while (pager.hasNext()) {
-        const nextPage = await pager.getNext();
-        expect(nextPage).not.toBeNull();
-        allResults.push(...nextPage);
-      }
-      console.log(JSON.stringify(allResults, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-list_job_runs
-  });
-
-  test('createJobRun request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('createJobRun() result:');
-    // begin-create_job_run
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.createJobRun(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-create_job_run
-  });
-
-  test('getJobRun request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('getJobRun() result:');
-    // begin-get_job_run
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job-run',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.getJobRun(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-get_job_run
   });
 
   test('listFunctionRuntimes request example', async () => {
@@ -1038,6 +1038,98 @@ describe('CodeEngineV2', () => {
     // end-get_binding
   });
 
+  test('listBuildRuns request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('listBuildRuns() result:');
+    // begin-list_build_runs
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      buildName: 'my-build',
+      limit: 100,
+    };
+
+    const allResults = [];
+    try {
+      const pager = new CodeEngineV2.BuildRunsPager(codeEngineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-list_build_runs
+  });
+
+  test('createBuildRun request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createBuildRun() result:');
+    // begin-create_build_run
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.createBuildRun(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_build_run
+  });
+
+  test('getBuildRun request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getBuildRun() result:');
+    // begin-get_build_run
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-build-run',
+    };
+
+    let res;
+    try {
+      res = await codeEngineService.getBuildRun(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_build_run
+  });
+
   test('listBuilds request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1161,98 +1253,6 @@ describe('CodeEngineV2', () => {
     }
 
     // end-update_build
-  });
-
-  test('listBuildRuns request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('listBuildRuns() result:');
-    // begin-list_build_runs
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      buildName: 'my-build',
-      limit: 100,
-    };
-
-    const allResults = [];
-    try {
-      const pager = new CodeEngineV2.BuildRunsPager(codeEngineService, params);
-      while (pager.hasNext()) {
-        const nextPage = await pager.getNext();
-        expect(nextPage).not.toBeNull();
-        allResults.push(...nextPage);
-      }
-      console.log(JSON.stringify(allResults, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-list_build_runs
-  });
-
-  test('createBuildRun request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('createBuildRun() result:');
-    // begin-create_build_run
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.createBuildRun(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-create_build_run
-  });
-
-  test('getBuildRun request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    originalLog('getBuildRun() result:');
-    // begin-get_build_run
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-build-run',
-    };
-
-    let res;
-    try {
-      res = await codeEngineService.getBuildRun(params);
-      console.log(JSON.stringify(res.result, null, 2));
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-get_build_run
   });
 
   test('listDomainMappings request example', async () => {
@@ -1778,32 +1778,6 @@ describe('CodeEngineV2', () => {
     // end-delete_allowed_outbound_destination
   });
 
-  test('deleteApp request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-delete_app
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-app',
-    };
-
-    try {
-      await codeEngineService.deleteApp(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-delete_app
-  });
-
   test('deleteAppRevision request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1831,7 +1805,7 @@ describe('CodeEngineV2', () => {
     // end-delete_app_revision
   });
 
-  test('deleteJob request example', async () => {
+  test('deleteApp request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -1841,20 +1815,20 @@ describe('CodeEngineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    // begin-delete_job
+    // begin-delete_app
 
     const params = {
       projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-job',
+      name: 'my-app',
     };
 
     try {
-      await codeEngineService.deleteJob(params);
+      await codeEngineService.deleteApp(params);
     } catch (err) {
       console.warn(err);
     }
 
-    // end-delete_job
+    // end-delete_app
   });
 
   test('deleteJobRun request example', async () => {
@@ -1881,6 +1855,32 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_job_run
+  });
+
+  test('deleteJob request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_job
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-job',
+    };
+
+    try {
+      await codeEngineService.deleteJob(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_job
   });
 
   test('deleteFunction request example', async () => {
@@ -1935,32 +1935,6 @@ describe('CodeEngineV2', () => {
     // end-delete_binding
   });
 
-  test('deleteBuild request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-delete_build
-
-    const params = {
-      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
-      name: 'my-build',
-    };
-
-    try {
-      await codeEngineService.deleteBuild(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-delete_build
-  });
-
   test('deleteBuildRun request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1985,6 +1959,32 @@ describe('CodeEngineV2', () => {
     }
 
     // end-delete_build_run
+  });
+
+  test('deleteBuild request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_build
+
+    const params = {
+      projectId: '15314cc3-85b4-4338-903f-c28cdee6d005',
+      name: 'my-build',
+    };
+
+    try {
+      await codeEngineService.deleteBuild(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_build
   });
 
   test('deleteDomainMapping request example', async () => {

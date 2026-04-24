@@ -25,6 +25,7 @@ Node.js client library to interact with the [Code Engine API](https://cloud.ibm.
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
+- [Breaking Changes (April 2026)](#breaking-changes-april-2026)
 - [Breaking Changes (March 2026)](#breaking-changes-march-2026)
 - [Installation](#installation)
 - [Using the SDK](#using-the-sdk)
@@ -49,6 +50,12 @@ Service Name | Import Path
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
 * **Node.js >=14**: This SDK is tested with Node.js versions 14 and up. It may work on previous versions but this is not officially supported.
+
+## Breaking Changes (April 2026)
+
+As part of the introduction of `persistent_data_stores` as a Volume Mount type for **apps** and **jobs**, the optional `name` property of entries in `run_volume_mounts` is no longer supported.
+
+If you used the optional `name` property, remove it from the prototype of the **app** or **job**.
 
 ## Breaking Changes (March 2026)
 
