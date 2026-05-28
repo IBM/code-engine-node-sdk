@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2026-03-27',
+  version: '2026-05-14',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
@@ -3771,9 +3771,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/functions';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-20","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-24","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-20","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
+        '{"functions":[{"code_binary":false,"code_main":"main","code_reference":"data:text/plain;base64,<base64encoded-source-code>","code_secret":"my-secret","computed_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"created_at":"2022-09-13T11:41:35+02:00","endpoint":"https://my-function.vg67hzldruk.eu-de.codeengine.appdomain.cloud","endpoint_internal":"http://my-function.vg67hzldruk.svc.cluster.local","entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/functions/my-function","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","managed_domain_mappings":"local_public","name":"my-function","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"function_v2","run_compute_resource_token_enabled":true,"run_env_variables":[{"key":"MY_VARIABLE","name":"SOME","prefix":"PREFIX_","reference":"my-secret","type":"literal","value":"VALUE"}],"runtime":"nodejs-24","scale_concurrency":1,"scale_cpu_limit":"1","scale_down_delay":300,"scale_max_execution_time":60,"scale_memory_limit":"1G","status":"offline","status_details":{"reason":"offline"}}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -3837,7 +3837,7 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
         const name = 'my-function';
-        const runtime = 'nodejs-20';
+        const runtime = 'nodejs-24';
         const codeBinary = false;
         const codeMain = 'main';
         const codeSecret = 'my-secret';
@@ -3921,7 +3921,7 @@ describe('CodeEngineV2', () => {
         const projectId = '15314cc3-85b4-4338-903f-c28cdee6d005';
         const codeReference = 'data:text/plain;base64,<base64encoded-source-code>';
         const name = 'my-function';
-        const runtime = 'nodejs-20';
+        const runtime = 'nodejs-24';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createFunctionParams = {
@@ -4174,7 +4174,7 @@ describe('CodeEngineV2', () => {
         const managedDomainMappings = 'local_public';
         const runComputeResourceTokenEnabled = true;
         const runEnvVariables = [envVarPrototypeModel];
-        const runtime = 'nodejs-20';
+        const runtime = 'nodejs-24';
         const scaleConcurrency = 1;
         const scaleCpuLimit = '1';
         const scaleDownDelay = 300;
@@ -7555,9 +7555,9 @@ describe('CodeEngineV2', () => {
       const serviceUrl = codeEngineServiceOptions.url;
       const path = '/projects/15314cc3-85b4-4338-903f-c28cdee6d005/persistent_data_stores';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"persistent_data_store_v2","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+        '{"next":{"start":"1"},"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"persistent_data_store_v2","storage_type":"object_storage"}],"total_count":2,"limit":1}';
       const mockPagerResponse2 =
-        '{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"persistent_data_store_v2","storage_type":"object_storage"}],"total_count":2,"limit":1}';
+        '{"persistent_data_stores":[{"created_at":"2022-09-13T11:41:35+02:00","data":{"bucket_location":"bucket_location","bucket_name":"bucket_name","secret_name":"secret_name"},"entity_tag":"2385407409","href":"https://api.eu-de.codeengine.cloud.ibm.com/v2/projects/4e49b3e0-27a8-48d2-a784-c7ee48bb863b/persistent_data_stores/my-persistent-data-store","id":"e33b1cv7-7390-4437-a5c2-130d5ccdddc3","name":"my-persistent-data-store","project_id":"4e49b3e0-27a8-48d2-a784-c7ee48bb863b","region":"us-east","resource_type":"persistent_data_store_v2","storage_type":"object_storage"}],"total_count":2,"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();

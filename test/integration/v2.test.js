@@ -1554,7 +1554,7 @@ describe('CodeEngineV2_integration', () => {
       codeReference:
         'data:text/plain;base64,YXN5bmMgZnVuY3Rpb24gbWFpbihwYXJhbXMpIHsKICByZXR1cm4gewogICAgICBzdGF0dXNDb2RlOiAyMDAsCiAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICBib2R5OiBwYXJhbXMgfTsKfQptb2R1bGUuZXhwb3J0cy5tYWluID0gbWFpbjs=',
       name: 'my-function',
-      runtime: 'nodejs-20',
+      runtime: 'nodejs-24',
     };
 
     const res = await codeEngineService.createFunction(params);

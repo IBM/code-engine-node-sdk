@@ -76,7 +76,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2026-03-27`.
+   *  `2021-03-31` and `2026-05-14`.
    */
   version?: string;
 
@@ -85,7 +85,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2026-03-27`.
+   * specify any date between `2021-03-31` and `2026-05-14`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -5117,7 +5117,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2026-03-27`.
+     *  `2021-03-31` and `2026-05-14`.
      */
     version?: string;
   }
@@ -7697,7 +7697,7 @@ namespace CodeEngineV2 {
    * Status of the Context-based-restriction configuration applicable for this project.
    */
   export interface CbrStatus {
-    /** Describes the model of the enforcement status of a CBR status. */
+    /** Describes the model of the CBR enforcement status. */
     data_plane: EnforcementStatus;
   }
 
@@ -7909,11 +7909,15 @@ namespace CodeEngineV2 {
   }
 
   /**
-   * Describes the model of the enforcement status of a CBR status.
+   * Describes the model of the CBR enforcement status.
    */
   export interface EnforcementStatus {
     /** Detailed information on the condition of the CBR enforcement. */
     enforcement: EnforcementStatus.Constants.Enforcement | string;
+    /** Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed. */
+    inbound_private: EnforcementStatus.Constants.InboundPrivate | string;
+    /** Indicates whether the public dataplane access to the project is blocked or allowed. */
+    inbound_public: EnforcementStatus.Constants.InboundPublic | string;
     /** Date time information specifying when the last synchronization happened. */
     last_synced_at?: string;
   }
@@ -7924,6 +7928,19 @@ namespace CodeEngineV2 {
         APPLIED = 'applied',
         OUT_OF_SYNC = 'out_of_sync',
         NONE = 'none',
+        UNKNOWN = 'unknown',
+      }
+      /** Indicates whether the private dataplane access to the project is blocked, partially_restricted, or allowed. */
+      export enum InboundPrivate {
+        BLOCKED = 'blocked',
+        PARTIALLY_RESTRICTED = 'partially_restricted',
+        ALLOWED = 'allowed',
+        UNKNOWN = 'unknown',
+      }
+      /** Indicates whether the public dataplane access to the project is blocked or allowed. */
+      export enum InboundPublic {
+        BLOCKED = 'blocked',
+        ALLOWED = 'allowed',
         UNKNOWN = 'unknown',
       }
     }
@@ -8558,6 +8575,8 @@ namespace CodeEngineV2 {
     data: StorageData;
     /** The version of the persistent data store, which is used to achieve optimistic locking. */
     entity_tag: string;
+    /** When you provision a new persistent data store, a URL is created identifying the location of the instance. */
+    href?: string;
     /** The identifier of the resource. */
     id?: string;
     /** The name of the persistent data store. */
