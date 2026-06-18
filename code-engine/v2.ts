@@ -76,7 +76,7 @@ class CodeEngineV2 extends BaseService {
   }
 
   /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-   *  `2021-03-31` and `2026-05-14`.
+   *  `2021-03-31` and `2026-06-15`.
    */
   version?: string;
 
@@ -85,7 +85,7 @@ class CodeEngineV2 extends BaseService {
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.version] - The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-   * specify any date between `2021-03-31` and `2026-05-14`.
+   * specify any date between `2021-03-31` and `2026-06-15`.
    * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
@@ -5117,7 +5117,7 @@ namespace CodeEngineV2 {
   /** Options for the `CodeEngineV2` constructor. */
   export interface Options extends UserOptions {
     /** The API version, in format `YYYY-MM-DD`. For the API behavior documented here, specify any date between
-     *  `2021-03-31` and `2026-05-14`.
+     *  `2021-03-31` and `2026-06-15`.
      */
     version?: string;
   }
@@ -8645,7 +8645,7 @@ namespace CodeEngineV2 {
     interval?: number;
     /** The path of the HTTP request to the resource. A path is only supported for a probe with a `type` of `http`. */
     path?: string;
-    /** The port on which to probe the resource. */
+    /** The port on which to probe the resource, or 0 to probe the default app port 8080. */
     port?: number;
     /** The amount of time in seconds that the probe waits for a response from the application before it times out
      *  and fails.

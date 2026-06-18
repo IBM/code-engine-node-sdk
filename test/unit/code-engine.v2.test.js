@@ -35,7 +35,7 @@ const CodeEngineV2 = require('../../dist/code-engine/v2');
 const codeEngineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.au-syd.codeengine.cloud.ibm.com/v2',
-  version: '2026-05-14',
+  version: '2026-06-15',
 };
 
 const codeEngineService = new CodeEngineV2(codeEngineServiceOptions);
