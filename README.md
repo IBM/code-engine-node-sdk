@@ -43,12 +43,13 @@ The IBM Cloud Code Engine Node.js SDK allows developers to programmatically inte
 
 Service Name | Import Path
 --- | ---
-[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | @ibm-cloud/ibm-code-engine-sdk/code-engine/v2 
+[Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v2.0.0) | @ibm-cloud/ibm-code-engine-sdk/code-engine/v2
 [Code Engine](https://cloud.ibm.com/apidocs/codeengine/codeengine-v1.0.0) | ibm-code-engine-sdk/ibm-cloud-code-engine/v1
 
 ## Prerequisites
-* You need an [IBM Cloud][ibm-cloud-onboarding] account.
-* **Node.js >=14**: This SDK is tested with Node.js versions 14 and up. It may work on previous versions but this is not officially supported.
+
+- You need an [IBM Cloud][ibm-cloud-onboarding] account.
+- **Node.js >=22**: This SDK is tested with Node.js versions 22 and up. It may work on previous versions but this is not officially supported.
 
 ## Breaking Changes (April 2026)
 
@@ -153,6 +154,7 @@ npm install @ibm-cloud/ibm-code-engine-sdk
 ```
 
 ## Using the SDK
+
 Examples and a demo are available in the [examples](/examples) folder.
 
 For general SDK usage information, please see
@@ -165,15 +167,18 @@ please ask a question at
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues
+
 If you encounter an issue with the SDK, you are welcome to submit
 a [bug report](https://github.com/IBM/code-engine-node-sdk/issues).
 Before that, please search for similar issues. It's possible someone has
 already encountered this issue.
 
 ## Open source @ IBM
+
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## Contributing
+
 See [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
