@@ -9,7 +9,6 @@ examples/**/node_modules/
 example/*.js
 examples/*.js
 example/**/node_modules/
-scripts/*.js
 
 test/resources/auth.js
 # ignore emitted js
@@ -17,4 +16,3 @@ test/resources/auth.js
 !test/**/*.js
 !examples/**/*.js
 lib/*.js
-scripts/typedoc/
