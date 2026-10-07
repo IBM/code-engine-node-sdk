@@ -75,25 +75,7 @@ typings/
 .idea
 .vscode/
 
-# secrets.tar produced by scripts/update-auth-file.sh
-secrets.tar
-
 .project
 .classpath
 
-# SDK generator
-.openapi-generator*
-
 .npmrc
-
-# ignore the generated integration test files, as they cannot be used without manual editing
-test/integration/code-engine.v1.test.js
-test/integration/code-engine.v2.test.js
-
-
-# ignore the generated SSH and TLS keys and certs
-test/integration/domain*
-test/integration/sshkey*
-
-# API repo (pulled from Github)
-api
